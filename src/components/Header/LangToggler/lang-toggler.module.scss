@@ -1,0 +1,16 @@
+.langToggler {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  border: 2px dotted #6561ad;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  color: #ecedf4;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  &:hover {
+    font-weight: bold;
+  }
+}

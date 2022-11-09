@@ -1,0 +1,25 @@
+.themeToggler {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  border: 2px solid #ecedf4;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  background-color: #ecedf4;
+  cursor: pointer;
+
+  .themeImg {
+    width: 25px;
+    height: 25px;
+    transition: 0.2s;
+  }
+
+  &:hover {
+    .themeImg {
+      width: 27px;
+      height: 27px;
+    }
+  }
+}
+

@@ -1,0 +1,26 @@
+.navList {
+  display: flex;
+  gap: 15px;
+}
+
+.navItem {
+  color: #ecedf4;
+  transition: 0.3s linear;
+
+  &:nth-child(4) {
+    display: none;
+  }
+
+  &:last-child {
+    display: none;
+  }
+
+  &:hover {
+    color: #625fc0;
+  }
+}
+
+.navSeparator {
+  width: 2px;
+  background-color: #625fc0;
+}
