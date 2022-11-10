@@ -1,12 +1,13 @@
+@import "./../../../styles/colors.scss";
+@import "./../../../styles/extensions.scss";
+
 .themeToggler {
-  display: flex;
+  @extend %centered;
   width: 44px;
   height: 44px;
-  border: 2px solid #ecedf4;
+  border: 2px solid $base-light-color;
   border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  background-color: #ecedf4;
+  background-color: $base-light-color;
   cursor: pointer;
 
   .themeImg {

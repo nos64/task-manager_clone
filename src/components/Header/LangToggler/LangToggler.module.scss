@@ -1,12 +1,13 @@
+@import "./../../../styles/colors.scss";
+@import "./../../../styles/extensions.scss";
+
 .langToggler {
-  display: flex;
+  @extend %centered;
   width: 44px;
   height: 44px;
-  border: 2px dotted #6561ad;
+  border: 2px dotted $accent-color;
   border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  color: #ecedf4;
+  color: $text-color;
   cursor: pointer;
   transition: 0.3s ease;
 

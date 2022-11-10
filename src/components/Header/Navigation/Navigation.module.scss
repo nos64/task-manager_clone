@@ -1,3 +1,6 @@
+@import "./../../../styles/colors.scss";
+@import "./../../../styles/variables.scss";
+
 .nav {
   position: relative;
 }
@@ -8,7 +11,7 @@
 }
 
 .navItem {
-  color: #ecedf4;
+  color: $text-color;
   transition: 0.3s linear;
 
   &:nth-child(4),
@@ -17,13 +20,13 @@
   }
 
   &:hover {
-    color: #625fc0;
+    color: $accent-color;
   }
 }
 
 .navSeparator {
   width: 2px;
-  background-color: #625fc0;
+  background-color: $accent-color;
 }
 
 .user {
@@ -40,7 +43,12 @@
 }
 
 .userName {
-  color: #ecedf4;
+  color: $text-color;
+  transition: 0.3s ease;
+  
+  &:hover {
+    color: $text-color-hovered;
+  }
 }
 
 .authorized {
@@ -58,9 +66,9 @@
     width: 100%;
     min-width: 170px;
     padding: 20px 30px 20px;
-    border-radius: 5px;
+    border-radius: $border-raduis-small;
     flex-direction: column;
-    background-color: #2c2c37;
+    background-color: $background-primary;
 
     &::before {
       content: '';
@@ -69,7 +77,7 @@
       top: -20px;
       margin-right: -10px;
       border: 10px solid transparent;
-      border-bottom: 10px solid #2c2c37;
+      border-bottom: 10px solid $background-primary;
     }
   }
 
