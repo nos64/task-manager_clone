@@ -1,0 +1,31 @@
+@import '../../../styles/mixins.scss';
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 50px;
+  max-width: 600px;
+}
+
+.avatrWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.avatarButon {
+  @include buttonStyle(10px);
+  text-transform: uppercase;
+}
+
+.description {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.value {
+  font-weight: 400;
+}

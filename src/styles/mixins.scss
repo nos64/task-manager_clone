@@ -3,7 +3,6 @@
 @mixin buttonStyle($padding: 5px) {
   background-color: $primary-button;
   color: $text-color;
-  font-weight: 700;
   border-radius: 30px;
   padding: $padding;
   border:  1px solid transparent;
@@ -29,7 +28,6 @@
 @mixin buttonStyleNegative($padding: 5px) {
   background-color: $text-color-hovered;
   color: $primary-button;
-  font-weight: 700;
   border-radius: 30px;
   padding: $padding;
   border:  1px solid transparent;
