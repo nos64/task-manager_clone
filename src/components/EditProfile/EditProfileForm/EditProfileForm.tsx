@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './EditProfileForm.module.scss';
-import { FaUserEdit } from 'react-icons/fa';
+import { FaUserEdit, FaTrashAlt } from 'react-icons/fa';
 import InputLineText from '../InputLineText';
 import InputLinePassword from '../InputLinePassword';
 
@@ -14,9 +14,20 @@ const EditProfileForm = () => {
       <form className={styles.form}>
         <InputLineText label={'UserName'} placeholder={'Enter new name'} />
         <InputLineText label={'UserLogin'} placeholder={'Enter new Login'} />
-        <InputLinePassword label={'CurrentPasword'} placeholder={'Current password'} />
-        <InputLinePassword label={'New Password'} placeholder={'New Password'} />
+        <InputLinePassword label={'CurrentPasword'} />
+        <InputLinePassword label={'New Password'} />
+        <div className={styles.buttonsWrapper}>
+          <button className={styles.submitBtn} type="submit">
+            UPDATE PROFILE
+          </button>
+          <button className={styles.canselBtn} type="submit">
+            CANCEL CHANGES
+          </button>
+        </div>
       </form>
+      <button className={styles.deleteBtn}>
+        <FaTrashAlt /> DELETE ACCAUNT
+      </button>
     </div>
   );
 };

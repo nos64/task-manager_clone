@@ -1,4 +1,5 @@
 @import '../../../styles/colors.scss';
+@import '../../../styles/mixins.scss';
 
 .formWrapper {
   display: flex;
@@ -8,14 +9,9 @@
   gap: 30px;
   margin: auto;
   max-width: 600px;
-
   background-color: $background-light;
   border-radius: 5px;
-  // box-shadow: 0 0 20px rgb(0 0 0 / 70%);
-  // margin: 15px auto 0;
-  // max-width: 600px;
   padding: 10px 30px 30px;
-  // text-align: center;
 }
 
 .titleWrapper {
@@ -30,3 +26,33 @@
   flex-direction: column;
   gap: 40px;
 }
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+
+  .submitBtn {
+    @include buttonStyle(10px);
+  }
+
+  .canselBtn {
+    @include buttonStyleNegative;
+  }
+}
+
+.deleteBtn {
+  @include buttonStyle(10px);
+  color: #fa7a7a;
+  font-weight: 700;
+
+  &:hover {
+    background-color: #f38a8a;
+    border-color: #f38a8a;
+  }
+
+  &:active {
+    color: inherit;
+  }
+}
+

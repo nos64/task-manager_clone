@@ -3,9 +3,8 @@ import styles from './InputLinePassword.module.scss';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 interface IInputLineProps {
   label: string;
-  placeholder: string;
 }
-const InputLinePassword: React.FC<IInputLineProps> = ({ label, placeholder }) => {
+const InputLinePassword: React.FC<IInputLineProps> = ({ label }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [value, setValue] = useState('');
 
@@ -25,7 +24,6 @@ const InputLinePassword: React.FC<IInputLineProps> = ({ label, placeholder }) =>
       <input
         className={styles.inputLine}
         type={!isClicked ? 'password' : 'text'}
-        placeholder={placeholder}
         onChange={handleChange}
       />
       <label className={!value.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
