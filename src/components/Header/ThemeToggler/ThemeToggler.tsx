@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './theme-toggler.module.scss';
+import styles from './ThemeToggler.module.scss';
 
 const ThemeToggler = () => {
   return (

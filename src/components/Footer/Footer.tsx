@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './footer.module.scss';
+import styles from './Footer.module.scss';
 import rssImg from './../../assets/images/rs_school_js.svg';
 
 const Footer = () => (

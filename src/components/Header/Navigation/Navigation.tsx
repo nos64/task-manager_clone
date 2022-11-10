@@ -1,7 +1,7 @@
 import { ROUTES } from 'common/routes';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import styles from './navigation.module.scss';
+import styles from './Navigation.module.scss';
 import userAvatar from './../../../assets/images/user.png';
 
 const Navigation = () => {
