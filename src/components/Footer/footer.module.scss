@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
+.footer {
+  padding: 15px 20px;
+  outline: 5px solid #444455;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #2c2c37;
+  color: #ecedf4;
+}
+
+.container {
+  width: 1280px;
+  margin: 0 auto;
+}
+
+.footerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.courseImg {
+  width: 100px;
+}
+
+.githubList {
+  display: flex;
+  gap: 25px;
+}
+
+.githubItem {
+  transition: 0.3s ease;
+
+  &:hover {
+    color: #6561ad;
+  }
+}
