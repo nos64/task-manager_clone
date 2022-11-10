@@ -1,0 +1,32 @@
+@import '../../../styles/colors.scss';
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin: auto;
+  max-width: 600px;
+
+  background-color: $background-light;
+  border-radius: 5px;
+  // box-shadow: 0 0 20px rgb(0 0 0 / 70%);
+  // margin: 15px auto 0;
+  // max-width: 600px;
+  padding: 10px 30px 30px;
+  // text-align: center;
+}
+
+.titleWrapper {
+  display: flex;
+  align-items:center;
+  gap: 20px;
+  text-transform: uppercase;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}

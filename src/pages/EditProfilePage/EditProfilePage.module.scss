@@ -1,10 +1,8 @@
 @import '../../styles/colors.scss'; 
 .wrapper {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: auto;
-  max-width: 600px;
+  flex-direction: column;
+  gap: 20px;
   background-color: $background-primary;
   color: $text-color;
 }
