@@ -1,0 +1,28 @@
+$font-name: 'Montserrat';
+$font-family: $font-name, sans-serif;
+
+@font-face {
+  font-family: $font-name;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/montserrat-v25-latin-regular.woff2') format('woff2'),
+      url('../assets/fonts/montserrat-v25-latin-regular.woff') format('woff'),
+      url('../assets/fonts/montserrat-v25-latin-700.eot'),
+      url('../assets/fonts/montserrat-v25-latin-regular.eot?#iefix') format('embedded-opentype'),
+      url('../assets/fonts/montserrat-v25-latin-regular.ttf') format('truetype'),
+      url('../assets/fonts/montserrat-v25-latin-regular.svg#Montserrat') format('svg');
+}
+
+@font-face {
+  font-family: $font-name;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/montserrat-v25-latin-700.woff2') format('woff2'),
+      url('../assets/fonts/montserrat-v25-latin-700.woff') format('woff'),
+      url('../assets/fonts/montserrat-v25-latin-700.eot'),
+      url('../assets/fonts/montserrat-v25-latin-700.eot?#iefix') format('embedded-opentype'),
+      url('../assets/fonts/montserrat-v25-latin-700.ttf') format('truetype'),
+      url('../assets/fonts/montserrat-v25-latin-700.svg#Montserrat') format('svg');
+}
