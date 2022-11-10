@@ -1,16 +1,17 @@
 import React from 'react';
+import Container from 'components/Container';
 import { Outlet } from 'react-router-dom';
 import Footer from '../Footer';
 import Header from '../Header';
-import styles from './layout.module.scss';
+import styles from './Layout.module.scss';
 
 const Layout: React.FC = () => (
   <div className={styles.wwrapper}>
     <Header />
     <main className={styles.main}>
-      <div className={styles.container}>
+      <Container>
         <Outlet />
-      </div>
+      </Container>
     </main>
     <Footer />
   </div>
