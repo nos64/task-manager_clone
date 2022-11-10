@@ -1,24 +1,35 @@
-$text-color: #E1E1E1;
-$text-color-hovered: #F4F4F4;
+$base-light-color: #e1e1e1;
+
+$text-color: $base-light-color;
+$text-color-hovered: #f9f9f9;
 $color-text-secondary: #9c9c9c;
 $color-text-secondary-hovered: #757575;
 
-$primary-button: #7B61FF;
+$primary-button: #7b61ff;
 $button-hovered: #907bfc;
-$button-active: #715BE3;
+$button-active: #715be3;
 $button-disabled: #8d7cee;
 
-$background-primary: #13111C;
+$background-primary: #2c2c37;
+$background-primary-darker: #21222d;
+$background-primary-lighter: #393947;
+
 $background-hovered: #181622;
 $background-active: #1d1e22;
 $background-light: #2d2b38;
 $background-light-hovered: #3d3b44;
 
-$light-shadow: #B5B5B5;
+$light-shadow: #b5b5b5;
 $dark-shadow: #5c5b5b;
 
-$accent-color: #42946E;
-$accent-color-hovered: #95D0B4;
+$accent-color: #715be3;
+$accent-color-darker: #604acc;
+$accent-color-lighter: #7d65f6;
+$accent-color-hovered: $accent-color-darker;
+ 
 
-$accent-color-second: #306EE8;
-$accent-color-second-hovered: #8CAEF2;
+$accent-color-second: #42946e;
+$accent-color-second-hovered: #95d0b4;
+
+$accent-color-third: #306ee8;
+$accent-color-third-hovered: #8caef2;

@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+@import "./../../styles/colors.scss";
+@import "./../../styles/fonts.scss";
+
+.footer {
+  padding: 15px 20px;
+  outline: 3px solid $background-primary-lighter;
+  font-family: $font-family;
+  background-color: $background-primary;
+  color: $text-color;
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.courseImg {
+  width: 100px;
+}
+
+.githubList {
+  display: flex;
+  gap: 25px;
+}
+
+.githubItem {
+  transition: 0.3s ease;
+
+  &:hover {
+    color: $accent-color;
+  }
+}
