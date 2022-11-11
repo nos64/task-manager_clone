@@ -1,0 +1,32 @@
+@import "./../../../styles/colors.scss";
+@import "./../../../styles/extensions.scss";
+
+.themeToggler {
+  @extend %centered;
+  width: 44px;
+  height: 44px;
+  border: 2px solid $base-light-color;
+  border-radius: 50%;
+  background-color: $base-light-color;
+  cursor: pointer;
+
+  .themeIcon {
+    width: 27px;
+    height: 27px;
+    font-weight: bold;
+    color: $base-dark-color;
+    transition: 0.4s;
+
+    &:first-child {
+      position: absolute;
+      background-color: $base-light-color;
+    }
+  }
+
+  &:hover {
+    .themeIcon:first-child {
+      opacity: 0;
+    }
+  }
+}
+
