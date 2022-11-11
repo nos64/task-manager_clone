@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import api from 'servecies';
+import api from 'services';
 import IColumn from 'types/IColumn';
 
 export const getColumnsInBoard = async (boardId: string) => {

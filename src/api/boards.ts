@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import api from 'servecies';
+import api from 'services';
 import IBoard from 'types/IBoard';
 
 export const getBoards = async () => {
