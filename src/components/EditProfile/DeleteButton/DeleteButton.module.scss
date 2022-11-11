@@ -6,14 +6,16 @@
 }
 
 .deleteBtn {
-  @include buttonStyle(10px);
-  color: #fa7a7a;
+  @include buttonStyleNegative(10px);
+  color: #fc4c4c;
+  border-color: #fc4c4c;
   font-weight: 700;
   width: fit-content;
 
   &:hover {
-    background-color: #f38a8a;
-    border-color: #f38a8a;
+    background-color: #fc4c4c;
+    border-color: #fc4c4c;
+    color: inherit;
   }
 
   &:active {
