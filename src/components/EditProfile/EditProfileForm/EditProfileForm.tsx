@@ -25,9 +25,6 @@ const EditProfileForm = () => {
           </button>
         </div>
       </form>
-      <button className={styles.deleteBtn}>
-        <FaTrashAlt /> DELETE ACCAUNT
-      </button>
     </div>
   );
 };

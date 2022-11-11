@@ -41,18 +41,3 @@
   }
 }
 
-.deleteBtn {
-  @include buttonStyle(10px);
-  color: #fa7a7a;
-  font-weight: 700;
-
-  &:hover {
-    background-color: #f38a8a;
-    border-color: #f38a8a;
-  }
-
-  &:active {
-    color: inherit;
-  }
-}
-

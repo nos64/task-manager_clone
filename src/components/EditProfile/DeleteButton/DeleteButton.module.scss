@@ -1,0 +1,22 @@
+@import '../../../styles/mixins.scss';
+
+.wrapper {
+  margin: auto;
+  max-width: 600px;
+}
+
+.deleteBtn {
+  @include buttonStyle(10px);
+  color: #fa7a7a;
+  font-weight: 700;
+  width: fit-content;
+
+  &:hover {
+    background-color: #f38a8a;
+    border-color: #f38a8a;
+  }
+
+  &:active {
+    color: inherit;
+  }
+}
