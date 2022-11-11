@@ -1,0 +1,107 @@
+@import "./../../../styles/colors.scss";
+@import "./../../../styles/variables.scss";
+
+.nav {
+  position: relative;
+}
+
+.navList {
+  display: flex;
+  gap: 15px;
+}
+
+.navItem {
+  color: $text-color;
+  transition: 0.3s linear;
+
+  &:nth-child(4),
+  &:last-child {
+    display: none;
+  }
+
+  &:hover {
+    color: $accent-color;
+  }
+}
+
+.navSeparator {
+  width: 2px;
+  background-color: $accent-color;
+}
+
+.user {
+  display: none;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+.userAvatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.userName {
+  color: $text-color;
+  transition: 0.3s ease;
+  
+  &:hover {
+    color: $text-color-hovered;
+  }
+}
+
+.authorized {
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .navList {
+    position: absolute;
+    right: 0;
+    top: 75px;
+    display: none;
+    width: 100%;
+    min-width: 170px;
+    padding: 20px 30px 20px;
+    border-radius: $border-raduis-small;
+    flex-direction: column;
+    background-color: $background-primary;
+
+    &::before {
+      content: '';
+      position: absolute;
+      right: 50%;
+      top: -20px;
+      margin-right: -10px;
+      border: 10px solid transparent;
+      border-bottom: 10px solid $background-primary;
+    }
+  }
+
+  .navItem {
+    display: block;
+    padding: 5px 0;
+
+    &:first-child,
+    &:nth-child(3) {
+      display: none;
+    }
+  }
+
+  .navLink {
+    white-space: nowrap;
+  }
+
+  .navSeparator {
+    display: none;
+  }
+}
+
+.opened {
+  .navList {
+    display: block;
+  }
+}
