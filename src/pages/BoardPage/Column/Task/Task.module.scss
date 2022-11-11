@@ -1,0 +1,11 @@
+@import "./../../../../styles/colors.scss";
+@import "./../../../../styles/variables.scss";
+
+.task {
+  display: flex;
+  padding: 7px 20px;
+  border-radius: $border-raduis-small;
+  gap: 8px;
+  color: $color-text-secondary;
+  background-color: $background-primary-darker;
+}

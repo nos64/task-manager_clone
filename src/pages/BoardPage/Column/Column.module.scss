@@ -1,0 +1,36 @@
+@import "./../../../styles/colors.scss";
+@import "./../../../styles/variables.scss";
+
+.column {
+  width: 270px;
+  padding: 10px;
+  border-radius: $border-raduis-small;
+  background-color: $background-primary;
+}
+
+.columnHeader {
+  display: flex;
+  margin-bottom: 15px;
+  align-items: center;
+  gap: 10px;
+}
+
+.columnColor {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.title,
+.tasksCount {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: $color-text-secondary;
+}
+
+.tasksContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

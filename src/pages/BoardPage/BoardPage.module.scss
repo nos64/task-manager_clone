@@ -1,0 +1,56 @@
+@import "./../../styles/colors.scss";
+@import "./../../styles/variables.scss";
+
+.pageContent {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.topBlock {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 20px;
+  align-items: center;
+}
+
+.backBtn {
+  display: flex;
+  padding: 7px 20px;
+  border-radius: $border-raduis-small;
+  gap: 8px;
+  color: $color-text-secondary;
+  background-color: $background-primary;
+
+  & > span {
+    color: $color-text-secondary;
+  }
+}
+
+.backBtnIcon {
+  width: 8px;
+}
+
+.boardInfo {
+  display: flex;  
+  // padding: 5px 0;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 25px;
+  color: $text-color;
+}
+
+.description {
+  color: $color-text-secondary;
+}
+
+.columnsContainer {
+  display: flex;
+  height: 100%;
+  align-items: stretch;
+  gap: 25px;
+  flex: 1 1 auto;
+}

@@ -1,11 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
 @import "./../../styles/colors.scss";
-@import "./../../styles/fonts.scss";
 
 .footer {
   padding: 15px 20px;
   outline: 3px solid $background-primary-lighter;
-  font-family: $font-family;
   background-color: $background-primary;
   color: $text-color;
 }
