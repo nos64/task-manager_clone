@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import styles from './InputLinePassword.module.scss';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 interface IInputLineProps {
+  inputName: string;
   label: string;
+  onFocus: (inputName: string) => void;
 }
-const InputLinePassword: React.FC<IInputLineProps> = ({ label }) => {
+const InputLinePassword: React.FC<IInputLineProps> = ({ inputName, label, onFocus }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [value, setValue] = useState('');
 
@@ -23,8 +25,11 @@ const InputLinePassword: React.FC<IInputLineProps> = ({ label }) => {
     <div className={styles.inputWrapper}>
       <input
         className={styles.inputLine}
+        name={inputName}
+        autoComplete="off"
         type={!isClicked ? 'password' : 'text'}
         onChange={handleChange}
+        onFocus={() => onFocus(inputName)}
       />
       <label className={!value.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
       <button className={styles.showPassword} onClick={handleBtnClick}>

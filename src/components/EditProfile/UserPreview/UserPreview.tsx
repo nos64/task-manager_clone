@@ -7,7 +7,7 @@ const UserPreview = () => {
     <div className={styles.wrapper}>
       <div className={styles.avatrWrapper}>
         <FaUserCircle size={140} color={'#E1E1E1'} />
-        <button className={styles.avatarButon}>ИЗМЕНИТЬ АВАТАР</button>
+        <button className={styles.avatarButon}>Change avatar</button>
       </div>
       <div className={styles.nameWrapper}>
         <p className={styles.description}>
