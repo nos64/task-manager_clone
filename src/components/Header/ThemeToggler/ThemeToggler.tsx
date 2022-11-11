@@ -1,14 +1,13 @@
 import React from 'react';
 import styles from './ThemeToggler.module.scss';
+import { BsSun } from 'react-icons/bs';
+import { BsMoon } from 'react-icons/bs';
 
 const ThemeToggler = () => {
   return (
     <div className={styles.themeToggler}>
-      <img
-        className={styles.themeImg}
-        src="https://cdn.icon-icons.com/icons2/1919/PNG/512/lightbulbon_121975.png"
-        alt="theme toggle btn"
-      />
+      <BsSun className={styles.themeIcon} />
+      <BsMoon className={styles.themeIcon} />
     </div>
   );
 };
