@@ -1,0 +1,26 @@
+@import "./../../../styles/colors.scss";
+@import "./../../../styles/extensions.scss";
+
+.themeToggler {
+  @extend %centered;
+  width: 44px;
+  height: 44px;
+  border: 2px solid $base-light-color;
+  border-radius: 50%;
+  background-color: $base-light-color;
+  cursor: pointer;
+
+  .themeImg {
+    width: 25px;
+    height: 25px;
+    transition: 0.2s;
+  }
+
+  &:hover {
+    .themeImg {
+      width: 27px;
+      height: 27px;
+    }
+  }
+}
+
