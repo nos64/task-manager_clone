@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styles from './EditProfileForm.module.scss';
 import { FaUserEdit } from 'react-icons/fa';
-import InputLineText from '../InputLineText';
-import InputLinePassword from '../InputLinePassword';
+import InputLineText from '../../InputLineText';
+import InputLinePassword from '../../InputLinePassword';
 import FormErrorMessage from '../FormErrorMessage';
 
 interface IFormError {
