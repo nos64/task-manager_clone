@@ -6,11 +6,7 @@ interface Props {
 }
 
 const FormErrorMessage = ({ message }: Props) => {
-  return (
-    <div className={style.errorMessage} style={{ color: `${message ? '#fc4c4c' : 'transparent'}` }}>
-      {message}
-    </div>
-  );
+  return <div className={style.errorMessage}>{message}</div>;
 };
 
 export default FormErrorMessage;

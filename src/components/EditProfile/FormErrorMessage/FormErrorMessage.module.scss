@@ -1,4 +1,7 @@
+@import '../../../styles/colors.scss';
+
 .errorMessage {
   height: 16px;
   font-size: 14px;
+  color: $warning-color;
 }
