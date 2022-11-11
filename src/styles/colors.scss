@@ -1,4 +1,5 @@
 $base-light-color: #e1e1e1;
+$base-dark-color: #2c2c37;
 
 $text-color: $base-light-color;
 $text-color-hovered: #f9f9f9;
@@ -10,7 +11,7 @@ $button-hovered: #907bfc;
 $button-active: #715be3;
 $button-disabled: #8d7cee;
 
-$background-primary: #2c2c37;
+$background-primary: $base-dark-color;
 $background-primary-darker: #21222d;
 $background-primary-lighter: #393947;
 

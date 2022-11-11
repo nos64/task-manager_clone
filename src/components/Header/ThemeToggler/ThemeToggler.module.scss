@@ -10,16 +10,22 @@
   background-color: $base-light-color;
   cursor: pointer;
 
-  .themeImg {
-    width: 25px;
-    height: 25px;
-    transition: 0.2s;
+  .themeIcon {
+    width: 27px;
+    height: 27px;
+    font-weight: bold;
+    color: $base-dark-color;
+    transition: 0.4s;
+
+    &:first-child {
+      position: absolute;
+      background-color: $base-light-color;
+    }
   }
 
   &:hover {
-    .themeImg {
-      width: 27px;
-      height: 27px;
+    .themeIcon:first-child {
+      opacity: 0;
     }
   }
 }
