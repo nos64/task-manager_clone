@@ -6,7 +6,7 @@ const ConfirmDeleteText = () => {
   return (
     <div className={styles.wrapper}>
       <TiWarning size={50} color={'#fc4c4c'} />
-      <h1 className={styles.title}>Do you really want to delete your accaunt?</h1>
+      <p className={styles.title}>Do you really want to delete your accaunt?</p>
     </div>
   );
 };
