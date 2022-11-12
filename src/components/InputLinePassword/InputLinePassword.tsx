@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { InputHTMLAttributes, useState } from 'react';
 import styles from './InputLinePassword.module.scss';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
-interface IInputLineProps {
+import { FieldValues, UseFormRegister } from 'react-hook-form';
+interface IInputLineProps extends InputHTMLAttributes<HTMLInputElement> {
   inputName: string;
   label: string;
-  onFocus: (inputName: string) => void;
+  register: UseFormRegister<FieldValues>;
 }
-const InputLinePassword: React.FC<IInputLineProps> = ({ inputName, label, onFocus }) => {
+
+const InputLinePassword: React.FC<IInputLineProps> = ({ inputName, label, register }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [value, setValue] = useState('');
 
@@ -25,11 +27,15 @@ const InputLinePassword: React.FC<IInputLineProps> = ({ inputName, label, onFocu
     <div className={styles.inputWrapper}>
       <input
         className={styles.inputLine}
-        name={inputName}
+        {...register(inputName, {
+          pattern: {
+            value: /[A-Za-z0-9]{6}/,
+            message: 'Min 6 symbols',
+          },
+        })}
         autoComplete="off"
         type={!isClicked ? 'password' : 'text'}
         onChange={handleChange}
-        onFocus={() => onFocus(inputName)}
       />
       <label className={!value.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
       <button className={styles.showPassword} onClick={handleBtnClick}>

@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { InputHTMLAttributes, useState } from 'react';
 import styles from './InputLineText.module.scss';
-
-interface IInputLineProps {
+import { FieldValues, UseFormRegister, useForm } from 'react-hook-form';
+import FormErrorMessage from 'components/EditProfile/FormErrorMessage';
+interface IInputLineProps extends InputHTMLAttributes<HTMLInputElement> {
   inputName: string;
   label: string;
   placeholder: string;
-  onFocus: (inputName: string) => void;
+  register: UseFormRegister<FieldValues>;
 }
-const InputLineText: React.FC<IInputLineProps> = ({ inputName, label, placeholder, onFocus }) => {
+
+const InputLineText: React.FC<IInputLineProps> = ({ inputName, label, placeholder, register }) => {
   const [value, setValue] = useState('');
+  const {
+    formState: { errors },
+  } = useForm<FieldValues>();
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -19,13 +24,17 @@ const InputLineText: React.FC<IInputLineProps> = ({ inputName, label, placeholde
   return (
     <div className={styles.inputWrapper}>
       <input
-        name={inputName}
         className={styles.inputLine}
         type="text"
+        {...register(inputName, {
+          pattern: {
+            value: /[a-zA-Zа-яА-яА-Я0-9]{2}/,
+            message: 'Min 2 symbols',
+          },
+        })}
         placeholder={placeholder}
         autoComplete="off"
         onChange={handleChange}
-        onFocus={() => onFocus(inputName)}
       />
       <label className={!value.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
     </div>
