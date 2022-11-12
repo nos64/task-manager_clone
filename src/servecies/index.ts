@@ -24,6 +24,10 @@ api.interceptors.response.use(
     return data;
   },
   (error: AxiosError) => {
+    if (error.response?.status === 403) {
+      localStorage.removeItem('token');
+    }
+
     throw error;
   }
 );
