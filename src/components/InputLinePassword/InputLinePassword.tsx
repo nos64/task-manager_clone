@@ -2,6 +2,7 @@ import React, { InputHTMLAttributes, useState } from 'react';
 import styles from './InputLinePassword.module.scss';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
+
 interface IInputLineProps extends InputHTMLAttributes<HTMLInputElement> {
   inputName: string;
   label: string;
