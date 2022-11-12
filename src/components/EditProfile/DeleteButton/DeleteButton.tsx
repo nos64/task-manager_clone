@@ -5,14 +5,7 @@ import ConfirmModal from 'components/Modal';
 import ConfirmDeleteText from './ConfirmDeleteText';
 
 const DeleteButton = () => {
-  const [modalActive, setModalActive] = useState(true);
-  // const [isButtonClick, setIsButtonClick] = useState(false);
-
-  // const handleDelButtonClick = () => setIsButtonClick(true);
-
-  // const handleCloseConfirmModal = () => {
-  //   setIsButtonClick(false);
-  // };
+  const [modalActive, setModalActive] = useState(false);
 
   return (
     <>
