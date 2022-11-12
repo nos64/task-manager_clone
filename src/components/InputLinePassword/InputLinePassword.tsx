@@ -13,8 +13,7 @@ const InputLinePassword: React.FC<IInputLineProps> = ({ inputName, label, regist
   const [isClicked, setIsClicked] = useState(false);
   const [value, setValue] = useState('');
 
-  const handleBtnClick = (e: React.SyntheticEvent) => {
-    e.preventDefault();
+  const handleBtnClick = () => {
     setIsClicked(!isClicked);
   };
 
@@ -40,7 +39,7 @@ const InputLinePassword: React.FC<IInputLineProps> = ({ inputName, label, regist
         onChange={handleChange}
       />
       <label className={!value.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
-      <button className={styles.showPassword} onClick={handleBtnClick}>
+      <button className={styles.showPassword} type="button" onClick={handleBtnClick}>
         {!isClicked ? (
           <FaEyeSlash size={20} color={'#E1E1E1'} />
         ) : (
