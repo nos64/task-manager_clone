@@ -50,6 +50,28 @@
   }
 }
 
+@mixin deleteButtonStyle($paddingV: 10px, $paddingH: 20px) {
+  background-color: $text-color-hovered;
+  color: $warning-color;
+  border-color: $warning-color;
+  border-radius: 30px;
+  padding: $paddingV $paddingH;
+  border:  1px solid transparent;
+  transition: all .3s ease-in-out;
+  font-weight: 700;
+  width: fit-content;
+
+  &:hover {
+    background-color: $warning-color;
+    border-color: $warning-color;
+    color: $text-color-hovered;
+  }
+
+  &:active {
+    color: $text-color-hovered;
+  }
+}
+
 @mixin taskStyle {
   background-color: $background-light;
   border-radius: 10px;
