@@ -5,19 +5,20 @@ import styles from './BoardPage.module.scss';
 import Column from './Column/Column';
 import { FaLessThan } from 'react-icons/fa';
 import NewColumn from './NewColumn/NewColumn';
+import ITask from 'types/ITask';
 
 const BoardPage = () => {
   const boardTitle = 'board title';
   const boardDescription = 'Booard description';
-  const tasks = [
+  const tasks: Partial<ITask>[][] = [
     [
-      { id: 1, title: 'task 1' },
-      { id: 2, title: 'task 2' },
+      { _id: '1', title: 'task 1', users: ['user1'] },
+      { _id: '2', title: 'task 2' },
     ],
     [
-      { id: 3, title: 'task 1' },
-      { id: 4, title: 'task 2' },
-      { id: 5, title: 'task 3' },
+      { _id: '3', title: 'task 1' },
+      { _id: '4', title: 'task 2', users: ['user2'] },
+      { _id: '5', title: 'task 3' },
     ],
   ];
   const columns = [
