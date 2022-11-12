@@ -1,27 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './EditProfileForm.module.scss';
 import { FaUserEdit } from 'react-icons/fa';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
-import FormErrorMessage from '../FormErrorMessage';
+import ValidationErrorMessage from '../../ValidationErrorMessage';
 import InputLinePassword from 'components/InputLinePassword';
 import InputLineText from 'components/InputLineText';
 
-// type FormValues = {
-//   userName: string;
-//   userLogin: string;
-//   password: string;
-// };
-
 const EditProfileForm = () => {
-  const [isClicked, setIsClicked] = useState(false);
-
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<FieldValues>({
-    mode: 'onBlur',
-  });
+  } = useForm<FieldValues>();
 
   const handlerSubmitForm: SubmitHandler<FieldValues> = (data) => console.log(data);
 
@@ -39,15 +29,16 @@ const EditProfileForm = () => {
           placeholder={'Enter new name'}
           register={register}
         />
-        {/* <FormErrorMessage message={errors.userName} /> */}
+        <ValidationErrorMessage message={errors.userName && 'Min 2 symbols'} />
         <InputLineText
           inputName={'userLogin'}
           label={'UserLogin'}
           placeholder={'Enter new Login'}
           register={register}
         />
-        {/* <FormErrorMessage message={errors.userLogin} /> */}
+        <ValidationErrorMessage message={errors.userLogin && 'Min 2 symbols'} />
         <InputLinePassword inputName={'password'} label={'New Password'} register={register} />
+        <ValidationErrorMessage message={errors.password && 'Required, min 6 symbols'} />
         <div className={styles.buttonsWrapper}>
           <button className={styles.submitBtn} type="submit">
             UPDATE

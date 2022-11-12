@@ -28,8 +28,9 @@ const InputLinePassword: React.FC<IInputLineProps> = ({ inputName, label, regist
       <input
         className={styles.inputLine}
         {...register(inputName, {
-          pattern: {
-            value: /[A-Za-z0-9]{6}/,
+          required: 'Required',
+          minLength: {
+            value: 6,
             message: 'Min 6 symbols',
           },
         })}
