@@ -6,7 +6,9 @@ export const getBoards = async () => {
   return await api.get<AxiosError, Partial<IBoard[]>>('/boards');
 };
 
-export const createBoard = async (options: Pick<IBoard, 'title' | 'owner' | 'users'>) => {
+export const createBoard = async (
+  options: Pick<IBoard, 'title' | 'description' | 'owner' | 'users'>
+) => {
   return await api.post<AxiosError, IBoard>('/boards', { ...options });
 };
 
@@ -16,7 +18,7 @@ export const findBoard = async (boardId: string) => {
 
 export const updateBoard = async (
   boardId: string,
-  options: Pick<IBoard, 'title' | 'owner' | 'users'>
+  options: Pick<IBoard, 'title' | 'description' | 'owner' | 'users'>
 ) => {
   return await api.put<AxiosError, IBoard>(`/boards/${boardId}`, { ...options });
 };
