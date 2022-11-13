@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './ConfirmDeleteText.module.scss';
+import styles from './ConfirmDelete.module.scss';
 import { TiWarning } from 'react-icons/ti';
 
-interface IConfirmModalProps {
+interface IConfirmDeleteProps {
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ConfirmDeleteText: React.FC<IConfirmModalProps> = ({ setModalActive }) => {
+const ConfirmDelete: React.FC<IConfirmDeleteProps> = ({ setModalActive }) => {
   return (
     <>
       <div className={styles.wrapper}>
@@ -25,4 +25,4 @@ const ConfirmDeleteText: React.FC<IConfirmModalProps> = ({ setModalActive }) => 
   );
 };
 
-export default ConfirmDeleteText;
+export default ConfirmDelete;

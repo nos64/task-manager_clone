@@ -1,11 +1,10 @@
 
 @import '../../../../styles/mixins.scss';
+@import '../../../../styles/extensions.scss';
 
 .wrapper {
-  display: flex;
+  @extend %centered;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .title {
@@ -14,8 +13,7 @@
 }
 
 .buttonsWrapper {
-  display: flex;
-  justify-content: center;
+  @extend %centered;
   gap: 30px;
 
   .submitBtn {

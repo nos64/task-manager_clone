@@ -1,10 +1,9 @@
 @import '../../../styles/mixins.scss';
+@import '../../../styles/extensions.scss';
 
 .wrapper {
-  display: flex;
+  @extend %centered;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   gap: 30px;
   margin: auto;
   margin-top: 50px;
