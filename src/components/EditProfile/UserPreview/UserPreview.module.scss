@@ -15,8 +15,9 @@
   gap: 20px;
 
   & .avatarButon {
-    @include buttonStyle(10px);
+    @include buttonStyle(10px, 10px);
     text-transform: uppercase;
+    width: 100%;
   }
 }
 

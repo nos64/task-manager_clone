@@ -21,7 +21,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (isLoginAlreadyExist || isAuthorisationError) {
-      const message = isLoginAlreadyExist ? 'Login already exist' : 'Wrong login or password';
+      const message = isLoginAlreadyExist ? 'Login already exists' : 'Wrong login or password';
 
       toast.error(message, {
         position: toast.POSITION.TOP_CENTER,
