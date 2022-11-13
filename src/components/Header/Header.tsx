@@ -10,13 +10,13 @@ import { GoPlus } from 'react-icons/go';
 
 const Header = () => (
   <header className={styles.header}>
-    <div className={styles.burger}>
-      <span className={styles.burgerLine}></span>
-      <span className={styles.burgerLine}></span>
-      <span className={styles.burgerLine}></span>
-    </div>
     <Container>
       <div className={`${styles.headerContent}`}>
+        <div className={styles.burger}>
+          <span className={styles.burgerLine}></span>
+          <span className={styles.burgerLine}></span>
+          <span className={styles.burgerLine}></span>
+        </div>
         <div className={styles.logo}>
           <Link to={ROUTES.WELCOME}>Task Manager</Link>
         </div>

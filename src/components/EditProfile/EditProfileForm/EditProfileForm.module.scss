@@ -1,0 +1,48 @@
+@import '../../../styles/colors.scss';
+@import '../../../styles/mixins.scss';
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  margin: auto;
+  max-width: 600px;
+  background-color: $background-light;
+  border-radius: 5px;
+  padding: 10px 30px 30px;
+  box-shadow: 0px 0px 4px 1px $background-light-hovered;
+}
+
+.titleWrapper {
+  display: flex;
+  align-items:center;
+  gap: 20px;
+  text-transform: uppercase;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+
+  .submitBtn {
+    @include buttonStyle(5px, 30px);
+  }
+
+  .canselBtn {
+    @include buttonStyleNegative(5px, 30px);
+  }
+}
+
+
+
+
+
+
