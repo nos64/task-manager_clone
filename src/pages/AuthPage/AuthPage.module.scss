@@ -1,20 +1,61 @@
 @import './../../styles/colors.scss';
+@import './../../styles/extensions.scss';
+
+.wrapper {
+  @extend %centered;
+  min-height: calc(100vh - 200px);
+  color: $text-color;
+}
 
 .authorisation {
-  color: $base-light-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  max-width: 600px;
+  margin: 30px;
 }
 
 .title {
   font-size: 25px;
-  color: $text-color;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .subtitle {
-  // color: $color-text-secondary;
+  text-align: center;
+  color: $color-text-secondary;
 }
 
 .formSwitcher {
+  text-align: center;
+  color: $color-text-secondary;
 }
 
 .navigateTo {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 5px;
+  cursor: pointer;
+  color: $text-color;
+  transition: 0.3s ease-in-out;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: transparent;
+    transition: 0.3s ease-in-out;
+  }
+}
+
+.navigateTo:hover {
+  color: $button-hovered;
+
+  &::after {
+    background-color: $button-hovered;
+  }
 }
