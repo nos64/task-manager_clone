@@ -15,6 +15,8 @@ const EditProfileForm = () => {
 
   const handlerSubmitForm: SubmitHandler<FieldValues> = (data) => console.log(data);
 
+  const handleCancelChange = () => {};
+
   return (
     <div className={styles.formWrapper}>
       <div className={styles.titleWrapper}>
@@ -43,7 +45,9 @@ const EditProfileForm = () => {
           <button className={styles.submitBtn} type="submit">
             UPDATE
           </button>
-          <button className={styles.canselBtn}>CANCEL</button>
+          <button className={styles.canselBtn} type="button" onClick={handleCancelChange}>
+            CANCEL
+          </button>
         </div>
       </form>
     </div>
