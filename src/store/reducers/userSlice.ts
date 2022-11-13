@@ -6,6 +6,7 @@ import { AxiosError } from 'axios';
 import { getUser } from 'api/users';
 import IJWTDecode from 'types/IJWTDecode';
 import updateStorage from 'utils/updateStorage';
+import StatusCodes from 'common/statusCodes';
 
 export const signUpUser = createAsyncThunk(
   'user/signUpUser',
@@ -132,7 +133,7 @@ export const userSlice = createSlice({
     builder.addCase(signInUser.rejected, (state, action) => {
       state.isPending = false;
 
-      if (action.payload === 403) {
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isAuthorised = false;
       }
     });
@@ -147,7 +148,7 @@ export const userSlice = createSlice({
     builder.addCase(getUserById.rejected, (state, action) => {
       state.isPending = false;
 
-      if (action.payload === 403) {
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isAuthorised = false;
       }
     });
