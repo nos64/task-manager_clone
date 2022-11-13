@@ -1,0 +1,42 @@
+@import '../../../../styles/extensions.scss';
+@import '../../../../styles/mixins.scss';
+@import '../../../../styles/colors.scss';
+@import '../../../../styles/variables.scss';
+
+.imagesWrapper {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(5, 1fr);
+
+  & .active {
+    background-color: $accent-color-darker;
+  }
+}
+
+.imageWrapper {
+  @extend %centered;
+  justify-content: end;
+  align-items: flex-end;
+  border-radius: $border-raduis-small;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    background-color: $accent-color-darker;
+  }
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+
+  .submitBtn {
+    @include buttonStyle(5px, 30px);
+  }
+
+  .canselBtn {
+    @include buttonStyleNegative(5px, 30px);
+  }
+}
