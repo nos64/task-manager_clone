@@ -22,9 +22,9 @@ const Authorisation = () => {
   const switcherText = isAuthPage ? 'Already with us? ' : 'No account? ';
 
   return (
-    <>
-      <div className={styles.authorisation}>
-        <div className={styles.title}>{title}</div>
+    <div className={styles.wrapper}>
+      <section className={styles.authorisation}>
+        <h1 className={styles.title}>{title}</h1>
         <div className={styles.subtitle}>{subtitle}</div>
         <AuthForm />
         <div className={styles.formSwitcher}>
@@ -33,9 +33,9 @@ const Authorisation = () => {
             {isAuthPage ? 'Sign in!' : 'Sign up!'}{' '}
           </span>
         </div>
-      </div>
+      </section>
       {isPending && 'Loading...'}
-    </>
+    </div>
   );
 };
 
