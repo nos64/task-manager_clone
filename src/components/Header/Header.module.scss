@@ -1,13 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
 @import "./../../styles/colors.scss";
-@import "./../../styles/fonts.scss";
 
 .header {
   display: flex;
   padding: 15px 20px;
   outline: 3px solid $background-primary-lighter;
   align-items: center;
-  font-family: $font-family;
   color: $text-color;
   background-color: $background-primary;
 }

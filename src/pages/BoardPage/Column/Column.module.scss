@@ -1,0 +1,62 @@
+@import "./../../../styles/colors.scss";
+@import "./../../../styles/variables.scss";
+
+.column {
+  width: 270px;
+  padding: 10px;
+  border: 2px solid transparent;
+  border-radius: $border-raduis-small;
+  transition: 0.5s ease;
+
+  &:hover {
+    background-color: $base-darkest-color;
+    border: 2px dotted $base-dark-lighter-color;
+
+    .removeBtn{
+      opacity: 0.8;
+    }
+  }
+}
+
+.columnHeader {
+  position: relative;
+  display: flex;
+  margin-bottom: 15px;
+  align-items: center;
+  gap: 10px;
+}
+
+.removeBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 18px;
+  color: $color-text-secondary;
+  opacity: 0;
+  cursor: pointer;
+  transition: 0.5s ease;
+
+  &:hover {
+    color: $text-color;
+  }
+}
+
+.columnColor {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.title,
+.tasksCount {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: $color-text-secondary;
+}
+
+.tasksContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
