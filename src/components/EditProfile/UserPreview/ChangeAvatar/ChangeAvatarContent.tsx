@@ -1,51 +1,72 @@
 import React, { useState } from 'react';
 import styles from './ChangeAvatarContent.module.scss';
-import userImage0 from '../../../../assets/images/userImage0.png';
-import userImage1 from '../../../../assets/images/userImage1.png';
-import userImage2 from '../../../../assets/images/userImage2.png';
-import userImage3 from '../../../../assets/images/userImage3.png';
-import userImage4 from '../../../../assets/images/userImage4.png';
-import userImage5 from '../../../../assets/images/userImage5.png';
-import userImage6 from '../../../../assets/images/userImage6.png';
-import userImage7 from '../../../../assets/images/userImage7.png';
-import userImage8 from '../../../../assets/images/userImage8.png';
-import userImage9 from '../../../../assets/images/userImage9.png';
 
+interface IAvatar {
+  id: number;
+  src: string;
+  isCurrent: boolean;
+  isActive: boolean;
+}
 interface IChangeAvatarContent {
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentAvatar: React.Dispatch<React.SetStateAction<string>>;
-  currentAvatar: string;
+  currentAvatar: IAvatar;
+  setCurrentAvatar: React.Dispatch<React.SetStateAction<IAvatar>>;
+  avatarsArray: IAvatar[];
+  setAvatarArray: React.Dispatch<React.SetStateAction<IAvatar[]>>;
 }
 const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
   setModalActive,
   currentAvatar,
   setCurrentAvatar,
+  avatarsArray,
+  setAvatarArray,
 }) => {
-  const [activeAvatar, setActivAvatar] = useState(currentAvatar);
-  const avatars = [
-    userImage0,
-    userImage1,
-    userImage2,
-    userImage3,
-    userImage4,
-    userImage5,
-    userImage6,
-    userImage7,
-    userImage8,
-    userImage9,
-  ];
+  const [activeAvatar, setActiveAvatar] = useState(currentAvatar);
+
+  const chooseActiveAvatar = (id: number) => {
+    const newAvatarArray = avatarsArray.map((img) =>
+      img.id === id ? { ...img, isActive: true } : { ...img, isActive: false }
+    );
+    setAvatarArray(newAvatarArray);
+    const activeImage = newAvatarArray.find((image) => image.isActive);
+    if (activeImage) setActiveAvatar(activeImage);
+  };
 
   const saveNewAvatar = () => {
-    setCurrentAvatar(activeAvatar);
+    const newAvatarArray = avatarsArray.map((img) =>
+      img.isActive === true
+        ? { ...img, isCurrent: true, isActive: false }
+        : { ...img, isCurrent: false, isActive: false }
+    );
+    setAvatarArray(newAvatarArray);
+    const currentImage = newAvatarArray.find((image) => image.isCurrent);
+    if (currentImage) setCurrentAvatar(currentImage);
     setModalActive(false);
   };
   return (
     <>
       <div className={styles.imagesWrapper}>
-        {avatars.map((image) => (
-          <div className={styles.imageWrapper} key={image} onClick={() => setActivAvatar(image)}>
-            <img src={image} width={120} alt="User image" />
-          </div>
+        {avatarsArray.map((image) => (
+          <span
+            key={image.id.toString()}
+            className={
+              image.isCurrent
+                ? styles.imageWrapper + ' ' + styles.currentAvatar
+                : styles.imageWrapper
+            }
+          >
+            <button
+              className={
+                image.isActive
+                  ? styles.imageWrapper + ' ' + styles.activeAvatar
+                  : styles.imageWrapper
+              }
+              type="button"
+              onClick={() => chooseActiveAvatar(image.id)}
+            >
+              <img src={image.src} width={120} alt={`User image-${image.id}`} />
+            </button>
+          </span>
         ))}
       </div>
       <div className={styles.buttonsWrapper}>
@@ -53,7 +74,7 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
           className={styles.submitBtn}
           type="button"
           onClick={saveNewAvatar}
-          disabled={currentAvatar === activeAvatar}
+          disabled={currentAvatar.src === activeAvatar.src}
         >
           CHANGE
         </button>

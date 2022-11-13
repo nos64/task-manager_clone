@@ -7,10 +7,6 @@
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(5, 1fr);
-
-  & .active {
-    background-color: $accent-color-darker;
-  }
 }
 
 .imageWrapper {
@@ -19,11 +15,23 @@
   align-items: flex-end;
   border-radius: $border-raduis-small;
   cursor: pointer;
+  background-color: transparent;
+  outline: 4px solid transparent;
   transition: all .3s ease-in-out;
 
   &:hover {
-    background-color: $accent-color-darker;
+    background-color: $accent-color-lighter;
   }
+}
+
+.activeAvatar {
+  background-color: $accent-color-darker;
+
+}
+
+
+.currentAvatar {
+  outline: 4px solid $accent-color;
 }
 
 .buttonsWrapper {
