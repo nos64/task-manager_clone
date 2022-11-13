@@ -1,5 +1,7 @@
 $base-light-color: #e1e1e1;
 $base-dark-color: #2c2c37;
+$base-dark-lighter-color: #393947;
+$base-darkest-color: #1f202a;
 
 $text-color: $base-light-color;
 $text-color-hovered: #f9f9f9;
@@ -13,7 +15,7 @@ $button-disabled: #8d7cee;
 
 $background-primary: $base-dark-color;
 $background-primary-darker: #21222d;
-$background-primary-lighter: #393947;
+$background-primary-lighter: $base-dark-lighter-color;
 
 $background-hovered: #181622;
 $background-active: #1d1e22;
@@ -27,7 +29,6 @@ $accent-color: #715be3;
 $accent-color-darker: #604acc;
 $accent-color-lighter: #7d65f6;
 $accent-color-hovered: $accent-color-darker;
- 
 
 $accent-color-second: #42946e;
 $accent-color-second-hovered: #95d0b4;
