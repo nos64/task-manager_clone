@@ -1,23 +1,32 @@
 import { useAppDispatch } from 'hooks/redux';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { signInUser, signUpUser } from 'store/reducers/userSlice';
 import styles from './AuthForm.module.scss';
 import IUser from 'types/IUsser';
 import useCurrentPage from 'hooks/useCurrentPage';
+import InputLineText from 'components/InputLineText';
+import ValidationErrorMessage from 'components/ValidationErrorMessage';
+import InputLinePassword from 'components/InputLinePassword';
 
 const AuthForm = () => {
   const dispatch = useAppDispatch();
 
   const isAuthPage = useCurrentPage();
 
-  const { register, handleSubmit, getValues } = useForm<Partial<IUser>>();
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [fileldsValues, setFieldsValues] = useState<Partial<IUser>>({});
 
-  const onChange = () => {};
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    getValues,
+    formState: { errors },
+  } = useForm<Partial<IUser>>();
 
-  const onSubmit = () => {
-    const data = getValues();
-
+  const onSubmit = (data: Partial<IUser>) => {
     if (isAuthPage) {
       const options = {
         name: data.name || '',
@@ -36,34 +45,59 @@ const AuthForm = () => {
     }
   };
 
-  const onError = () => {};
+  const checkErrors = useCallback(async () => {
+    if (hasError) {
+      const result = await trigger();
+      setIsDisabled(!result);
+    }
+  }, [hasError, trigger]);
+
+  const onChange = async () => {
+    if (!hasError) {
+      setIsDisabled(false);
+    } else {
+      await checkErrors();
+    }
+
+    const currentFieldsValues = getValues();
+    setFieldsValues(currentFieldsValues);
+  };
+
+  const onError = () => {
+    setHasError(true);
+    setIsDisabled(true);
+  };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit, onError)} onChange={onChange}>
       {isAuthPage && (
-        <input
-          id="user-name"
-          className={`${styles.userName}`}
-          {...register('name', {
-            required: true,
-          })}
-        />
+        <>
+          <InputLineText
+            inputName={'name'}
+            label={'Name'}
+            placeholder={'Enter your name'}
+            register={register}
+            fieldValue={fileldsValues.name || ''}
+          />
+          <ValidationErrorMessage message={errors.name && 'Min 2 symbols'} />
+        </>
       )}
-      <input
-        id="user-login"
-        className={`${styles.userLogin}`}
-        {...register('login', {
-          required: true,
-        })}
+      <InputLineText
+        inputName={'login'}
+        label={'Login'}
+        placeholder={'Enter your login'}
+        register={register}
+        fieldValue={fileldsValues.login || ''}
       />
-      <input
-        id="user-password"
-        className={`${styles.userPassword}`}
-        {...register('password', {
-          required: true,
-        })}
+      <ValidationErrorMessage message={errors.login && 'Min 2 symbols'} />
+      <InputLinePassword
+        inputName={'password'}
+        label={'Password'}
+        register={register}
+        fieldValue={fileldsValues.password || ''}
       />
-      <button className={styles.button} type="button" onClick={onSubmit}>
+      <ValidationErrorMessage message={errors.password && 'Required, min 6 symbols'} />
+      <button className={styles.button} disabled={isDisabled}>
         {isAuthPage ? 'Sign up' : 'Sign in'}
       </button>
     </form>
