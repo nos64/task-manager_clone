@@ -1,0 +1,50 @@
+@import "./../../../styles/colors.scss";
+@import "./../../../styles/variables.scss";
+
+.board {
+  display: flex;
+  width: 230px;
+  height: 120px;
+  padding: 20px;
+  border: 1px solid transparent;
+  border-radius: $border-raduis-small;
+  flex-direction: column;
+  justify-content: space-between;
+  color: $color-text-secondary;
+  background-color: $background-primary;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  &:hover {
+    border: 1px solid $accent-color;
+  }
+}
+
+.boardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.title {
+  font-size: 16px;
+  color: $text-color;
+}
+
+.description {
+  font-size: 13px;
+}
+
+.boardBtns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.boardBtn {
+  transition: 0.3s ease;
+
+  &:hover {
+    color: $text-color;
+  }
+}
