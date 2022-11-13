@@ -15,7 +15,7 @@ const DeleteButton = () => {
         </button>
       </div>
       <Modal modalActive={modalActive} setModalActive={setModalActive}>
-        <ConfirmDeleteText />
+        <ConfirmDeleteText setModalActive={setModalActive} />
       </Modal>
     </>
   );

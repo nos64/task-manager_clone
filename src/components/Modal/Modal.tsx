@@ -20,14 +20,6 @@ const Modal: React.FC<IConfirmModalProps> = ({ modalActive, setModalActive, chil
         onClick={(e) => e.stopPropagation()}
       >
         {children}
-        <div className={styles.buttonsWrapper}>
-          <button className={styles.deleteBtn} type="button">
-            DELETE
-          </button>
-          <button className={styles.submitBtn} type="button" onClick={() => setModalActive(false)}>
-            CANCEL
-          </button>
-        </div>
       </div>
     </div>
   );
