@@ -1,11 +1,10 @@
 @import './colors.scss';
 
-@mixin buttonStyle($padding: 5px) {
+@mixin buttonStyle($paddingV: 5px, $paddingH: 5px) {
   background-color: $primary-button;
   color: $text-color;
-  font-weight: 700;
   border-radius: 30px;
-  padding: $padding;
+  padding: $paddingV $paddingH;
   border:  1px solid transparent;
   transition: all .3s ease-in-out;
 
@@ -26,12 +25,11 @@
   }
 }
 
-@mixin buttonStyleNegative($padding: 5px) {
+@mixin buttonStyleNegative($paddingV: 5px, $paddingH: 5px) {
   background-color: $text-color-hovered;
   color: $primary-button;
-  font-weight: 700;
   border-radius: 30px;
-  padding: $padding;
+  padding: $paddingV $paddingH;
   border:  1px solid transparent;
   transition: all .3s ease-in-out;
 
@@ -42,7 +40,7 @@
   }
 
   &:active {
-    background-color: $color-text-secondary;
+    background-color: $text-color-hovered;
     color: $button-active;
   }
 
@@ -68,7 +66,7 @@
   }
 }
 
-@mixin inputStyle($padding: 4px) {
+@mixin inputStyle($padding: 7px) {
   outline: none;
   border: 1.5px solid $dark-shadow;
   border-radius: 3px;

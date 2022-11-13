@@ -1,0 +1,44 @@
+@import "./../../../../styles/colors.scss";
+@import "./../../../../styles/variables.scss";
+
+.task {
+  display: flex;
+  padding: 20px 15px;
+  border: 1px solid $background-primary;
+  border-radius: $border-raduis-small;
+  justify-content: space-between;
+  gap: 5px;
+  color: $color-text-secondary;
+  background-color: $background-primary;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid $accent-color-lighter;
+  }
+}
+
+.taskContent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.title {
+  font-size: 16px;
+  color: $text-color;
+}
+
+.assignee {
+  font-size: 13px;
+}
+
+.removeTaskIcon {
+  opacity: 0.5;
+  transition: 0.3s ease;
+
+  &:hover {
+    color: $text-color;
+    width: 17px;
+  }
+}
