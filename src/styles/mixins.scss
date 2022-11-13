@@ -98,3 +98,11 @@
   color: $color-text-secondary;
   padding: $padding;
 }
+
+@mixin contentLimit($linesCount) {
+  display: -webkit-box;
+  overflow: hidden;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $linesCount;
+}
