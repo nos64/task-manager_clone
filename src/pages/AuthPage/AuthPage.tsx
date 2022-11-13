@@ -2,12 +2,13 @@ import { ROUTES } from 'common/routes';
 import AuthForm from 'components/AuthForm';
 import { useAppSelector } from 'hooks/redux';
 import useCurrentPage from 'hooks/useCurrentPage';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './AuthPage.module.scss';
 
-const Authorisation = () => {
+const AuthPage = () => {
   const isPending = useAppSelector((state) => state.user.isPending);
+  const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
 
   const navigate = useNavigate();
 
@@ -16,6 +17,12 @@ const Authorisation = () => {
   const switchPage = () => {
     isAuthPage ? navigate(ROUTES.SIGN_IN) : navigate(ROUTES.SIGN_UP);
   };
+
+  useEffect(() => {
+    if (isAuthorised) {
+      navigate(ROUTES.BOARDS);
+    }
+  }, [isAuthorised, navigate]);
 
   const title = isAuthPage ? 'Create new account' : 'Already with us?';
   const subtitle = isAuthPage ? 'Sign up to Task Manager' : 'Sign in to Task Manager';
@@ -39,4 +46,4 @@ const Authorisation = () => {
   );
 };
 
-export default Authorisation;
+export default AuthPage;
