@@ -3,22 +3,9 @@
 .wrapper {
   margin: auto;
   max-width: 600px;
+  margin-bottom: 30px;
 }
 
 .deleteBtn {
-  @include buttonStyleNegative(10px, 20px);
-  color: $warning-color;
-  border-color: $warning-color;
-  font-weight: 700;
-  width: fit-content;
-
-  &:hover {
-    background-color: $warning-color;
-    border-color: $warning-color;
-    color: inherit;
-  }
-
-  &:active {
-    color: inherit;
-  }
+  @include deleteButtonStyle;
 }

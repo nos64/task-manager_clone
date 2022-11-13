@@ -7,7 +7,8 @@
   padding: $paddingV $paddingH;
   border:  1px solid transparent;
   transition: all .3s ease-in-out;
-
+  width: fit-content;
+  
   &:hover {
     background-color: $button-hovered;
     color: $text-color-hovered;
@@ -32,6 +33,7 @@
   padding: $paddingV $paddingH;
   border:  1px solid transparent;
   transition: all .3s ease-in-out;
+  width: fit-content;
 
   &:hover {
     background-color: $text-color;
@@ -47,6 +49,28 @@
   &:disabled {
     background-color: $color-text-secondary;
     color: $button-disabled;
+  }
+}
+
+@mixin deleteButtonStyle($paddingV: 10px, $paddingH: 20px) {
+  background-color: $text-color-hovered;
+  color: $warning-color;
+  border-color: $warning-color;
+  border-radius: 30px;
+  padding: $paddingV $paddingH;
+  border:  1px solid transparent;
+  transition: all .3s ease-in-out;
+  font-weight: 700;
+  width: fit-content;
+
+  &:hover {
+    background-color: $warning-color;
+    border-color: $warning-color;
+    color: $text-color-hovered;
+  }
+
+  &:active {
+    color: $text-color-hovered;
   }
 }
 
