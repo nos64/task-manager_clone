@@ -1,0 +1,36 @@
+@import './../../styles/colors.scss';
+@import './../../styles/variables.scss';
+
+.toastMessage,
+.toastMessageWarning {
+  margin-top: 70px;
+  border-radius: $border-raduis-small;
+  background-color: $base-light-color !important;
+  color: $base-dark-color !important;
+  text-align: center;
+
+  & button svg path {
+    fill: $base-dark-color !important;
+  }
+}
+
+.toastMessage {
+  & svg path {
+    fill: $warning-color !important;
+  }
+}
+
+.toastMessageWarning {
+  & svg path {
+    fill: $base-dark-color !important;
+    fill: $warning-color-second !important;
+  }
+}
+
+.toastProgressBar {
+  background-color: $warning-color !important;
+}
+
+.toastProgressBarWarning {
+  background-color: $warning-color-second !important;
+}

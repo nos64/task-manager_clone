@@ -75,6 +75,9 @@ interface UserState {
   name: string;
   language: string;
   theme: string;
+  isLoginAlreadyExist: boolean;
+  isAuthorisationError: boolean;
+  isTokenExpired: boolean;
 }
 
 const initialState: UserState = {
@@ -84,6 +87,9 @@ const initialState: UserState = {
   name: '',
   language: 'EN',
   theme: 'dark',
+  isLoginAlreadyExist: false,
+  isAuthorisationError: false,
+  isTokenExpired: false,
 };
 
 export const userSlice = createSlice({
@@ -98,6 +104,8 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(signUpUser.pending, (state) => {
       state.isPending = true;
+      state.isLoginAlreadyExist = false;
+      state.isAuthorisationError = false;
     });
     builder.addCase(signUpUser.fulfilled, (state, action) => {
       state.isPending = false;
@@ -112,12 +120,19 @@ export const userSlice = createSlice({
 
       localStorage.setItem('token', action.payload.token.token || '');
     });
-    builder.addCase(signUpUser.rejected, (state) => {
+    builder.addCase(signUpUser.rejected, (state, action) => {
       state.isPending = false;
+
+      if (action.payload === StatusCodes.CONFLICT) {
+        state.isLoginAlreadyExist = true;
+      }
     });
 
     builder.addCase(signInUser.pending, (state) => {
       state.isPending = true;
+      state.isAuthorisationError = false;
+      state.isLoginAlreadyExist = false;
+      state.isTokenExpired = false;
     });
     builder.addCase(signInUser.fulfilled, (state, action) => {
       state.isPending = false;
@@ -134,7 +149,12 @@ export const userSlice = createSlice({
       state.isPending = false;
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
         state.isAuthorised = false;
+      }
+
+      if (action.payload === StatusCodes.AUTHORIZATION_ERROR) {
+        state.isAuthorisationError = true;
       }
     });
 
