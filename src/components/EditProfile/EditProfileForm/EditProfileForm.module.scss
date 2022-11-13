@@ -3,8 +3,8 @@
 
 .formWrapper {
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
   gap: 30px;
   margin: auto;
   max-width: 600px;
@@ -16,7 +16,7 @@
 
 .titleWrapper {
   display: flex;
-  align-items:center;
+  align-items: center;
   gap: 20px;
   text-transform: uppercase;
 }
@@ -40,9 +40,3 @@
     @include buttonStyleNegative(5px, 30px);
   }
 }
-
-
-
-
-
-
