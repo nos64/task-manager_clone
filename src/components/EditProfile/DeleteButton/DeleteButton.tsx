@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './DeleteButton.module.scss';
 import { FaTrashAlt } from 'react-icons/fa';
-import ConfirmModal from 'components/Modal';
+import Modal from 'components/Modal';
 import ConfirmDeleteText from './ConfirmDeleteText';
 
 const DeleteButton = () => {
@@ -14,9 +14,9 @@ const DeleteButton = () => {
           <FaTrashAlt /> DELETE ACCAUNT
         </button>
       </div>
-      <ConfirmModal modalActive={modalActive} setModalActive={setModalActive}>
+      <Modal modalActive={modalActive} setModalActive={setModalActive}>
         <ConfirmDeleteText />
-      </ConfirmModal>
+      </Modal>
     </>
   );
 };
