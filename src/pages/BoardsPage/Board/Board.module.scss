@@ -1,10 +1,11 @@
 @import "./../../../styles/colors.scss";
 @import "./../../../styles/variables.scss";
+@import "./../../../styles/mixins.scss";
 
 .board {
   display: flex;
   width: 230px;
-  height: 120px;
+  height: 125px;
   padding: 20px;
   border: 1px solid transparent;
   border-radius: $border-raduis-small;
@@ -27,11 +28,13 @@
 }
 
 .title {
+  @include contentLimit(1);
   font-size: 16px;
-  color: $text-color;
+  color: $text-color;  
 }
 
 .description {
+  @include contentLimit(2);
   font-size: 13px;
 }
 

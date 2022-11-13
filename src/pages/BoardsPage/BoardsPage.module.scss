@@ -1,5 +1,13 @@
+@import "./../../styles/colors.scss";
+
 .boardsContainer {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+}
+
+.title {
+  margin-bottom: 20px;
+  font-size: 25px;
+  color: $text-color;
 }
