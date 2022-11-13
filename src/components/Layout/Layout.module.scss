@@ -1,10 +1,16 @@
+
+@import "./../../styles/colors.scss";
+
 .wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #21222d;
+  background-color: $background-primary-darker;
 }
 
 .main {
-  flex-grow: 1;
+  display: flex;
+  padding: 25px 0;
+  flex-direction: column;
+  flex: 1 1 auto;
 }

@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import api from 'servecies';
+import api from 'services';
 import ITask from 'types/ITask';
 
 export const getTasksInColumn = async (boardId: string, columnId: string) => {

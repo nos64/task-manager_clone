@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
-import api from 'servecies';
-import IUser from 'types/IUsser';
+import api from 'services';
+import IUser from 'types/IUser';
 
 export const getUsers = async () => {
   return await api.get<AxiosError, Partial<IUser>>('/users');
