@@ -1,0 +1,22 @@
+@import '../../styles/extensions.scss';
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 359px;
+  max-width: 600px;
+  margin: auto;
+  padding: 30px;
+  background-color: $background-light;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px 1px $background-light-hovered;
+}
+
+.button {
+  @include buttonStyle(5px, 30px);
+  margin: 0 auto;
+  text-transform: uppercase;
+}
