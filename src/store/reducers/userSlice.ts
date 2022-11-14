@@ -170,6 +170,7 @@ export const userSlice = createSlice({
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isAuthorised = false;
+        state.isTokenExpired = true;
       }
     });
   },
