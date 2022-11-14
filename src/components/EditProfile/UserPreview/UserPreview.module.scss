@@ -10,7 +10,7 @@
 }
 
 .avatrWrapper {
-  display: flex;
+  @extend %centered;
   flex-direction: column;
   gap: 20px;
 

@@ -4,7 +4,7 @@ import styles from './Modal.module.scss';
 interface IConfirmModalProps {
   modalActive: boolean;
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const Modal: React.FC<IConfirmModalProps> = ({ modalActive, setModalActive, children }) => {
