@@ -7,35 +7,39 @@ import LangToggler from './LangToggler';
 import Navigation from './Navigation';
 import ThemeToggler from './ThemeToggler';
 import { GoPlus } from 'react-icons/go';
+import BurgerMenu from './BurgerMenu';
 
 const Header = () => {
-  const [openBurger, setOpenBurger] = useState(false);
+  const [isOpenBurger, setIsOpenBurger] = useState(false);
 
   return (
-    <header className={styles.header}>
-      <Container>
-        <div className={`${styles.headerContent}`}>
-          <div
-            className={openBurger ? styles.burger + ' ' + styles.active : styles.burger}
-            onClick={() => setOpenBurger(!openBurger)}
-          >
-            <span className={styles.burgerLine}></span>
+    <>
+      <header className={styles.header}>
+        <Container>
+          <div className={`${styles.headerContent}`}>
+            <div
+              className={isOpenBurger ? styles.burger + ' ' + styles.active : styles.burger}
+              onClick={() => setIsOpenBurger(!isOpenBurger)}
+            >
+              <span className={styles.burgerLine}></span>
+            </div>
+            <div className={styles.logo}>
+              <Link to={ROUTES.WELCOME}>Task Manager</Link>
+            </div>
+            <div className={styles.actions}>
+              <button className={styles.createBoardBtn}>
+                <GoPlus />
+                Create Board
+              </button>
+              <ThemeToggler />
+              <LangToggler />
+              <Navigation />
+            </div>
           </div>
-          <div className={styles.logo}>
-            <Link to={ROUTES.WELCOME}>Task Manager</Link>
-          </div>
-          <div className={styles.actions}>
-            <button className={styles.createBoardBtn}>
-              <GoPlus />
-              Create Board
-            </button>
-            <ThemeToggler />
-            <LangToggler />
-            <Navigation />
-          </div>
-        </div>
-      </Container>
-    </header>
+        </Container>
+      </header>
+      <BurgerMenu isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
+    </>
   );
 };
 
