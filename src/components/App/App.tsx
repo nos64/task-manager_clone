@@ -12,6 +12,8 @@ import { getUserById } from 'store/reducers/userSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './App.module.scss';
+import NotFoundPage from 'pages/NotFoundPage';
+import ProtectedRoute from 'components/ProtectedRoute';
 
 const App: React.FC = () => {
   const isLoginAlreadyExist = useAppSelector((state) => state.user.isLoginAlreadyExist);
@@ -51,13 +53,30 @@ const App: React.FC = () => {
     <>
       <Routes>
         <Route path={ROUTES.WELCOME} element={<Layout />}>
-          {/* <Route index element={<WelcomePage />} /> */}
-          <Route path={ROUTES.SIGN_IN} element={<AuthPage />} />
-          <Route path={ROUTES.SIGN_UP} element={<AuthPage />} />
-          <Route path={ROUTES.PROFILE} element={<EditProfilePage />} />
-          <Route path={ROUTES.BOARDS} element={<BoardsPage />} />
-          <Route path={ROUTES.BOARD} element={<BoardPage />} />
-          {/* <Route path="*" element={<NotFound />} /> */}
+          <Route
+            element={
+              <ProtectedRoute
+                isAllowed={!localStorage.getItem('token')}
+                redirectPath={ROUTES.BOARDS}
+              />
+            }
+          >
+            <Route path={ROUTES.SIGN_IN} element={<AuthPage />} />
+            <Route path={ROUTES.SIGN_UP} element={<AuthPage />} />
+          </Route>
+          <Route
+            element={
+              <ProtectedRoute
+                isAllowed={!!localStorage.getItem('token')}
+                redirectPath={ROUTES.WELCOME}
+              />
+            }
+          >
+            <Route path={ROUTES.PROFILE} element={<EditProfilePage />} />
+            <Route path={ROUTES.BOARDS} element={<BoardsPage />} />
+            <Route path={ROUTES.BOARD} element={<BoardPage />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
       <ToastContainer className={styles.toastError} rtl />
