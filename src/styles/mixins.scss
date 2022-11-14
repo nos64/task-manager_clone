@@ -5,10 +5,10 @@
   color: $text-color;
   border-radius: 30px;
   padding: $paddingV $paddingH;
-  border:  1px solid transparent;
-  transition: all .3s ease-in-out;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
   width: fit-content;
-  
+
   &:hover {
     background-color: $button-hovered;
     color: $text-color-hovered;
@@ -21,8 +21,13 @@
   }
 
   &:disabled {
+    color: $text-color-hovered;
     background-color: $button-disabled;
-    color: $color-text-secondary;
+    cursor: not-allowed;
+  }
+
+  &:disabled:hover {
+    border: 1px solid transparent;
   }
 }
 
@@ -31,8 +36,8 @@
   color: $primary-button;
   border-radius: 30px;
   padding: $paddingV $paddingH;
-  border:  1px solid transparent;
-  transition: all .3s ease-in-out;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
   width: fit-content;
 
   &:hover {
@@ -58,8 +63,8 @@
   border-color: $warning-color;
   border-radius: 30px;
   padding: $paddingV $paddingH;
-  border:  1px solid transparent;
-  transition: all .3s ease-in-out;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
   font-weight: 700;
   width: fit-content;
 
@@ -78,7 +83,7 @@
   background-color: $background-light;
   border-radius: 10px;
   cursor: grab;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
     background-color: $background-light-hovered;
