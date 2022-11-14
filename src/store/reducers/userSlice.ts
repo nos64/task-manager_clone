@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { signIn, signUp } from 'api/auth';
 import jwt_decode from 'jwt-decode';
-import IUser from 'types/IUsser';
 import { AxiosError } from 'axios';
 import { getUser } from 'api/users';
 import IJWTDecode from 'types/IJWTDecode';
 import updateStorage from 'utils/updateStorage';
 import StatusCodes from 'common/statusCodes';
+import { SignInPick, UserPick } from 'types/APIModel';
 
 export const signUpUser = createAsyncThunk(
   'user/signUpUser',
-  async (options: Pick<IUser, 'login' | 'name' | 'password'>, { rejectWithValue }) => {
+  async (options: UserPick, { rejectWithValue }) => {
     try {
       const userInfo = await signUp(options);
       const token = await signIn({ login: options.login, password: options.password });
@@ -31,7 +31,7 @@ export const signUpUser = createAsyncThunk(
 
 export const signInUser = createAsyncThunk(
   'user/signInUser',
-  async (options: Pick<IUser, 'login' | 'password'>, { rejectWithValue }) => {
+  async (options: SignInPick, { rejectWithValue }) => {
     try {
       const response = await signIn(options);
       const tokenInfo: IJWTDecode = jwt_decode(response.token || '');
