@@ -9,7 +9,6 @@ const UserPreview = () => {
   const [modalActive, setModalActive] = useState(false);
   const [avatarsArray, setAvatarArray] = useState(avatars);
   const [currentAvatar, setCurrentAvatar] = useState(avatars[0]);
-
   const name = useAppSelector((state) => state.user.name);
   const login = useAppSelector((state) => state.user.login);
 
