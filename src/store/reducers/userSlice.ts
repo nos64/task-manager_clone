@@ -160,9 +160,16 @@ export const userSlice = createSlice({
     builder.addCase(getUserById.pending, (state) => {
       state.isPending = true;
     });
-    builder.addCase(getUserById.fulfilled, (state) => {
+    builder.addCase(getUserById.fulfilled, (state, action) => {
       state.isPending = false;
       state.isAuthorised = true;
+
+      const userInfo = updateStorage(action.payload._id, action.payload);
+
+      state.login = userInfo.login || state.login;
+      state.name = userInfo.name || state.name;
+      state.language = userInfo.language || state.language;
+      state.theme = userInfo.theme || state.theme;
     });
     builder.addCase(getUserById.rejected, (state, action) => {
       state.isPending = false;
