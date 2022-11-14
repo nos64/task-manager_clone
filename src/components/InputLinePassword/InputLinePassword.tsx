@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useState } from 'react';
+import React, { InputHTMLAttributes, useEffect, useState } from 'react';
 import styles from './InputLinePassword.module.scss';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
@@ -7,9 +7,15 @@ interface IInputLineProps extends InputHTMLAttributes<HTMLInputElement> {
   inputName: string;
   label: string;
   register: UseFormRegister<FieldValues>;
+  fieldValue: string;
 }
 
-const InputLinePassword: React.FC<IInputLineProps> = ({ inputName, label, register }) => {
+const InputLinePassword: React.FC<IInputLineProps> = ({
+  inputName,
+  label,
+  register,
+  fieldValue,
+}) => {
   const [isClicked, setIsClicked] = useState(false);
   const [value, setValue] = useState('');
 
@@ -17,11 +23,9 @@ const InputLinePassword: React.FC<IInputLineProps> = ({ inputName, label, regist
     setIsClicked(!isClicked);
   };
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setValue(e.target.value);
-  };
+  useEffect(() => {
+    setValue(fieldValue);
+  }, [fieldValue]);
 
   return (
     <div className={styles.inputWrapper}>
@@ -36,7 +40,6 @@ const InputLinePassword: React.FC<IInputLineProps> = ({ inputName, label, regist
         })}
         autoComplete="off"
         type={!isClicked ? 'password' : 'text'}
-        onChange={handleChange}
       />
       <label className={!value.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
       <button className={styles.showPassword} type="button" onClick={handleBtnClick}>

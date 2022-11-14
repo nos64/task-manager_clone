@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useState } from 'react';
+import React, { InputHTMLAttributes, useEffect, useState } from 'react';
 import styles from './InputLineText.module.scss';
 import { DeepMap, FieldError, FieldValues, UseFormRegister } from 'react-hook-form';
 
@@ -12,16 +12,22 @@ interface IInputLineProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   placeholder: string;
   register: UseFormRegister<FieldValues>;
+  fieldValue: string;
 }
 
-const InputLineText: React.FC<IInputLineProps> = ({ inputName, label, placeholder, register }) => {
+const InputLineText: React.FC<IInputLineProps> = ({
+  inputName,
+  label,
+  placeholder,
+  register,
+  fieldValue,
+}) => {
   const [value, setValue] = useState('');
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setValue(e.target.value);
-  };
+  useEffect(() => {
+    setValue(fieldValue);
+  }, [fieldValue]);
+
   return (
     <>
       <div className={styles.inputWrapper}>
@@ -37,7 +43,6 @@ const InputLineText: React.FC<IInputLineProps> = ({ inputName, label, placeholde
           })}
           placeholder={placeholder}
           autoComplete="off"
-          onChange={handleChange}
         />
         <label className={!value.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
       </div>
