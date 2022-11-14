@@ -15,6 +15,8 @@ const Navigation = () => {
 
   const handleSignOutClick = () => {
     dispatch(setIsAuthorised(false));
+    localStorage.removeItem('token');
+
     setIsMenuOpened(false);
   };
 

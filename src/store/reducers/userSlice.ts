@@ -98,7 +98,6 @@ export const userSlice = createSlice({
   reducers: {
     setIsAuthorised(state, action: PayloadAction<false>) {
       state.isAuthorised = action.payload;
-      localStorage.removeItem('token');
     },
   },
   extraReducers: (builder) => {
