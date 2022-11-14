@@ -14,7 +14,7 @@ const AuthForm = () => {
 
   const isAuthPage = useCurrentPage();
 
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [fileldsValues, setFieldsValues] = useState<Partial<IUser>>({});
 
@@ -48,13 +48,13 @@ const AuthForm = () => {
   const checkErrors = useCallback(async () => {
     if (hasError) {
       const result = await trigger();
-      setIsDisabled(!result);
+      setIsSubmitBtnDisabled(!result);
     }
   }, [hasError, trigger]);
 
   const onChange = async () => {
     if (!hasError) {
-      setIsDisabled(false);
+      setIsSubmitBtnDisabled(false);
     } else {
       await checkErrors();
     }
@@ -65,7 +65,7 @@ const AuthForm = () => {
 
   const onError = () => {
     setHasError(true);
-    setIsDisabled(true);
+    setIsSubmitBtnDisabled(true);
   };
 
   return (
@@ -97,7 +97,7 @@ const AuthForm = () => {
         fieldValue={fileldsValues.password || ''}
       />
       <ValidationErrorMessage message={errors.password && 'Required, min 6 symbols'} />
-      <button className={styles.button} disabled={isDisabled}>
+      <button className={styles.button} disabled={isSubmitBtnDisabled}>
         {isAuthPage ? 'Sign up' : 'Sign in'}
       </button>
     </form>
