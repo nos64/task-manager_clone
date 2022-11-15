@@ -10,7 +10,7 @@
   position: absolute;
   opacity: 0;
   pointer-events: none;
-  z-index: 100;
+  z-index: 10;
 
   &.active {
     pointer-events: all;
@@ -26,11 +26,11 @@
   position: fixed;
   left: 0;
   transform: translateX(-100%);
-  transition: all .3s ease;
-  z-index: 100;
+  z-index: 10;
+  transition: 0.3s;
 
   &.active {
-    transform: translateX(0);
+    transform: translateX(0%);
   }
 
 }
@@ -38,18 +38,19 @@
 .menuContent {
   padding-top: 50px;
   text-align: center;
+  width: 60%;
   width: 300px;
   height: 100%;
   background-color: $base-dark-color;
   color: $base-light-color;
-  transition: all 0.3s ease-in-out;
   box-shadow: 0px 0px 4px 1px $background-light-hovered;
+  // transition: all 0.3s ease-in-out;
 }
 
 .menuHeader {
   padding: 10px;
   padding-top: 20px;
-  border-bottom: 2px solid $base-light-color;
+  border-bottom: 1px solid $dark-shadow;
   width: 100%;
 }
 

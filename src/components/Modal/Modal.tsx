@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Modal.module.scss';
+import { scrollController } from '../../utils/scrollController';
 
 interface IConfirmModalProps {
   modalActive: boolean;
@@ -8,6 +9,10 @@ interface IConfirmModalProps {
 }
 
 const Modal: React.FC<IConfirmModalProps> = ({ modalActive, setModalActive, children }) => {
+  useEffect(() => {
+    modalActive ? scrollController.disbleScroll() : scrollController.enableScroll();
+  }, [modalActive]);
+
   return (
     <div
       className={modalActive ? styles.modal + ' ' + styles.active : styles.modal}

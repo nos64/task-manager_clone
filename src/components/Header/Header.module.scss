@@ -24,7 +24,7 @@
   height: 30px;
   margin-right: 20px;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 51;
 }
 
 .burgerLine,
@@ -83,7 +83,7 @@
   align-items: center;
   font-size: 24px;
   font-weight: bold;
-  // transition: 0.3s ease;
+  transition: color 0.3s ease;
 
   &:hover {
     color: $text-color-hovered;

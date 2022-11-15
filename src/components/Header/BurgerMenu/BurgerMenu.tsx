@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './BurgerMenu.module.scss';
 import { useAppSelector } from 'hooks/redux';
 import { NavLink } from 'react-router-dom';
-
+import { scrollController } from '../../../utils/scrollController';
 interface IBurgerMenuProps {
   isOpenBurger: boolean;
   setIsOpenBurger: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger }) => {
   const userName = useAppSelector((state) => state.user.name);
+
+  useEffect(() => {
+    isOpenBurger ? scrollController.disbleScroll() : scrollController.enableScroll();
+  }, [isOpenBurger]);
 
   const boards = [
     {
