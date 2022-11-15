@@ -54,6 +54,7 @@ const App: React.FC = () => {
     <>
       <Routes>
         <Route path={ROUTES.WELCOME} element={<Layout />}>
+          {/* <Route index element={<WelcomePage />} /> */}
           <Route
             element={<ProtectedRoute isAllowed={!isRoutesProtected} redirectPath={ROUTES.BOARDS} />}
           >
