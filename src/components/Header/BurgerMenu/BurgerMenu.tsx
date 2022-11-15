@@ -11,7 +11,7 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger 
   const userName = useAppSelector((state) => state.user.name);
 
   useEffect(() => {
-    isOpenBurger ? scrollController.disbleScroll() : scrollController.enableScroll();
+    isOpenBurger ? scrollController.disableScroll() : scrollController.enableScroll();
   }, [isOpenBurger]);
 
   const boards = [

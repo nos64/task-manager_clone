@@ -10,7 +10,7 @@ interface IConfirmModalProps {
 
 const Modal: React.FC<IConfirmModalProps> = ({ modalActive, setModalActive, children }) => {
   useEffect(() => {
-    modalActive ? scrollController.disbleScroll() : scrollController.enableScroll();
+    modalActive ? scrollController.disableScroll() : scrollController.enableScroll();
   }, [modalActive]);
 
   return (

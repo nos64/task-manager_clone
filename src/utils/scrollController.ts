@@ -1,6 +1,6 @@
 export const scrollController = {
   scrollPosition: 0,
-  disbleScroll() {
+  disableScroll() {
     scrollController.scrollPosition = window.scrollY;
     document.body.style.cssText = `
       overflow: hidden;
