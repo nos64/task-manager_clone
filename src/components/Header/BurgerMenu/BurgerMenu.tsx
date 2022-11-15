@@ -30,10 +30,8 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger 
   ];
 
   return (
-    <div
-      className={isOpenBurger ? `${styles.overlay} ${styles.active}` : styles.overlay}
-      onClick={() => setIsOpenBurger(false)}
-    >
+    <>
+      <div className={isOpenBurger ? `${styles.overlay} ${styles.active}` : styles.overlay}></div>
       <div
         className={isOpenBurger ? `${styles.menu} ${styles.active}` : styles.menu}
         onClick={() => setIsOpenBurger(false)}
@@ -63,7 +61,8 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger 
           </ul>
         </div>
       </div>
-    </div>
+    </>
+    // </div>
   );
 };
 
