@@ -2,60 +2,48 @@
 @import '../../../styles/extensions.scss';
 @import '../../../styles/mixins.scss';
 
-.menu {
-  position: fixed;
+.overlay {
   width: 100vw;
   height: 100vh;
-  // height: calc(100vh - 146px);
-  // background-color: rgba(0, 0, 0, .7);
-  position: fixed;
-  // padding-top: 100px;
-  // top: 77px;
-  left: 0;
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
-  // opacity: 0;
-  // pointer-events: none;
-  // z-index: 100;
-  // transition: all .3s ease-in-out;
-  transform: translateX(-130%);
-  transition: all 0.2s;
-  z-index: 100;
-}
-
-.menu.active {
-  transform: translateX(0);
-}
-
-.blur {
-  width: 100vw;
-  height: 100vh;
-  // left: 30%;
   backdrop-filter: blur(2px);
   background-color: rgba(0, 0, 0, .5);
   position: absolute;
   opacity: 0;
   pointer-events: none;
+  z-index: 100;
+
+  &.active {
+    pointer-events: all;
+    opacity: 1;
+  }
+
 }
 
-.blur.active {
-  pointer-events: all;
-  opacity: 1;
+.menu {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  transform: translateX(-100%);
+  transition: all .3s ease;
+  z-index: 100;
+
+  &.active {
+    transform: translateX(0);
+  }
+
 }
 
 .menuContent {
-  // @extend %centered;
-  // display: flex;
-  // flex-direction: column;
-  // align-items:center;
-  padding-top: 100px;
+  padding-top: 50px;
   text-align: center;
-  width: 30%;
+  width: 300px;
   height: 100%;
-  background-color:$background-primary;
+  background-color: $base-dark-color;
   color: $base-light-color;
   transition: all 0.3s ease-in-out;
+  box-shadow: 0px 0px 4px 1px $background-light-hovered;
 }
 
 .menuHeader {
@@ -73,7 +61,8 @@
 .inputWrapper {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 95%;
+  margin: 0 auto;
   margin-bottom: 5px;
   height: 40px;
 
@@ -82,7 +71,9 @@
     font-size: 18px;
     z-index: 2;
   }
+
 }
+
 .boardList {
   display: flex;
   flex-direction: column;
@@ -99,7 +90,14 @@
   
   &:hover {
     background-color: $background-hovered;
-    border: 1px solid $base-light-color;
+    border: 1px solid $base-dark-lighter-color;
   }
+
+  .navLink {
+    padding: 0 10px;
+    @include contentLimit(1);
+  }
+
 }
+
 

@@ -13,7 +13,7 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger 
   const boards = [
     {
       _id: '1',
-      title: 'Board 0',
+      title: 'Board 11111111111111111111111111111111 1111111111111111111111111111111111111111',
       description:
         'board description 11111111111111111111111111111111 1111111111111111111111111111111111111111',
     },
@@ -27,21 +27,21 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger 
 
   return (
     <div
-      className={isOpenBurger ? styles.blur + ' ' + styles.active : styles.blur}
+      className={isOpenBurger ? `${styles.overlay} ${styles.active}` : styles.overlay}
       onClick={() => setIsOpenBurger(false)}
     >
       <div
-        className={isOpenBurger ? styles.menu + ' ' + styles.active : styles.menu}
+        className={isOpenBurger ? `${styles.menu} ${styles.active}` : styles.menu}
         onClick={() => setIsOpenBurger(false)}
       >
         <div className={styles.menuContent}>
           <div className={styles.menuHeader}>
             <h2>{userName}</h2>
-            <h2>userName</h2>
           </div>
           <div className={styles.borderListTitle}>My Boards</div>
           <div className={styles.inputWrapper}>
             <input
+              onClick={(e) => e.stopPropagation()}
               className={styles.inputLine}
               type="search"
               placeholder="Search..."

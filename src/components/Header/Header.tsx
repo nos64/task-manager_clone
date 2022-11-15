@@ -23,7 +23,7 @@ const Header = () => {
             >
               <span className={styles.burgerLine}></span>
             </div>
-            <div className={styles.logo}>
+            <div className={isOpenBurger ? styles.logo + ' ' + styles.activeBurger : styles.logo}>
               <Link to={ROUTES.WELCOME}>Task Manager</Link>
             </div>
             <div className={styles.actions}>
@@ -31,11 +31,9 @@ const Header = () => {
                 <GoPlus />
                 Create Board
               </button>
+              <ThemeToggler />
+              <LangToggler />
               <Navigation />
-              <div className={styles.themeLangWrapper}>
-                <ThemeToggler />
-                <LangToggler />
-              </div>
             </div>
           </div>
         </Container>

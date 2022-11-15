@@ -39,32 +39,40 @@
   background-color: $accent-color;
   transition: all 0.4s ease-in-out;
 }
-
+.active {
+  position: absolute;
+  left: 0;
+  padding-left: 20px;
+}
 .burgerLine:before{
   content: "";
   background-color: $accent-color-darker;
   top: -10px;
-  transition: top 0.2s 0.2s, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: top 0.2s 0.2s,
+  transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .burgerLine:after {
   content: "";
   background-color: $accent-color-lighter;
   bottom: -10px;
-  transition: bottom 0.2s 0.2s, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: bottom 0.2s 0.2s,
+  transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .active .burgerLine:before{
   content: "";
   top: 0px;
   transform: rotate(45deg);
-  transition: top 0.2s, transform 0.2s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: top 0.2s,
+  transform 0.2s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 .active .burgerLine:after{
   content: "";
   bottom: 0;
   transform: rotate(-45deg);
-  transition: bottom 0.2s, transform 0.2s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: bottom 0.2s,
+  transform 0.2s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 .active .burgerLine{
   background: transparent; 
@@ -75,10 +83,13 @@
   align-items: center;
   font-size: 24px;
   font-weight: bold;
-  transition: 0.3s ease;
+  // transition: 0.3s ease;
 
   &:hover {
     color: $text-color-hovered;
+  }
+  &.activeBurger {
+    margin-left: 55px;
   }
 }
 
