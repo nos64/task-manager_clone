@@ -62,7 +62,6 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger 
         </div>
       </div>
     </>
-    // </div>
   );
 };
 

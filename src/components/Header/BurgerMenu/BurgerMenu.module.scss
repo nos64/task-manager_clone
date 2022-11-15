@@ -9,12 +9,13 @@
   background-color: rgba(0, 0, 0, .5);
   position: absolute;
   opacity: 0;
+  pointer-events: none;
   z-index: 9;
 
   &.active {
+    pointer-events: all;
     opacity: 1;
   }
-
 }
 
 .menu {
@@ -25,7 +26,7 @@
   left: 0;
   transform: translateX(-100%);
   z-index: 10;
-  transition: all .7s ease;
+  transition: all .6s ease;
 
   &.active {
     transform: translateX(0%);
@@ -42,7 +43,7 @@
   color: $base-light-color;
   box-shadow: 0px 0px 4px 1px $background-light-hovered;
   z-index: 50;
-  transition: all .7s ease;
+  transition: all .6s ease;
 }
 
 .menuHeader {
@@ -70,7 +71,6 @@
     font-size: 18px;
     z-index: 2;
   }
-
 }
 
 .boardList {
@@ -96,7 +96,6 @@
     padding: 0 10px;
     @include contentLimit(1);
   }
-
 }
 
 
