@@ -19,6 +19,7 @@ const App: React.FC = () => {
   const isLoginAlreadyExist = useAppSelector((state) => state.user.isLoginAlreadyExist);
   const isAuthorisationError = useAppSelector((state) => state.user.isAuthorisationError);
   const isTokenExpired = useAppSelector((state) => state.user.isTokenExpired);
+  const isRoutesProtected = useAppSelector((state) => state.user.isRoutesProtected);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -54,23 +55,13 @@ const App: React.FC = () => {
       <Routes>
         <Route path={ROUTES.WELCOME} element={<Layout />}>
           <Route
-            element={
-              <ProtectedRoute
-                isAllowed={!localStorage.getItem('token')}
-                redirectPath={ROUTES.BOARDS}
-              />
-            }
+            element={<ProtectedRoute isAllowed={!isRoutesProtected} redirectPath={ROUTES.BOARDS} />}
           >
             <Route path={ROUTES.SIGN_IN} element={<AuthPage />} />
             <Route path={ROUTES.SIGN_UP} element={<AuthPage />} />
           </Route>
           <Route
-            element={
-              <ProtectedRoute
-                isAllowed={!!localStorage.getItem('token')}
-                redirectPath={ROUTES.WELCOME}
-              />
-            }
+            element={<ProtectedRoute isAllowed={isRoutesProtected} redirectPath={ROUTES.WELCOME} />}
           >
             <Route path={ROUTES.PROFILE} element={<EditProfilePage />} />
             <Route path={ROUTES.BOARDS} element={<BoardsPage />} />
