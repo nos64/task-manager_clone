@@ -29,12 +29,19 @@
 }
 
 .blur {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  left: 30%;
+  // left: 30%;
   backdrop-filter: blur(2px);
   background-color: rgba(0, 0, 0, .5);
   position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.blur.active {
+  pointer-events: all;
+  opacity: 1;
 }
 
 .menuContent {
@@ -48,7 +55,7 @@
   height: 100%;
   background-color:$background-primary;
   color: $base-light-color;
-  transition: all 0.6s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .menuHeader {

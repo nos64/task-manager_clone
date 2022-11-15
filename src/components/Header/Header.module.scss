@@ -73,7 +73,7 @@
 .logo {
   display: flex;
   align-items: center;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
   transition: 0.3s ease;
 
@@ -113,4 +113,10 @@
     background-color: $accent-color-hovered;
     cursor: pointer;
   }  
+}
+
+.themeLangWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }

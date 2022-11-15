@@ -27,33 +27,37 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger 
 
   return (
     <div
-      className={isOpenBurger ? styles.menu + ' ' + styles.active : styles.menu}
+      className={isOpenBurger ? styles.blur + ' ' + styles.active : styles.blur}
       onClick={() => setIsOpenBurger(false)}
     >
-      <div className={styles.blur} />
-      <div className={styles.menuContent}>
-        <div className={styles.menuHeader}>
-          <h2>{userName}</h2>
-          <h2>userName</h2>
+      <div
+        className={isOpenBurger ? styles.menu + ' ' + styles.active : styles.menu}
+        onClick={() => setIsOpenBurger(false)}
+      >
+        <div className={styles.menuContent}>
+          <div className={styles.menuHeader}>
+            <h2>{userName}</h2>
+            <h2>userName</h2>
+          </div>
+          <div className={styles.borderListTitle}>My Boards</div>
+          <div className={styles.inputWrapper}>
+            <input
+              className={styles.inputLine}
+              type="search"
+              placeholder="Search..."
+              autoComplete="off"
+            />
+          </div>
+          <ul className={styles.boardList}>
+            {boards.map((board) => (
+              <li className={styles.boardItem} key={board._id}>
+                <NavLink className={styles.navLink} to={'#'}>
+                  {board.title}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className={styles.borderListTitle}>My Boards</div>
-        <div className={styles.inputWrapper}>
-          <input
-            className={styles.inputLine}
-            type="search"
-            placeholder="Search..."
-            autoComplete="off"
-          />
-        </div>
-        <ul className={styles.boardList}>
-          {boards.map((board) => (
-            <li className={styles.boardItem} key={board._id}>
-              <NavLink className={styles.navLink} to={'#'}>
-                {board.title}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   );
