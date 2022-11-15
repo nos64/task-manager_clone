@@ -31,9 +31,11 @@ const Header = () => {
                 <GoPlus />
                 Create Board
               </button>
-              <ThemeToggler />
-              <LangToggler />
               <Navigation />
+              <div className={styles.themeLangWrapper}>
+                <ThemeToggler />
+                <LangToggler />
+              </div>
             </div>
           </div>
         </Container>

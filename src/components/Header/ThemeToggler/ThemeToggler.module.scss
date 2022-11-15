@@ -3,16 +3,16 @@
 
 .themeToggler {
   @extend %centered;
-  width: 44px;
-  height: 44px;
+  width: 22px;
+  height: 22px;
   border: 2px solid $base-light-color;
   border-radius: 50%;
   background-color: $base-light-color;
   cursor: pointer;
 
   .themeIcon {
-    width: 27px;
-    height: 27px;
+    width: 15px;
+    height: 15px;
     font-weight: bold;
     color: $base-dark-color;
     transition: 0.4s;
