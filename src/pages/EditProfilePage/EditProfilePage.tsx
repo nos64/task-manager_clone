@@ -6,12 +6,13 @@ import styles from './EditProfilePage.module.scss';
 
 const EditProfilePage = () => {
   return (
-    <section className={styles.wrapper}>
-      <div className={styles.contentWrapper}></div>
-      <UserPreview />
-      <EditProfileForm />
-      <DeleteButton />
-    </section>
+    <div className={styles.wrapper}>
+      <section className={styles.content}>
+        <UserPreview />
+        <EditProfileForm />
+        <DeleteButton />
+      </section>
+    </div>
   );
 };
 
