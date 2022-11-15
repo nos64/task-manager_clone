@@ -2,7 +2,7 @@ import { ROUTES } from 'common/routes';
 import Layout from 'components/Layout';
 import BoardsPage from 'pages/BoardsPage';
 import EditProfilePage from 'pages/EditProfilePage';
-import BoardPage from 'pages/BoardPage/BoardPage';
+import BoardPage from 'pages/BoardPage';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
