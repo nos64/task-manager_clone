@@ -78,6 +78,7 @@ interface UserState {
   isLoginAlreadyExist: boolean;
   isAuthorisationError: boolean;
   isTokenExpired: boolean;
+  isRoutesProtected: boolean;
 }
 
 const initialState: UserState = {
@@ -90,6 +91,7 @@ const initialState: UserState = {
   isLoginAlreadyExist: false,
   isAuthorisationError: false,
   isTokenExpired: false,
+  isRoutesProtected: !!localStorage.getItem('token'),
 };
 
 export const userSlice = createSlice({
@@ -98,6 +100,7 @@ export const userSlice = createSlice({
   reducers: {
     setIsAuthorised(state, action: PayloadAction<false>) {
       state.isAuthorised = action.payload;
+      state.isRoutesProtected = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -136,6 +139,7 @@ export const userSlice = createSlice({
     builder.addCase(signInUser.fulfilled, (state, action) => {
       state.isPending = false;
       state.isAuthorised = true;
+      state.isRoutesProtected = true;
 
       const userInfo = updateStorage(action.payload._id, action.payload);
 
@@ -150,6 +154,7 @@ export const userSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
         state.isAuthorised = false;
+        state.isRoutesProtected = false;
       }
 
       if (action.payload === StatusCodes.AUTHORIZATION_ERROR) {
@@ -160,9 +165,16 @@ export const userSlice = createSlice({
     builder.addCase(getUserById.pending, (state) => {
       state.isPending = true;
     });
-    builder.addCase(getUserById.fulfilled, (state) => {
+    builder.addCase(getUserById.fulfilled, (state, action) => {
       state.isPending = false;
       state.isAuthorised = true;
+
+      const userInfo = updateStorage(action.payload._id, action.payload);
+
+      state.login = userInfo.login || state.login;
+      state.name = userInfo.name || state.name;
+      state.language = userInfo.language || state.language;
+      state.theme = userInfo.theme || state.theme;
     });
     builder.addCase(getUserById.rejected, (state, action) => {
       state.isPending = false;
@@ -170,6 +182,7 @@ export const userSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isAuthorised = false;
         state.isTokenExpired = true;
+        state.isRoutesProtected = false;
       }
     });
   },
