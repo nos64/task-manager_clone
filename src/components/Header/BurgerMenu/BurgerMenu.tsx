@@ -37,6 +37,12 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger 
         onClick={() => setIsOpenBurger(false)}
       >
         <div className={styles.menuContent} onClick={(e) => e.stopPropagation()}>
+          <div
+            className={isOpenBurger ? styles.burger + ' ' + styles.active : styles.burger}
+            onClick={() => setIsOpenBurger(!isOpenBurger)}
+          >
+            <span className={styles.burgerLine}></span>
+          </div>
           <div className={styles.menuHeader}>
             <h2>{userName}</h2>
           </div>
