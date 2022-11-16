@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Modal.module.scss';
+import { scrollController } from '../../utils/scrollController';
 
 interface IConfirmModalProps {
   modalActive: boolean;
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const Modal: React.FC<IConfirmModalProps> = ({ modalActive, setModalActive, children }) => {
+  useEffect(() => {
+    modalActive ? scrollController.disableScroll() : scrollController.enableScroll();
+  }, [modalActive]);
+
   return (
     <div
       className={modalActive ? styles.modal + ' ' + styles.active : styles.modal}
@@ -20,14 +25,6 @@ const Modal: React.FC<IConfirmModalProps> = ({ modalActive, setModalActive, chil
         onClick={(e) => e.stopPropagation()}
       >
         {children}
-        <div className={styles.buttonsWrapper}>
-          <button className={styles.deleteBtn} type="button">
-            DELETE
-          </button>
-          <button className={styles.submitBtn} type="button" onClick={() => setModalActive(false)}>
-            CANCEL
-          </button>
-        </div>
       </div>
     </div>
   );

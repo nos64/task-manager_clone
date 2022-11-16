@@ -1,5 +1,5 @@
-@import "./../../../styles/colors.scss";
-@import "./../../../styles/variables.scss";
+@import './../../../styles/colors.scss';
+@import './../../../styles/variables.scss';
 
 .nav {
   position: relative;
@@ -14,11 +14,6 @@
   color: $text-color;
   transition: 0.3s linear;
 
-  &:nth-child(4),
-  &:last-child {
-    display: none;
-  }
-
   &:hover {
     color: $accent-color;
   }
@@ -29,79 +24,55 @@
   background-color: $accent-color;
 }
 
-.user {
-  display: none;
-  padding-right: 10px;
+.userContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.user,
+.userDisabled {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 38px;
+  height: 38px;
+  padding-top: 5px;
+  border: 2px solid $accent-color;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: 0.3s ease;
   cursor: pointer;
+
+  &:hover {
+    border-color: $accent-color-darker;
+  }
+}
+
+.userDisabled {
+  border-color: $accent-color-darker;
 }
 
 .userAvatar {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+
+.overlay {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  border-radius: 24px;
+  background-color: transparent;
   cursor: pointer;
 }
 
 .userName {
   color: $text-color;
   transition: 0.3s ease;
-  
+
   &:hover {
     color: $text-color-hovered;
-  }
-}
-
-.authorized {
-  .user {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .navList {
-    position: absolute;
-    right: 0;
-    top: 75px;
-    display: none;
-    width: 100%;
-    min-width: 170px;
-    padding: 20px 30px 20px;
-    border-radius: $border-raduis-small;
-    flex-direction: column;
-    background-color: $background-primary;
-
-    &::before {
-      content: '';
-      position: absolute;
-      right: 50%;
-      top: -20px;
-      margin-right: -10px;
-      border: 10px solid transparent;
-      border-bottom: 10px solid $background-primary;
-    }
-  }
-
-  .navItem {
-    display: block;
-    padding: 5px 0;
-
-    &:first-child,
-    &:nth-child(3) {
-      display: none;
-    }
-  }
-
-  .navLink {
-    white-space: nowrap;
-  }
-
-  .navSeparator {
-    display: none;
-  }
-}
-
-.opened {
-  .navList {
-    display: block;
   }
 }

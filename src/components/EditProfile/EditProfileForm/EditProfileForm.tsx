@@ -1,21 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './EditProfileForm.module.scss';
 import { FaUserEdit } from 'react-icons/fa';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import ValidationErrorMessage from '../../ValidationErrorMessage';
 import InputLinePassword from 'components/InputLinePassword';
 import InputLineText from 'components/InputLineText';
+import IUser from 'types/IUser';
 
 const EditProfileForm = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<FieldValues>();
+    getValues,
+    reset,
+  } = useForm<Partial<IUser>>();
+
+  const [fileldsValues, setFieldsValues] = useState<Partial<IUser>>({});
+
+  const onChange = () => {
+    const currentFieldsValues = getValues();
+
+    setFieldsValues(currentFieldsValues);
+  };
+
+  const onReset = () => {
+    setFieldsValues({});
+    reset({
+      name: '',
+      login: '',
+      password: '',
+    });
+  };
 
   const handlerSubmitForm: SubmitHandler<FieldValues> = (data) => console.log(data);
-
-  const handleCancelChange = () => {};
 
   return (
     <div className={styles.formWrapper}>
@@ -24,28 +42,40 @@ const EditProfileForm = () => {
         <h1>Edit your profile</h1>
       </div>
 
-      <form className={styles.form} onSubmit={handleSubmit(handlerSubmitForm)}>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit(handlerSubmitForm)}
+        onChange={onChange}
+        onReset={onReset}
+      >
         <InputLineText
-          inputName={'userName'}
-          label={'UserName'}
+          inputName={'name'}
+          label={'Name'}
           placeholder={'Enter new name'}
           register={register}
+          fieldValue={fileldsValues.name || ''}
         />
-        <ValidationErrorMessage message={errors.userName && 'Min 2 symbols'} />
+        <ValidationErrorMessage message={errors.name && 'Min 2 symbols'} />
         <InputLineText
-          inputName={'userLogin'}
-          label={'UserLogin'}
+          inputName={'login'}
+          label={'Login'}
           placeholder={'Enter new Login'}
           register={register}
+          fieldValue={fileldsValues.login || ''}
         />
-        <ValidationErrorMessage message={errors.userLogin && 'Min 2 symbols'} />
-        <InputLinePassword inputName={'password'} label={'New Password'} register={register} />
+        <ValidationErrorMessage message={errors.login && 'Min 2 symbols'} />
+        <InputLinePassword
+          inputName={'password'}
+          label={'New Password'}
+          register={register}
+          fieldValue={fileldsValues.password || ''}
+        />
         <ValidationErrorMessage message={errors.password && 'Required, min 6 symbols'} />
         <div className={styles.buttonsWrapper}>
           <button className={styles.submitBtn} type="submit">
             UPDATE
           </button>
-          <button className={styles.canselBtn} type="button" onClick={handleCancelChange}>
+          <button className={styles.canselBtn} type="reset">
             CANCEL
           </button>
         </div>

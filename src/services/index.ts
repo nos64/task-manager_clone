@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { API_URL } from 'common/constants';
+import StatusCodes from 'common/statusCodes';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -24,6 +25,10 @@ api.interceptors.response.use(
     return data;
   },
   (error: AxiosError) => {
+    if (error.response?.status === StatusCodes.EXPIRED_TOKEN) {
+      localStorage.removeItem('token');
+    }
+
     throw error;
   }
 );

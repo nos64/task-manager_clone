@@ -1,10 +1,10 @@
 @import '../../../styles/colors.scss';
 @import '../../../styles/mixins.scss';
+@import '../../../styles/extensions.scss';
 
 .formWrapper {
-  display: flex;
+  @extend %centered;
   flex-direction: column;
-  justify-content: center;
   gap: 30px;
   margin: auto;
   max-width: 600px;
@@ -15,8 +15,7 @@
 }
 
 .titleWrapper {
-  display: flex;
-  align-items:center;
+  @extend %centered;
   gap: 20px;
   text-transform: uppercase;
 }
@@ -40,9 +39,3 @@
     @include buttonStyleNegative(5px, 30px);
   }
 }
-
-
-
-
-
-

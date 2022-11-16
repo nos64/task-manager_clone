@@ -1,0 +1,53 @@
+@import './../../../styles/colors.scss';
+@import './../../../styles/variables.scss';
+@import './../../../styles/mixins.scss';
+
+.dropDownListDisabled {
+  display: none;
+}
+
+.dropDownList {
+  position: absolute;
+  right: -20px;
+  top: 78px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 200px;
+  padding: 20px;
+  color: $base-light-color;
+  border-radius: $border-raduis-small;
+  background-color: $base-dark-color;
+  box-shadow: 0 0 10px 3px $background-hovered;
+
+  &::before {
+    content: '';
+    position: absolute;
+    right: 30px;
+    width: 15px;
+    height: 15px;
+    top: -8px;
+    background-color: $base-dark-color;
+    box-shadow: -2px -2px 4px -1px $background-hovered;
+    transform: rotate(45deg);
+  }
+}
+
+.userName {
+  font-weight: 700;
+  border-bottom: 1px solid $base-dark-color;
+  text-align: center;
+  margin-bottom: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid $button-disabled;
+  @include contentLimit(1);
+}
+
+.navLink {
+  display: block;
+  transition: 0.3s linear;
+
+  &:hover {
+    color: $accent-color;
+  }
+}
