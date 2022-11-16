@@ -1,37 +1,62 @@
 import { ROUTES } from 'common/routes';
 import Container from 'components/Container';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 import LangToggler from './LangToggler';
 import Navigation from './Navigation';
 import ThemeToggler from './ThemeToggler';
 import { GoPlus } from 'react-icons/go';
+import { useAppSelector } from 'hooks/redux';
 
-const Header = () => (
-  <header className={styles.header}>
-    <Container>
-      <div className={`${styles.headerContent}`}>
-        <div className={styles.burger}>
-          <span className={styles.burgerLine}></span>
-          <span className={styles.burgerLine}></span>
-          <span className={styles.burgerLine}></span>
+const Header = () => {
+  const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
+  const [topOffset, setTopOffset] = useState(0);
+
+  const offsetLimit = 15;
+
+  const handleScroll = () => {
+    setTopOffset(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <header className={`${styles.header} ${topOffset > offsetLimit ? styles.headerAnimated : ''}`}>
+      <Container>
+        <div className={`${styles.headerContent}`}>
+          <div className={styles.burger}>
+            <span className={styles.burgerLine}></span>
+            <span className={styles.burgerLine}></span>
+            <span className={styles.burgerLine}></span>
+          </div>
+          <div className={styles.logo}>
+            <Link to={ROUTES.WELCOME}>Task Manager</Link>
+          </div>
+
+          <div className={styles.actions}>
+            {isAuthorised && (
+              <>
+                <button className={styles.createBoardBtn} type="button">
+                  <GoPlus />
+                  Create Board
+                </button>
+                <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
+                  Main
+                </NavLink>
+              </>
+            )}
+            <LangToggler />
+            <ThemeToggler />
+            <Navigation />
+          </div>
         </div>
-        <div className={styles.logo}>
-          <Link to={ROUTES.WELCOME}>Task Manager</Link>
-        </div>
-        <div className={styles.actions}>
-          <button className={styles.createBoardBtn}>
-            <GoPlus />
-            Create Board
-          </button>
-          <ThemeToggler />
-          <LangToggler />
-          <Navigation />
-        </div>
-      </div>
-    </Container>
-  </header>
-);
+      </Container>
+    </header>
+  );
+};
 
 export default Header;
