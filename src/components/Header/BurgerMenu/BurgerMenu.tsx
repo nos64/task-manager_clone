@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './BurgerMenu.module.scss';
 import { useAppSelector } from 'hooks/redux';
 import { NavLink } from 'react-router-dom';
@@ -10,9 +10,21 @@ interface IBurgerMenuProps {
 const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger }) => {
   const userName = useAppSelector((state) => state.user.name);
 
-  useEffect(() => {
-    isOpenBurger ? scrollController.disableScroll() : scrollController.enableScroll();
-  }, [isOpenBurger]);
+  // useEffect(() => {
+  //   isOpenBurger ? scrollController.disableScroll() : scrollController.enableScroll();
+  // }, [isOpenBurger]);
+
+  // const [topOffset, setTopOffset] = useState(0);
+  // const offsetLimit = 15;
+
+  // const handleScroll = () => {
+  //   setTopOffset(window.scrollY);
+  // };
+
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
   const boards = [
     {

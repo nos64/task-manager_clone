@@ -25,6 +25,7 @@
 }
 
 .modalContent {
+  position: fixed;
   padding: 20px;
   border-radius: $border-raduis-small;
   color: $color-text-secondary;
