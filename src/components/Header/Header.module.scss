@@ -84,9 +84,9 @@
 .logo {
   display: flex;
   align-items: center;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
-  transition: 0.3s ease;
+  transition: color 0.3s ease;
 
   &:hover {
     color: $text-color-hovered;
