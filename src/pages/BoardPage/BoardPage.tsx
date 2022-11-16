@@ -7,7 +7,7 @@ import { FaLessThan } from 'react-icons/fa';
 import NewColumn from '../../components/NewColumn';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { initialColumns } from 'data/initialBoardData';
-import { moveTask, reorderTasks } from 'utils/dnd-helper';
+import { moveColumn, moveTask, reorderTasks } from 'utils/dnd-helper';
 import { DndType } from 'common/dnd-types';
 
 const BoardPage = () => {
@@ -26,46 +26,53 @@ const BoardPage = () => {
       return;
     }
 
-    if (type === DndType.COLUMN) {
-      const removedColumn = columns.find((column) => column._id === draggableId);
-      if (!removedColumn) return;
+    switch (type) {
+      case DndType.COLUMN:
+        const newOrderedColumns = moveColumn(destination, draggableId, columns);
+        if (!newOrderedColumns) return;
 
-      const newColumns = columns.filter((column) => column._id !== draggableId);
-      newColumns.splice(destination.index, 0, removedColumn);
+        setColumns(newOrderedColumns);
+        return;
+      case DndType.TASK:
+        const sourceColumn = columns.find((item) => item._id == source.droppableId);
+        if (!sourceColumn || !sourceColumn.tasks) return;
 
-      const newOrderedColumns = newColumns.map((column, index) => ({ ...column, order: index }));
+        if (destination.droppableId !== source.droppableId) {
+          const destinationColumn = columns.find((item) => item._id == destination.droppableId);
+          if (!destinationColumn) return;
 
-      setColumns(newOrderedColumns);
-      return;
-    }
+          const { newSourceColumn, newDestinationColumn } = moveTask(
+            source,
+            destination,
+            draggableId,
+            sourceColumn,
+            destinationColumn
+          );
+          if (!newSourceColumn || !newDestinationColumn) return;
 
-    const sourceColumn = columns.find((item) => item._id == source.droppableId);
-    if (!sourceColumn || !sourceColumn.tasks) return;
+          const newColumns = [
+            ...columns.filter(
+              (item) => item._id !== source.droppableId && item._id !== destination.droppableId
+            ),
+            newDestinationColumn,
+            newSourceColumn,
+          ].sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
 
-    if (destination.droppableId !== source.droppableId) {
-      const destinationColumn = columns.find((item) => item._id == destination.droppableId);
-      if (!destinationColumn) return;
+          setColumns(newColumns);
+        } else {
+          const newSourceColumn = reorderTasks(destination, draggableId, sourceColumn);
+          if (!newSourceColumn) return;
 
-      const newDestinationColumn = moveTask(source, destination, sourceColumn, destinationColumn);
+          const newColumns = [
+            ...columns.filter((item) => item._id !== source.droppableId),
+            newSourceColumn,
+          ].sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
 
-      const newColumns = [
-        ...columns.filter(
-          (item) => item._id !== source.droppableId && item._id !== destination.droppableId
-        ),
-        sourceColumn,
-        newDestinationColumn,
-      ].sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
-
-      setColumns(newColumns);
-    } else {
-      const newSourceColumn = reorderTasks(source, destination, sourceColumn);
-
-      const newColumns = [
-        ...columns.filter((item) => item._id !== source.droppableId),
-        newSourceColumn,
-      ].sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
-
-      setColumns(newColumns);
+          setColumns(newColumns);
+        }
+        return;
+      default:
+        throw new Error('No such DND type');
     }
   };
 
