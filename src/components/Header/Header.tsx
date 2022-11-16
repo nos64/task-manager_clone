@@ -29,7 +29,9 @@ const Header = () => {
   return (
     <>
       <header
-        className={`${styles.header} ${topOffset > offsetLimit ? styles.headerAnimated : ''}`}
+        className={`${styles.header} ${
+          topOffset > offsetLimit && isAuthorised ? styles.headerAnimated : ''
+        }`}
       >
         <Container>
           <div className={`${styles.headerContent}`}>
@@ -52,9 +54,9 @@ const Header = () => {
                   <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
                     Main
                   </NavLink>
+                  <LangToggler />
                 </>
               )}
-              <LangToggler />
               <ThemeToggler />
               <Navigation />
             </div>
