@@ -9,9 +9,9 @@ type TaskProps = {
   index: number;
 };
 
-const Task: React.FC<TaskProps> = ({ item }) => {
+const Task: React.FC<TaskProps> = ({ item, index }) => {
   return (
-    <Draggable draggableId={item._id} index={item.order}>
+    <Draggable draggableId={item._id} index={index}>
       {(provided, snapshot) => (
         <div
           className={`${styles.task} ${snapshot.isDragging ? styles.dragged : ''}`}
@@ -22,7 +22,7 @@ const Task: React.FC<TaskProps> = ({ item }) => {
           <div className={styles.taskContent}>
             <h3 className={styles.title}>{item.title}</h3>
             <p className={styles.assignee}>{`Assignee: ${
-              item.users ? item?.users[0] : 'not yet'
+              item.users && item.users.length ? item.users[0] : 'not yet'
             }`}</p>
           </div>
           <IoMdClose className={styles.removeTaskIcon} />

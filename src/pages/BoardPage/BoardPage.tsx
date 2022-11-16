@@ -5,93 +5,64 @@ import styles from './BoardPage.module.scss';
 import Column from '../../components/Column';
 import { FaLessThan } from 'react-icons/fa';
 import NewColumn from '../../components/NewColumn';
-import ITask from 'types/ITask';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { initialTasks } from 'data/tasks';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import { initialColumns } from 'data/initialBoardData';
+import { moveTask, reorderTasks } from 'utils/dnd-helper';
+import { DndType } from 'common/dnd-types';
 
 const BoardPage = () => {
   const boardTitle = 'board title';
   const boardDescription = 'Booard description';
-  const tasks: ITask[][] = initialTasks;
 
-  const initialColumns = [
-    {
-      _id: '11',
-      title: 'Column Name 1',
-      order: 2,
-      color: '#8d7cee',
-      tasks: tasks[0],
-    },
-    {
-      _id: '22',
-      title: 'Column Name 2',
-      order: 1,
-      color: '#306ee8',
-      tasks: tasks[1],
-    },
-  ];
   const sortedColumns = initialColumns.sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
 
   const [columns, setColumns] = useState(sortedColumns);
 
   const handleDragEnd = (result: DropResult) => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, type, draggableId } = result;
 
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
     }
 
-    const column = columns.find((item) => item._id == source.droppableId);
-    if (!column || !column.tasks) return;
+    if (type === DndType.COLUMN) {
+      const removedColumn = columns.find((column) => column._id === draggableId);
+      if (!removedColumn) return;
 
-    const draggableTaskIndex = column.tasks.findIndex((item) => item._id === draggableId);
+      const newColumns = columns.filter((column) => column._id !== draggableId);
+      newColumns.splice(destination.index, 0, removedColumn);
+
+      const newOrderedColumns = newColumns.map((column, index) => ({ ...column, order: index }));
+
+      setColumns(newOrderedColumns);
+      return;
+    }
+
+    const sourceColumn = columns.find((item) => item._id == source.droppableId);
+    if (!sourceColumn || !sourceColumn.tasks) return;
 
     if (destination.droppableId !== source.droppableId) {
-      const removedTask = column.tasks.splice(draggableTaskIndex, 1)[0];
-      const newColumn = columns.find((item) => item._id == destination.droppableId);
+      const destinationColumn = columns.find((item) => item._id == destination.droppableId);
+      if (!destinationColumn) return;
 
-      if (!newColumn) return;
-
-      const tasks = newColumn.tasks.map((task) =>
-        task.order >= destination.index ? { ...task, order: task.order + 1 } : task
-      );
-      removedTask.order = destination.index;
-      console.log('destination index', destination.index);
-
-      const newTasks = [...tasks, removedTask];
-      newColumn.tasks = newTasks.sort((task1, task2) => (task1.order! < task2.order! ? -1 : 1));
+      const newDestinationColumn = moveTask(source, destination, sourceColumn, destinationColumn);
 
       const newColumns = [
         ...columns.filter(
           (item) => item._id !== source.droppableId && item._id !== destination.droppableId
         ),
-        column,
-        newColumn,
+        sourceColumn,
+        newDestinationColumn,
       ].sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
 
       setColumns(newColumns);
     } else {
-      const tasks =
-        destination.index > source.index
-          ? column.tasks.map((task) =>
-              task.order! <= destination.index && task.order! > source.index
-                ? { ...task, order: task.order! - 1 }
-                : task
-            )
-          : column.tasks.map((task) =>
-              task.order! >= destination.index && task.order! < source.index
-                ? { ...task, order: task.order! + 1 }
-                : task
-            );
-
-      tasks[draggableTaskIndex].order = destination.index;
-
-      column.tasks = [...tasks.sort((task1, task2) => (task1.order! < task2.order! ? -1 : 1))];
+      const newSourceColumn = reorderTasks(source, destination, sourceColumn);
 
       const newColumns = [
         ...columns.filter((item) => item._id !== source.droppableId),
-        column,
+        newSourceColumn,
       ].sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
 
       setColumns(newColumns);
@@ -111,21 +82,29 @@ const BoardPage = () => {
             <p className={styles.description}>{boardDescription}</p>
           </div>
         </div>
-        <div className={styles.columnsContainer}>
-          {columns.map((column, index) => {
-            return (
-              <Column
-                key={column._id}
-                id={column._id}
-                title={column.title}
-                color={column.color}
-                tasks={column.tasks}
-                index={index}
-              />
-            );
-          })}
-          <NewColumn />
-        </div>
+        <Droppable droppableId={'columns'} direction="horizontal" type={DndType.COLUMN}>
+          {(provided) => (
+            <div
+              className={styles.columnsContainer}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {columns.map((column, index) => {
+                return (
+                  <Column
+                    key={column._id}
+                    id={column._id}
+                    title={column.title}
+                    tasks={column.tasks}
+                    index={index}
+                  />
+                );
+              })}
+              {provided.placeholder}
+              <NewColumn />
+            </div>
+          )}
+        </Droppable>
       </div>
     </DragDropContext>
   );

@@ -6,7 +6,7 @@
   padding: 10px;
   border: 2px solid transparent;
   border-radius: $border-raduis-small;
-  transition: 0.5s ease;
+  transition: background-color 0.5s ease;
 
   &:hover {
     background-color: $base-darkest-color;
@@ -14,6 +14,18 @@
 
     .removeBtn{
       opacity: 0.8;
+    }
+  }
+
+  &:nth-child(n) {
+    .columnColor {
+      background-color: #8d7cee;
+    }
+  }
+
+  &:nth-child(2n) {
+    .columnColor {
+      background-color: #306ee8;
     }
   }
 }
