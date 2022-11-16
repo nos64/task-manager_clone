@@ -1,18 +1,114 @@
-@import "./../../../styles/colors.scss";
-@import "./../../../styles/extensions.scss";
+@import './../../../styles/colors.scss';
+@import './../../../styles/extensions.scss';
+
+.preview {
+  @extend %centered;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px dotted $accent-color;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
 
 .langToggler {
-  @extend %centered;
-  width: 22px;
-  height: 22px;
-  border: 2px dotted $accent-color;
-  border-radius: 50%;
-  color: $text-color;
-  cursor: pointer;
-  font-size: 12px;
-  transition: 0.3s ease;
+// <<<<<<< HEAD
+//   @extend %centered;
+//   width: 22px;
+//   height: 22px;
+//   border: 2px dotted $accent-color;
+//   border-radius: 50%;
+//   color: $text-color;
+//   cursor: pointer;
+//   font-size: 12px;
+//   transition: 0.3s ease;
+// =======
+  position: relative;
+}
+// >>>>>>> develop
 
-  &:hover {
-    font-weight: bold;
+.langTogglerContent {
+  position: absolute;
+  display: none;
+  bottom: -60px;
+  border-bottom-left-radius: 19px;
+  border-bottom-right-radius: 19px;
+  border-width: 2px;
+  border-style: solid;
+  border-top-color: transparent;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.option {
+  display: block;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.option:hover {
+  transition: color 0.3s ease-in-out;
+  color: $base-darkest-color;
+}
+
+.langToggler:hover .langTogglerContent {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    background-color: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+
+  100% {
+    background-color: $accent-color;
+    border-color: $accent-color;
+    border-top-color: transparent;
+    color: $base-light-color;
+  }
+}
+
+.langToggler:hover .preview {
+  border-bottom-color: transparent;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
+  animation: fadeInPreview 0.3s ease-in-out forwards;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    display: block;
+    width: 25px;
+    height: 2px;
+    z-index: 2;
+    animation: separatorFadeIn 0.3s ease-in-out forwards;
+  }
+}
+
+@keyframes fadeInPreview {
+  0% {
+    background-color: transparent;
+    border-style: dotted;
+  }
+
+  100% {
+    border-style: solid;
+    background-color: $accent-color;
+  }
+}
+
+@keyframes separatorFadeIn {
+  0% {
+    background-color: transparent;
+  }
+
+  100% {
+    background-color: $accent-color-lighter-xs;
   }
 }

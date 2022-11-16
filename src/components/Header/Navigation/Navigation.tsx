@@ -2,57 +2,46 @@ import { ROUTES } from 'common/routes';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Navigation.module.scss';
-import userAvatar from './../../../assets/images/user.png';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { setIsAuthorised } from 'store/reducers/userSlice';
+import { useAppSelector } from 'hooks/redux';
+import { avatars } from '../../../common/constants';
+import DropDownList from '../DropDownList';
 
 const Navigation = () => {
+  const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
+  const avatarID = useAppSelector((state) => state.user.avatarID);
+
   const [isMenuOpened, setIsMenuOpened] = useState(false);
 
-  const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
-  const userName = useAppSelector((state) => state.user.name);
-  const dispatch = useAppDispatch();
-
-  const handleSignOutClick = () => {
-    dispatch(setIsAuthorised(false));
-    localStorage.removeItem('token');
-
-    setIsMenuOpened(false);
+  const handleUserClick = () => {
+    setIsMenuOpened(!isMenuOpened);
   };
 
   return (
-    <nav
-      className={`${styles.nav} ${isAuthorised ? styles.authorized : ''} ${
-        isMenuOpened ? styles.opened : ''
-      }`}
-    >
-      <div className={styles.user} onClick={() => setIsMenuOpened(!isMenuOpened)}>
-        <img className={styles.userAvatar} src={userAvatar} alt="user avatar" />
-        <p className={styles.userName}>{userName}</p>
-      </div>
+    <nav className={styles.nav}>
       <ul className={styles.navList}>
-        <li className={styles.navItem}>
-          <NavLink className={styles.navLink} to={ROUTES.SIGN_IN}>
-            Sign in
-          </NavLink>
-        </li>
-        <li className={styles.navSeparator}></li>
-        <li className={styles.navItem}>
-          <NavLink className={styles.navLink} to={ROUTES.SIGN_UP}>
-            Sign up
-          </NavLink>
-        </li>
-        <li className={styles.navItem}>
-          <NavLink className={styles.navLink} to={ROUTES.PROFILE}>
-            Edit profile
-          </NavLink>
-        </li>
-        <li className={styles.navItem}>
-          <NavLink className={styles.navLink} to={ROUTES.WELCOME} onClick={handleSignOutClick}>
-            Sign out
-          </NavLink>
-        </li>
+        {isAuthorised ? (
+          <>
+            <div
+              className={`${isMenuOpened ? styles.userDisabled : styles.user}`}
+              onClick={handleUserClick}
+            >
+              <img className={styles.userAvatar} src={avatars[avatarID].src} alt="user avatar" />
+            </div>
+            {isMenuOpened && <div className={styles.overlay}></div>}
+          </>
+        ) : (
+          <>
+            <li className={styles.navItem}>
+              <NavLink to={ROUTES.SIGN_IN}>Sign in</NavLink>
+            </li>
+            <li className={styles.navSeparator}></li>
+            <li className={styles.navItem}>
+              <NavLink to={ROUTES.SIGN_UP}>Sign up</NavLink>
+            </li>
+          </>
+        )}
       </ul>
+      <DropDownList setIsMenuOpened={setIsMenuOpened} isMenuOpened={isMenuOpened} />
     </nav>
   );
 };

@@ -1,22 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
-@import "./../../styles/colors.scss";
+@import './../../styles/colors.scss';
 @import '../../styles/extensions.scss';
 
-.header {
+.header,
+.headerAnimated {
+  position: sticky;
+  top: 0;
   display: flex;
   padding: 15px 20px;
   outline: 3px solid $background-primary-lighter;
   align-items: center;
   color: $text-color;
   background-color: $background-primary;
-  position: sticky;
-  z-index: 1;
+  transition: 0.3s ease-in-out;
+  z-index: 20;
+}
 
+.headerAnimated {
+  background-color: rgb(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
+  outline-color: transparent;
+  padding: 10px 20px;
 }
 
 .headerContent {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .burger {
@@ -80,6 +90,48 @@
 }
 .active .burgerLine{
   // background: transparent; 
+  transition: 0.3s;
+  border-radius: 5px;
+  background-color: $accent-color;
+  transition: all 0.4s ease-in-out;
+}
+
+.active {
+  position: absolute;
+  left: 0;
+  padding-left: 20px;
+}
+
+.burgerLine:before {
+  content: '';
+  background-color: $accent-color-darker;
+  top: -10px;
+  transition: top 0.2s 0.2s, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.burgerLine:after {
+  content: '';
+  background-color: $accent-color-lighter;
+  bottom: -10px;
+  transition: bottom 0.2s 0.2s, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.active .burgerLine:before {
+  content: '';
+  top: 0px;
+  transform: rotate(45deg);
+  transition: top 0.2s, transform 0.2s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.active .burgerLine:after {
+  content: '';
+  bottom: 0;
+  transform: rotate(-45deg);
+  transition: bottom 0.2s, transform 0.2s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.active .burgerLine {
+  background: transparent;
 }
 
 .logo {
@@ -106,9 +158,9 @@
 
 .createBoardBtn {
   display: flex;
-  padding: 13px 30px;
+  padding: 10px 25px;
   border: none;
-	outline: none;
+  outline: none;
   border-radius: 25px;
   align-items: center;
   gap: 5px;
@@ -117,21 +169,32 @@
   color: inherit;
   background-color: $accent-color;
   transition: 0.3s ease;
-  
+
   .createBoardBtnImg {
     width: 15px;
     height: 15px;
-    filter: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(91%) hue-rotate(197deg) brightness(104%) contrast(91%);
+    filter: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(91%) hue-rotate(197deg)
+      brightness(104%) contrast(91%);
   }
 
   &:hover {
     background-color: $accent-color-hovered;
     cursor: pointer;
-  }  
+  }
 }
 
-.themeLangWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+.navLink {
+  display: block;
+  padding: 8px 25px;
+  width: 95px;
+  border-radius: 22px;
+  border: 2px solid $accent-color;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    color: $accent-color;
+    font-weight: 700;
+    background-color: $base-light-color;
+    border-color: $base-light-color;
+  }
 }

@@ -1,21 +1,21 @@
-@import "./../../../styles/colors.scss";
-@import "./../../../styles/extensions.scss";
+@import './../../../styles/colors.scss';
+@import './../../../styles/extensions.scss';
 
 .themeToggler {
   @extend %centered;
-  width: 22px;
-  height: 22px;
+  width: 38px;
+  height: 38px;
   border: 2px solid $base-light-color;
   border-radius: 50%;
   background-color: $base-light-color;
   cursor: pointer;
 
   .themeIcon {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     font-weight: bold;
     color: $base-dark-color;
-    transition: 0.4s;
+    transition: 0.4s ease-in-out;
 
     &:first-child {
       position: absolute;
@@ -29,4 +29,3 @@
     }
   }
 }
-

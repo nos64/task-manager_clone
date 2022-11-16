@@ -58,7 +58,7 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger 
           <ul className={styles.boardList}>
             {boards.map((board) => (
               <li className={styles.boardItem} key={board._id}>
-                <NavLink className={styles.navLink} to={'/'}>
+                <NavLink className={styles.navLink} to={'#'}>
                   {board.title}
                 </NavLink>
               </li>

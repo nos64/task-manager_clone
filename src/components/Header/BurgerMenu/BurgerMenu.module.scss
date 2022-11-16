@@ -26,7 +26,8 @@
   left: 0;
   transform: translateX(-100%);
   z-index: 10;
-  transition: all .8s ease;
+  transition: all .6s ease;
+
 
   &.active {
     transform: translateX(0%);
@@ -44,7 +45,7 @@
   color: $base-light-color;
   box-shadow: 0px 0px 4px 1px $background-light-hovered;
   z-index: 50;
-  transition: all .8s ease;
+  transition: all .6s ease;
 }
 
 .menuHeader {
@@ -122,9 +123,8 @@
 }
 .active {
   position: absolute;
-  right: 0;
+  left: 0;
   padding-top: -30px;
-  // padding-left: 20px;
   z-index: 51;
 }
 .burgerLine:before{
