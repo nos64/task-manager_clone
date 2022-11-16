@@ -6,9 +6,14 @@ import styles from './LangToggler.module.scss';
 
 const LangToggler = () => {
   const language = useAppSelector((state) => state.user.language);
+  const userId = useAppSelector((state) => state.user.id);
   const dispatch = useAppDispatch();
 
   const handleOptionClick = (language: Languages) => {
+    const userInfo = JSON.parse(localStorage.getItem(userId) || '');
+
+    localStorage.setItem(userId, JSON.stringify({ ...userInfo, ...{ language: language } }));
+
     dispatch(setLanguage(language));
   };
 

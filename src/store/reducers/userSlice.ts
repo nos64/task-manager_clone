@@ -7,6 +7,7 @@ import IJWTDecode from 'types/IJWTDecode';
 import updateStorage from 'utils/updateStorage';
 import StatusCodes from 'common/statusCodes';
 import { SignInPick, UserPick } from 'types/APIModel';
+import Languages from 'types/Languages';
 
 export const signUpUser = createAsyncThunk(
   'user/signUpUser',
@@ -71,10 +72,12 @@ export const getUserById = createAsyncThunk('user/getUserById', async (_, { reje
 interface UserState {
   isAuthorised: boolean;
   isPending: boolean;
+  id: string;
   login: string;
   name: string;
-  language: string;
+  language: Languages;
   theme: string;
+  avatarID: number;
   isLoginAlreadyExist: boolean;
   isAuthorisationError: boolean;
   isTokenExpired: boolean;
@@ -84,10 +87,12 @@ interface UserState {
 const initialState: UserState = {
   isAuthorised: false,
   isPending: false,
+  id: '',
   login: '',
   name: '',
   language: 'EN',
   theme: 'dark',
+  avatarID: 0,
   isLoginAlreadyExist: false,
   isAuthorisationError: false,
   isTokenExpired: false,
@@ -102,6 +107,9 @@ export const userSlice = createSlice({
       state.isAuthorised = action.payload;
       state.isRoutesProtected = action.payload;
     },
+    setLanguage(state, action: PayloadAction<Languages>) {
+      state.language = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(signUpUser.pending, (state) => {
@@ -115,10 +123,12 @@ export const userSlice = createSlice({
 
       const userInfo = updateStorage(action.payload.userInfo._id, action.payload.userInfo);
 
+      state.id = userInfo._id || state.id;
       state.login = userInfo.login || state.login;
       state.name = userInfo.name || state.name;
       state.language = userInfo.language || state.language;
       state.theme = userInfo.theme || state.theme;
+      state.avatarID = userInfo.avatarID || state.avatarID;
 
       localStorage.setItem('token', action.payload.token.token || '');
     });
@@ -143,10 +153,12 @@ export const userSlice = createSlice({
 
       const userInfo = updateStorage(action.payload._id, action.payload);
 
+      state.id = userInfo._id || state.id;
       state.login = userInfo.login || state.login;
       state.name = userInfo.name || state.name;
       state.language = userInfo.language || state.language;
       state.theme = userInfo.theme || state.theme;
+      state.avatarID = userInfo.avatarID || state.avatarID;
     });
     builder.addCase(signInUser.rejected, (state, action) => {
       state.isPending = false;
@@ -171,10 +183,12 @@ export const userSlice = createSlice({
 
       const userInfo = updateStorage(action.payload._id, action.payload);
 
+      state.id = userInfo._id || state.id;
       state.login = userInfo.login || state.login;
       state.name = userInfo.name || state.name;
       state.language = userInfo.language || state.language;
       state.theme = userInfo.theme || state.theme;
+      state.avatarID = userInfo.avatarID || state.avatarID;
     });
     builder.addCase(getUserById.rejected, (state, action) => {
       state.isPending = false;
@@ -188,5 +202,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setIsAuthorised } = userSlice.actions;
+export const { setIsAuthorised, setLanguage } = userSlice.actions;
 export default userSlice.reducer;
