@@ -36,14 +36,13 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger 
         className={isOpenBurger ? `${styles.menu} ${styles.active}` : styles.menu}
         onClick={() => setIsOpenBurger(false)}
       >
-        <div className={styles.menuContent}>
+        <div className={styles.menuContent} onClick={(e) => e.stopPropagation()}>
           <div className={styles.menuHeader}>
             <h2>{userName}</h2>
           </div>
           <div className={styles.borderListTitle}>My Boards</div>
           <div className={styles.inputWrapper}>
             <input
-              onClick={(e) => e.stopPropagation()}
               className={styles.inputLine}
               type="search"
               placeholder="Search..."
@@ -53,7 +52,7 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger 
           <ul className={styles.boardList}>
             {boards.map((board) => (
               <li className={styles.boardItem} key={board._id}>
-                <NavLink className={styles.navLink} to={'#'}>
+                <NavLink className={styles.navLink} to={'/'}>
                   {board.title}
                 </NavLink>
               </li>
