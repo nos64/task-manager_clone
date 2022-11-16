@@ -3,6 +3,7 @@
 
 .wrapper {
   @extend %centered;
+  margin: auto;
   min-height: calc(100vh - 200px);
 }
 

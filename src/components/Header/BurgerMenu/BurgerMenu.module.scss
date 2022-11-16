@@ -1,0 +1,101 @@
+@import '../../../styles/colors.scss';
+@import '../../../styles/extensions.scss';
+@import '../../../styles/mixins.scss';
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, .5);
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9;
+
+  &.active {
+    pointer-events: all;
+    opacity: 1;
+  }
+}
+
+.menu {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  transform: translateX(-100%);
+  z-index: 10;
+  transition: all .6s ease;
+
+  &.active {
+    transform: translateX(0%);
+  }
+}
+
+.menuContent {
+  padding-top: 50px;
+  text-align: center;
+  width: 60%;
+  width: 300px;
+  height: 100%;
+  background-color: $base-dark-color;
+  color: $base-light-color;
+  box-shadow: 0px 0px 4px 1px $background-light-hovered;
+  z-index: 50;
+  transition: all .6s ease;
+}
+
+.menuHeader {
+  padding: 10px;
+  padding-top: 20px;
+  border-bottom: 1px solid $dark-shadow;
+  width: 100%;
+}
+
+.borderListTitle {
+  font-size: 20px;
+  padding: 5px 0;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 0 auto;
+  margin-bottom: 5px;
+  height: 40px;
+
+  & .inputLine {
+    @include inputStyle;
+    font-size: 18px;
+    z-index: 2;
+  }
+}
+
+.boardList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.boardItem {
+  display: block;
+  cursor: pointer;
+  min-width: 100%;
+  padding: 3px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
+  
+  &:hover {
+    background-color: $background-hovered;
+    border: 1px solid $base-dark-lighter-color;
+  }
+
+  .navLink {
+    padding: 0 10px;
+    @include contentLimit(1);
+  }
+}
+
+
