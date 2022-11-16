@@ -1,20 +1,38 @@
 import { ROUTES } from 'common/routes';
 import Container from 'components/Container';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 import LangToggler from './LangToggler';
 import Navigation from './Navigation';
 import ThemeToggler from './ThemeToggler';
 import { GoPlus } from 'react-icons/go';
+import { useAppSelector } from 'hooks/redux';
 import BurgerMenu from './BurgerMenu';
 
 const Header = () => {
+  const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
+  const [topOffset, setTopOffset] = useState(0);
   const [isOpenBurger, setIsOpenBurger] = useState(false);
+
+  const offsetLimit = 15;
+
+  const handleScroll = () => {
+    setTopOffset(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
-      <header className={styles.header}>
+      <header
+        className={`${styles.header} ${
+          topOffset > offsetLimit && isAuthorised ? styles.headerAnimated : ''
+        }`}
+      >
         <Container>
           <div className={`${styles.headerContent}`}>
             <div
@@ -27,12 +45,19 @@ const Header = () => {
               <Link to={ROUTES.WELCOME}>Task Manager</Link>
             </div>
             <div className={styles.actions}>
-              <button className={styles.createBoardBtn}>
-                <GoPlus />
-                Create Board
-              </button>
+              {isAuthorised && (
+                <>
+                  <button className={styles.createBoardBtn} type="button">
+                    <GoPlus />
+                    Create Board
+                  </button>
+                  <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
+                    Main
+                  </NavLink>
+                  <LangToggler />
+                </>
+              )}
               <ThemeToggler />
-              <LangToggler />
               <Navigation />
             </div>
           </div>
