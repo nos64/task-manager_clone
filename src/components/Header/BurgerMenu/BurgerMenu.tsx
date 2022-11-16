@@ -46,7 +46,7 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger 
           <div className={styles.menuHeader}>
             <h2>{userName}</h2>
           </div>
-          <div className={styles.borderListTitle}>My Boards</div>
+          <div className={styles.boardListTitle}>My Boards</div>
           <div className={styles.inputWrapper}>
             <input
               className={styles.inputLine}

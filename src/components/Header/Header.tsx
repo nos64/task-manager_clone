@@ -7,16 +7,6 @@ import LangToggler from './LangToggler';
 import Navigation from './Navigation';
 import ThemeToggler from './ThemeToggler';
 import { GoPlus } from 'react-icons/go';
-// <<<<<<< HEAD
-// import BurgerMenu from './BurgerMenu';
-
-// const Header = () => {
-//   const [isOpenBurger, setIsOpenBurger] = useState(false);
-
-//   return (
-//     <>
-//       <header className={styles.header}>
-// =======
 import { useAppSelector } from 'hooks/redux';
 import BurgerMenu from './BurgerMenu';
 
