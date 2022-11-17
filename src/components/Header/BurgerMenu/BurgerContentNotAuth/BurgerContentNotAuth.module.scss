@@ -1,8 +1,8 @@
 @import '../../../../styles/colors.scss';
 @import '../../../../styles/mixins.scss';
+@import '../../../../styles/extensions.scss';
 
 .menuContent {
-  text-align: center;
   width: 60%;
   width: 300px;
   height: 100%;
@@ -12,53 +12,23 @@
   transition: all .6s ease;
 }
 
-.menuHeader {
-  padding: 10px;
-  border-bottom: 1px solid $dark-shadow;
-  width: 100%;
-}
-
-.boardListTitle {
-  font-size: 20px;
-  padding: 5px 0;
-}
-
-.inputWrapper {
-  display: flex;
+.navList {
+  @extend %centered;
   flex-direction: column;
-  width: 95%;
-  margin: 0 auto;
-  margin-bottom: 5px;
-  height: 40px;
-
-  & .inputLine {
-    @include inputStyle;
-    font-size: 18px;
-    z-index: 2;
-  }
+  gap: 15px;
 }
 
-.boardList {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
+.navItem {
+  color: $text-color;
+  transition: 0.3s linear;
 
-.boardItem {
-  display: block;
-  cursor: pointer;
-  min-width: 100%;
-  padding: 3px;
-  border: 1px solid transparent;
-  transition: all 0.3s ease-in-out;
-  
   &:hover {
-    background-color: $background-hovered;
-    border: 1px solid $base-dark-lighter-color;
+    color: $accent-color;
   }
+}
 
-  .navLink {
-    padding: 0 10px;
-    @include contentLimit(1);
-  }
+.navSeparator {
+  width: 50px;
+  height: 2px;
+  background-color: $accent-color;
 }

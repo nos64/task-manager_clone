@@ -70,7 +70,11 @@ const Header = () => {
         </Container>
       </header>
       <BurgerMenu isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger}>
-        {isAuthorised ? <BurgerContentAuth /> : <BurgerContentNotAuth />}
+        {isAuthorised ? (
+          <BurgerContentAuth screenWidth={screenWidth} />
+        ) : (
+          <BurgerContentNotAuth setIsOpenBurger={setIsOpenBurger} />
+        )}
       </BurgerMenu>
     </>
   );

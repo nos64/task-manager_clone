@@ -3,7 +3,10 @@ import { NavLink } from 'react-router-dom';
 import styles from './BurgerContentAuth.module.scss';
 import { useAppSelector } from 'hooks/redux';
 
-const BurgerContentAuth = () => {
+interface IBurgerContentAuthProps {
+  screenWidth: number;
+}
+const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({ screenWidth }) => {
   const userName = useAppSelector((state) => state.user.name);
 
   const boards = [
