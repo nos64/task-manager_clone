@@ -1,0 +1,43 @@
+@import "./../../styles/colors.scss";
+@import "./../../styles/variables.scss";
+@import "./../../styles/extensions.scss";
+
+.newBoard {
+  @extend %centered;
+  width: 230px;
+  height: 125px;
+  padding: 20px;
+  border-radius: $border-raduis-small;
+  flex-direction: column;
+  gap: 10px;
+  color: $color-text-secondary;
+  background-color: rgba(44, 44, 55, 0.2);
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  &:hover {
+    color: $color-text-secondary;
+    background-color: rgba(44, 44, 55, 0.4);
+
+    .icon {
+      opacity: 0.5;
+    }
+
+    .title {
+      opacity: 0.5;
+    }
+  }
+}
+
+.icon {
+  width: 40px;
+  opacity: 0.2;
+  transition: 0.3s ease;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  opacity: 0.2;
+  transition: 0.3s ease;
+}
