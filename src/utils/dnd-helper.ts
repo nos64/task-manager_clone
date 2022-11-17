@@ -25,7 +25,6 @@ export const moveTask = (
   destination: DraggableLocation,
   draggableId: string,
   sourceColumn: { _id: string; title: string; order: number; tasks: ITask[] },
-  // destinationColumn: { _id: string; title: string; order: number; tasks: ITask[] }
   columns: { _id: string; title: string; order: number; tasks: ITask[] }[]
 ) => {
   const destinationColumn = columns.find((item) => item._id == destination.droppableId);

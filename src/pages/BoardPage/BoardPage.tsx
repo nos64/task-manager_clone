@@ -44,7 +44,6 @@ const BoardPage = () => {
             draggableId,
             sourceColumn,
             columns
-            // destinationColumn
           );
           if (!newSourceColumn || !newDestinationColumn) return;
 
