@@ -1,5 +1,5 @@
 import React from 'react';
-import Board from './Board';
+import Board from '../../components/Board';
 import styles from './BoardsPage.module.scss';
 
 const BoardsPage = () => {
