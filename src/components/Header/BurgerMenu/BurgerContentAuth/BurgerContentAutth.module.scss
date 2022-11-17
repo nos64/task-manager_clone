@@ -1,0 +1,65 @@
+.menuContent {
+  position: relative;
+  padding-top: 25px;
+  text-align: center;
+  width: 60%;
+  width: 300px;
+  height: 100%;
+  background-color: $base-dark-color;
+  color: $base-light-color;
+  box-shadow: 0px 0px 4px 1px $background-light-hovered;
+  z-index: 50;
+  transition: all .6s ease;
+}
+
+.menuHeader {
+  padding: 10px;
+  padding-top: 60px;
+  border-bottom: 1px solid $dark-shadow;
+  width: 100%;
+}
+
+.boardListTitle {
+  font-size: 20px;
+  padding: 5px 0;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 0 auto;
+  margin-bottom: 5px;
+  height: 40px;
+
+  & .inputLine {
+    @include inputStyle;
+    font-size: 18px;
+    z-index: 2;
+  }
+}
+
+.boardList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.boardItem {
+  display: block;
+  cursor: pointer;
+  min-width: 100%;
+  padding: 3px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
+  
+  &:hover {
+    background-color: $background-hovered;
+    border: 1px solid $base-dark-lighter-color;
+  }
+
+  .navLink {
+    padding: 0 10px;
+    @include contentLimit(1);
+  }
+}
