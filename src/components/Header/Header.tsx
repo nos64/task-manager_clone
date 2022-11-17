@@ -10,6 +10,8 @@ import { GoPlus } from 'react-icons/go';
 import { useAppSelector } from 'hooks/redux';
 import BurgerMenu from './BurgerMenu';
 import BurgerContentAuth from './BurgerMenu/BurgerContentAuth';
+import { burgerBreakPoint } from 'common/constants';
+import BurgerContentNotAuth from './BurgerMenu/BurgerContentNotAuth';
 
 const Header = () => {
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
@@ -17,6 +19,7 @@ const Header = () => {
   const [isOpenBurger, setIsOpenBurger] = useState(false);
 
   const offsetLimit = 15;
+  const screenWidth = window.innerWidth;
 
   const handleScroll = () => {
     setTopOffset(window.scrollY);
@@ -36,12 +39,14 @@ const Header = () => {
       >
         <Container>
           <div className={`${styles.headerContent}`}>
-            <div
-              className={isOpenBurger ? styles.burger + ' ' + styles.active : styles.burger}
-              onClick={() => setIsOpenBurger(!isOpenBurger)}
-            >
-              <span className={styles.burgerLine}></span>
-            </div>
+            {screenWidth < 786 && (
+              <div
+                className={isOpenBurger ? styles.burger + ' ' + styles.active : styles.burger}
+                onClick={() => setIsOpenBurger(!isOpenBurger)}
+              >
+                <span className={styles.burgerLine}></span>
+              </div>
+            )}
             <div className={styles.logo}>
               <Link to={ROUTES.WELCOME}>Task Manager</Link>
             </div>
@@ -65,7 +70,7 @@ const Header = () => {
         </Container>
       </header>
       <BurgerMenu isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger}>
-        <BurgerContentAuth />
+        {isAuthorised ? <BurgerContentAuth /> : <BurgerContentNotAuth />}
       </BurgerMenu>
     </>
   );

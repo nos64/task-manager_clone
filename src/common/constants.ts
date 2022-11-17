@@ -73,3 +73,5 @@ export const avatars = [
     isActive: false,
   },
 ];
+
+export const burgerBreakPoint = 768;
