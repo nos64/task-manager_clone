@@ -38,15 +38,13 @@ const BoardPage = () => {
         if (!sourceColumn || !sourceColumn.tasks) return;
 
         if (destination.droppableId !== source.droppableId) {
-          const destinationColumn = columns.find((item) => item._id == destination.droppableId);
-          if (!destinationColumn) return;
-
           const { newSourceColumn, newDestinationColumn } = moveTask(
             source,
             destination,
             draggableId,
             sourceColumn,
-            destinationColumn
+            columns
+            // destinationColumn
           );
           if (!newSourceColumn || !newDestinationColumn) return;
 
@@ -96,17 +94,9 @@ const BoardPage = () => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {columns.map((column, index) => {
-                return (
-                  <Column
-                    key={column._id}
-                    id={column._id}
-                    title={column.title}
-                    tasks={column.tasks}
-                    index={index}
-                  />
-                );
-              })}
+              {columns.map((column, index) => (
+                <Column key={column._id} item={column} index={index} />
+              ))}
               {provided.placeholder}
               <NewColumn />
             </div>

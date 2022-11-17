@@ -8,48 +8,48 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { DndType } from 'common/dnd-types';
 
 type ColumnProps = {
-  id: string;
-  title: string;
-  tasks: ITask[];
+  item: { _id: string; title: string; tasks: ITask[] };
   index: number;
 };
 
-const Column: React.FC<ColumnProps> = ({ id, title, tasks, index }) => {
+const Column: React.FC<ColumnProps> = ({ item, index }) => {
   return (
-    <Draggable draggableId={id} index={index}>
-      {(provided) => (
-        <div
-          className={styles.column}
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          <div className={styles.columnHeader}>
-            <RiDeleteBin6Line className={styles.removeBtn} />
-            <div className={styles.columnColor}></div>
-            <h4 className={styles.title}>{title}</h4>
-            <p className={styles.tasksCount}>({tasks.length})</p>
-          </div>
+    <Draggable draggableId={item._id} index={index}>
+      {(dragProvided, snapshot) => (
+        <Droppable droppableId={item._id} type={DndType.TASK}>
+          {(dropProvided, dropSnapshot) => (
+            <div
+              className={`${styles.column} ${snapshot.isDragging ? styles.dragged : ''} ${
+                dropSnapshot.isDraggingOver ? styles.dropped : ''
+              }`}
+              ref={dragProvided.innerRef}
+              {...dragProvided.draggableProps}
+              {...dragProvided.dragHandleProps}
+            >
+              <div className={styles.columnHeader}>
+                <RiDeleteBin6Line className={styles.removeBtn} />
+                <div className={styles.columnColor}></div>
+                <h4 className={styles.title}>{item.title}</h4>
+                <p className={styles.tasksCount}>({item.tasks.length})</p>
+              </div>
 
-          <Droppable droppableId={id} type={DndType.TASK}>
-            {(provided) => (
               <div className={styles.columnContent}>
                 <div
                   className={styles.tasksContainer}
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
+                  ref={dropProvided.innerRef}
+                  {...dropProvided.droppableProps}
                 >
-                  {tasks.map((task, index) => {
+                  {item.tasks.map((task, index) => {
                     return <Task key={task._id} item={task} index={index} />;
                   })}
-                  {provided.placeholder}
+                  {dropProvided.placeholder}
                 </div>
 
                 <NewTask />
               </div>
-            )}
-          </Droppable>
-        </div>
+            </div>
+          )}
+        </Droppable>
       )}
     </Draggable>
   );
