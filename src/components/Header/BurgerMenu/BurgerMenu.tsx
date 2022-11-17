@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './BurgerMenu.module.scss';
 import { scrollController } from '../../../utils/scrollController';
 
 interface IBurgerMenuProps {
   isOpenBurger: boolean;
   setIsOpenBurger: React.Dispatch<React.SetStateAction<boolean>>;
+  children?: React.ReactNode;
 }
-const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger }) => {
+const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger, children }) => {
   useEffect(() => {
     isOpenBurger ? scrollController.disableScroll() : scrollController.enableScroll();
   }, [isOpenBurger]);
@@ -26,6 +27,7 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger 
         >
           <span className={styles.burgerLine}></span>
         </div>
+        {children}
       </div>
     </div>
   );

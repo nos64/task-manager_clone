@@ -22,7 +22,7 @@ const BurgerContentAuth = () => {
   ];
 
   return (
-    <>
+    <div className={styles.menuContent}>
       <div className={styles.menuHeader}>
         <h2>{userName}</h2>
       </div>
@@ -44,7 +44,7 @@ const BurgerContentAuth = () => {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 

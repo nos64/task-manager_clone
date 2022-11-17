@@ -9,6 +9,7 @@ import ThemeToggler from './ThemeToggler';
 import { GoPlus } from 'react-icons/go';
 import { useAppSelector } from 'hooks/redux';
 import BurgerMenu from './BurgerMenu';
+import BurgerContentAuth from './BurgerMenu/BurgerContentAuth';
 
 const Header = () => {
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
@@ -63,7 +64,9 @@ const Header = () => {
           </div>
         </Container>
       </header>
-      <BurgerMenu isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
+      <BurgerMenu isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger}>
+        <BurgerContentAuth />
+      </BurgerMenu>
     </>
   );
 };
