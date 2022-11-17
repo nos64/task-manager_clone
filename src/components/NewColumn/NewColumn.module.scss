@@ -1,0 +1,43 @@
+@import "./../../styles/colors.scss";
+@import "./../../styles/variables.scss";
+@import "./../../styles/extensions.scss";
+
+.newColumn {
+  @extend %centered;
+  width: 270px;
+  padding: 10px;
+  margin-top: 43px;
+  margin-left: 10px;
+  border-radius: $border-raduis-small;
+  flex-direction: column;
+  gap: 10px;
+  color: $color-text-secondary;
+  background-color: rgba(44, 44, 55, 0.2);
+  transition: 0.3s ease;
+
+  &:hover {
+    color: $color-text-secondary;
+    background-color: rgba(44, 44, 55, 0.4);
+
+    .newColumnIcon {
+      opacity: 0.5;
+    }
+
+    .newColumnTitle {
+      opacity: 0.5;
+    }
+  }
+}
+
+.newColumnIcon {
+  width: 40px;
+  opacity: 0.2;
+  transition: 0.3s ease;
+}
+
+.newColumnTitle {
+  font-size: 20px;
+  font-weight: bold;
+  opacity: 0.2;
+  transition: 0.3s ease;
+}

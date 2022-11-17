@@ -1,53 +1,49 @@
 @import "./../../../styles/colors.scss";
 @import "./../../../styles/variables.scss";
-@import "./../../../styles/mixins.scss";
 
-.board {
+.task {
   display: flex;
-  width: 230px;
-  height: 125px;
-  padding: 20px;
-  border: 1px solid transparent;
+  margin-bottom: 10px;
+  padding: 20px 15px;
+  border: 1px solid $background-primary;
   border-radius: $border-raduis-small;
-  flex-direction: column;
   justify-content: space-between;
+  gap: 5px;
   color: $color-text-secondary;
   background-color: $background-primary;
+  transition: border 0.3s;
   cursor: pointer;
-  transition: 0.3s ease;
 
   &:hover {
-    border: 1px solid $accent-color;
+    border: 1px solid $accent-color-lighter;
   }
 }
 
-.boardContent {
+.task.dragged {
+  border: 1px solid $accent-color-lighter;
+}
+
+.taskContent {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
 .title {
-  @include contentLimit(1);
   font-size: 16px;
-  color: $text-color;  
+  color: $text-color;
 }
 
-.description {
-  @include contentLimit(2);
+.assignee {
   font-size: 13px;
 }
 
-.boardBtns {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-.boardBtn {
+.removeTaskIcon {
+  opacity: 0.5;
   transition: 0.3s ease;
 
   &:hover {
     color: $text-color;
+    width: 17px;
   }
 }

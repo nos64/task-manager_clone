@@ -1,5 +1,6 @@
+import NewBoard from 'components/NewBoard';
 import React from 'react';
-import Board from './Board';
+import Board from '../../components/Board';
 import styles from './BoardsPage.module.scss';
 
 const BoardsPage = () => {
@@ -25,6 +26,7 @@ const BoardsPage = () => {
         {boards.map((board) => {
           return <Board key={board._id} item={board} />;
         })}
+        <NewBoard />
       </div>
     </div>
   );
