@@ -43,12 +43,7 @@ const EditProfileForm = () => {
         <h2>Edit your profile</h2>
       </div>
 
-      <form
-        className={styles.form}
-        onSubmit={handleSubmit(handlerSubmitForm)}
-        onChange={onChange}
-        onReset={onReset}
-      >
+      <form className={styles.form} onSubmit={handleSubmit(handlerSubmitForm)} onChange={onChange}>
         <InputLineText
           inputName={'name'}
           label={'Name'}
@@ -74,7 +69,7 @@ const EditProfileForm = () => {
           fieldValue={fileldsValues.password || ''}
         />
         <ValidationErrorMessage message={errors.password && 'Required, min 6 symbols'} />
-        <FormButtons />
+        <FormButtons handleCancelBtnClick={onReset} />
       </form>
     </div>
   );
