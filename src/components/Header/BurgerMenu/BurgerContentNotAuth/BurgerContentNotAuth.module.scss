@@ -9,7 +9,6 @@
   background-color: $base-dark-color;
   color: $base-light-color;
   z-index: 50;
-  visibility: hidden;
   transition: all .6s ease;
 }
 
@@ -32,11 +31,5 @@
   width: 50px;
   height: 2px;
   background-color: $accent-color;
-}
-
-@media (max-width: 600px) {
-  .menuContent {
-    visibility: visible;
-  }
 }
 

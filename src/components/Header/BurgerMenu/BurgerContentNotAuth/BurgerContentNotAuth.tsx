@@ -10,9 +10,6 @@ interface IBurgerContentNotAuthProps {
 const BurgerContentNotAuth: React.FC<IBurgerContentNotAuthProps> = ({ setIsOpenBurger }) => {
   return (
     <div className={styles.menuContent}>
-      {/* <div className={styles.menuHeader}>
-        <h2>Please Registry</h2>
-      </div> */}
       <ul className={styles.navList}>
         <li className={styles.navItem} onClick={() => setIsOpenBurger(false)}>
           <NavLink to={ROUTES.SIGN_IN}>Sign in</NavLink>

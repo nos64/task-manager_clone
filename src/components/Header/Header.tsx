@@ -36,8 +36,7 @@ const Header = () => {
         }`}
       >
         <Container>
-          <div className={`${styles.headerContent}`}>
-            {/* {isAuthorised && ( */}
+          <div className={styles.headerContent}>
             <span className={!isAuthorised ? styles.burgerWrapper : ''}>
               <div
                 className={isOpenBurger ? styles.burger + ' ' + styles.active : styles.burger}
@@ -46,7 +45,6 @@ const Header = () => {
                 <span className={styles.burgerLine}></span>
               </div>
             </span>
-            {/* )} */}
             <div className={styles.logo}>
               <Link to={ROUTES.WELCOME}>Task Manager</Link>
             </div>

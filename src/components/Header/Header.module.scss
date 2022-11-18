@@ -8,7 +8,7 @@
   top: 0;
   display: flex;
   padding: 15px 20px;
-  outline: 3px solid $background-primary-lighter;
+  border: 3px solid $background-primary-lighter;
   align-items: center;
   color: $text-color;
   background-color: $background-primary;
@@ -197,20 +197,16 @@
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   .createBoardBtn {
     display: none;
   }
 }
 
 @media (max-width: 605px) {
-  // .navLink {
-  //   display: none;
-// }
-.burgerWrapper {
-  visibility: visible;
-
-}
+  .burgerWrapper {
+    visibility: visible;
+  }
   .routToglersWrapper {
     display: none;
   }
@@ -218,11 +214,6 @@
 
 @media (max-width: 420px) {
   .logo {
-    font-size: 18px;
-  }
-
-  .header,
-  .headerAnimated {
-    padding: 15px 5px;
+    font-size: 16px;
   }
 }
