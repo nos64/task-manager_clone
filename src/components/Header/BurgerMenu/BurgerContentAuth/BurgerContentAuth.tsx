@@ -50,16 +50,6 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
       <div className={styles.menuHeader}>
         <h2>{userName}</h2>
       </div>
-      <div className={styles.actions}>
-        <button
-          className={styles.createBoardBtn}
-          type="button"
-          onClick={() => setIsOpenBurger(false)}
-        >
-          <GoPlus />
-          Create Board
-        </button>
-      </div>
       <div className={styles.boardListTitle}>My Boards</div>
       <div className={styles.inputWrapper}>
         <input
@@ -69,6 +59,14 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
           autoComplete="off"
         />
       </div>
+      <button
+        className={styles.createBoardBtn}
+        type="button"
+        onClick={() => setIsOpenBurger(false)}
+      >
+        <GoPlus />
+        Create Board
+      </button>
       <ul className={styles.boardList}>
         {boards.map((board) => (
           <li className={styles.boardItem} key={board._id} onClick={() => setIsOpenBurger(false)}>
