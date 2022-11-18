@@ -6,6 +6,7 @@ import ValidationErrorMessage from '../../ValidationErrorMessage';
 import InputLinePassword from 'components/InputLinePassword';
 import InputLineText from 'components/InputLineText';
 import IUser from 'types/IUser';
+import FormButtons from 'components/FormButtons';
 
 const EditProfileForm = () => {
   const {
@@ -39,7 +40,7 @@ const EditProfileForm = () => {
     <div className={styles.formWrapper}>
       <div className={styles.titleWrapper}>
         <FaUserEdit size={25} />
-        <h1>Edit your profile</h1>
+        <h2>Edit your profile</h2>
       </div>
 
       <form
@@ -71,14 +72,7 @@ const EditProfileForm = () => {
           fieldValue={fileldsValues.password || ''}
         />
         <ValidationErrorMessage message={errors.password && 'Required, min 6 symbols'} />
-        <div className={styles.buttonsWrapper}>
-          <button className={styles.submitBtn} type="submit">
-            UPDATE
-          </button>
-          <button className={styles.canselBtn} type="reset">
-            CANCEL
-          </button>
-        </div>
+        <FormButtons />
       </form>
     </div>
   );
