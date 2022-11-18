@@ -19,6 +19,7 @@ const BoardModal: React.FC<BoardModalProps> = ({ modalActive, setModalActive }) 
 
   const onSubmit = (data: Partial<IBoard>) => {
     // Do your magic here ...
+    console.log(data);
   };
 
   const onChange = () => {
