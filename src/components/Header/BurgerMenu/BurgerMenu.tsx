@@ -7,6 +7,7 @@ interface IBurgerMenuProps {
   setIsOpenBurger: React.Dispatch<React.SetStateAction<boolean>>;
   children?: React.ReactNode;
 }
+
 const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger, children }) => {
   useEffect(() => {
     isOpenBurger ? scrollController.disableScroll() : scrollController.enableScroll();

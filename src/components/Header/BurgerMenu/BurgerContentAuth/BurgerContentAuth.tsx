@@ -7,7 +7,15 @@ import LangToggler from 'components/Header/LangToggler';
 import ThemeToggler from 'components/Header/ThemeToggler';
 import { GoPlus } from 'react-icons/go';
 
-const BurgerContentAuth = () => {
+interface IBurgerContentAuthProps {
+  isOpenBurger: boolean;
+  setIsOpenBurger: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
+  isOpenBurger,
+  setIsOpenBurger,
+}) => {
   const userName = useAppSelector((state) => state.user.name);
 
   const boards = [
@@ -28,18 +36,26 @@ const BurgerContentAuth = () => {
   return (
     <div className={styles.menuContent}>
       <div className={styles.togglersWrapper}>
-        <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
+        <NavLink
+          className={styles.navLink}
+          to={ROUTES.BOARDS}
+          onClick={() => setIsOpenBurger(false)}
+        >
           Main
         </NavLink>
-        <ThemeToggler />
-        <LangToggler />
+        <ThemeToggler isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
+        <LangToggler isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
       </div>
 
       <div className={styles.menuHeader}>
         <h2>{userName}</h2>
       </div>
       <div className={styles.actions}>
-        <button className={styles.createBoardBtn} type="button">
+        <button
+          className={styles.createBoardBtn}
+          type="button"
+          onClick={() => setIsOpenBurger(false)}
+        >
           <GoPlus />
           Create Board
         </button>
@@ -55,7 +71,7 @@ const BurgerContentAuth = () => {
       </div>
       <ul className={styles.boardList}>
         {boards.map((board) => (
-          <li className={styles.boardItem} key={board._id}>
+          <li className={styles.boardItem} key={board._id} onClick={() => setIsOpenBurger(false)}>
             <NavLink className={styles.boardNavLink} to={'#'}>
               {board.title}
             </NavLink>

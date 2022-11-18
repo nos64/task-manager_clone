@@ -59,8 +59,8 @@ const Header = () => {
                     <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
                       Main
                     </NavLink>
-                    <LangToggler />
-                    <ThemeToggler />
+                    <LangToggler isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
+                    <ThemeToggler isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
                   </div>
                 </>
               )}
@@ -71,7 +71,7 @@ const Header = () => {
       </header>
       <BurgerMenu isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger}>
         {isAuthorised ? (
-          <BurgerContentAuth />
+          <BurgerContentAuth isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
         ) : (
           <BurgerContentNotAuth setIsOpenBurger={setIsOpenBurger} />
         )}
