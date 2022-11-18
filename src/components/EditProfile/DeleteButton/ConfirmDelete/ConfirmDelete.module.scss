@@ -1,15 +1,15 @@
-
 @import '../../../../styles/mixins.scss';
 @import '../../../../styles/extensions.scss';
 
 .wrapper {
   @extend %centered;
   flex-direction: column;
+  gap: 15px;
 }
 
 .title {
-  text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
+  font-size: 24px;
 }
 
 .buttonsWrapper {
