@@ -5,7 +5,7 @@
 .modal {
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(2px);
   position: fixed;
   top: 0;
@@ -16,7 +16,7 @@
   opacity: 0;
   pointer-events: none;
   z-index: 100;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   &.active {
     pointer-events: all;
@@ -27,13 +27,12 @@
 .modalContent {
   padding: 20px;
   border-radius: $border-raduis-small;
-  color: $color-text-secondary;
-  font-size: 24px;
+  color: $base-light-color;
   font-weight: 700;
   background-color: $background-primary;
   box-shadow: 0px 0px 4px 1px $background-light-hovered;
   transform: scale(0.5);
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   &.modalContentActive {
     transform: scale(1);
@@ -50,7 +49,7 @@
 @media (max-width: 600px) {
   .buttonsWrapper {
     flex-direction: column;
-    align-items:center;
+    align-items: center;
     gap: 10px;
   }
 }
