@@ -60,7 +60,7 @@
 
 .burgerLine:before{
   content: "";
-  background-color: $accent-color-darker;
+  background-color: $accent-color;
   top: -10px;
   transition: top 0.4s 0.4s,
   transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -68,7 +68,7 @@
 
 .burgerLine:after {
   content: "";
-  background-color: $accent-color-lighter;
+  background-color: $accent-color;
   bottom: -10px;
   transition: bottom 0.4s 0.4s,
   transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -92,4 +92,9 @@
 
 .active .burgerLine{
   background: transparent; 
+}
+
+.burger:hover .burgerLine::before,
+.burger:hover .burgerLine::after {
+  background-color: $accent-color-hovered;
 }

@@ -53,7 +53,7 @@
   border-radius: 5px;
   background-color: $accent-color;
   opacity: 1;
-  transition: all 0.4s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .active {
@@ -64,70 +64,76 @@
   content: "";
   background-color: $accent-color-darker;
   top: -10px;
-  transition: top 0.2s 0.2s,
-  transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: top 0.3s 0.3s,
+  transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .burgerLine:after {
   content: "";
   background-color: $accent-color-lighter;
   bottom: -10px;
-  transition: bottom 0.2s 0.2s,
-  transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: bottom 0.3s 0.3s,
+  transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .active .burgerLine:before{
   content: "";
   top: 0px;
   transform: rotate(45deg);
-  transition: top 0.2s,
-  transform 0.2s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: top 0.3s,
+  transform 0.3s 0.32s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 .active .burgerLine:after{
   content: "";
   bottom: 0;
   transform: rotate(-45deg);
-  transition: bottom 0.2s,
-  transform 0.2s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: bottom 0.3s,
+  transform 0.3s 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
-.active .burgerLine{
+.active .burgerLine {
   background: transparent; 
-  transition: 0.3s;
   border-radius: 5px;
   background-color: $accent-color;
-  transition: all 0.4s ease-in-out;
+  transition: 0.3s;
+  transition: all 0.3s ease-in-out;
 }
 
 .burgerLine:before {
   content: '';
-  background-color: $accent-color-darker;
+  background-color: $accent-color;
   top: -10px;
-  transition: top 0.2s 0.2s, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: top 0.3s 0.3s, transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .burgerLine:after {
   content: '';
-  background-color: $accent-color-lighter;
+  background-color: $accent-color;
   bottom: -10px;
-  transition: bottom 0.2s 0.2s, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: bottom 0.3s 0.3s, transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .active .burgerLine:before {
   content: '';
   top: 0px;
   transform: rotate(45deg);
-  transition: top 0.2s, transform 0.2s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: top 0.3s, transform 0.3s 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .active .burgerLine:after {
   content: '';
   bottom: 0;
   transform: rotate(-45deg);
-  transition: bottom 0.2s, transform 0.2s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: bottom 0.3s, transform 0.3s 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .active .burgerLine {
   background: transparent;
+}
+
+.burger:hover .burgerLine,
+.burger:hover .burgerLine::before,
+.burger:hover .burgerLine::after {
+  background-color: $accent-color-hovered;
 }
 
 .logo {
