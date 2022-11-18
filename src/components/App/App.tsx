@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { ROUTES } from 'common/routes';
 import Layout from 'components/Layout';
-import AuthPage from 'pages/AuthPage';
-import BoardsPage from 'pages/BoardsPage';
 import EditProfilePage from 'pages/EditProfilePage';
-import BoardPage from 'pages/BoardPage/BoardPage';
+import BoardPage from 'pages/BoardPage';
 import { Route, Routes } from 'react-router-dom';
 import { getUserById } from 'store/reducers/userSlice';
 
@@ -14,11 +12,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import styles from './App.module.scss';
 import NotFoundPage from 'pages/NotFoundPage';
 import ProtectedRoute from 'components/ProtectedRoute';
+import AuthPage from 'pages/AuthPage';
+import BoardsPage from 'pages/BoardsPage';
 
 const App: React.FC = () => {
   const isLoginAlreadyExist = useAppSelector((state) => state.user.isLoginAlreadyExist);
   const isAuthorisationError = useAppSelector((state) => state.user.isAuthorisationError);
-  const isTokenExpired = useAppSelector((state) => state.user.isTokenExpired);
+  const isTokenRequireUpdate = useAppSelector((state) => state.user.isTokenRequireUpdate);
   const isRoutesProtected = useAppSelector((state) => state.user.isRoutesProtected);
   const dispatch = useAppDispatch();
 
@@ -36,7 +36,7 @@ const App: React.FC = () => {
   }, [isLoginAlreadyExist, isAuthorisationError]);
 
   useEffect(() => {
-    if (isTokenExpired) {
+    if (isTokenRequireUpdate) {
       toast.warning('Invalid token. Please sign in again', {
         position: toast.POSITION.TOP_CENTER,
         theme: 'dark',
@@ -44,7 +44,7 @@ const App: React.FC = () => {
         progressClassName: styles.toastProgressBarWarning,
       });
     }
-  }, [isTokenExpired]);
+  }, [isTokenRequireUpdate]);
 
   useEffect(() => {
     dispatch(getUserById());

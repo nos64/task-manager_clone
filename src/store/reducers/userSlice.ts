@@ -80,8 +80,10 @@ interface UserState {
   avatarID: number;
   isLoginAlreadyExist: boolean;
   isAuthorisationError: boolean;
-  isTokenExpired: boolean;
+  isTokenRequireUpdate: boolean;
   isRoutesProtected: boolean;
+  //
+  isTokenExpired: boolean;
 }
 
 const initialState: UserState = {
@@ -95,8 +97,9 @@ const initialState: UserState = {
   avatarID: 0,
   isLoginAlreadyExist: false,
   isAuthorisationError: false,
-  isTokenExpired: false,
+  isTokenRequireUpdate: false,
   isRoutesProtected: !!localStorage.getItem('token'),
+  isTokenExpired: false,
 };
 
 export const userSlice = createSlice({
@@ -109,6 +112,12 @@ export const userSlice = createSlice({
     },
     setLanguage(state, action: PayloadAction<Languages>) {
       state.language = action.payload;
+    },
+    setIsRoutesProtected(state, action: PayloadAction<false>) {
+      state.isRoutesProtected = action.payload;
+    },
+    setIsTokenRequireUpdate(state, action: PayloadAction<true>) {
+      state.isTokenRequireUpdate = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -144,6 +153,7 @@ export const userSlice = createSlice({
       state.isPending = true;
       state.isAuthorisationError = false;
       state.isLoginAlreadyExist = false;
+      state.isTokenRequireUpdate = false;
       state.isTokenExpired = false;
     });
     builder.addCase(signInUser.fulfilled, (state, action) => {
@@ -165,8 +175,6 @@ export const userSlice = createSlice({
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
-        state.isAuthorised = false;
-        state.isRoutesProtected = false;
       }
 
       if (action.payload === StatusCodes.AUTHORIZATION_ERROR) {
@@ -194,13 +202,12 @@ export const userSlice = createSlice({
       state.isPending = false;
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
-        state.isAuthorised = false;
         state.isTokenExpired = true;
-        state.isRoutesProtected = false;
       }
     });
   },
 });
 
-export const { setIsAuthorised, setLanguage } = userSlice.actions;
+export const { setIsAuthorised, setLanguage, setIsRoutesProtected, setIsTokenRequireUpdate } =
+  userSlice.actions;
 export default userSlice.reducer;
