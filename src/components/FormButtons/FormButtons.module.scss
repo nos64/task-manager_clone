@@ -1,0 +1,17 @@
+@import '../../styles/mixins.scss';
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+
+  .submitBtn {
+    text-transform: uppercase;
+    @include buttonStyle(5px, 30px);
+  }
+
+  .canselBtn {
+    text-transform: uppercase;
+    @include buttonStyleNegative(5px, 30px);
+  }
+}

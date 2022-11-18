@@ -21,7 +21,7 @@ const AuthPage = () => {
   return (
     <div className={styles.wrapper}>
       <section className={styles.authorisation}>
-        <h1 className={styles.title}>{title}</h1>
+        <h2 className={styles.title}>{title}</h2>
         <div className={styles.subtitle}>{subtitle}</div>
         <AuthForm />
         <div className={styles.formSwitcher}>
