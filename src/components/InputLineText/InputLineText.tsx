@@ -13,6 +13,7 @@ interface IInputLineProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   register: UseFormRegister<FieldValues>;
   fieldValue: string;
+  symbolsLimit: number;
 }
 
 const InputLineText: React.FC<IInputLineProps> = ({
@@ -21,6 +22,7 @@ const InputLineText: React.FC<IInputLineProps> = ({
   placeholder,
   register,
   fieldValue,
+  symbolsLimit,
 }) => {
   const [value, setValue] = useState('');
 
@@ -37,8 +39,8 @@ const InputLineText: React.FC<IInputLineProps> = ({
           {...register(inputName, {
             required: 'Required',
             minLength: {
-              value: 2,
-              message: 'Min 2 symbols',
+              value: symbolsLimit,
+              message: '',
             },
           })}
           placeholder={placeholder}

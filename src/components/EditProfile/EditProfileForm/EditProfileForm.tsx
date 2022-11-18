@@ -55,6 +55,7 @@ const EditProfileForm = () => {
           placeholder={'Enter new name'}
           register={register}
           fieldValue={fileldsValues.name || ''}
+          symbolsLimit={2}
         />
         <ValidationErrorMessage message={errors.name && 'Min 2 symbols'} />
         <InputLineText
@@ -63,6 +64,7 @@ const EditProfileForm = () => {
           placeholder={'Enter new Login'}
           register={register}
           fieldValue={fileldsValues.login || ''}
+          symbolsLimit={2}
         />
         <ValidationErrorMessage message={errors.login && 'Min 2 symbols'} />
         <InputLinePassword
