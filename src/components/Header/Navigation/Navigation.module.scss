@@ -76,3 +76,23 @@
     color: $text-color-hovered;
   }
 }
+
+.navItemHidden {
+  display: flex;
+  gap: 15px;
+}
+
+@media (max-width: 605px) {
+  .navItemHidden {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .user,
+  .userDisabled {
+    width: 24px;
+    height: 24px;
+  }
+}
+

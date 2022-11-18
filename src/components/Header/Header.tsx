@@ -10,7 +10,6 @@ import { GoPlus } from 'react-icons/go';
 import { useAppSelector } from 'hooks/redux';
 import BurgerMenu from './BurgerMenu';
 import BurgerContentAuth from './BurgerMenu/BurgerContentAuth';
-import { burgerBreakPoint } from 'common/constants';
 import BurgerContentNotAuth from './BurgerMenu/BurgerContentNotAuth';
 
 const Header = () => {
@@ -19,7 +18,6 @@ const Header = () => {
   const [isOpenBurger, setIsOpenBurger] = useState(false);
 
   const offsetLimit = 15;
-  const screenWidth = window.innerWidth;
 
   const handleScroll = () => {
     setTopOffset(window.scrollY);
@@ -39,14 +37,16 @@ const Header = () => {
       >
         <Container>
           <div className={`${styles.headerContent}`}>
-            {screenWidth < 786 && (
+            {/* {isAuthorised && ( */}
+            <span className={!isAuthorised ? styles.burgerWrapper : ''}>
               <div
                 className={isOpenBurger ? styles.burger + ' ' + styles.active : styles.burger}
                 onClick={() => setIsOpenBurger(!isOpenBurger)}
               >
                 <span className={styles.burgerLine}></span>
               </div>
-            )}
+            </span>
+            {/* )} */}
             <div className={styles.logo}>
               <Link to={ROUTES.WELCOME}>Task Manager</Link>
             </div>
@@ -57,13 +57,15 @@ const Header = () => {
                     <GoPlus />
                     Create Board
                   </button>
-                  <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
-                    Main
-                  </NavLink>
-                  <LangToggler />
+                  <div className={styles.routToglersWrapper}>
+                    <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
+                      Main
+                    </NavLink>
+                    <LangToggler />
+                    <ThemeToggler />
+                  </div>
                 </>
               )}
-              <ThemeToggler />
               <Navigation />
             </div>
           </div>
@@ -71,7 +73,7 @@ const Header = () => {
       </header>
       <BurgerMenu isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger}>
         {isAuthorised ? (
-          <BurgerContentAuth screenWidth={screenWidth} />
+          <BurgerContentAuth />
         ) : (
           <BurgerContentNotAuth setIsOpenBurger={setIsOpenBurger} />
         )}

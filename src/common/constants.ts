@@ -74,4 +74,4 @@ export const avatars = [
   },
 ];
 
-export const burgerBreakPoint = 768;
+export const burgerBreakPoint = 600;

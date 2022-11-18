@@ -2,11 +2,12 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './BurgerContentAuth.module.scss';
 import { useAppSelector } from 'hooks/redux';
+import { ROUTES } from 'common/routes';
+import LangToggler from 'components/Header/LangToggler';
+import ThemeToggler from 'components/Header/ThemeToggler';
+import { GoPlus } from 'react-icons/go';
 
-interface IBurgerContentAuthProps {
-  screenWidth: number;
-}
-const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({ screenWidth }) => {
+const BurgerContentAuth = () => {
   const userName = useAppSelector((state) => state.user.name);
 
   const boards = [
@@ -26,8 +27,22 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({ screenWidth }) =
 
   return (
     <div className={styles.menuContent}>
+      <div className={styles.togglersWrapper}>
+        <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
+          Main
+        </NavLink>
+        <ThemeToggler />
+        <LangToggler />
+      </div>
+
       <div className={styles.menuHeader}>
         <h2>{userName}</h2>
+      </div>
+      <div className={styles.actions}>
+        <button className={styles.createBoardBtn} type="button">
+          <GoPlus />
+          Create Board
+        </button>
       </div>
       <div className={styles.boardListTitle}>My Boards</div>
       <div className={styles.inputWrapper}>
@@ -41,7 +56,7 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({ screenWidth }) =
       <ul className={styles.boardList}>
         {boards.map((board) => (
           <li className={styles.boardItem} key={board._id}>
-            <NavLink className={styles.navLink} to={'#'}>
+            <NavLink className={styles.boardNavLink} to={'#'}>
               {board.title}
             </NavLink>
           </li>

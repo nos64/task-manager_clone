@@ -1,21 +1,78 @@
 @import '../../../../styles/colors.scss';
 @import '../../../../styles/mixins.scss';
+@import '../../../../styles/extensions.scss';
 
 .menuContent {
+  position: relative;
   text-align: center;
-  width: 60%;
-  width: 300px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   height: 100%;
   background-color: $base-dark-color;
   color: $base-light-color;
+  padding: 0 20px;
   z-index: 50;
   transition: all .6s ease;
 }
 
+.togglersWrapper {
+  position: absolute;
+  right: 20px;
+  top: -60px;
+  display: flex;
+  gap: 15px;
+  display: none;
+}
+
+.navLink {
+  display: flex;
+  padding: 8px 25px;
+  width: 95px;
+  border-radius: 22px;
+  border: 2px solid $accent-color;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    color: $accent-color;
+    font-weight: 700;
+    background-color: $base-light-color;
+    border-color: $base-light-color;
+  }
+}
+
 .menuHeader {
-  padding: 10px;
+  // padding: 10px;
   border-bottom: 1px solid $dark-shadow;
   width: 100%;
+}
+
+.createBoardBtn {
+  display: none;
+  padding: 10px 25px;
+  margin-top: 10px;
+  border: none;
+  outline: none;
+  border-radius: 25px;
+  align-items: center;
+  gap: 5px;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: $accent-color;
+  transition: 0.3s ease;
+
+  .createBoardBtnImg {
+    width: 15px;
+    height: 15px;
+    filter: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(91%) hue-rotate(197deg)
+      brightness(104%) contrast(91%);
+  }
+
+  &:hover {
+    background-color: $accent-color-hovered;
+    cursor: pointer;
+  }
 }
 
 .boardListTitle {
@@ -41,14 +98,16 @@
 .boardList {
   display: flex;
   flex-direction: column;
+  // align-items:flex-start;
   gap: 2px;
 }
 
 .boardItem {
   display: block;
+  text-align: left;
   cursor: pointer;
   min-width: 100%;
-  padding: 3px;
+  padding: 3px 0;
   border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
   
@@ -57,8 +116,21 @@
     border: 1px solid $base-dark-lighter-color;
   }
 
-  .navLink {
+  .boardNavLink {
     padding: 0 10px;
     @include contentLimit(1);
   }
 }
+
+@media (max-width: 800px) {
+  .createBoardBtn {
+    display: flex;
+  }
+}
+
+@media (max-width: 605px) {
+  .togglersWrapper {
+    display: flex;
+  }
+}
+
