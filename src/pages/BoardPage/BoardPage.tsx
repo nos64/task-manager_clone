@@ -86,21 +86,24 @@ const BoardPage = () => {
             <p className={styles.description}>{boardDescription}</p>
           </div>
         </div>
-        <Droppable droppableId={'columns'} direction="horizontal" type={DndType.COLUMN}>
-          {(provided) => (
-            <div
-              className={styles.columnsContainer}
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {columns.map((column, index) => (
-                <Column key={column._id} item={column} index={index} />
-              ))}
-              {provided.placeholder}
-              <NewColumn />
-            </div>
-          )}
-        </Droppable>
+        <div className={styles.boardContent}>
+          <Droppable droppableId={'columns'} direction="horizontal" type={DndType.COLUMN}>
+            {(provided) => (
+              <div
+                className={styles.columnsContainer}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                id="column-container"
+              >
+                {columns.map((column, index) => (
+                  <Column key={column._id} item={column} index={index} />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+          <NewColumn />
+        </div>
       </div>
     </DragDropContext>
   );

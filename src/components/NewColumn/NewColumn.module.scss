@@ -4,8 +4,9 @@
 
 .newColumn {
   @extend %centered;
-  width: 270px;
-  padding: 10px;
+  width: 230px;
+  min-width: 230px;
+  padding: 8px;
   margin-top: 43px;
   margin-left: 10px;
   border-radius: $border-raduis-small;
