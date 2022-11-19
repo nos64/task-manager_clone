@@ -48,7 +48,7 @@
 }
 
 .createBoardBtn {
-  display: none;
+  display: flex;
   align-items:flex-start;
   padding: 5px 5px;
   margin: 10px auto 10px 0;
@@ -114,12 +114,6 @@
   .boardNavLink {
     padding: 0 10px;
     @include contentLimit(1);
-  }
-}
-
-@media (max-width: 830px) {
-  .createBoardBtn {
-    display: flex;
   }
 }
 
