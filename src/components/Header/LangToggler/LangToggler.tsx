@@ -4,7 +4,12 @@ import { setLanguage } from 'store/reducers/userSlice';
 import Languages from 'types/Languages';
 import styles from './LangToggler.module.scss';
 
-const LangToggler = () => {
+interface ILangTogglerProps {
+  isOpenBurger: boolean;
+  setIsOpenBurger: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const LangToggler: React.FC<ILangTogglerProps> = ({ isOpenBurger, setIsOpenBurger }) => {
   const language = useAppSelector((state) => state.user.language);
   const userId = useAppSelector((state) => state.user.id);
   const dispatch = useAppDispatch();
@@ -13,8 +18,8 @@ const LangToggler = () => {
     const userInfo = JSON.parse(localStorage.getItem(userId) || '');
 
     localStorage.setItem(userId, JSON.stringify({ ...userInfo, ...{ language: language } }));
-
     dispatch(setLanguage(language));
+    if (isOpenBurger) setIsOpenBurger(false);
   };
 
   return (

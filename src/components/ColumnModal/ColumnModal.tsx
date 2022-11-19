@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import Modal from 'components/Modal';
-import styles from './BoardModal.module.scss';
+import styles from './ColumnModal.module.scss';
 import InputLineText from 'components/InputLineText';
 import { useForm } from 'react-hook-form';
 import IBoard from 'types/IBoard';
 import FormButtons from 'components/FormButtons';
 import ValidationErrorMessage from 'components/ValidationErrorMessage';
-import { FaRegClipboard } from 'react-icons/fa';
-import InputTextarea from 'components/InputTextarea';
+import { FaListUl } from 'react-icons/fa';
 
-interface BoardModalProps {
+interface ColumnModalProps {
   modalActive: boolean;
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BoardModal: React.FC<BoardModalProps> = ({ modalActive, setModalActive }) => {
+const ColumnModal: React.FC<ColumnModalProps> = ({ modalActive, setModalActive }) => {
   const [fileldsValues, setFieldsValues] = useState<Partial<IBoard>>({});
 
   const onSubmit = (data: Partial<IBoard>) => {
@@ -43,28 +42,19 @@ const BoardModal: React.FC<BoardModalProps> = ({ modalActive, setModalActive }) 
     <Modal modalActive={modalActive} setModalActive={setModalActive}>
       <div className={styles.elementModal}>
         <div className={styles.titleWrapper}>
-          <FaRegClipboard size={25} />
-          <h2>Create board</h2>
+          <FaListUl size={25} />
+          <h2>Add column</h2>
         </div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)} onChange={onChange}>
           <InputLineText
             inputName={'title'}
             label={'Title'}
-            placeholder={'Name your board'}
+            placeholder={'Add column heading'}
             register={register}
             fieldValue={fileldsValues.title || ''}
             symbolsLimit={1}
           />
           <ValidationErrorMessage message={errors.title && 'Min 1 symbol'} />
-          <InputTextarea
-            inputName={'description'}
-            label={'Description'}
-            placeholder={'Add a description'}
-            register={register}
-            fieldValue={fileldsValues.description || ''}
-            symbolsLimit={200}
-          />
-          <ValidationErrorMessage message={errors.description && 'Max 200 symbols'} />
           <FormButtons handleCancelBtnClick={onReset} />
         </form>
       </div>
@@ -72,4 +62,4 @@ const BoardModal: React.FC<BoardModalProps> = ({ modalActive, setModalActive }) 
   );
 };
 
-export default BoardModal;
+export default ColumnModal;

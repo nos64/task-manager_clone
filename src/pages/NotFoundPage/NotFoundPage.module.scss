@@ -48,10 +48,10 @@
 .space {
   position: relative;
   width: $black-hole-size;
-  height: calc(50vh - 100px + #{$black-hole-size/2});
-  margin: calc(50vh - 100px - #{$black-hole-size/2}) auto 0 auto;
-  border-top-left-radius: $black-hole-size/2;
-  border-top-right-radius: $black-hole-size/2;
+  height: calc(50vh - 100px + #{calc($black-hole-size/2)});
+  margin: calc(50vh - 100px - #{calc($black-hole-size/2)}) auto 0 auto;
+  border-top-left-radius: calc($black-hole-size/2);
+  border-top-right-radius: calc($black-hole-size/2);
   pointer-events: none;
   overflow: hidden;
   transform: translateZ(0);
