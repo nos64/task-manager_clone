@@ -47,7 +47,7 @@ const Header = () => {
             </span>
             <div className={styles.logo}>
               <Link to={ROUTES.WELCOME}>Task Manager</Link>
-            </h1>
+            </div>
             <div className={styles.actions}>
               {isAuthorised && (
                 <>
