@@ -21,7 +21,7 @@ const NotFoundPage = () => {
   return (
     <div className={sytles.wrapper}>
       <div className={sytles.content}>
-        <h1 className={sytles.title}>Hmm.</h1>
+        <h2 className={sytles.title}>Hmm.</h2>
         <p className={sytles.description}>
           It seems that you&apos;re lost in a perpetual black hole. Let us help guide you out and
           get you back home.

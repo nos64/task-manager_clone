@@ -15,27 +15,11 @@
 }
 
 .titleWrapper {
-  @extend %centered;
-  gap: 20px;
-  text-transform: uppercase;
+  @extend %form-title;
 }
 
 .form {
   display: flex;
   flex-direction: column;
   gap: 15px;
-}
-
-.buttonsWrapper {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-
-  .submitBtn {
-    @include buttonStyle(5px, 30px);
-  }
-
-  .canselBtn {
-    @include buttonStyleNegative(5px, 30px);
-  }
 }

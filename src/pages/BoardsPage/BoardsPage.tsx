@@ -1,9 +1,16 @@
+import BoardModal from 'components/BoardModal';
 import NewBoard from 'components/NewBoard';
-import React from 'react';
+import React, { useState } from 'react';
 import Board from '../../components/Board';
 import styles from './BoardsPage.module.scss';
 
 const BoardsPage = () => {
+  const [isModalOpened, setIsModalOpened] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpened((prev) => !prev);
+  };
+
   const boards = [
     {
       _id: '1',
@@ -26,8 +33,11 @@ const BoardsPage = () => {
         {boards.map((board) => {
           return <Board key={board._id} item={board} />;
         })}
-        <NewBoard />
+        <NewBoard toggleModal={toggleModal} />
       </div>
+      {isModalOpened && (
+        <BoardModal modalActive={isModalOpened} setModalActive={setIsModalOpened} />
+      )}
     </div>
   );
 };

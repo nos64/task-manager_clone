@@ -1,13 +1,8 @@
 import React, { InputHTMLAttributes, useEffect, useState } from 'react';
-import styles from './InputLineText.module.scss';
-import { DeepMap, FieldError, FieldValues, UseFormRegister } from 'react-hook-form';
+import { FieldValues, UseFormRegister } from 'react-hook-form';
+import styles from './InputTextarea.module.scss';
 
-export type FieldErrors<TFieldValues extends FieldValues = FieldValues> = DeepMap<
-  TFieldValues,
-  FieldError
->;
-
-interface IInputLineProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputTextareaProps extends InputHTMLAttributes<HTMLInputElement> {
   inputName: string;
   label: string;
   placeholder: string;
@@ -16,7 +11,7 @@ interface IInputLineProps extends InputHTMLAttributes<HTMLInputElement> {
   symbolsLimit: number;
 }
 
-const InputLineText: React.FC<IInputLineProps> = ({
+const InputTextarea: React.FC<InputTextareaProps> = ({
   inputName,
   label,
   placeholder,
@@ -33,23 +28,21 @@ const InputLineText: React.FC<IInputLineProps> = ({
   return (
     <>
       <div className={styles.inputWrapper}>
-        <input
-          className={styles.inputLine}
-          type="text"
+        <textarea
+          className={styles.inputTextarea}
           {...register(inputName, {
-            required: 'Required',
-            minLength: {
+            maxLength: {
               value: symbolsLimit,
               message: '',
             },
           })}
           placeholder={placeholder}
-          autoComplete="off"
-        />
+          rows={7}
+        ></textarea>
         <label className={!value.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
       </div>
     </>
   );
 };
 
-export default InputLineText;
+export default InputTextarea;

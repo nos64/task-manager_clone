@@ -1,14 +1,11 @@
 import { ROUTES } from 'common/routes';
 import AuthForm from 'components/AuthForm';
-import { useAppSelector } from 'hooks/redux';
 import useCurrentPage from 'hooks/useCurrentPage';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './AuthPage.module.scss';
 
 const AuthPage = () => {
-  const isPending = useAppSelector((state) => state.user.isPending);
-
   const navigate = useNavigate();
 
   const isAuthPage = useCurrentPage();
@@ -24,7 +21,7 @@ const AuthPage = () => {
   return (
     <div className={styles.wrapper}>
       <section className={styles.authorisation}>
-        <h1 className={styles.title}>{title}</h1>
+        <h2 className={styles.title}>{title}</h2>
         <div className={styles.subtitle}>{subtitle}</div>
         <AuthForm />
         <div className={styles.formSwitcher}>
@@ -34,7 +31,6 @@ const AuthPage = () => {
           </span>
         </div>
       </section>
-      {isPending && 'Loading...'}
     </div>
   );
 };

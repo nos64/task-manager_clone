@@ -41,9 +41,9 @@ const Header = () => {
             >
               <span className={styles.burgerLine}></span>
             </div>
-            <div className={isOpenBurger ? styles.logo + ' ' + styles.activeBurger : styles.logo}>
+            <h1 className={isOpenBurger ? styles.logo + ' ' + styles.activeBurger : styles.logo}>
               <Link to={ROUTES.WELCOME}>Task Manager</Link>
-            </div>
+            </h1>
             <div className={styles.actions}>
               {isAuthorised && (
                 <>
