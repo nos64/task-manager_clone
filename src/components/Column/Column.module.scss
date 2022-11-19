@@ -4,8 +4,7 @@
 .column {
   width: 250px;
   min-width: 250px;
-  padding: 10px;
-  padding-right: 5px;
+  padding: 10px 5px 10px 10px;
   border: 2px solid transparent;
   border-radius: $border-raduis-small;
   scroll-snap-align: center;
@@ -96,7 +95,7 @@
   flex-grow: 1;
   flex: 1 1 auto;
   min-height: 5px;
-  max-height: calc(100vh - 400px);
+  max-height: calc(100vh - 390px);
   overflow: hidden auto;
 
   &::-webkit-scrollbar {
