@@ -8,6 +8,8 @@ import FormButtons from 'components/FormButtons';
 import ValidationErrorMessage from 'components/ValidationErrorMessage';
 import { FaRegClipboard } from 'react-icons/fa';
 import InputTextarea from 'components/InputTextarea';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { createNewBoard } from 'store/reducers/boardsSlice';
 
 interface BoardModalProps {
   modalActive: boolean;
@@ -17,9 +19,19 @@ interface BoardModalProps {
 const BoardModal: React.FC<BoardModalProps> = ({ modalActive, setModalActive }) => {
   const [fileldsValues, setFieldsValues] = useState<Partial<IBoard>>({});
 
+  const dispatch = useAppDispatch();
+  const boards = useAppSelector((state) => state.boards.boards);
   const onSubmit = (data: Partial<IBoard>) => {
     // Do your magic here ...
-    console.log(data);
+    dispatch(
+      createNewBoard({
+        title: '123456',
+        owner: '123456',
+        description: '123456',
+        users: ['123456'],
+      })
+    );
+    console.log(boards);
   };
 
   const onChange = () => {

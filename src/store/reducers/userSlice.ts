@@ -82,7 +82,6 @@ interface UserState {
   isAuthorisationError: boolean;
   isTokenRequireUpdate: boolean;
   isRoutesProtected: boolean;
-  //
   isTokenExpired: boolean;
 }
 
