@@ -7,7 +7,7 @@ export const scrollController = {
       top: -${scrollController.scrollPosition}px;
       left: 0;
       height: 100vh;
-      width: 100 vw;
+      width: 100vw;
       padding-right: ${window.innerWidth - document.body.offsetWidth}px;
     `;
     document.documentElement.style.scrollBehavior = 'unset';

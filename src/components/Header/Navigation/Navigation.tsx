@@ -30,7 +30,7 @@ const Navigation = () => {
             {isMenuOpened && <div className={styles.overlay}></div>}
           </>
         ) : (
-          <>
+          <div className={!isAuthorised ? styles.navItemHidden : ''}>
             <li className={styles.navItem}>
               <NavLink to={ROUTES.SIGN_IN}>Sign in</NavLink>
             </li>
@@ -38,7 +38,7 @@ const Navigation = () => {
             <li className={styles.navItem}>
               <NavLink to={ROUTES.SIGN_UP}>Sign up</NavLink>
             </li>
-          </>
+          </div>
         )}
       </ul>
       <DropDownList setIsMenuOpened={setIsMenuOpened} isMenuOpened={isMenuOpened} />
