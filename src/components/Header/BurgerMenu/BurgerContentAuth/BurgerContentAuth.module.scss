@@ -51,8 +51,7 @@
   display: none;
   align-items:flex-start;
   padding: 5px 5px;
-  margin: 10px 0;
-  margin-right: auto;
+  margin: 10px auto 10px 0;
   gap: 5px;
   font-size: 20px;;
   color: inherit;
@@ -82,8 +81,7 @@
   display: flex;
   flex-direction: column;
   width: 95%;
-  margin: 0 auto;
-  margin-bottom: 5px;
+  margin: 0 auto 5px auto;
   height: 40px;
 
   & .inputLine {
@@ -119,13 +117,13 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 830px) {
   .createBoardBtn {
     display: flex;
   }
 }
 
-@media (max-width: 605px) {
+@media (max-width: 620px) {
   .togglersWrapper {
     display: flex;
   }

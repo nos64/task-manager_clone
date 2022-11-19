@@ -58,7 +58,8 @@
   transition: all 0.4s ease-in-out;
 }
 
-.burgerLine:before{
+.burgerLine:before
+.burgerLine:after {
   content: "";
   background-color: $accent-color;
   top: -10px;
@@ -67,14 +68,10 @@
 }
 
 .burgerLine:after {
-  content: "";
-  background-color: $accent-color;
   bottom: -10px;
-  transition: bottom 0.4s 0.4s,
-  transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.active .burgerLine:before{
+.active .burgerLine:before {
   content: "";
   top: 0px;
   transform: rotate(45deg);
@@ -82,7 +79,7 @@
   transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.active .burgerLine:after{
+.active .burgerLine:after {
   content: "";
   bottom: 0;
   transform: rotate(-45deg);
