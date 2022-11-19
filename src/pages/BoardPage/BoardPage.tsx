@@ -110,7 +110,7 @@ const BoardPage = () => {
                 </div>
               )}
             </Droppable>
-            <NewColumn />
+            <NewColumn toggleModal={toggleModal} />
           </div>
         </div>
       </DragDropContext>
