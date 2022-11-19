@@ -2,4 +2,4 @@ $border-raduis-small: 5px;
 $border-radius-medium: 10px;
 
 $black-hole-size: 75px;
-$black-hole-border: $black-hole-size/15;
+$black-hole-border: calc($black-hole-size/15);
