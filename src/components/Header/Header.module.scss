@@ -72,7 +72,7 @@
   bottom: -10px;
 }
 
-.active .burgerLine:before{
+.active .burgerLine:before {
   content: "";
   top: 0px;
   transform: rotate(45deg);
@@ -80,7 +80,7 @@
   transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.active .burgerLine:after{
+.active .burgerLine:after {
   content: "";
   bottom: 0;
   transform: rotate(-45deg);
