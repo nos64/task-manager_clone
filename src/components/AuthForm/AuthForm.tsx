@@ -78,6 +78,7 @@ const AuthForm = () => {
             placeholder={'Enter your name'}
             register={register}
             fieldValue={fileldsValues.name || ''}
+            symbolsLimit={2}
           />
           <ValidationErrorMessage message={errors.name && 'Min 2 symbols'} />
         </>
@@ -88,6 +89,7 @@ const AuthForm = () => {
         placeholder={'Enter your login'}
         register={register}
         fieldValue={fileldsValues.login || ''}
+        symbolsLimit={2}
       />
       <ValidationErrorMessage message={errors.login && 'Min 2 symbols'} />
       <InputLinePassword

@@ -3,3 +3,9 @@
   justify-content: center;
   align-items: center;
 }
+
+%form-title {
+  @extend %centered;
+  gap: 20px;
+  text-transform: uppercase;
+}
