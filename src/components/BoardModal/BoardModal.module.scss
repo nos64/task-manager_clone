@@ -1,17 +1,3 @@
-@import './../../styles/extensions.scss';
+@import './../../styles/mixins.scss';
 
-.boardModal {
-  width: 359px;
-  max-width: 600px;
-}
-
-.titleWrapper {
-  @extend %form-title;
-  margin-bottom: 30px;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
+@include elementModal();
