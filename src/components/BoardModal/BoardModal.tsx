@@ -18,20 +18,21 @@ interface BoardModalProps {
 
 const BoardModal: React.FC<BoardModalProps> = ({ modalActive, setModalActive }) => {
   const [fileldsValues, setFieldsValues] = useState<Partial<IBoard>>({});
-
+  const userID = useAppSelector((state) => state.user.id);
   const dispatch = useAppDispatch();
-  const boards = useAppSelector((state) => state.boards.boards);
+
   const onSubmit = (data: Partial<IBoard>) => {
-    // Do your magic here ...
-    dispatch(
-      createNewBoard({
-        title: '123456',
-        owner: '123456',
-        description: '123456',
-        users: ['123456'],
-      })
-    );
-    console.log(boards);
+    if (data.title && data.description) {
+      dispatch(
+        createNewBoard({
+          title: data.title,
+          description: data.description,
+          owner: userID,
+          users: [],
+        })
+      );
+    }
+    setModalActive(false);
   };
 
   const onChange = () => {

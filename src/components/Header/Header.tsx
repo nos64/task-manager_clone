@@ -11,16 +11,20 @@ import { useAppSelector } from 'hooks/redux';
 import BurgerMenu from './BurgerMenu';
 import BurgerContentAuth from './BurgerMenu/BurgerContentAuth';
 import BurgerContentNotAuth from './BurgerMenu/BurgerContentNotAuth';
+import BoardModal from 'components/BoardModal';
 
 const Header = () => {
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
   const [topOffset, setTopOffset] = useState(0);
   const [isOpenBurger, setIsOpenBurger] = useState(false);
-
+  const [isModalOpened, setIsModalOpened] = useState(false);
   const offsetLimit = 15;
 
   const handleScroll = () => {
     setTopOffset(window.scrollY);
+  };
+  const handleCreateBoard = () => {
+    setIsModalOpened(true);
   };
 
   useEffect(() => {
@@ -51,7 +55,11 @@ const Header = () => {
             <div className={styles.actions}>
               {isAuthorised && (
                 <>
-                  <button className={styles.createBoardBtn} type="button">
+                  <button
+                    className={styles.createBoardBtn}
+                    type="button"
+                    onClick={handleCreateBoard}
+                  >
                     <GoPlus />
                     Create Board
                   </button>
@@ -76,6 +84,7 @@ const Header = () => {
           <BurgerContentNotAuth setIsOpenBurger={setIsOpenBurger} />
         )}
       </BurgerMenu>
+      <BoardModal modalActive={isModalOpened} setModalActive={setIsModalOpened} />
     </>
   );
 };

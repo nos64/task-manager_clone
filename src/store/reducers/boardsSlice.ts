@@ -5,12 +5,45 @@ import StatusCodes from 'common/statusCodes';
 import { BoardPick } from 'types/APIModel';
 import IBoard from 'types/IBoard';
 
+export const getBoardsByUserId = createAsyncThunk(
+  'boards/getBoardsByUserId',
+  async (userId: string, { rejectWithValue }) => {
+    try {
+      const userRelatedBoards = await getUserRelatedBoards(userId);
+      console.log('userRelatedBoards: ', userRelatedBoards);
+      return userRelatedBoards;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.status);
+      }
+
+      throw error;
+    }
+  }
+);
+
 export const createNewBoard = createAsyncThunk(
   'boards/createNewBoard',
   async (options: BoardPick, { rejectWithValue }) => {
     try {
       const newBoard = await createBoard(options);
       return newBoard;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.status);
+      }
+
+      throw error;
+    }
+  }
+);
+
+export const deleteBoardById = createAsyncThunk(
+  'boards/deleteBoardById',
+  async (boardId: string, { rejectWithValue }) => {
+    try {
+      const deletedBoard = await deleteBoard(boardId);
+      return deletedBoard;
     } catch (error) {
       if (error instanceof AxiosError) {
         return rejectWithValue(error.response?.status);
@@ -58,43 +91,11 @@ export const updateBoardById = createAsyncThunk<IBoard, updateParams>(
   }
 );
 
-export const deleteBoardById = createAsyncThunk(
-  'boards/deleteBoardById',
-  async (boardId: string, { rejectWithValue }) => {
-    try {
-      const deletedBoard = await deleteBoard(boardId);
-      return deletedBoard;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        return rejectWithValue(error.response?.status);
-      }
-
-      throw error;
-    }
-  }
-);
-
-export const getBoardsByUserId = createAsyncThunk(
-  'boards/getBoardsByUserId',
-  async (userId: string, { rejectWithValue }) => {
-    try {
-      const userRelatedBoards = await getUserRelatedBoards(userId);
-      return userRelatedBoards;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        return rejectWithValue(error.response?.status);
-      }
-
-      throw error;
-    }
-  }
-);
-
 interface BoardsState {
-  boards: IBoard[];
+  boards: (IBoard | undefined)[];
   isAuthorisationError: boolean;
   isTokenRequireUpdate: boolean;
-  isRoutesProtected: boolean;
+  isTokenExpired: boolean;
   isPending: boolean;
   isBadRequest: boolean;
 }
@@ -103,7 +104,7 @@ const initialState: BoardsState = {
   boards: [],
   isAuthorisationError: false,
   isTokenRequireUpdate: false,
-  isRoutesProtected: false,
+  isTokenExpired: false,
   isPending: false,
   isBadRequest: false,
 };
@@ -113,18 +114,71 @@ export const boardsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getBoardsByUserId.pending, (state) => {
+      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
+        state.isPending = false;
+      }
+    });
+    builder.addCase(getBoardsByUserId.fulfilled, (state, action) => {
+      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
+        state.isPending = true;
+        state.boards = action.payload;
+      }
+    });
+    builder.addCase(getBoardsByUserId.rejected, (state) => {
+      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
+        state.isPending = true;
+      }
+    });
+
     builder.addCase(createNewBoard.pending, (state) => {
-      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isRoutesProtected) {
+      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
         state.isPending = true;
       }
     });
     builder.addCase(createNewBoard.fulfilled, (state, action) => {
-      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isRoutesProtected) {
+      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
         state.isPending = false;
         state.boards.push(action.payload);
       }
     });
     builder.addCase(createNewBoard.rejected, (state, action) => {
+      state.isPending = false;
+      if (action.payload === StatusCodes.BAD_REQUEST) {
+        state.isBadRequest = true;
+      }
+    });
+
+    builder.addCase(deleteBoardById.pending, (state) => {
+      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
+        state.isPending = true;
+      }
+    });
+    builder.addCase(deleteBoardById.fulfilled, (state, action) => {
+      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
+        state.isPending = false;
+        state.boards.filter((boardId) => boardId !== action.payload);
+      }
+    });
+    builder.addCase(deleteBoardById.rejected, (state, action) => {
+      state.isPending = false;
+
+      if (action.payload === StatusCodes.BAD_REQUEST) {
+        state.isBadRequest = true;
+      }
+    });
+    builder.addCase(updateBoardById.pending, (state) => {
+      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
+        state.isPending = true;
+      }
+    });
+    builder.addCase(updateBoardById.fulfilled, (state, action) => {
+      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
+        state.isPending = false;
+        const modifyBoard = state.boards.find((boardId) => boardId === action.payload);
+      }
+    });
+    builder.addCase(updateBoardById.rejected, (state, action) => {
       state.isPending = false;
       if (action.payload === StatusCodes.BAD_REQUEST) {
         state.isBadRequest = true;
