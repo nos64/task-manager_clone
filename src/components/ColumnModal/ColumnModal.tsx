@@ -3,10 +3,10 @@ import Modal from 'components/Modal';
 import styles from './ColumnModal.module.scss';
 import InputLineText from 'components/InputLineText';
 import { useForm } from 'react-hook-form';
-import IBoard from 'types/IBoard';
 import FormButtons from 'components/FormButtons';
 import ValidationErrorMessage from 'components/ValidationErrorMessage';
 import { FaListUl } from 'react-icons/fa';
+import IColumn from 'types/IColumn';
 
 interface ColumnModalProps {
   modalActive: boolean;
@@ -14,9 +14,9 @@ interface ColumnModalProps {
 }
 
 const ColumnModal: React.FC<ColumnModalProps> = ({ modalActive, setModalActive }) => {
-  const [fileldsValues, setFieldsValues] = useState<Partial<IBoard>>({});
+  const [fileldsValues, setFieldsValues] = useState<Partial<IColumn>>({});
 
-  const onSubmit = (data: Partial<IBoard>) => {
+  const onSubmit = (data: Partial<IColumn>) => {
     // Do your magic here ...
     console.log(data);
   };
@@ -36,7 +36,7 @@ const ColumnModal: React.FC<ColumnModalProps> = ({ modalActive, setModalActive }
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm<Partial<IBoard>>();
+  } = useForm<Partial<IColumn>>();
 
   return (
     <Modal modalActive={modalActive} setModalActive={setModalActive}>
