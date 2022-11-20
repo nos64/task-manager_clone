@@ -4,25 +4,11 @@ import { AxiosError } from 'axios';
 import IColumn from 'types/IColumn';
 import ITask from 'types/ITask';
 
-// interface ICurrentColumn extends IColumn {
-//   tasks: ITask[];
-//   isPending: boolean;
-// }
-
-interface Columns {
+interface IColumnsState {
   [boardId: string]: ITask[];
 }
 
-// const initialState: ICurrentColumn = {
-//   _id: '',
-//   title: '',
-//   order: 0,
-//   boardId: '',
-//   tasks: [],
-//   isPending: false,
-// };
-
-const initialState: Columns = {};
+const initialState: IColumnsState = {};
 
 export const getTasks = createAsyncThunk(
   'column/getTasks',
@@ -45,7 +31,7 @@ export const columnSlice = createSlice({
   name: 'column',
   initialState,
   reducers: {
-    setTasks(state, action: PayloadAction<Columns>) {
+    setTasks(state, action: PayloadAction<IColumnsState>) {
       const columnId = Object.keys(action.payload)[0];
       state[columnId] = action.payload[columnId];
     },
