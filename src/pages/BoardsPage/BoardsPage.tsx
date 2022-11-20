@@ -31,7 +31,7 @@ const BoardsPage = () => {
           if (board) {
             return (
               <Board
-                key={board && board._id}
+                key={board._id}
                 item={board}
                 toggleModal={toggleModal}
                 setModalMode={setModalMode}

@@ -50,17 +50,15 @@ const BoardModal: React.FC<BoardModalProps> = ({
   }, [modalActive, modalMode, selectedBoard, setValue]);
 
   const onSubmit = (data: Partial<IBoard>) => {
-    if (data.title && data.description) {
-      dispatch(
-        createNewBoard({
-          title: data.title,
-          description: data.description,
-          owner: userID,
-          users: [],
-        })
-      );
-    }
-    setModalActive(false);
+    dispatch(
+      createNewBoard({
+        title: data.title || ' ',
+        description: data.description || ' ',
+        owner: userID,
+        users: [],
+      })
+    );
+    onReset();
   };
 
   const onChange = () => {

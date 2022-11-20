@@ -115,32 +115,22 @@ export const boardsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getBoardsByUserId.pending, (state) => {
-      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
-        state.isPending = true;
-      }
+      state.isPending = true;
     });
     builder.addCase(getBoardsByUserId.fulfilled, (state, action) => {
-      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
-        state.isPending = false;
-        state.boards = action.payload;
-      }
+      state.isPending = false;
+      state.boards = action.payload;
     });
     builder.addCase(getBoardsByUserId.rejected, (state) => {
-      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
-        state.isPending = false;
-      }
+      state.isPending = false;
     });
 
     builder.addCase(createNewBoard.pending, (state) => {
-      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
-        state.isPending = true;
-      }
+      state.isPending = true;
     });
     builder.addCase(createNewBoard.fulfilled, (state, action) => {
-      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
-        state.isPending = false;
-        state.boards.push(action.payload);
-      }
+      state.isPending = false;
+      state.boards.push(action.payload);
     });
     builder.addCase(createNewBoard.rejected, (state, action) => {
       state.isPending = false;
@@ -150,15 +140,11 @@ export const boardsSlice = createSlice({
     });
 
     builder.addCase(deleteBoardById.pending, (state) => {
-      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
-        state.isPending = true;
-      }
+      state.isPending = true;
     });
     builder.addCase(deleteBoardById.fulfilled, (state, action) => {
-      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
-        state.isPending = false;
-        state.boards.filter((boardId) => boardId !== action.payload);
-      }
+      state.isPending = false;
+      state.boards = state.boards.filter((board) => board?._id !== action.payload._id);
     });
     builder.addCase(deleteBoardById.rejected, (state, action) => {
       state.isPending = false;
@@ -168,15 +154,11 @@ export const boardsSlice = createSlice({
       }
     });
     builder.addCase(updateBoardById.pending, (state) => {
-      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
-        state.isPending = true;
-      }
+      state.isPending = true;
     });
     builder.addCase(updateBoardById.fulfilled, (state, action) => {
-      if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
-        state.isPending = false;
-        const modifyBoard = state.boards.find((boardId) => boardId === action.payload);
-      }
+      state.isPending = false;
+      const modifyBoard = state.boards.find((boardId) => boardId === action.payload);
     });
     builder.addCase(updateBoardById.rejected, (state, action) => {
       state.isPending = false;

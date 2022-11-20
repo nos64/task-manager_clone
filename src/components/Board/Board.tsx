@@ -20,6 +20,9 @@ const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSele
     setModalMode('edit');
     setSelectedBoard(item);
   };
+  const handleDeleteBoard = () => {
+    dispatch(deleteBoardById(item._id));
+  };
 
   return (
     <div className={styles.board}>
@@ -29,10 +32,7 @@ const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSele
       </div>
       <div className={styles.boardBtns}>
         <RiEditLine className={styles.boardBtn} onClick={handleEditIconClick} />
-        <RiDeleteBin6Line
-          className={styles.boardBtn}
-          onClick={() => dispatch(deleteBoardById(item._id))}
-        />
+        <RiDeleteBin6Line className={styles.boardBtn} onClick={handleDeleteBoard} />
       </div>
     </div>
   );
