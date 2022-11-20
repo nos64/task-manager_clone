@@ -9,13 +9,13 @@
 
   & .inputTextarea {
     @include inputStyle;
+    font-family: $font-family;
     font-size: 18px;
     resize: none;
     z-index: 2;
   }
 
   ::placeholder {
-    font-family: $font-family;
     color: transparent;
     transition: color 0.4s ease;
   }
