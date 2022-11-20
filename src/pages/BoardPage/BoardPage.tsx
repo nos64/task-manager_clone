@@ -124,7 +124,12 @@ const BoardPage = () => {
           </div>
         </div>
       </DragDropContext>
-      <ColumnModal modalActive={isModalOpened} setModalActive={setIsModalOpened} />
+      {isPending && <Loader />}
+      <ColumnModal
+        modalActive={isModalOpened}
+        boardId={boardId}
+        setModalActive={setIsModalOpened}
+      />
     </>
   );
 };

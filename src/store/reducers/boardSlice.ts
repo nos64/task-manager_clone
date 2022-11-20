@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { updateBoard } from 'api/boards';
 import { createColumn, deleteColumn, getColumnsInBoard, updateColumn } from 'api/columns';
 import { AxiosError } from 'axios';
+import { RootState } from 'store/store';
 import IBoard from 'types/IBoard';
 import IColumn from 'types/IColumn';
 
@@ -60,9 +61,11 @@ export const setColumnTitle = createAsyncThunk(
 
 export const createBoardColumn = createAsyncThunk(
   'board/createBoardColumn',
-  async (data: { boardId: string; title: string; order: number }, { rejectWithValue }) => {
+  async (data: { boardId: string; title: string }, { rejectWithValue, getState }) => {
+    const columnsCount = (getState() as RootState).board.columns.length;
+
     try {
-      const column = await createColumn(data.boardId, { title: data.title, order: data.order });
+      const column = await createColumn(data.boardId, { title: data.title, order: columnsCount });
 
       return column;
     } catch (error) {
