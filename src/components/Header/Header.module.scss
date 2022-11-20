@@ -8,11 +8,12 @@
   top: 0;
   display: flex;
   padding: 15px 20px;
-  outline: 3px solid $background-primary-lighter;
+  border: 3px solid $background-primary-lighter;
   align-items: center;
   color: $text-color;
   background-color: $background-primary;
   transition: 0.3s ease-in-out;
+  z-index: 20;
 }
 
 .headerAnimated {
@@ -28,6 +29,10 @@
   justify-content: space-between;
 }
 
+.burgerWrapper {
+  visibility: hidden;
+}
+
 .burger {
   @extend %centered;
   flex-direction: column;
@@ -35,7 +40,6 @@
   height: 30px;
   margin-right: 20px;
   cursor: pointer;
-  z-index: 51;
 }
 
 .burgerLine,
@@ -45,48 +49,92 @@
   width: 35px;
   height: 4px;
   display: block;
-  transition: 0.3s;
+  border-radius: 5px;
+  background-color: $accent-color;
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.active {
+  opacity: 0;
+}
+
+.burgerLine:before
+.burgerLine:after {
+  content: "";
+  background-color: $accent-color;
+  top: -10px;
+  transition: top 0.4s 0.4s,
+  transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.burgerLine:after {
+  bottom: -10px;
+}
+
+.active .burgerLine:before {
+  content: "";
+  top: 0px;
+  transform: rotate(45deg);
+  transition: top 0.4s,
+  transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.active .burgerLine:after {
+  content: "";
+  bottom: 0;
+  transform: rotate(-45deg);
+  transition: bottom 0.4s,
+  transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.active .burgerLine {
+  background: transparent; 
   border-radius: 5px;
   background-color: $accent-color;
   transition: all 0.4s ease-in-out;
 }
 
-.active {
-  position: absolute;
-  left: 0;
-  padding-left: 20px;
-}
-
 .burgerLine:before {
   content: '';
-  background-color: $accent-color-darker;
+  background-color: $accent-color;
   top: -10px;
-  transition: top 0.2s 0.2s, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: top 0.4s 0.4s,
+  transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .burgerLine:after {
   content: '';
-  background-color: $accent-color-lighter;
+  background-color: $accent-color;
   bottom: -10px;
-  transition: bottom 0.2s 0.2s, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: bottom 0.4s 0.4s,
+  transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .active .burgerLine:before {
   content: '';
   top: 0px;
   transform: rotate(45deg);
-  transition: top 0.2s, transform 0.2s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: top 0.4s,
+  transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .active .burgerLine:after {
   content: '';
   bottom: 0;
   transform: rotate(-45deg);
-  transition: bottom 0.2s, transform 0.2s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: bottom 0.3s,
+  transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .active .burgerLine {
   background: transparent;
+}
+
+.burger:hover .burgerLine,
+.burger:hover .burgerLine::before,
+.burger:hover .burgerLine::after {
+  background-color: $accent-color-hovered;
 }
 
 .logo {
@@ -98,9 +146,6 @@
 
   &:hover {
     color: $text-color-hovered;
-  }
-  &.activeBurger {
-    margin-left: 55px;
   }
 }
 
@@ -138,6 +183,11 @@
   }
 }
 
+.routToglersWrapper {
+  display: flex;
+  gap: 15px;
+}
+
 .navLink {
   display: block;
   padding: 8px 25px;
@@ -151,5 +201,32 @@
     font-weight: 700;
     background-color: $base-light-color;
     border-color: $base-light-color;
+  }
+}
+
+@media (max-width: 830px) {
+  .createBoardBtn {
+    display: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .burgerWrapper {
+    visibility: visible;
+  }
+  .routToglersWrapper {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .logo {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  .logo {
+    font-size: 18px;
   }
 }

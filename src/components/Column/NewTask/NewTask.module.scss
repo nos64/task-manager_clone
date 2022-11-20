@@ -5,6 +5,7 @@
 .newTask {
   @extend %centered;
   padding: 15px 15px;
+  margin-right: 5px;
   border-radius: $border-raduis-small;
   gap: 5px;
   color: $color-text-secondary;

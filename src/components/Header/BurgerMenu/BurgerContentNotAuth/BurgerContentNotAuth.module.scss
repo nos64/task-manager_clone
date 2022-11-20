@@ -1,0 +1,35 @@
+@import '../../../../styles/colors.scss';
+@import '../../../../styles/mixins.scss';
+@import '../../../../styles/extensions.scss';
+
+.menuContent {
+  width: 60%;
+  width: 300px;
+  height: 100%;
+  background-color: $base-dark-color;
+  color: $base-light-color;
+  z-index: 50;
+  transition: all .6s ease;
+}
+
+.navList {
+  @extend %centered;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.navItem {
+  color: $text-color;
+  transition: 0.3s linear;
+
+  &:hover {
+    color: $accent-color;
+  }
+}
+
+.navSeparator {
+  width: 50px;
+  height: 2px;
+  background-color: $accent-color;
+}
+

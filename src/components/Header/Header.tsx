@@ -9,6 +9,8 @@ import ThemeToggler from './ThemeToggler';
 import { GoPlus } from 'react-icons/go';
 import { useAppSelector } from 'hooks/redux';
 import BurgerMenu from './BurgerMenu';
+import BurgerContentAuth from './BurgerMenu/BurgerContentAuth';
+import BurgerContentNotAuth from './BurgerMenu/BurgerContentNotAuth';
 
 const Header = () => {
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
@@ -34,16 +36,18 @@ const Header = () => {
         }`}
       >
         <Container>
-          <div className={`${styles.headerContent}`}>
-            <div
-              className={isOpenBurger ? styles.burger + ' ' + styles.active : styles.burger}
-              onClick={() => setIsOpenBurger(!isOpenBurger)}
-            >
-              <span className={styles.burgerLine}></span>
-            </div>
-            <h1 className={isOpenBurger ? styles.logo + ' ' + styles.activeBurger : styles.logo}>
+          <div className={styles.headerContent}>
+            <span className={!isAuthorised ? styles.burgerWrapper : ''}>
+              <div
+                className={isOpenBurger ? styles.burger + ' ' + styles.active : styles.burger}
+                onClick={() => setIsOpenBurger(!isOpenBurger)}
+              >
+                <span className={styles.burgerLine}></span>
+              </div>
+            </span>
+            <div className={styles.logo}>
               <Link to={ROUTES.WELCOME}>Task Manager</Link>
-            </h1>
+            </div>
             <div className={styles.actions}>
               {isAuthorised && (
                 <>
@@ -51,19 +55,27 @@ const Header = () => {
                     <GoPlus />
                     Create Board
                   </button>
-                  <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
-                    Main
-                  </NavLink>
-                  <LangToggler />
+                  <div className={styles.routToglersWrapper}>
+                    <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
+                      Main
+                    </NavLink>
+                    <LangToggler isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
+                    <ThemeToggler isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
+                  </div>
                 </>
               )}
-              <ThemeToggler />
               <Navigation />
             </div>
           </div>
         </Container>
       </header>
-      <BurgerMenu isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
+      <BurgerMenu isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger}>
+        {isAuthorised ? (
+          <BurgerContentAuth isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
+        ) : (
+          <BurgerContentNotAuth setIsOpenBurger={setIsOpenBurger} />
+        )}
+      </BurgerMenu>
     </>
   );
 };
