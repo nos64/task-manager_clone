@@ -1,0 +1,131 @@
+@import '../../../../styles/colors.scss';
+@import '../../../../styles/mixins.scss';
+@import '../../../../styles/extensions.scss';
+
+.menuContent {
+  position: relative;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  background-color: $base-dark-color;
+  color: $base-light-color;
+  padding: 0 20px;
+  z-index: 50;
+  transition: all .6s ease;
+}
+
+.togglersWrapper {
+  position: absolute;
+  right: 20px;
+  top: -60px;
+  display: flex;
+  gap: 15px;
+  display: none;
+}
+
+.navLink {
+  display: flex;
+  padding: 8px 25px;
+  width: 95px;
+  border-radius: 22px;
+  border: 2px solid $accent-color;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    color: $accent-color;
+    font-weight: 700;
+    background-color: $base-light-color;
+    border-color: $base-light-color;
+  }
+}
+
+.menuHeader {
+  border-bottom: 1px solid $dark-shadow;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.createBoardBtn {
+  display: none;
+  align-items:flex-start;
+  padding: 5px 5px;
+  margin: 10px auto 10px 0;
+  gap: 5px;
+  font-size: 20px;;
+  color: inherit;
+  background-color: transparent;
+  font-weight: 700;
+  transition: 0.3s ease;
+
+  .createBoardBtnImg {
+    width: 15px;
+    height: 15px;
+    filter: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(91%) hue-rotate(197deg)
+      brightness(104%) contrast(91%);
+  }
+
+  &:hover {
+    color: $accent-color-darker;
+    cursor: pointer;
+  }
+}
+
+.boardListTitle {
+  font-size: 20px;
+  padding: 5px 0;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 0 auto 5px auto;
+  height: 40px;
+
+  & .inputLine {
+    @include inputStyle;
+    font-size: 18px;
+    z-index: 2;
+  }
+}
+
+.boardList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.boardItem {
+  display: block;
+  text-align: left;
+  cursor: pointer;
+  min-width: 100%;
+  padding: 3px 0;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
+  
+  &:hover {
+    background-color: $background-hovered;
+    border: 1px solid $base-dark-lighter-color;
+  }
+
+  .boardNavLink {
+    padding: 0 10px;
+    @include contentLimit(1);
+  }
+}
+
+@media (max-width: 830px) {
+  .createBoardBtn {
+    display: flex;
+  }
+}
+
+@media (max-width: 620px) {
+  .togglersWrapper {
+    display: flex;
+  }
+}
+

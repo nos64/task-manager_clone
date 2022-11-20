@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getColumns } from 'store/reducers/boardSlice';
 import Loader from 'components/Loader';
 import { scrollController } from 'utils/scrollController';
+import ColumnModal from 'components/ColumnModal';
 
 const BoardPage = () => {
   const boardId = '6375366d28a30e3ad49d86a8';
@@ -21,6 +22,11 @@ const BoardPage = () => {
   const dispatch = useAppDispatch();
   const columns = useAppSelector((state) => state.board.columns);
   const isPending = useAppSelector((state) => state.board.isPending);
+
+  const [isModalOpened, setIsModalOpened] = useState(false);
+
+  // const sortedColumns = initialColumns.sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
+  // const [columns, setColumns] = useState(sortedColumns);
 
   const handleDragEnd = (result: DropResult) => {
     const { destination, source, type, draggableId } = result;
@@ -80,6 +86,10 @@ const BoardPage = () => {
     isPending ? scrollController.disableScroll() : scrollController.enableScroll();
   }, [isPending]);
 
+  const toggleModal = () => {
+    setIsModalOpened((prev) => !prev);
+  };
+
   return (
     <>
       <DragDropContext onDragEnd={handleDragEnd}>
@@ -94,24 +104,27 @@ const BoardPage = () => {
               <p className={styles.description}>{boardDescription}</p>
             </div>
           </div>
-          <Droppable droppableId={'columns'} direction="horizontal" type={DndType.COLUMN}>
-            {(provided) => (
-              <div
-                className={styles.columnsContainer}
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                {columns.map((column, index) => (
-                  <Column key={column._id} item={column} index={index} />
-                ))}
-                {provided.placeholder}
-                <NewColumn />
-              </div>
-            )}
-          </Droppable>
+          <div className={styles.boardContent}>
+            <Droppable droppableId={'columns'} direction="horizontal" type={DndType.COLUMN}>
+              {(provided) => (
+                <div
+                  className={styles.columnsContainer}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  id="column-container"
+                >
+                  {columns.map((column, index) => (
+                    <Column key={column._id} item={column} index={index} />
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+            <NewColumn toggleModal={toggleModal} />
+          </div>
         </div>
       </DragDropContext>
-      {isPending && <Loader />}
+      <ColumnModal modalActive={isModalOpened} setModalActive={setIsModalOpened} />
     </>
   );
 };

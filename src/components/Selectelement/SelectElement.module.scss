@@ -1,0 +1,69 @@
+@import '../../styles/mixins.scss';
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 16px;
+  height: 40px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 13.5px;
+    right: 10px;
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid $button-disabled;
+    border-left: 2px solid $button-disabled;
+    transform: rotate(-135deg);
+  }
+
+  & .select {
+    @include inputStyle;
+    padding-right: 20px;
+    font-size: 18px;
+    appearance: none;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  ::placeholder {
+    color: transparent;
+    transition: color 0.4s ease;
+  }
+
+  .select:focus::placeholder {
+    color: $color-text-secondary;
+  }
+
+  & .labelLine {
+    position: absolute;
+    bottom: 10px;
+    left: 6px;
+    font-size: 18px;
+    background-color: $background-light;
+    padding: 0 4px;
+    transition: all 0.3s ease;
+  }
+
+  & .labelLineTop {
+    position: absolute;
+    bottom: -10px;
+    left: 6px;
+    font-size: 18px;
+    background-color: $background-light;
+    padding: 0 4px;
+    transition: all 0.3s ease;
+    z-index: 3;
+    bottom: 33px;
+    font-size: 14px;
+  }
+
+  & .select:focus ~ .labelLine {
+    z-index: 3;
+    bottom: 33px;
+    font-size: 14px;
+  }
+}
