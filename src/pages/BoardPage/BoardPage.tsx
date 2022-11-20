@@ -9,10 +9,13 @@ import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { initialColumns } from 'data/initialBoardData';
 import { moveColumn, moveTask, reorderTasks } from 'utils/dnd-helper';
 import { DndType } from 'common/dnd-types';
+import ColumnModal from 'components/ColumnModal';
 
 const BoardPage = () => {
   const boardTitle = 'board title';
   const boardDescription = 'Booard description';
+
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   const sortedColumns = initialColumns.sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
 
@@ -73,36 +76,46 @@ const BoardPage = () => {
     }
   };
 
+  const toggleModal = () => {
+    setIsModalOpened((prev) => !prev);
+  };
+
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <div className={styles.pageContent}>
-        <div className={styles.topBlock}>
-          <Link className={styles.backBtn} to={ROUTES.BOARDS}>
-            <FaLessThan className={styles.backBtnIcon} />
-            <span>Back</span>
-          </Link>
-          <div className={styles.boardInfo}>
-            <h3 className={styles.title}>{`Board: ${boardTitle}`}</h3>
-            <p className={styles.description}>{boardDescription}</p>
+    <>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <div className={styles.pageContent}>
+          <div className={styles.topBlock}>
+            <Link className={styles.backBtn} to={ROUTES.BOARDS}>
+              <FaLessThan className={styles.backBtnIcon} />
+              <span>Back</span>
+            </Link>
+            <div className={styles.boardInfo}>
+              <h3 className={styles.title}>{`Board: ${boardTitle}`}</h3>
+              <p className={styles.description}>{boardDescription}</p>
+            </div>
+          </div>
+          <div className={styles.boardContent}>
+            <Droppable droppableId={'columns'} direction="horizontal" type={DndType.COLUMN}>
+              {(provided) => (
+                <div
+                  className={styles.columnsContainer}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  id="column-container"
+                >
+                  {columns.map((column, index) => (
+                    <Column key={column._id} item={column} index={index} />
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+            <NewColumn toggleModal={toggleModal} />
           </div>
         </div>
-        <Droppable droppableId={'columns'} direction="horizontal" type={DndType.COLUMN}>
-          {(provided) => (
-            <div
-              className={styles.columnsContainer}
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {columns.map((column, index) => (
-                <Column key={column._id} item={column} index={index} />
-              ))}
-              {provided.placeholder}
-              <NewColumn />
-            </div>
-          )}
-        </Droppable>
-      </div>
-    </DragDropContext>
+      </DragDropContext>
+      <ColumnModal modalActive={isModalOpened} setModalActive={setIsModalOpened} />
+    </>
   );
 };
 

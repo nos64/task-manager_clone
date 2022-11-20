@@ -15,6 +15,7 @@ import {
 
 const Layout: React.FC = () => {
   const isUserPending = useAppSelector((state) => state.user.isPending);
+  const isBoardsPending = useAppSelector((state) => state.boards.isPending);
   const isTokenExpired = useAppSelector((state) => state.user.isTokenExpired);
   const dispatch = useAppDispatch();
 
@@ -39,7 +40,7 @@ const Layout: React.FC = () => {
         </Container>
       </main>
       <Footer />
-      {isUserPending && <Loader />}
+      {(isUserPending || isBoardsPending) && <Loader />}
     </div>
   );
 };

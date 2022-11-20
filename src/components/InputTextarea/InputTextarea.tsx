@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useEffect, useState } from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 import styles from './InputTextarea.module.scss';
 
@@ -18,31 +18,23 @@ const InputTextarea: React.FC<InputTextareaProps> = ({
   register,
   fieldValue,
   symbolsLimit,
-}) => {
-  const [value, setValue] = useState('');
-
-  useEffect(() => {
-    setValue(fieldValue);
-  }, [fieldValue]);
-
-  return (
-    <>
-      <div className={styles.inputWrapper}>
-        <textarea
-          className={styles.inputTextarea}
-          {...register(inputName, {
-            maxLength: {
-              value: symbolsLimit,
-              message: '',
-            },
-          })}
-          placeholder={placeholder}
-          rows={7}
-        ></textarea>
-        <label className={!value.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
-      </div>
-    </>
-  );
-};
+}) => (
+  <>
+    <div className={styles.inputWrapper}>
+      <textarea
+        className={styles.inputTextarea}
+        {...register(inputName, {
+          maxLength: {
+            value: symbolsLimit,
+            message: '',
+          },
+        })}
+        placeholder={placeholder}
+        rows={7}
+      ></textarea>
+      <label className={!fieldValue.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
+    </div>
+  </>
+);
 
 export default InputTextarea;

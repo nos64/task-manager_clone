@@ -51,9 +51,35 @@
   color: $color-text-secondary;
 }
 
-.columnsContainer {
+.boardContent {
   display: flex;
   height: 100%;
   align-items: stretch;
   flex: 1 1 auto;
+}
+
+.columnsContainer {
+  display: flex;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.columnsContainer::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.columnsContainer::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background: $light-shadow;
+}
+
+.columnsContainer::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: $base-dark-lighter-color;
+}
+
+.columnsContainer::-webkit-scrollbar-thumb:hover {
+  background: $base-dark-color;
 }

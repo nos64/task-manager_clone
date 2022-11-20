@@ -71,7 +71,12 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
           ))}
         </ul>
       </div>
-      <BoardModal modalActive={isModalOpened} setModalActive={setIsModalOpened} />
+      <BoardModal
+        modalActive={isModalOpened}
+        setModalActive={setIsModalOpened}
+        modalMode={'create'}
+        selectedBoard={null}
+      />
     </>
   );
 };

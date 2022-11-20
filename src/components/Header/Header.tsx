@@ -84,7 +84,12 @@ const Header = () => {
           <BurgerContentNotAuth setIsOpenBurger={setIsOpenBurger} />
         )}
       </BurgerMenu>
-      <BoardModal modalActive={isModalOpened} setModalActive={setIsModalOpened} />
+      <BoardModal
+        modalActive={isModalOpened}
+        setModalActive={setIsModalOpened}
+        modalMode={'create'}
+        selectedBoard={null}
+      />
     </>
   );
 };

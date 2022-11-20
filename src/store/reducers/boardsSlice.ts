@@ -116,18 +116,18 @@ export const boardsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getBoardsByUserId.pending, (state) => {
       if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
-        state.isPending = false;
+        state.isPending = true;
       }
     });
     builder.addCase(getBoardsByUserId.fulfilled, (state, action) => {
       if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
-        state.isPending = true;
+        state.isPending = false;
         state.boards = action.payload;
       }
     });
     builder.addCase(getBoardsByUserId.rejected, (state) => {
       if (!state.isAuthorisationError && !state.isTokenRequireUpdate && !state.isTokenExpired) {
-        state.isPending = true;
+        state.isPending = false;
       }
     });
 
