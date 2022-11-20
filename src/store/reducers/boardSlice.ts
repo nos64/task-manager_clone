@@ -7,6 +7,7 @@ import IColumn from 'types/IColumn';
 
 interface ICurrentBoard extends IBoard {
   columns: IColumn[];
+  isLoading: boolean;
 }
 
 const initialState: ICurrentBoard = {
@@ -36,6 +37,26 @@ export const getColumns = createAsyncThunk(
   }
 );
 
+export const setColumnTitle = createAsyncThunk(
+  'board/setColumnTitle',
+  async (value: { column: IColumn; newTitle: string }, { rejectWithValue }) => {
+    try {
+      const newColumn = await updateColumn(value.column.boardId, value.column._id, {
+        title: value.newTitle,
+        order: value.column.order,
+      });
+
+      return newColumn;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.status);
+      }
+
+      throw error;
+    }
+  }
+);
+
 export const boardSlice = createSlice({
   name: 'board',
   initialState,
@@ -47,6 +68,10 @@ export const boardSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getColumns.fulfilled, (state, action) => {
       state.columns = action.payload.sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
+    });
+    builder.addCase(setColumnTitle.fulfilled, (state, action) => {
+      const columnIndex = state.columns.findIndex((item) => item._id === action.payload._id);
+      state.columns[columnIndex] = action.payload;
     });
   },
 });

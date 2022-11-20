@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ITask from 'types/ITask';
 import styles from './Column.module.scss';
 import Task from './Task';
@@ -10,6 +10,7 @@ import IColumn from 'types/IColumn';
 import { IoIosClose, IoIosCheckmark } from 'react-icons/io';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getTasks } from 'store/reducers/columnSlice';
+import { setColumnTitle } from 'store/reducers/boardSlice';
 
 type ColumnProps = {
   item: IColumn;
@@ -19,9 +20,19 @@ type ColumnProps = {
 const Column: React.FC<ColumnProps> = ({ item, index }) => {
   const dispatch = useAppDispatch();
   const tasks = useAppSelector((state) => state.column[item._id]) || [];
-  console.log(tasks);
 
   const [isTitleEdited, setIsTitleEdited] = useState(false);
+
+  const columnTitleRef = useRef<HTMLInputElement>(null);
+  const updateColumnTitle = () => {
+    const title = columnTitleRef.current?.value;
+    if (!title) return;
+
+    if (item.title !== title) {
+      dispatch(setColumnTitle({ column: item, newTitle: title }));
+    }
+    setIsTitleEdited(false);
+  };
 
   useEffect(() => {
     const asyncFunc = async () => {
@@ -53,9 +64,14 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
                 )}
                 {isTitleEdited && (
                   <div className={styles.editControl}>
-                    <input className={styles.editInput} type="text" defaultValue={item.title} />
+                    <input
+                      className={styles.editInput}
+                      type="text"
+                      defaultValue={item.title}
+                      ref={columnTitleRef}
+                    />
                     <div className={styles.editBtns}>
-                      <IoIosCheckmark className={styles.editBtnOK} />
+                      <IoIosCheckmark className={styles.editBtnOK} onClick={updateColumnTitle} />
                       <IoIosClose
                         className={styles.editBtnCancel}
                         onClick={() => setIsTitleEdited(false)}
@@ -63,7 +79,7 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
                     </div>
                   </div>
                 )}
-                <p className={styles.tasksCount}>({tasks.length})</p>
+                {!isTitleEdited && <p className={styles.tasksCount}>({tasks.length})</p>}
               </div>
 
               <div className={styles.columnContent}>
