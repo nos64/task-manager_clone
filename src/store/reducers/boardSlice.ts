@@ -7,7 +7,7 @@ import IColumn from 'types/IColumn';
 
 interface ICurrentBoard extends IBoard {
   columns: IColumn[];
-  isLoading: boolean;
+  isPending: boolean;
 }
 
 const initialState: ICurrentBoard = {
@@ -17,6 +17,7 @@ const initialState: ICurrentBoard = {
   owner: '',
   users: [],
   columns: [],
+  isPending: false,
 };
 
 export const getColumns = createAsyncThunk(
@@ -66,12 +67,21 @@ export const boardSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(getColumns.pending, (state) => {
+      state.isPending = true;
+    });
     builder.addCase(getColumns.fulfilled, (state, action) => {
       state.columns = action.payload.sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
+      state.isPending = false;
+    });
+
+    builder.addCase(setColumnTitle.pending, (state) => {
+      state.isPending = true;
     });
     builder.addCase(setColumnTitle.fulfilled, (state, action) => {
       const columnIndex = state.columns.findIndex((item) => item._id === action.payload._id);
       state.columns[columnIndex] = action.payload;
+      state.isPending = false;
     });
   },
 });

@@ -11,6 +11,8 @@ import { moveColumn, moveTask, reorderTasks } from 'utils/dnd-helper';
 import { DndType } from 'common/dnd-types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getColumns } from 'store/reducers/boardSlice';
+import Loader from 'components/Loader';
+import { scrollController } from 'utils/scrollController';
 
 const BoardPage = () => {
   const boardId = '6375366d28a30e3ad49d86a8';
@@ -18,6 +20,7 @@ const BoardPage = () => {
   const boardDescription = 'Booard description';
   const dispatch = useAppDispatch();
   const columns = useAppSelector((state) => state.board.columns);
+  const isPending = useAppSelector((state) => state.board.isPending);
 
   const handleDragEnd = (result: DropResult) => {
     const { destination, source, type, draggableId } = result;
@@ -73,36 +76,43 @@ const BoardPage = () => {
     asyncFunc();
   }, [dispatch]);
 
+  useEffect(() => {
+    isPending ? scrollController.disableScroll() : scrollController.enableScroll();
+  }, [isPending]);
+
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <div className={styles.pageContent}>
-        <div className={styles.topBlock}>
-          <Link className={styles.backBtn} to={ROUTES.BOARDS}>
-            <FaLessThan className={styles.backBtnIcon} />
-            <span>Back</span>
-          </Link>
-          <div className={styles.boardInfo}>
-            <h3 className={styles.title}>{`Board: ${boardTitle}`}</h3>
-            <p className={styles.description}>{boardDescription}</p>
-          </div>
-        </div>
-        <Droppable droppableId={'columns'} direction="horizontal" type={DndType.COLUMN}>
-          {(provided) => (
-            <div
-              className={styles.columnsContainer}
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {columns.map((column, index) => (
-                <Column key={column._id} item={column} index={index} />
-              ))}
-              {provided.placeholder}
-              <NewColumn />
+    <>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <div className={styles.pageContent}>
+          <div className={styles.topBlock}>
+            <Link className={styles.backBtn} to={ROUTES.BOARDS}>
+              <FaLessThan className={styles.backBtnIcon} />
+              <span>Back</span>
+            </Link>
+            <div className={styles.boardInfo}>
+              <h3 className={styles.title}>{`Board: ${boardTitle}`}</h3>
+              <p className={styles.description}>{boardDescription}</p>
             </div>
-          )}
-        </Droppable>
-      </div>
-    </DragDropContext>
+          </div>
+          <Droppable droppableId={'columns'} direction="horizontal" type={DndType.COLUMN}>
+            {(provided) => (
+              <div
+                className={styles.columnsContainer}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {columns.map((column, index) => (
+                  <Column key={column._id} item={column} index={index} />
+                ))}
+                {provided.placeholder}
+                <NewColumn />
+              </div>
+            )}
+          </Droppable>
+        </div>
+      </DragDropContext>
+      {isPending && <Loader />}
+    </>
   );
 };
 
