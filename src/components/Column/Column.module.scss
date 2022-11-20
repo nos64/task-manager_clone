@@ -45,6 +45,7 @@
 .columnHeader {
   position: relative;
   display: flex;
+  height: 20px;
   margin-bottom: 15px;
   align-items: center;
   gap: 10px;
@@ -62,6 +63,41 @@
 
   &:hover {
     color: $text-color;
+  }
+}
+
+.editControl {
+  position: relative;
+  display: flex;
+
+  .editInput {
+    padding: 4px 20px 4px 10px;
+    border: 1px solid $background-primary-lighter;
+    border-radius: $border-raduis-small;
+    outline: none;
+    text-transform: uppercase;
+    color: $color-text-secondary;
+    background-color: $background-primary;
+  }
+
+  .editBtns {
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-self: center;
+  }
+
+  .editBtnOK,
+  .editBtnCancel {
+    width: 25px;
+    color: $color-text-secondary;
+    opacity: 0.5;
+    cursor: pointer;
+    transition: 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 
