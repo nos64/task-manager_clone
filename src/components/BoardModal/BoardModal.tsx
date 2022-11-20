@@ -9,7 +9,7 @@ import ValidationErrorMessage from 'components/ValidationErrorMessage';
 import { FaRegClipboard } from 'react-icons/fa';
 import InputTextarea from 'components/InputTextarea';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { createNewBoard } from 'store/reducers/boardsSlice';
+import { createNewBoard, updateBoardById } from 'store/reducers/boardsSlice';
 
 interface BoardModalProps {
   modalActive: boolean;
@@ -50,6 +50,19 @@ const BoardModal: React.FC<BoardModalProps> = ({
   }, [modalActive, modalMode, selectedBoard, setValue]);
 
   const onSubmit = (data: Partial<IBoard>) => {
+    if (modalMode === 'edit') {
+      dispatch(
+        updateBoardById({
+          boardId: selectedBoard!._id,
+          options: {
+            title: selectedBoard!.title,
+            description: selectedBoard!.description,
+            owner: userID,
+            users: [],
+          },
+        })
+      );
+    }
     dispatch(
       createNewBoard({
         title: data.title || ' ',

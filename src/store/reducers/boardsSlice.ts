@@ -158,7 +158,21 @@ export const boardsSlice = createSlice({
     });
     builder.addCase(updateBoardById.fulfilled, (state, action) => {
       state.isPending = false;
-      const modifyBoard = state.boards.find((boardId) => boardId === action.payload);
+      // state.boards = state.boards.map((board) =>
+      //   board?._id === action.payload._id
+      //     ? { ...board, description: action.payload.description, title: action.payload.title }
+      //     : board
+      // );
+      // state.boards.forEach((board) => {
+      //   if (board?._id === action.payload._id) {
+      //     {
+      //       (board.description = action.payload.description), (board.title = action.payload.title);
+      //     }
+      //   }
+      // });
+      // const modifyBoard = state.boards.find((board) => board?._id === action.payload._id);
+      // modifyBoard!.description = action.payload.description;
+      // modifyBoard!.title = action.payload.title;
     });
     builder.addCase(updateBoardById.rejected, (state, action) => {
       state.isPending = false;
