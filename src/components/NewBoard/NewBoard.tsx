@@ -4,11 +4,17 @@ import { BsPlusCircle } from 'react-icons/bs';
 
 interface NewBoardProps {
   toggleModal: () => void;
+  setModalMode: React.Dispatch<React.SetStateAction<'create' | 'edit'>>;
 }
 
-const NewBoard: React.FC<NewBoardProps> = ({ toggleModal }) => {
+const NewBoard: React.FC<NewBoardProps> = ({ toggleModal, setModalMode }) => {
+  const handleClick = () => {
+    toggleModal();
+    setModalMode('create');
+  };
+
   return (
-    <div className={styles.newBoard} onClick={toggleModal}>
+    <div className={styles.newBoard} onClick={handleClick}>
       <BsPlusCircle className={styles.icon} />
       <p className={styles.title}>Add board</p>
     </div>

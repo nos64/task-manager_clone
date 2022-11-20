@@ -11,10 +11,11 @@ import InputTextarea from 'components/InputTextarea';
 
 interface BoardModalProps {
   modalActive: boolean;
+  modalMode: 'create' | 'edit';
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BoardModal: React.FC<BoardModalProps> = ({ modalActive, setModalActive }) => {
+const BoardModal: React.FC<BoardModalProps> = ({ modalActive, modalMode, setModalActive }) => {
   const [fileldsValues, setFieldsValues] = useState<Partial<IBoard>>({});
 
   const {
@@ -50,7 +51,7 @@ const BoardModal: React.FC<BoardModalProps> = ({ modalActive, setModalActive }) 
       <div className={styles.elementModal}>
         <div className={styles.titleWrapper}>
           <FaRegClipboard size={25} />
-          <h2>Create board</h2>
+          <h2>{modalMode === 'create' ? 'Create' : 'Edit'} board</h2>
         </div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)} onChange={onChange}>
           <InputLineText

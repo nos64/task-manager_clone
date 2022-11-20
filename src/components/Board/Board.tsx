@@ -4,9 +4,16 @@ import { RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 
 type BoardProops = {
   item: { _id: string; title: string; description: string };
+  toggleModal: () => void;
+  setModalMode: React.Dispatch<React.SetStateAction<'create' | 'edit'>>;
 };
 
-const Board: React.FC<BoardProops> = ({ item }) => {
+const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode }) => {
+  const handleEditIconClick = () => {
+    toggleModal();
+    setModalMode('edit');
+  };
+
   return (
     <div className={styles.board}>
       <div className={styles.boardContent}>
@@ -14,7 +21,7 @@ const Board: React.FC<BoardProops> = ({ item }) => {
         <p className={styles.description}>{item.description}</p>
       </div>
       <div className={styles.boardBtns}>
-        <RiEditLine className={styles.boardBtn} />
+        <RiEditLine className={styles.boardBtn} onClick={handleEditIconClick} />
         <RiDeleteBin6Line className={styles.boardBtn} />
       </div>
     </div>

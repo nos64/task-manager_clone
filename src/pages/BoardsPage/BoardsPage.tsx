@@ -6,6 +6,7 @@ import styles from './BoardsPage.module.scss';
 
 const BoardsPage = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
 
   const toggleModal = () => {
     setIsModalOpened((prev) => !prev);
@@ -31,11 +32,22 @@ const BoardsPage = () => {
       <h3 className={styles.title}>Boards</h3>
       <div className={styles.boardsContainer}>
         {boards.map((board) => {
-          return <Board key={board._id} item={board} />;
+          return (
+            <Board
+              key={board._id}
+              item={board}
+              toggleModal={toggleModal}
+              setModalMode={setModalMode}
+            />
+          );
         })}
-        <NewBoard toggleModal={toggleModal} />
+        <NewBoard toggleModal={toggleModal} setModalMode={setModalMode} />
       </div>
-      <BoardModal modalActive={isModalOpened} setModalActive={setIsModalOpened} />
+      <BoardModal
+        modalActive={isModalOpened}
+        setModalActive={setIsModalOpened}
+        modalMode={modalMode}
+      />
     </div>
   );
 };
