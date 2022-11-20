@@ -7,6 +7,10 @@ import ConfirmDelete from './ConfirmDelete';
 const DeleteButton = () => {
   const [modalActive, setModalActive] = useState(false);
 
+  const closeModal = () => {
+    setModalActive(false);
+  };
+
   return (
     <>
       <div className={styles.wrapper}>
@@ -14,7 +18,7 @@ const DeleteButton = () => {
           <FaTrashAlt /> DELETE ACCAUNT
         </button>
       </div>
-      <Modal modalActive={modalActive} setModalActive={setModalActive}>
+      <Modal modalActive={modalActive} setModalActive={closeModal}>
         <ConfirmDelete setModalActive={setModalActive} />
       </Modal>
     </>
