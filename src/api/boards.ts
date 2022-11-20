@@ -24,9 +24,9 @@ export const deleteBoard = async (boardId: string) => {
 };
 
 export const getBoardsByIds = async (ids: string[]) => {
-  return await api.get<AxiosError, Partial<IBoard[]>>(`boardsSet?ids=${ids.join(',')}`);
+  return await api.get<AxiosError, IBoard[]>(`boardsSet?ids=${ids.join(',')}`);
 };
 
 export const getUserRelatedBoards = async (userId: string) => {
-  return await api.get<AxiosError, Partial<IBoard[]>>(`boardsSet/${userId}`);
+  return await api.get<AxiosError, IBoard[]>(`boardsSet/${userId}`);
 };
