@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useEffect, useState } from 'react';
+import React, { InputHTMLAttributes, useState } from 'react';
 import styles from './InputLinePassword.module.scss';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
@@ -17,15 +17,10 @@ const InputLinePassword: React.FC<IInputLineProps> = ({
   fieldValue,
 }) => {
   const [isClicked, setIsClicked] = useState(false);
-  const [value, setValue] = useState('');
 
   const handleBtnClick = () => {
     setIsClicked(!isClicked);
   };
-
-  useEffect(() => {
-    setValue(fieldValue);
-  }, [fieldValue]);
 
   return (
     <div className={styles.inputWrapper}>
@@ -41,7 +36,7 @@ const InputLinePassword: React.FC<IInputLineProps> = ({
         autoComplete="off"
         type={!isClicked ? 'password' : 'text'}
       />
-      <label className={!value.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
+      <label className={!fieldValue.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
       <button className={styles.showPassword} type="button" onClick={handleBtnClick}>
         {!isClicked ? (
           <FaEyeSlash size={20} color={'#E1E1E1'} />

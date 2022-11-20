@@ -2,12 +2,13 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { signIn, signUp } from 'api/auth';
 import jwt_decode from 'jwt-decode';
 import { AxiosError } from 'axios';
-import { getUser } from 'api/users';
+import { getUser, getUsers } from 'api/users';
 import IJWTDecode from 'types/IJWTDecode';
 import updateStorage from 'utils/updateStorage';
 import StatusCodes from 'common/statusCodes';
 import { SignInPick, UserPick } from 'types/APIModel';
 import Languages from 'types/Languages';
+import IUser from 'types/IUser';
 
 export const signUpUser = createAsyncThunk(
   'user/signUpUser',
@@ -69,6 +70,18 @@ export const getUserById = createAsyncThunk('user/getUserById', async (_, { reje
   }
 });
 
+export const getAllUsers = createAsyncThunk('user/getAllUsers', async (_, { rejectWithValue }) => {
+  try {
+    return await getUsers();
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return rejectWithValue(error.response?.status);
+    }
+
+    throw error;
+  }
+});
+
 interface UserState {
   isAuthorised: boolean;
   isPending: boolean;
@@ -78,11 +91,11 @@ interface UserState {
   language: Languages;
   theme: string;
   avatarID: number;
+  users: Partial<IUser>[];
   isLoginAlreadyExist: boolean;
   isAuthorisationError: boolean;
   isTokenRequireUpdate: boolean;
   isRoutesProtected: boolean;
-  //
   isTokenExpired: boolean;
 }
 
@@ -95,6 +108,7 @@ const initialState: UserState = {
   language: 'EN',
   theme: 'dark',
   avatarID: 0,
+  users: [],
   isLoginAlreadyExist: false,
   isAuthorisationError: false,
   isTokenRequireUpdate: false,
@@ -199,6 +213,21 @@ export const userSlice = createSlice({
       state.avatarID = userInfo.avatarID || state.avatarID;
     });
     builder.addCase(getUserById.rejected, (state, action) => {
+      state.isPending = false;
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
+    });
+
+    builder.addCase(getAllUsers.pending, (state) => {
+      state.isPending = true;
+    });
+    builder.addCase(getAllUsers.fulfilled, (state, action) => {
+      state.isPending = false;
+      state.users = action.payload;
+    });
+    builder.addCase(getAllUsers.rejected, (state, action) => {
       state.isPending = false;
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {

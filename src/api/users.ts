@@ -4,7 +4,7 @@ import { UserPick } from 'types/APIModel';
 import IUser from 'types/IUser';
 
 export const getUsers = async () => {
-  return await api.get<AxiosError, Partial<IUser>>('/users');
+  return await api.get<AxiosError, Pick<IUser, '_id' | 'name' | 'login'>[]>('/users');
 };
 
 export const getUser = async (userId: string) => {

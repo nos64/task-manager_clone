@@ -12,6 +12,10 @@ const UserPreview = () => {
   const name = useAppSelector((state) => state.user.name);
   const login = useAppSelector((state) => state.user.login);
 
+  const closeModal = () => {
+    setModalActive(false);
+  };
+
   return (
     <>
       <div className={styles.wrapper}>
@@ -30,7 +34,7 @@ const UserPreview = () => {
           </p>
         </div>
       </div>
-      <Modal modalActive={modalActive} setModalActive={setModalActive}>
+      <Modal modalActive={modalActive} setModalActive={closeModal}>
         <ChangeAvatarContent
           setModalActive={setModalActive}
           currentAvatar={currentAvatar}
