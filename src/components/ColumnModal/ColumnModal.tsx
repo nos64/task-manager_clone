@@ -44,7 +44,7 @@ const ColumnModal: React.FC<ColumnModalProps> = ({ modalActive, setModalActive }
   };
 
   return (
-    <Modal modalActive={modalActive} setModalActive={setModalActive}>
+    <Modal modalActive={modalActive} setModalActive={onReset}>
       <div className={styles.elementModal}>
         <div className={styles.titleWrapper}>
           <FaListUl size={25} />

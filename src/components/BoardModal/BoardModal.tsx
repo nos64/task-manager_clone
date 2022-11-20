@@ -46,7 +46,7 @@ const BoardModal: React.FC<BoardModalProps> = ({ modalActive, setModalActive }) 
   };
 
   return (
-    <Modal modalActive={modalActive} setModalActive={setModalActive}>
+    <Modal modalActive={modalActive} setModalActive={onReset}>
       <div className={styles.elementModal}>
         <div className={styles.titleWrapper}>
           <FaRegClipboard size={25} />
