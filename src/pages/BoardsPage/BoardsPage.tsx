@@ -35,9 +35,7 @@ const BoardsPage = () => {
         })}
         <NewBoard toggleModal={toggleModal} />
       </div>
-      {isModalOpened && (
-        <BoardModal modalActive={isModalOpened} setModalActive={setIsModalOpened} />
-      )}
+      <BoardModal modalActive={isModalOpened} setModalActive={setIsModalOpened} />
     </div>
   );
 };
