@@ -114,9 +114,7 @@ const BoardPage = () => {
           </div>
         </div>
       </DragDropContext>
-      {isModalOpened && (
-        <ColumnModal modalActive={isModalOpened} setModalActive={setIsModalOpened} />
-      )}
+      <ColumnModal modalActive={isModalOpened} setModalActive={setIsModalOpened} />
     </>
   );
 };

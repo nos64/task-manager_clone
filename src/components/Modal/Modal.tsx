@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import styles from './Modal.module.scss';
 import { scrollController } from '../../utils/scrollController';
 
-interface IConfirmModalProps {
+interface ModalProps {
   modalActive: boolean;
-  setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalActive: () => void;
   children?: React.ReactNode;
 }
 
-const Modal: React.FC<IConfirmModalProps> = ({ modalActive, setModalActive, children }) => {
+const Modal: React.FC<ModalProps> = ({ modalActive, setModalActive, children }) => {
   useEffect(() => {
     modalActive ? scrollController.disableScroll() : scrollController.enableScroll();
   }, [modalActive]);
@@ -16,7 +16,7 @@ const Modal: React.FC<IConfirmModalProps> = ({ modalActive, setModalActive, chil
   return (
     <div
       className={modalActive ? styles.modal + ' ' + styles.active : styles.modal}
-      onClick={() => setModalActive(false)}
+      onClick={setModalActive}
     >
       <div
         className={

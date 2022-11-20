@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useEffect, useState } from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import styles from './InputLineText.module.scss';
 import { DeepMap, FieldError, FieldValues, UseFormRegister } from 'react-hook-form';
 
@@ -23,33 +23,25 @@ const InputLineText: React.FC<IInputLineProps> = ({
   register,
   fieldValue,
   symbolsLimit,
-}) => {
-  const [value, setValue] = useState('');
-
-  useEffect(() => {
-    setValue(fieldValue);
-  }, [fieldValue]);
-
-  return (
-    <>
-      <div className={styles.inputWrapper}>
-        <input
-          className={styles.inputLine}
-          type="text"
-          {...register(inputName, {
-            required: 'Required',
-            minLength: {
-              value: symbolsLimit,
-              message: '',
-            },
-          })}
-          placeholder={placeholder}
-          autoComplete="off"
-        />
-        <label className={!value.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
-      </div>
-    </>
-  );
-};
+}) => (
+  <>
+    <div className={styles.inputWrapper}>
+      <input
+        className={styles.inputLine}
+        type="text"
+        {...register(inputName, {
+          required: 'Required',
+          minLength: {
+            value: symbolsLimit,
+            message: '',
+          },
+        })}
+        placeholder={placeholder}
+        autoComplete="off"
+      />
+      <label className={!fieldValue.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
+    </div>
+  </>
+);
 
 export default InputLineText;
