@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'components/Modal';
 import styles from './BoardModal.module.scss';
 import InputLineText from 'components/InputLineText';
@@ -12,10 +12,16 @@ import InputTextarea from 'components/InputTextarea';
 interface BoardModalProps {
   modalActive: boolean;
   modalMode: 'create' | 'edit';
+  selectedBoard: IBoard | null;
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BoardModal: React.FC<BoardModalProps> = ({ modalActive, modalMode, setModalActive }) => {
+const BoardModal: React.FC<BoardModalProps> = ({
+  modalActive,
+  modalMode,
+  setModalActive,
+  selectedBoard,
+}) => {
   const [fileldsValues, setFieldsValues] = useState<Partial<IBoard>>({});
 
   const {
@@ -23,8 +29,21 @@ const BoardModal: React.FC<BoardModalProps> = ({ modalActive, modalMode, setModa
     handleSubmit,
     getValues,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<Partial<IBoard>>();
+
+  useEffect(() => {
+    if (modalActive && selectedBoard && modalMode === 'edit') {
+      setValue('title', selectedBoard.title);
+      setValue('description', selectedBoard.description);
+
+      setFieldsValues({
+        title: selectedBoard.title,
+        description: selectedBoard.description,
+      });
+    }
+  }, [modalActive, modalMode, selectedBoard, setValue]);
 
   const onSubmit = (data: Partial<IBoard>) => {
     // Do your magic here ...
