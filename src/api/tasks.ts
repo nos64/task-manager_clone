@@ -40,3 +40,7 @@ export const getTasksSet = async (ids: string[], userId: string, searchQuery: st
     `/tasksSet?ids=${ids.join(',')}&userId=${userId}&search=${searchQuery}`
   );
 };
+
+export const updateTasksSet = async (options: Pick<ITask, '_id' | 'order' | 'columnId'>[]) => {
+  return await api.patch<AxiosError, ITask[]>('/tasksSet', { ...options });
+};
