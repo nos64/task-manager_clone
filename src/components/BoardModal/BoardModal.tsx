@@ -17,6 +17,14 @@ interface BoardModalProps {
 const BoardModal: React.FC<BoardModalProps> = ({ modalActive, setModalActive }) => {
   const [fileldsValues, setFieldsValues] = useState<Partial<IBoard>>({});
 
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    reset,
+    formState: { errors },
+  } = useForm<Partial<IBoard>>();
+
   const onSubmit = (data: Partial<IBoard>) => {
     // Do your magic here ...
     console.log(data);
@@ -30,14 +38,12 @@ const BoardModal: React.FC<BoardModalProps> = ({ modalActive, setModalActive }) 
 
   const onReset = () => {
     setModalActive(false);
+    setFieldsValues({
+      title: '',
+      description: '',
+    });
+    reset();
   };
-
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm<Partial<IBoard>>();
 
   return (
     <Modal modalActive={modalActive} setModalActive={setModalActive}>

@@ -16,6 +16,14 @@ interface ColumnModalProps {
 const ColumnModal: React.FC<ColumnModalProps> = ({ modalActive, setModalActive }) => {
   const [fileldsValues, setFieldsValues] = useState<Partial<IColumn>>({});
 
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    reset,
+    formState: { errors },
+  } = useForm<Partial<IColumn>>();
+
   const onSubmit = (data: Partial<IColumn>) => {
     // Do your magic here ...
     console.log(data);
@@ -29,14 +37,11 @@ const ColumnModal: React.FC<ColumnModalProps> = ({ modalActive, setModalActive }
 
   const onReset = () => {
     setModalActive(false);
+    setFieldsValues({
+      title: '',
+    });
+    reset();
   };
-
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm<Partial<IColumn>>();
 
   return (
     <Modal modalActive={modalActive} setModalActive={setModalActive}>
