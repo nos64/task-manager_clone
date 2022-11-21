@@ -11,6 +11,8 @@ import userImage9 from '../assets/images/userImage9.png';
 
 export const API_URL = `https://task-manager.adaptable.app`;
 
+export const deleteAccountWarningMessage = 'delete your accaunt';
+
 export const avatars = [
   {
     id: 0,

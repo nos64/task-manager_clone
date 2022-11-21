@@ -1,0 +1,28 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/extensions.scss';
+
+.wrapper {
+  @extend %centered;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.title {
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.buttonsWrapper {
+  @extend %centered;
+  gap: 30px;
+
+  .submitBtn {
+    text-transform: uppercase;
+    @include buttonStyle(10px, 30px);
+  }
+
+  .deleteBtn {
+    text-transform: uppercase;
+    @include deleteButtonStyle(10px, 30px);
+  }
+}

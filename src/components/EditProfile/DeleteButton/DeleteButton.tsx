@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styles from './DeleteButton.module.scss';
 import { FaTrashAlt } from 'react-icons/fa';
 import Modal from 'components/Modal';
-import ConfirmDelete from './ConfirmDelete';
+import WarningModal from 'components/WarningModal';
+import { deleteAccountWarningMessage } from 'common/constants';
 
 const DeleteButton = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -10,6 +11,8 @@ const DeleteButton = () => {
   const closeModal = () => {
     setModalActive(false);
   };
+
+  const deleteAccount = () => {};
 
   return (
     <>
@@ -19,7 +22,11 @@ const DeleteButton = () => {
         </button>
       </div>
       <Modal modalActive={modalActive} setModalActive={closeModal}>
-        <ConfirmDelete setModalActive={setModalActive} />
+        <WarningModal
+          deleteBtnHandler={deleteAccount}
+          cancelBtnHandler={closeModal}
+          message={deleteAccountWarningMessage}
+        />
       </Modal>
     </>
   );
