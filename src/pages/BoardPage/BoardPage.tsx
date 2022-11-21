@@ -1,80 +1,77 @@
 import { ROUTES } from 'common/routes';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './BoardPage.module.scss';
 import Column from '../../components/Column';
 import { FaLessThan } from 'react-icons/fa';
 import NewColumn from '../../components/NewColumn';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
-import { initialColumns } from 'data/initialBoardData';
-import { moveColumn, moveTask, reorderTasks } from 'utils/dnd-helper';
+import { moveColumn } from 'utils/dnd-helper';
 import { DndType } from 'common/dnd-types';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { getColumns, updateColumnsOrder } from 'store/reducers/boardSlice';
 import ColumnModal from 'components/ColumnModal';
 
 const BoardPage = () => {
+  const boardId = '637899303b52a5922e7c5655';
   const boardTitle = 'board title';
   const boardDescription = 'Booard description';
+  const dispatch = useAppDispatch();
+  const columns = useAppSelector((state) => state.board.columns);
 
   const [isModalOpened, setIsModalOpened] = useState(false);
 
-  const sortedColumns = initialColumns.sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
-
-  const [columns, setColumns] = useState(sortedColumns);
-
   const handleDragEnd = (result: DropResult) => {
     const { destination, source, type, draggableId } = result;
-
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
     }
-
     switch (type) {
       case DndType.COLUMN:
         const newOrderedColumns = moveColumn(destination, draggableId, columns);
         if (!newOrderedColumns) return;
 
-        setColumns(newOrderedColumns);
+        dispatch(updateColumnsOrder(newOrderedColumns));
         return;
-      case DndType.TASK:
-        const sourceColumn = columns.find((item) => item._id == source.droppableId);
-        if (!sourceColumn || !sourceColumn.tasks) return;
-
-        if (destination.droppableId !== source.droppableId) {
-          const { newSourceColumn, newDestinationColumn } = moveTask(
-            source,
-            destination,
-            draggableId,
-            sourceColumn,
-            columns
-          );
-          if (!newSourceColumn || !newDestinationColumn) return;
-
-          const newColumns = [
-            ...columns.filter(
-              (item) => item._id !== source.droppableId && item._id !== destination.droppableId
-            ),
-            newDestinationColumn,
-            newSourceColumn,
-          ].sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
-
-          setColumns(newColumns);
-        } else {
-          const newSourceColumn = reorderTasks(destination, draggableId, sourceColumn);
-          if (!newSourceColumn) return;
-
-          const newColumns = [
-            ...columns.filter((item) => item._id !== source.droppableId),
-            newSourceColumn,
-          ].sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
-
-          setColumns(newColumns);
-        }
-        return;
+      // case DndType.TASK:
+      //   const sourceColumn = columns.find((item) => item._id == source.droppableId);
+      //   if (!sourceColumn || !sourceColumn.tasks) return;
+      //   if (destination.droppableId !== source.droppableId) {
+      //     const { newSourceColumn, newDestinationColumn } = moveTask(
+      //       source,
+      //       destination,
+      //       draggableId,
+      //       sourceColumn,
+      //       columns
+      //     );
+      //     if (!newSourceColumn || !newDestinationColumn) return;
+      //     const newColumns = [
+      //       ...columns.filter(
+      //         (item) => item._id !== source.droppableId && item._id !== destination.droppableId
+      //       ),
+      //       newDestinationColumn,
+      //       newSourceColumn,
+      //     ].sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
+      //     setColumns(newColumns);
+      //   } else {
+      //     const newSourceColumn = reorderTasks(destination, draggableId, sourceColumn);
+      //     if (!newSourceColumn) return;
+      //     const newColumns = [
+      //       ...columns.filter((item) => item._id !== source.droppableId),
+      //       newSourceColumn,
+      //     ].sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
+      //     setColumns(newColumns);
+      //   }
+      //   return;
       default:
         throw new Error('No such DND type');
     }
   };
+
+  useEffect(() => {
+    dispatch(getColumns(boardId));
+  }, [dispatch]);
 
   const toggleModal = () => {
     setIsModalOpened((prev) => !prev);
@@ -114,7 +111,11 @@ const BoardPage = () => {
           </div>
         </div>
       </DragDropContext>
-      <ColumnModal modalActive={isModalOpened} setModalActive={setIsModalOpened} />
+      <ColumnModal
+        modalActive={isModalOpened}
+        boardId={boardId}
+        setModalActive={setIsModalOpened}
+      />
     </>
   );
 };
