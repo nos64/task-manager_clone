@@ -50,27 +50,29 @@ const BoardModal: React.FC<BoardModalProps> = ({
   }, [modalActive, modalMode, selectedBoard, setValue]);
 
   const onSubmit = (data: Partial<IBoard>) => {
-    if (modalMode === 'edit') {
+    if (modalActive && selectedBoard && modalMode === 'edit') {
+      console.log(selectedBoard);
       dispatch(
         updateBoardById({
-          boardId: selectedBoard!._id,
+          boardId: selectedBoard._id,
           options: {
-            title: selectedBoard!.title,
-            description: selectedBoard!.description,
+            title: data.title || ' ',
+            description: data.description || ' ',
             owner: userID,
-            users: [],
+            users: selectedBoard.users,
           },
         })
       );
+    } else {
+      dispatch(
+        createNewBoard({
+          title: data.title || ' ',
+          description: data.description || ' ',
+          owner: userID,
+          users: [],
+        })
+      );
     }
-    dispatch(
-      createNewBoard({
-        title: data.title || ' ',
-        description: data.description || ' ',
-        owner: userID,
-        users: [],
-      })
-    );
     onReset();
   };
 

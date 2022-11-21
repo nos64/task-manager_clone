@@ -20,6 +20,7 @@ const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSele
     setModalMode('edit');
     setSelectedBoard(item);
   };
+
   const handleDeleteBoard = () => {
     dispatch(deleteBoardById(item._id));
   };
