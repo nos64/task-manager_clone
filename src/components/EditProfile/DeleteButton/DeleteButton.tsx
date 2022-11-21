@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from './DeleteButton.module.scss';
 import { FaTrashAlt } from 'react-icons/fa';
-import Modal from 'components/Modal';
 import WarningModal from 'components/WarningModal';
 import { deleteAccountWarningMessage } from 'common/constants';
 
@@ -21,13 +20,12 @@ const DeleteButton = () => {
           <FaTrashAlt /> DELETE ACCAUNT
         </button>
       </div>
-      <Modal modalActive={modalActive} setModalActive={closeModal}>
-        <WarningModal
-          deleteBtnHandler={deleteAccount}
-          cancelBtnHandler={closeModal}
-          message={deleteAccountWarningMessage}
-        />
-      </Modal>
+      <WarningModal
+        deleteBtnHandler={deleteAccount}
+        cancelBtnHandler={closeModal}
+        message={deleteAccountWarningMessage}
+        isModalActive={modalActive}
+      />
     </>
   );
 };
