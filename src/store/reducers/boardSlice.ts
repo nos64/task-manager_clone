@@ -1,7 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { updateBoard } from 'api/boards';
-import { createColumn, deleteColumn, getColumnsInBoard, updateColumn } from 'api/columns';
+import {
+  createColumn,
+  deleteColumn,
+  getColumnsInBoard,
+  updateColumn,
+  updateColumnsSet,
+} from 'api/columns';
 import { AxiosError } from 'axios';
+import StatusCodes from 'common/statusCodes';
 import { RootState } from 'store/store';
 import IBoard from 'types/IBoard';
 import IColumn from 'types/IColumn';
@@ -9,6 +15,7 @@ import IColumn from 'types/IColumn';
 interface IBoardState extends IBoard {
   columns: IColumn[];
   isPending: boolean;
+  isTokenExpired: boolean;
 }
 
 const initialState: IBoardState = {
@@ -19,6 +26,7 @@ const initialState: IBoardState = {
   users: [],
   columns: [],
   isPending: false,
+  isTokenExpired: false,
 };
 
 export const getColumns = createAsyncThunk(
@@ -95,6 +103,25 @@ export const deleteBoardColumn = createAsyncThunk(
   }
 );
 
+export const updateColumnsOrder = createAsyncThunk(
+  'board/updateColumnsOrder',
+  async (columns: IColumn[], { rejectWithValue }) => {
+    const columnsData = columns.map((item) => ({ _id: item._id, order: item.order }));
+    console.log(columnsData);
+    try {
+      const newColumns = await updateColumnsSet(columnsData);
+
+      return newColumns;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.status);
+      }
+
+      throw error;
+    }
+  }
+);
+
 export const boardSlice = createSlice({
   name: 'board',
   initialState,
@@ -113,7 +140,10 @@ export const boardSlice = createSlice({
     });
     builder.addCase(getColumns.rejected, (state, action) => {
       state.isPending = false;
-      console.log(action.payload);
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
     });
 
     builder.addCase(setColumnTitle.pending, (state) => {
@@ -126,7 +156,10 @@ export const boardSlice = createSlice({
     });
     builder.addCase(setColumnTitle.rejected, (state, action) => {
       state.isPending = false;
-      console.log(action.payload);
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
     });
 
     builder.addCase(createBoardColumn.pending, (state) => {
@@ -140,7 +173,10 @@ export const boardSlice = createSlice({
     });
     builder.addCase(createBoardColumn.rejected, (state, action) => {
       state.isPending = false;
-      console.log(action.payload);
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
     });
 
     builder.addCase(deleteBoardColumn.pending, (state) => {
@@ -156,7 +192,25 @@ export const boardSlice = createSlice({
     });
     builder.addCase(deleteBoardColumn.rejected, (state, action) => {
       state.isPending = false;
-      console.log(action.payload);
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
+    });
+
+    builder.addCase(updateColumnsOrder.pending, (state) => {
+      state.isPending = true;
+    });
+    builder.addCase(updateColumnsOrder.fulfilled, (state, action) => {
+      state.columns = action.payload;
+      state.isPending = false;
+    });
+    builder.addCase(updateColumnsOrder.rejected, (state, action) => {
+      state.isPending = false;
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
     });
   },
 });

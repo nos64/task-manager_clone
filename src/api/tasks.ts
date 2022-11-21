@@ -42,5 +42,5 @@ export const getTasksSet = async (ids: string[], userId: string, searchQuery: st
 };
 
 export const updateTasksSet = async (options: Pick<ITask, '_id' | 'order' | 'columnId'>[]) => {
-  return await api.patch<AxiosError, ITask[]>('/tasksSet', { ...options });
+  return await api.patch<AxiosError, ITask[]>('/tasksSet', [...options]);
 };

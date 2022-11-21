@@ -36,6 +36,7 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
   };
 
   const columnTitleRef = useRef<HTMLInputElement>(null);
+
   const updateColumnTitle = () => {
     const title = columnTitleRef.current?.value;
     if (!title) return;
@@ -51,12 +52,18 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
     setIsColumnDeleting(false);
   };
 
+  const handleColumnTitleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      updateColumnTitle();
+    }
+  };
+
   useEffect(() => {
     const asyncFunc = async () => {
       dispatch(getTasks({ boardId: item.boardId, columnId: item._id }));
     };
     asyncFunc();
-  }, [dispatch]);
+  }, [dispatch, item._id, item.boardId]);
 
   return (
     <>
@@ -90,6 +97,7 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
                         type="text"
                         defaultValue={item.title}
                         ref={columnTitleRef}
+                        onKeyDown={handleColumnTitleKeyDown}
                       />
                       <div className={styles.editBtns}>
                         <IoIosCheckmark className={styles.editBtnOK} onClick={updateColumnTitle} />

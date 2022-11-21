@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getTasksInColumn } from 'api/tasks';
 import { AxiosError } from 'axios';
-import IColumn from 'types/IColumn';
 import ITask from 'types/ITask';
 
 interface IColumnsState {
