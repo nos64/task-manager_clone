@@ -69,7 +69,7 @@ const EditProfileForm = () => {
           fieldValue={fileldsValues.password || ''}
         />
         <ValidationErrorMessage message={errors.password && 'Required, min 6 symbols'} />
-        <FormButtons handleCancelBtnClick={onReset} />
+        <FormButtons handleCancelBtnClick={onReset} acceptBtnTitle={'Update'} />
       </form>
     </div>
   );

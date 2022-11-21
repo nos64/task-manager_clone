@@ -157,7 +157,10 @@ const TaskModal: React.FC<TaskModalProps> = ({
             options={users}
             type={'users'}
           />
-          <FormButtons handleCancelBtnClick={onReset} />
+          <FormButtons
+            handleCancelBtnClick={onReset}
+            acceptBtnTitle={modalMode === 'create' ? 'Add' : 'Update'}
+          />
         </form>
       </div>
     </Modal>
