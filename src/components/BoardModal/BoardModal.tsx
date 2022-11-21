@@ -9,7 +9,7 @@ import ValidationErrorMessage from 'components/ValidationErrorMessage';
 import { FaRegClipboard } from 'react-icons/fa';
 import InputTextarea from 'components/InputTextarea';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { createNewBoard, setIsBurgerOpen, updateBoardById } from 'store/reducers/boardsSlice';
+import { createNewBoard, setIsBurgerOpen, updateBoardById } from '../../store/reducers/boardsSlice';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'common/routes';
 

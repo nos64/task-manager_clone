@@ -25,7 +25,7 @@ const BurgerContentAuth = () => {
 
   useEffect(() => {
     setVisibleBoards(boards);
-  }, []);
+  }, [boards]);
 
   const filteredBoards = boards.filter((board) =>
     board?.title.toLowerCase().trim().includes(activeSearchValue.toLowerCase().trim())
