@@ -14,9 +14,11 @@ import { getColumns } from 'store/reducers/boardSlice';
 import Loader from 'components/Loader';
 import { scrollController } from 'utils/scrollController';
 import ColumnModal from 'components/ColumnModal';
+import { MdWarning } from 'react-icons/md';
+import WarningModal from 'components/WarningModal';
 
 const BoardPage = () => {
-  const boardId = '6375366d28a30e3ad49d86a8';
+  const boardId = '637899303b52a5922e7c5655';
   const boardTitle = 'board title';
   const boardDescription = 'Booard description';
   const dispatch = useAppDispatch();
@@ -24,9 +26,7 @@ const BoardPage = () => {
   const isPending = useAppSelector((state) => state.board.isPending);
 
   const [isModalOpened, setIsModalOpened] = useState(false);
-
-  // const sortedColumns = initialColumns.sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
-  // const [columns, setColumns] = useState(sortedColumns);
+  //const [isColumnDeleting, setIsColumnDeleting] = useState(false);
 
   const handleDragEnd = (result: DropResult) => {
     const { destination, source, type, draggableId } = result;
@@ -130,6 +130,13 @@ const BoardPage = () => {
         boardId={boardId}
         setModalActive={setIsModalOpened}
       />
+      {/* {isColumnDeleting && (
+        <WarningModal
+          deleteBtnHandler={() => console.log('delete the column')}
+          cancelBtnHandler={() => setIsColumnDeleting(false)}
+          message="delete this column"
+        /> */}
+      {/* )} */}
     </>
   );
 };

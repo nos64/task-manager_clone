@@ -23,10 +23,10 @@ const initialState: IBoardState = {
 
 export const getColumns = createAsyncThunk(
   'board/getColumns',
-  async (id: string, { rejectWithValue }) => {
+  async (boardId: string, { rejectWithValue }) => {
     try {
-      id = '637899303b52a5922e7c5655';
-      const columns = await getColumnsInBoard(id);
+      boardId = '637899303b52a5922e7c5655';
+      const columns = await getColumnsInBoard(boardId);
 
       return columns;
     } catch (error) {

@@ -60,6 +60,7 @@
   right: 0;
   top: 0;
   width: 18px;
+  margin-right: 5px;
   color: $color-text-secondary;
   opacity: 0;
   cursor: pointer;
@@ -75,7 +76,7 @@
   display: flex;
 
   .editInput {
-    width: 200px;
+    width: 180px;
     padding: 4px 50px 4px 10px;
     border: 1px solid $background-primary-lighter;
     border-radius: $border-raduis-small;

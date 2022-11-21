@@ -10,8 +10,9 @@ import IColumn from 'types/IColumn';
 import { IoIosClose, IoIosCheckmark } from 'react-icons/io';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getTasks } from 'store/reducers/columnSlice';
-import { setColumnTitle } from 'store/reducers/boardSlice';
+import { deleteBoardColumn, setColumnTitle } from 'store/reducers/boardSlice';
 import TaskModal from 'components/TaskModal';
+import WarningModal from 'components/WarningModal';
 
 type ColumnProps = {
   item: IColumn;
@@ -28,6 +29,8 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
 
+  const [isColumnDeleting, setIsColumnDeleting] = useState(false);
+
   const toggleModal = () => {
     setIsModalOpened((prev) => !prev);
   };
@@ -41,6 +44,11 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
       dispatch(setColumnTitle({ column: item, newTitle: title }));
     }
     setIsTitleEdited(false);
+  };
+
+  const deleteColumn = () => {
+    dispatch(deleteBoardColumn(item));
+    setIsColumnDeleting(false);
   };
 
   useEffect(() => {
@@ -65,7 +73,10 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
                 {...dragProvided.dragHandleProps}
               >
                 <div className={styles.columnHeader}>
-                  <RiDeleteBin6Line className={styles.removeBtn} />
+                  <RiDeleteBin6Line
+                    className={styles.removeBtn}
+                    onClick={() => setIsColumnDeleting(true)}
+                  />
                   <div className={styles.columnColor}></div>
                   {!isTitleEdited && (
                     <h4 className={styles.title} onClick={() => setIsTitleEdited(true)}>
@@ -129,6 +140,12 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
         setModalActive={setIsModalOpened}
         modalMode={modalMode}
         selectedTask={selectedTask}
+      />
+      <WarningModal
+        isModalActive={isColumnDeleting}
+        deleteBtnHandler={() => deleteColumn()}
+        cancelBtnHandler={() => setIsColumnDeleting(false)}
+        message="delete this column"
       />
     </>
   );
