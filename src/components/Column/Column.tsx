@@ -60,10 +60,7 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
   };
 
   useEffect(() => {
-    const asyncFunc = async () => {
-      dispatch(getTasks({ boardId: item.boardId, columnId: item._id }));
-    };
-    asyncFunc();
+    dispatch(getTasks({ boardId: item.boardId, columnId: item._id }));
   }, [dispatch, item._id, item.boardId]);
 
   return (
