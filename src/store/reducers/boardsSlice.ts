@@ -91,25 +91,30 @@ export const updateBoardById = createAsyncThunk<IBoard, updateParams>(
 );
 
 interface BoardsState {
-  boards: (IBoard | undefined)[];
+  boards: IBoard[];
   isTokenExpired: boolean;
   isPending: boolean;
-  selectedBoard: IBoard | undefined;
+  activeBoard: IBoard | null;
+  isBurgerOpen: boolean;
 }
 
 const initialState: BoardsState = {
   boards: [],
   isTokenExpired: false,
   isPending: false,
-  selectedBoard: undefined,
+  activeBoard: null,
+  isBurgerOpen: false,
 };
 
 export const boardsSlice = createSlice({
   name: 'boards',
   initialState,
   reducers: {
-    setSelectedBoard(state, action: PayloadAction<IBoard | undefined>) {
-      state.selectedBoard = action.payload;
+    setActiveBoard(state, action: PayloadAction<IBoard | null>) {
+      state.activeBoard = action.payload;
+    },
+    setIsBurgerOpen(state, action: PayloadAction<boolean>) {
+      state.isBurgerOpen = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -134,6 +139,7 @@ export const boardsSlice = createSlice({
     builder.addCase(createNewBoard.fulfilled, (state, action) => {
       state.isPending = false;
       state.boards.push(action.payload);
+      state.activeBoard = action.payload;
     });
     builder.addCase(createNewBoard.rejected, (state, action) => {
       state.isPending = false;
@@ -177,5 +183,5 @@ export const boardsSlice = createSlice({
     });
   },
 });
-export const { setSelectedBoard } = boardsSlice.actions;
+export const { setActiveBoard, setIsBurgerOpen } = boardsSlice.actions;
 export default boardsSlice.reducer;

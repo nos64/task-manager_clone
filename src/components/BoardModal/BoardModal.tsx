@@ -9,7 +9,7 @@ import ValidationErrorMessage from 'components/ValidationErrorMessage';
 import { FaRegClipboard } from 'react-icons/fa';
 import InputTextarea from 'components/InputTextarea';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { createNewBoard, setSelectedBoard, updateBoardById } from 'store/reducers/boardsSlice';
+import { createNewBoard, setIsBurgerOpen, updateBoardById } from 'store/reducers/boardsSlice';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'common/routes';
 
@@ -29,6 +29,7 @@ const BoardModal: React.FC<BoardModalProps> = ({
   const [fileldsValues, setFieldsValues] = useState<Partial<IBoard>>({});
   const userID = useAppSelector((state) => state.user.id);
   const boards = useAppSelector((state) => state.boards.boards);
+  const activeBoard = useAppSelector((state) => state.boards.activeBoard);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const {
@@ -74,8 +75,8 @@ const BoardModal: React.FC<BoardModalProps> = ({
           users: [],
         })
       );
-      setSelectedBoard(boards[boards.length - 1]);
-      navigate(`${ROUTES.BOARDS}/${boards[boards.length - 1]?._id}`);
+      dispatch(setIsBurgerOpen(false));
+      navigate(`${ROUTES.BOARDS}/${activeBoard?._id}`);
     }
     onReset();
   };

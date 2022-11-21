@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './Board.module.scss';
 import { RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 
-import { deleteBoardById } from 'store/reducers/boardsSlice';
+import { deleteBoardById, setActiveBoard } from 'store/reducers/boardsSlice';
 import { useAppDispatch } from 'hooks/redux';
 import IBoard from 'types/IBoard';
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +37,7 @@ const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSele
   };
 
   const handleGoToColumns = () => {
-    setSelectedBoard(item);
+    dispatch(setActiveBoard(item));
     navigate(`${ROUTES.BOARDS}/${item._id}`);
   };
 

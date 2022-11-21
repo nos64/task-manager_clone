@@ -1,29 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './BurgerContentAuth.module.scss';
-import { useAppSelector } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { ROUTES } from 'common/routes';
 import LangToggler from 'components/Header/LangToggler';
 import ThemeToggler from 'components/Header/ThemeToggler';
 import { GoPlus } from 'react-icons/go';
 import BoardModal from 'components/BoardModal';
 import { noMatchesMessage } from 'common/constants';
-import { setSelectedBoard } from 'store/reducers/boardsSlice';
+import { setActiveBoard, setIsBurgerOpen } from 'store/reducers/boardsSlice';
 import IBoard from 'types/IBoard';
 
-interface IBurgerContentAuthProps {
-  isOpenBurger: boolean;
-  setIsOpenBurger: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
-  isOpenBurger,
-  setIsOpenBurger,
-}) => {
+const BurgerContentAuth = () => {
   const userName = useAppSelector((state) => state.user.name);
   const boards = useAppSelector((state) => state.boards.boards);
-  const selectedBoard = useAppSelector((state) => state.boards.selectedBoard);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [enteredSearchValue, setEnteredSearchValue] = useState('');
   const [activeSearchValue, setActiveSearchValue] = useState('');
@@ -53,8 +45,8 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
   };
 
   const handleBoardLinkClick = (board: IBoard) => {
-    setSelectedBoard(board);
-    setIsOpenBurger(false);
+    dispatch(setActiveBoard(board));
+    dispatch(setIsBurgerOpen(false));
     navigate(`${ROUTES.BOARDS}/${board._id}`);
   };
 
@@ -65,12 +57,12 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
           <NavLink
             className={styles.navLink}
             to={ROUTES.BOARDS}
-            onClick={() => setIsOpenBurger(false)}
+            onClick={() => dispatch(setIsBurgerOpen(false))}
           >
             Main
           </NavLink>
-          <ThemeToggler isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
-          <LangToggler isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
+          <ThemeToggler />
+          <LangToggler />
         </div>
 
         <div className={styles.menuHeader}>
