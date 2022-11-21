@@ -24,3 +24,7 @@ export const updateColumn = async (boardId: string, columnId: string, options: C
 export const deleteColumn = async (boardId: string, columnId: string) => {
   return await api.delete<AxiosError, IColumn>(`/boards/${boardId}/columns/${columnId}`);
 };
+
+export const updateColumnsSet = async (options: Pick<IColumn, '_id' | 'order'>[]) => {
+  return await api.patch<AxiosError, IColumn[]>(`/columnsSet`, { ...options });
+};
