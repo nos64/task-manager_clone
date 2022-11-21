@@ -7,13 +7,16 @@ import FormButtons from 'components/FormButtons';
 import ValidationErrorMessage from 'components/ValidationErrorMessage';
 import { FaListUl } from 'react-icons/fa';
 import IColumn from 'types/IColumn';
+import { useAppDispatch } from 'hooks/redux';
+import { createBoardColumn } from 'store/reducers/boardSlice';
 
 interface ColumnModalProps {
   modalActive: boolean;
+  boardId: string;
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ColumnModal: React.FC<ColumnModalProps> = ({ modalActive, setModalActive }) => {
+const ColumnModal: React.FC<ColumnModalProps> = ({ modalActive, boardId, setModalActive }) => {
   const [fileldsValues, setFieldsValues] = useState<Partial<IColumn>>({});
 
   const {
@@ -24,9 +27,12 @@ const ColumnModal: React.FC<ColumnModalProps> = ({ modalActive, setModalActive }
     formState: { errors },
   } = useForm<Partial<IColumn>>();
 
+  const dispatch = useAppDispatch();
+
   const onSubmit = (data: Partial<IColumn>) => {
-    // Do your magic here ...
-    console.log(data);
+    dispatch(createBoardColumn({ boardId, title: data.title || '' }));
+    setModalActive(false);
+    onReset();
   };
 
   const onChange = () => {
