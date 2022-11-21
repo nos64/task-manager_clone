@@ -28,7 +28,6 @@ const BoardModal: React.FC<BoardModalProps> = ({
 }) => {
   const [fileldsValues, setFieldsValues] = useState<Partial<IBoard>>({});
   const userID = useAppSelector((state) => state.user.id);
-  const boards = useAppSelector((state) => state.boards.boards);
   const activeBoard = useAppSelector((state) => state.boards.activeBoard);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
