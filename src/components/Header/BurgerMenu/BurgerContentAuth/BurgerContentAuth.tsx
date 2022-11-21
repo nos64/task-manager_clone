@@ -54,8 +54,8 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
 
   const handleBoardLinkClick = (board: IBoard) => {
     setSelectedBoard(board);
-    navigate(`${ROUTES.BOARDS}/${board._id}`);
     setIsOpenBurger(false);
+    navigate(`${ROUTES.BOARDS}/${board._id}`);
   };
 
   return (
