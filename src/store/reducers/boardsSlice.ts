@@ -94,12 +94,14 @@ interface BoardsState {
   boards: (IBoard | undefined)[];
   isTokenExpired: boolean;
   isPending: boolean;
+  selectedBoardId: string;
 }
 
 const initialState: BoardsState = {
   boards: [],
   isTokenExpired: false,
   isPending: false,
+  selectedBoardId: '',
 };
 
 export const boardsSlice = createSlice({

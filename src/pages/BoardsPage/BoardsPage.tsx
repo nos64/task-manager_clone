@@ -6,7 +6,6 @@ import Board from '../../components/Board';
 import styles from './BoardsPage.module.scss';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getBoardsByUserId } from 'store/reducers/boardsSlice';
-import { Navigate } from 'react-router-dom';
 
 const BoardsPage = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);

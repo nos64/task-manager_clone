@@ -8,6 +8,7 @@ import IBoard from 'types/IBoard';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'common/routes';
 import WarningModal from 'components/WarningModal';
+import { deleteBoardMessage } from 'common/constants';
 
 type BoardProops = {
   item: IBoard;
@@ -36,8 +37,7 @@ const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSele
   };
 
   const handleGoToColumns = () => {
-    //////////ROUTES.BOARD
-    navigate(`/boards/:${item._id}`);
+    navigate(`${ROUTES.BOARDS}/${item._id}`);
   };
 
   return (
@@ -55,7 +55,7 @@ const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSele
       <WarningModal
         deleteBtnHandler={handleDeleteBoard}
         cancelBtnHandler={() => setIsModalActive(false)}
-        message="delete this board"
+        message={deleteBoardMessage}
         isModalActive={isModalActive}
       />
     </>

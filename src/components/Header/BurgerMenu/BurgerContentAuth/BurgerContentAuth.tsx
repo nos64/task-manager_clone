@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './BurgerContentAuth.module.scss';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { useAppSelector } from 'hooks/redux';
 import { ROUTES } from 'common/routes';
 import LangToggler from 'components/Header/LangToggler';
 import ThemeToggler from 'components/Header/ThemeToggler';
 import { GoPlus } from 'react-icons/go';
-import { getBoardsByUserId } from 'store/reducers/boardsSlice';
 import BoardModal from 'components/BoardModal';
-import ValidationErrorMessage from 'components/ValidationErrorMessage';
-import InputLineText from 'components/InputLineText';
-import { useForm } from 'react-hook-form';
+import { noMatchesMessage } from 'common/constants';
 
 interface IBurgerContentAuthProps {
   isOpenBurger: boolean;
@@ -24,36 +21,31 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
   const userName = useAppSelector((state) => state.user.name);
   const boards = useAppSelector((state) => state.boards.boards);
   const [isModalOpened, setIsModalOpened] = useState(false);
-  // const [inputValue, setInputValue] = useState('');
+  const [enteredSearchValue, setEnteredSearchValue] = useState('');
+  const [activeSearchValue, setActiveSearchValue] = useState('');
+  const [visibleBoards, setVisibleBoards] = useState(
+    useAppSelector((state) => state.boards.boards)
+  );
+
+  useEffect(() => {
+    setVisibleBoards(boards);
+  }, []);
+
+  const filteredBoards = boards.filter((board) =>
+    board?.title.toLowerCase().trim().includes(activeSearchValue.toLowerCase().trim())
+  );
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setActiveSearchValue(enteredSearchValue);
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [enteredSearchValue]);
 
   const handleCreateBoard = () => {
     setIsModalOpened(true);
-  };
-  // const handleInputChange = (e) => {
-  //   setInputValue(e.target.value);
-  // };
-
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    getValues,
-    reset,
-  } = useForm<string>();
-
-  const [fileldsValues, setFieldsValues] = useState<string>('');
-
-  const onChange = () => {
-    const currentFieldsValues = getValues();
-
-    setFieldsValues(currentFieldsValues);
-  };
-
-  const onReset = () => {
-    setFieldsValues('');
-    reset({
-      string: '',
-    });
   };
 
   return (
@@ -76,40 +68,38 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
         </div>
         <div className={styles.boardListTitle}>My Boards</div>
         <div className={styles.inputWrapper}>
-          <InputLineText
-            inputName={'login'}
-            label={'Login'}
-            placeholder={'Enter new Login'}
-            register={register}
-            fieldValue={fileldsValues.login || ''}
-            symbolsLimit={2}
-          />
-          <ValidationErrorMessage message={errors.login && 'Min 2 symbols'} />
-          {/* <input
+          <input
             className={styles.inputLine}
             type="search"
-            placeholder="Search..."
+            placeholder="Please enter board name"
             autoComplete="off"
-            // value={inputValue}
-            // onChange={handleInputChange}
-          /> */}
+            onChange={(e) => setEnteredSearchValue(e.target.value)}
+            value={enteredSearchValue}
+          />
         </div>
         <button className={styles.createBoardBtn} type="button" onClick={handleCreateBoard}>
           <GoPlus />
           Create Board
         </button>
         <ul className={styles.boardList}>
-          {boards.map((board) => (
-            <li
-              className={styles.boardItem}
-              key={board && board._id}
-              onClick={() => setIsOpenBurger(false)}
-            >
-              <NavLink className={styles.boardNavLink} to={'#'}>
-                {board && board.title}
-              </NavLink>
-            </li>
-          ))}
+          {filteredBoards.length ? (
+            filteredBoards.map((board) => (
+              <li
+                className={styles.boardItem}
+                key={board && board._id}
+                onClick={() => setIsOpenBurger(false)}
+              >
+                <NavLink className={styles.boardNavLink} to={`${ROUTES.BOARDS}/${board?._id}`}>
+                  {board && board.title}
+                </NavLink>
+              </li>
+            ))
+          ) : (
+            <>
+              <p className={styles.noMatchesMessage}>{noMatchesMessage}</p>
+              <p className={styles.noMatchesValue}>{enteredSearchValue}</p>
+            </>
+          )}
         </ul>
       </div>
       <BoardModal

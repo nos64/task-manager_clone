@@ -56,7 +56,7 @@ const BoardModal: React.FC<BoardModalProps> = ({
           boardId: selectedBoard._id,
           options: {
             title: data.title || ' ',
-            description: data.description || ' ',
+            description: data.description || `${data.title} description`,
             owner: userID,
             users: selectedBoard.users,
           },
@@ -66,7 +66,7 @@ const BoardModal: React.FC<BoardModalProps> = ({
       dispatch(
         createNewBoard({
           title: data.title || ' ',
-          description: data.description || ' ',
+          description: data.description || `${data.title} description`,
           owner: userID,
           users: [],
         })
