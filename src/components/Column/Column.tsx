@@ -13,6 +13,7 @@ import { getTasks } from 'store/reducers/columnSlice';
 import { deleteBoardColumn, setColumnTitle } from 'store/reducers/boardSlice';
 import TaskModal from 'components/TaskModal';
 import WarningModal from 'components/WarningModal';
+import { deleteColumnWarningMessage } from 'common/constants';
 
 type ColumnProps = {
   item: IColumn;
@@ -153,7 +154,7 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
         isModalActive={isColumnDeleting}
         deleteBtnHandler={() => deleteColumn()}
         cancelBtnHandler={() => setIsColumnDeleting(false)}
-        message="delete this column"
+        message={deleteColumnWarningMessage}
       />
     </>
   );
