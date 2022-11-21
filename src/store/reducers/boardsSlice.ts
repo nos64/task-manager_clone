@@ -114,7 +114,7 @@ export const boardsSlice = createSlice({
       state.isPending = false;
       state.boards = action.payload;
     });
-    builder.addCase(getBoardsByUserId.rejected, (state) => {
+    builder.addCase(getBoardsByUserId.rejected, (state, action) => {
       state.isPending = false;
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
