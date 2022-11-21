@@ -1,4 +1,5 @@
 import { DraggableLocation } from 'react-beautiful-dnd';
+import IColumn from 'types/IColumn';
 import ITask from 'types/ITask';
 
 export const reorderTasks = (
@@ -56,7 +57,7 @@ export const moveTask = (
 export const moveColumn = (
   destination: DraggableLocation,
   draggableId: string,
-  columns: { _id: string; title: string; order: number; tasks: ITask[] }[]
+  columns: IColumn[]
 ) => {
   const removedColumn = columns.find((column) => column._id === draggableId);
   if (!removedColumn) return;
