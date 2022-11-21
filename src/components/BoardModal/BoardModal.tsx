@@ -51,7 +51,6 @@ const BoardModal: React.FC<BoardModalProps> = ({
 
   const onSubmit = (data: Partial<IBoard>) => {
     if (modalActive && selectedBoard && modalMode === 'edit') {
-      console.log(selectedBoard);
       dispatch(
         updateBoardById({
           boardId: selectedBoard._id,

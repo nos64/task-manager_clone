@@ -79,7 +79,6 @@ export const updateBoardById = createAsyncThunk<IBoard, updateParams>(
   async ({ boardId, options }, { rejectWithValue }) => {
     try {
       const updatedBoard = await updateBoard(boardId, options);
-      console.log('updatedBoard: ', updatedBoard);
       return updatedBoard;
     } catch (error) {
       if (error instanceof AxiosError) {
