@@ -24,7 +24,7 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
   const dispatch = useAppDispatch();
   const tasks = useAppSelector((state) => state.column[item._id]) || [];
 
-  const [isTitleEdited, setIsTitleEdited] = useState(false);
+  const [isTitleEditing, setIsTitleEditing] = useState(false);
 
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
@@ -45,7 +45,7 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
     if (item.title !== title) {
       dispatch(setColumnTitle({ column: item, newTitle: title }));
     }
-    setIsTitleEdited(false);
+    setIsTitleEditing(false);
   };
 
   const deleteColumn = () => {
@@ -86,12 +86,12 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
                     onClick={() => setIsColumnDeleting(true)}
                   />
                   <div className={styles.columnColor}></div>
-                  {!isTitleEdited && (
-                    <h4 className={styles.title} onClick={() => setIsTitleEdited(true)}>
+                  {!isTitleEditing && (
+                    <h4 className={styles.title} onClick={() => setIsTitleEditing(true)}>
                       {item.title}
                     </h4>
                   )}
-                  {isTitleEdited && (
+                  {isTitleEditing && (
                     <div className={styles.editControl}>
                       <input
                         className={styles.editInput}
@@ -104,12 +104,12 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
                         <IoIosCheckmark className={styles.editBtnOK} onClick={updateColumnTitle} />
                         <IoIosClose
                           className={styles.editBtnCancel}
-                          onClick={() => setIsTitleEdited(false)}
+                          onClick={() => setIsTitleEditing(false)}
                         />
                       </div>
                     </div>
                   )}
-                  {!isTitleEdited && <p className={styles.tasksCount}>({tasks.length})</p>}
+                  {!isTitleEditing && <p className={styles.tasksCount}>({tasks.length})</p>}
                 </div>
 
                 <div className={styles.columnContent}>
