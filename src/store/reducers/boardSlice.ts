@@ -33,7 +33,6 @@ export const getColumns = createAsyncThunk(
   'board/getColumns',
   async (boardId: string, { rejectWithValue }) => {
     try {
-      boardId = '637899303b52a5922e7c5655';
       const columns = await getColumnsInBoard(boardId);
 
       return columns;
