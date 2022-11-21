@@ -1,13 +1,20 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getTasksInColumn } from 'api/tasks';
 import { AxiosError } from 'axios';
+import StatusCodes from 'common/statusCodes';
 import ITask from 'types/ITask';
 
 interface IColumnsState {
-  [boardId: string]: ITask[];
+  tasks: { [columnId: string]: ITask[] };
+  isPending: boolean;
+  isTokenExpired: boolean;
 }
 
-const initialState: IColumnsState = {};
+const initialState: IColumnsState = {
+  tasks: {},
+  isPending: false,
+  isTokenExpired: false,
+};
 
 export const getTasks = createAsyncThunk(
   'column/getTasks',
@@ -29,19 +36,24 @@ export const getTasks = createAsyncThunk(
 export const columnSlice = createSlice({
   name: 'column',
   initialState,
-  reducers: {
-    setTasks(state, action: PayloadAction<IColumnsState>) {
-      const columnId = Object.keys(action.payload)[0];
-      state[columnId] = action.payload[columnId];
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getTasks.pending, (state) => {
+      state.isPending = true;
+    });
     builder.addCase(getTasks.fulfilled, (state, action) => {
       const { columnId, tasks } = action.payload;
-      state[columnId] = tasks.sort((task1, task2) => (task1.order < task2.order ? -1 : 1));
+      state.tasks[columnId] = tasks.sort((task1, task2) => (task1.order < task2.order ? -1 : 1));
+      state.isPending = false;
+    });
+    builder.addCase(getTasks.rejected, (state, action) => {
+      state.isPending = false;
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
     });
   },
 });
 
-export const { setTasks } = columnSlice.actions;
 export default columnSlice.reducer;

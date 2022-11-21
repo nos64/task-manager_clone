@@ -22,7 +22,7 @@ type ColumnProps = {
 
 const Column: React.FC<ColumnProps> = ({ item, index }) => {
   const dispatch = useAppDispatch();
-  const tasks = useAppSelector((state) => state.column[item._id]) || [];
+  const tasks = useAppSelector((state) => state.column.tasks[item._id]) || [];
 
   const [isTitleEditing, setIsTitleEditing] = useState(false);
 

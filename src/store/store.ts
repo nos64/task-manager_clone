@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import boardSlice from './reducers/boardSlice';
 import columnSlice from './reducers/columnSlice';
+import taskSlice from './reducers/taskSlice';
 import userSlice from './reducers/userSlice';
 
 export const store = configureStore({
@@ -8,6 +9,7 @@ export const store = configureStore({
     user: userSlice,
     board: boardSlice,
     column: columnSlice,
+    task: taskSlice,
   },
 });
 

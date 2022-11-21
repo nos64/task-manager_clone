@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   createColumn,
   deleteColumn,
@@ -124,11 +124,7 @@ export const updateColumnsOrder = createAsyncThunk(
 export const boardSlice = createSlice({
   name: 'board',
   initialState,
-  reducers: {
-    setColumns(state, action: PayloadAction<IColumn[]>) {
-      state.columns = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getColumns.pending, (state) => {
       state.isPending = true;
@@ -214,5 +210,4 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { setColumns } = boardSlice.actions;
 export default boardSlice.reducer;
