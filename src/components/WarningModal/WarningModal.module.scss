@@ -1,5 +1,5 @@
-@import '../../../../styles/mixins.scss';
-@import '../../../../styles/extensions.scss';
+@import '../../styles/mixins.scss';
+@import '../../styles/extensions.scss';
 
 .wrapper {
   @extend %centered;
@@ -17,10 +17,12 @@
   gap: 30px;
 
   .submitBtn {
+    text-transform: uppercase;
     @include buttonStyle(10px, 30px);
   }
 
   .deleteBtn {
+    text-transform: uppercase;
     @include deleteButtonStyle(10px, 30px);
   }
 }

@@ -72,7 +72,7 @@ const ColumnModal: React.FC<ColumnModalProps> = ({ modalActive, boardId, setModa
             symbolsLimit={1}
           />
           <ValidationErrorMessage message={errors.title && 'Min 1 symbol'} />
-          <FormButtons handleCancelBtnClick={onReset} />
+          <FormButtons handleCancelBtnClick={onReset} acceptBtnTitle={'Add'} />
         </form>
       </div>
     </Modal>
