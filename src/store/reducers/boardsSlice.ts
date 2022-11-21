@@ -92,20 +92,14 @@ export const updateBoardById = createAsyncThunk<IBoard, updateParams>(
 
 interface BoardsState {
   boards: (IBoard | undefined)[];
-  isAuthorisationError: boolean;
-  isTokenRequireUpdate: boolean;
   isTokenExpired: boolean;
   isPending: boolean;
-  isBadRequest: boolean;
 }
 
 const initialState: BoardsState = {
   boards: [],
-  isAuthorisationError: false,
-  isTokenRequireUpdate: false,
   isTokenExpired: false,
   isPending: false,
-  isBadRequest: false,
 };
 
 export const boardsSlice = createSlice({
@@ -122,6 +116,10 @@ export const boardsSlice = createSlice({
     });
     builder.addCase(getBoardsByUserId.rejected, (state) => {
       state.isPending = false;
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
     });
 
     builder.addCase(createNewBoard.pending, (state) => {
@@ -133,8 +131,9 @@ export const boardsSlice = createSlice({
     });
     builder.addCase(createNewBoard.rejected, (state, action) => {
       state.isPending = false;
-      if (action.payload === StatusCodes.BAD_REQUEST) {
-        state.isBadRequest = true;
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
       }
     });
 
@@ -148,8 +147,8 @@ export const boardsSlice = createSlice({
     builder.addCase(deleteBoardById.rejected, (state, action) => {
       state.isPending = false;
 
-      if (action.payload === StatusCodes.BAD_REQUEST) {
-        state.isBadRequest = true;
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
       }
     });
     builder.addCase(updateBoardById.pending, (state) => {
@@ -165,8 +164,9 @@ export const boardsSlice = createSlice({
     });
     builder.addCase(updateBoardById.rejected, (state, action) => {
       state.isPending = false;
-      if (action.payload === StatusCodes.BAD_REQUEST) {
-        state.isBadRequest = true;
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
       }
     });
   },
