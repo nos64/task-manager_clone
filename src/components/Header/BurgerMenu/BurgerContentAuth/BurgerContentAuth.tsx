@@ -8,6 +8,9 @@ import ThemeToggler from 'components/Header/ThemeToggler';
 import { GoPlus } from 'react-icons/go';
 import { getBoardsByUserId } from 'store/reducers/boardsSlice';
 import BoardModal from 'components/BoardModal';
+import ValidationErrorMessage from 'components/ValidationErrorMessage';
+import InputLineText from 'components/InputLineText';
+import { useForm } from 'react-hook-form';
 
 interface IBurgerContentAuthProps {
   isOpenBurger: boolean;
@@ -21,9 +24,36 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
   const userName = useAppSelector((state) => state.user.name);
   const boards = useAppSelector((state) => state.boards.boards);
   const [isModalOpened, setIsModalOpened] = useState(false);
+  // const [inputValue, setInputValue] = useState('');
 
   const handleCreateBoard = () => {
     setIsModalOpened(true);
+  };
+  // const handleInputChange = (e) => {
+  //   setInputValue(e.target.value);
+  // };
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    getValues,
+    reset,
+  } = useForm<string>();
+
+  const [fileldsValues, setFieldsValues] = useState<string>('');
+
+  const onChange = () => {
+    const currentFieldsValues = getValues();
+
+    setFieldsValues(currentFieldsValues);
+  };
+
+  const onReset = () => {
+    setFieldsValues('');
+    reset({
+      string: '',
+    });
   };
 
   return (
@@ -46,12 +76,23 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
         </div>
         <div className={styles.boardListTitle}>My Boards</div>
         <div className={styles.inputWrapper}>
-          <input
+          <InputLineText
+            inputName={'login'}
+            label={'Login'}
+            placeholder={'Enter new Login'}
+            register={register}
+            fieldValue={fileldsValues.login || ''}
+            symbolsLimit={2}
+          />
+          <ValidationErrorMessage message={errors.login && 'Min 2 symbols'} />
+          {/* <input
             className={styles.inputLine}
             type="search"
             placeholder="Search..."
             autoComplete="off"
-          />
+            // value={inputValue}
+            // onChange={handleInputChange}
+          /> */}
         </div>
         <button className={styles.createBoardBtn} type="button" onClick={handleCreateBoard}>
           <GoPlus />
