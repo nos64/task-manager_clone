@@ -19,9 +19,7 @@ const BurgerContentAuth = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [enteredSearchValue, setEnteredSearchValue] = useState('');
   const [activeSearchValue, setActiveSearchValue] = useState('');
-  const [visibleBoards, setVisibleBoards] = useState(
-    useAppSelector((state) => state.boards.boards)
-  );
+  const [, setVisibleBoards] = useState(useAppSelector((state) => state.boards.boards));
 
   useEffect(() => {
     setVisibleBoards(boards);
