@@ -4,7 +4,7 @@ import { TiWarning } from 'react-icons/ti';
 import Modal from 'components/Modal';
 
 interface WarningModalProps {
-  deleteBtnHandler: () => void;
+  deleteBtnHandler: (() => void) | ((e: React.SyntheticEvent) => void);
   cancelBtnHandler: () => void;
   message: string;
   isModalActive: boolean;

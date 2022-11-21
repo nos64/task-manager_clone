@@ -6,7 +6,7 @@ import Board from '../../components/Board';
 import styles from './BoardsPage.module.scss';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getBoardsByUserId } from 'store/reducers/boardsSlice';
-import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const BoardsPage = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
@@ -31,15 +31,13 @@ const BoardsPage = () => {
         {boards.map((board) => {
           if (board) {
             return (
-              <Link key={board._id} to={`${board._id}`}>
-                <Board
-                  key={board._id}
-                  item={board}
-                  toggleModal={toggleModal}
-                  setModalMode={setModalMode}
-                  setSelectedBoard={setSelectedBoard}
-                />
-              </Link>
+              <Board
+                key={board._id}
+                item={board}
+                toggleModal={toggleModal}
+                setModalMode={setModalMode}
+                setSelectedBoard={setSelectedBoard}
+              />
             );
           }
         })}
