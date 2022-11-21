@@ -37,6 +37,7 @@ const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSele
   };
 
   const handleGoToColumns = () => {
+    setSelectedBoard(item);
     navigate(`${ROUTES.BOARDS}/${item._id}`);
   };
 

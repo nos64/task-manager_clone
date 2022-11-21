@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createBoard, deleteBoard, findBoard, getUserRelatedBoards, updateBoard } from 'api/boards';
 import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
@@ -94,20 +94,24 @@ interface BoardsState {
   boards: (IBoard | undefined)[];
   isTokenExpired: boolean;
   isPending: boolean;
-  selectedBoardId: string;
+  selectedBoard: IBoard | undefined;
 }
 
 const initialState: BoardsState = {
   boards: [],
   isTokenExpired: false,
   isPending: false,
-  selectedBoardId: '',
+  selectedBoard: undefined,
 };
 
 export const boardsSlice = createSlice({
   name: 'boards',
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedBoard(state, action: PayloadAction<IBoard | undefined>) {
+      state.selectedBoard = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getBoardsByUserId.pending, (state) => {
       state.isPending = true;
@@ -173,5 +177,5 @@ export const boardsSlice = createSlice({
     });
   },
 });
-export const {} = boardsSlice.actions;
+export const { setSelectedBoard } = boardsSlice.actions;
 export default boardsSlice.reducer;

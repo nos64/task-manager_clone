@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './BurgerContentAuth.module.scss';
 import { useAppSelector } from 'hooks/redux';
 import { ROUTES } from 'common/routes';
@@ -8,6 +8,8 @@ import ThemeToggler from 'components/Header/ThemeToggler';
 import { GoPlus } from 'react-icons/go';
 import BoardModal from 'components/BoardModal';
 import { noMatchesMessage } from 'common/constants';
+import { setSelectedBoard } from 'store/reducers/boardsSlice';
+import IBoard from 'types/IBoard';
 
 interface IBurgerContentAuthProps {
   isOpenBurger: boolean;
@@ -20,6 +22,8 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
 }) => {
   const userName = useAppSelector((state) => state.user.name);
   const boards = useAppSelector((state) => state.boards.boards);
+  const selectedBoard = useAppSelector((state) => state.boards.selectedBoard);
+  const navigate = useNavigate();
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [enteredSearchValue, setEnteredSearchValue] = useState('');
   const [activeSearchValue, setActiveSearchValue] = useState('');
@@ -46,6 +50,12 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
 
   const handleCreateBoard = () => {
     setIsModalOpened(true);
+  };
+
+  const handleBoardLinkClick = (board: IBoard) => {
+    setSelectedBoard(board);
+    navigate(`${ROUTES.BOARDS}/${board._id}`);
+    setIsOpenBurger(false);
   };
 
   return (
@@ -83,17 +93,18 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
         </button>
         <ul className={styles.boardList}>
           {filteredBoards.length ? (
-            filteredBoards.map((board) => (
-              <li
-                className={styles.boardItem}
-                key={board && board._id}
-                onClick={() => setIsOpenBurger(false)}
-              >
-                <NavLink className={styles.boardNavLink} to={`${ROUTES.BOARDS}/${board?._id}`}>
-                  {board && board.title}
-                </NavLink>
-              </li>
-            ))
+            filteredBoards.map(
+              (board) =>
+                board && (
+                  <li
+                    className={styles.boardItem}
+                    key={board && board._id}
+                    onClick={() => handleBoardLinkClick(board)}
+                  >
+                    {board && board.title}
+                  </li>
+                )
+            )
           ) : (
             <>
               <p className={styles.noMatchesMessage}>{noMatchesMessage}</p>
