@@ -20,7 +20,6 @@ const BoardPage = () => {
   const boardDescription = 'Booard description';
   const dispatch = useAppDispatch();
   const columns = useAppSelector((state) => state.board.columns);
-  const isPending = useAppSelector((state) => state.board.isPending);
 
   const [isModalOpened, setIsModalOpened] = useState(false);
 
@@ -79,10 +78,6 @@ const BoardPage = () => {
     asyncFunc();
   }, [dispatch]);
 
-  useEffect(() => {
-    isPending ? scrollController.disableScroll() : scrollController.enableScroll();
-  }, [isPending]);
-
   const toggleModal = () => {
     setIsModalOpened((prev) => !prev);
   };
@@ -121,7 +116,6 @@ const BoardPage = () => {
           </div>
         </div>
       </DragDropContext>
-      {isPending && <Loader />}
       <ColumnModal
         modalActive={isModalOpened}
         boardId={boardId}
