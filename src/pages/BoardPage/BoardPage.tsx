@@ -10,8 +10,6 @@ import { moveColumn } from 'utils/dnd-helper';
 import { DndType } from 'common/dnd-types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getColumns, updateColumnsOrder } from 'store/reducers/boardSlice';
-import Loader from 'components/Loader';
-import { scrollController } from 'utils/scrollController';
 import ColumnModal from 'components/ColumnModal';
 
 const BoardPage = () => {
@@ -72,10 +70,7 @@ const BoardPage = () => {
   };
 
   useEffect(() => {
-    const asyncFunc = async () => {
-      dispatch(getColumns(boardId));
-    };
-    asyncFunc();
+    dispatch(getColumns(boardId));
   }, [dispatch]);
 
   const toggleModal = () => {

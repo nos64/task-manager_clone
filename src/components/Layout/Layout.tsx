@@ -31,7 +31,7 @@ const Layout: React.FC = () => {
     isUserPending || isColumnsPending
       ? scrollController.disableScroll()
       : scrollController.enableScroll();
-  }, [isUserPending]);
+  }, [isUserPending, isColumnsPending]);
 
   return (
     <div className={styles.wrapper}>
