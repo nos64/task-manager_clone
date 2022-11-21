@@ -32,7 +32,7 @@ const ColumnModal: React.FC<ColumnModalProps> = ({ modalActive, boardId, setModa
   const onSubmit = (data: Partial<IColumn>) => {
     dispatch(createBoardColumn({ boardId, title: data.title || '' }));
     setModalActive(false);
-    resetForm();
+    onReset();
   };
 
   const onChange = () => {
@@ -42,10 +42,6 @@ const ColumnModal: React.FC<ColumnModalProps> = ({ modalActive, boardId, setModa
   };
 
   const onReset = () => {
-    resetForm();
-  };
-
-  const resetForm = () => {
     setModalActive(false);
     setFieldsValues({
       title: '',
