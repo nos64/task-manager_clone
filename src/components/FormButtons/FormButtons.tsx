@@ -3,13 +3,14 @@ import styles from './FormButtons.module.scss';
 
 interface FormButtonsProps {
   handleCancelBtnClick: () => void;
+  acceptBtnTitle: string;
 }
 
-const FormButtons: React.FC<FormButtonsProps> = ({ handleCancelBtnClick }) => {
+const FormButtons: React.FC<FormButtonsProps> = ({ handleCancelBtnClick, acceptBtnTitle }) => {
   return (
     <div className={styles.buttonsWrapper}>
       <button className={styles.submitBtn} type="submit">
-        Update
+        {acceptBtnTitle}
       </button>
       <button className={styles.canselBtn} type="button" onClick={handleCancelBtnClick}>
         Cancel

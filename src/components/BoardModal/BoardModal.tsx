@@ -116,7 +116,10 @@ const BoardModal: React.FC<BoardModalProps> = ({
             symbolsLimit={200}
           />
           <ValidationErrorMessage message={errors.description && 'Max 200 symbols'} />
-          <FormButtons handleCancelBtnClick={onReset} />
+          <FormButtons
+            handleCancelBtnClick={onReset}
+            acceptBtnTitle={modalMode === 'create' ? 'Create' : 'Update'}
+          />
         </form>
       </div>
     </Modal>
