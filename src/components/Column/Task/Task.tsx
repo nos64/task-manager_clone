@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ITask from 'types/ITask';
 import styles from './Task.module.scss';
 import { IoMdClose } from 'react-icons/io';
 import { Draggable } from 'react-beautiful-dnd';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getTaskAssignee } from 'store/reducers/taskSlice';
+import { deleteColumnTask } from 'store/reducers/columnSlice';
+import WarningModal from 'components/WarningModal';
+import { deleteTaskWarningMessage } from 'common/constants';
 
 type TaskProps = {
   item: ITask;
@@ -18,12 +21,24 @@ const Task: React.FC<TaskProps> = ({ item, index, toggleModal, setModalMode, set
   const dispatch = useAppDispatch();
   const assigneeName = useAppSelector((state) => state.task.assignees[item._id]);
 
+  const [isTaskDeleting, setIsTaskDeleting] = useState(false);
+
   const assigneeId = item.users[0];
 
   const handleEditIconClick = () => {
     toggleModal();
     setModalMode('edit');
     setSelectedTask(item);
+  };
+
+  const handleRemoveTaskBtnClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setIsTaskDeleting(true);
+  };
+
+  const removeTask = () => {
+    dispatch(deleteColumnTask(item));
+    setIsTaskDeleting(false);
   };
 
   useEffect(() => {
@@ -33,25 +48,33 @@ const Task: React.FC<TaskProps> = ({ item, index, toggleModal, setModalMode, set
   }, [dispatch, assigneeId, item._id, item.users]);
 
   return (
-    <Draggable draggableId={item._id} index={index}>
-      {(provided, snapshot) => (
-        <div
-          className={`${styles.task} ${snapshot.isDragging ? styles.dragged : ''}`}
-          onClick={handleEditIconClick}
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          <div className={styles.taskContent}>
-            <h3 className={styles.title}>{item.title}</h3>
-            <p className={styles.assignee}>{`Assignee: ${
-              assigneeName ? assigneeName : 'not yet'
-            }`}</p>
+    <>
+      <Draggable draggableId={item._id} index={index}>
+        {(provided, snapshot) => (
+          <div
+            className={`${styles.task} ${snapshot.isDragging ? styles.dragged : ''}`}
+            onClick={handleEditIconClick}
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+          >
+            <div className={styles.taskContent}>
+              <h3 className={styles.title}>{item.title}</h3>
+              <p className={styles.assignee}>{`Assignee: ${
+                assigneeName ? assigneeName : 'not yet'
+              }`}</p>
+            </div>
+            <IoMdClose className={styles.removeTaskIcon} onClick={handleRemoveTaskBtnClick} />
           </div>
-          <IoMdClose className={styles.removeTaskIcon} />
-        </div>
-      )}
-    </Draggable>
+        )}
+      </Draggable>
+      <WarningModal
+        isModalActive={isTaskDeleting}
+        deleteBtnHandler={() => removeTask()}
+        cancelBtnHandler={() => setIsTaskDeleting(false)}
+        message={deleteTaskWarningMessage}
+      />
+    </>
   );
 };
 

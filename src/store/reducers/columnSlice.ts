@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getTasksInColumn } from 'api/tasks';
+import { deleteTask, getTasksInColumn } from 'api/tasks';
 import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
 import ITask from 'types/ITask';
@@ -18,11 +18,28 @@ const initialState: IColumnsState = {
 
 export const getTasks = createAsyncThunk(
   'column/getTasks',
-  async (options: { boardId: string; columnId: string }, { rejectWithValue }) => {
+  async (data: { boardId: string; columnId: string }, { rejectWithValue }) => {
     try {
-      const tasks = await getTasksInColumn(options.boardId, options.columnId);
+      const tasks = await getTasksInColumn(data.boardId, data.columnId);
 
-      return { columnId: options.columnId, tasks };
+      return { columnId: data.columnId, tasks };
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.status);
+      }
+
+      throw error;
+    }
+  }
+);
+
+export const deleteColumnTask = createAsyncThunk(
+  'column/deleteTask',
+  async (task: ITask, { rejectWithValue }) => {
+    try {
+      const deletedTask = await deleteTask(task.boardId, task.columnId, task._id);
+
+      return deletedTask;
     } catch (error) {
       if (error instanceof AxiosError) {
         return rejectWithValue(error.response?.status);
@@ -47,6 +64,32 @@ export const columnSlice = createSlice({
       state.isPending = false;
     });
     builder.addCase(getTasks.rejected, (state, action) => {
+      state.isPending = false;
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
+    });
+
+    builder.addCase(deleteColumnTask.pending, (state) => {
+      state.isPending = true;
+    });
+    builder.addCase(deleteColumnTask.fulfilled, (state, action) => {
+      const deletedTask = action.payload;
+      console.log('task', deletedTask);
+      const columnsEntry = Object.entries(state.tasks).find(
+        (entry) => entry[0] === deletedTask.columnId
+      );
+      console.log('columnsEntry', columnsEntry);
+      const tasks = columnsEntry ? columnsEntry[1] : null;
+      console.log('tasks', tasks);
+      const newTasks = tasks?.filter((task) => task._id !== deletedTask._id);
+      console.log('newTasks', newTasks);
+      state.tasks[deletedTask.columnId] = newTasks || [];
+
+      state.isPending = false;
+    });
+    builder.addCase(deleteColumnTask.rejected, (state, action) => {
       state.isPending = false;
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {

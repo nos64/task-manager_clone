@@ -42,7 +42,6 @@ export const taskSlice = createSlice({
     });
     builder.addCase(getTaskAssignee.fulfilled, (state, action) => {
       const { taskId, userName } = action.payload;
-      console.log(action.payload);
       state.assignees[taskId] = userName;
       state.isPending = false;
     });

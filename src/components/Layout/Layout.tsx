@@ -16,6 +16,7 @@ import {
 const Layout: React.FC = () => {
   const isUserPending = useAppSelector((state) => state.user.isPending);
   const isColumnsPending = useAppSelector((state) => state.board.isPending);
+  const isTasksPending = useAppSelector((state) => state.column.isPending);
   const isTokenExpired = useAppSelector((state) => state.user.isTokenExpired);
   const dispatch = useAppDispatch();
 
@@ -28,7 +29,7 @@ const Layout: React.FC = () => {
   }, [dispatch, isTokenExpired]);
 
   useEffect(() => {
-    isUserPending || isColumnsPending
+    isUserPending || isColumnsPending || isTasksPending
       ? scrollController.disableScroll()
       : scrollController.enableScroll();
   }, [isUserPending, isColumnsPending]);
@@ -42,7 +43,7 @@ const Layout: React.FC = () => {
         </Container>
       </main>
       <Footer />
-      {(isUserPending || isColumnsPending) && <Loader />}
+      {(isUserPending || isColumnsPending || isTasksPending) && <Loader />}
     </div>
   );
 };
