@@ -69,10 +69,9 @@ const BoardPage = () => {
   };
 
   useEffect(() => {
-    if (!boardId) {
-      return;
+    if (boardId) {
+      dispatch(getColumns(boardId));
     }
-    dispatch(getColumns(boardId));
   }, [boardId, dispatch]);
 
   const toggleModal = () => {
