@@ -1,6 +1,5 @@
 @import '../../../../styles/colors.scss';
 @import '../../../../styles/mixins.scss';
-@import '../../../../styles/extensions.scss';
 
 .menuContent {
   position: relative;
@@ -91,9 +90,9 @@
 
   & ::-webkit-search-cancel-button {
     -webkit-appearance: none; 
-    width: 17px; 
-    height: 16px;
-    background: url(../../../../assets/images/inputClear.svg);
+    width: 20px; 
+    height: 20px;
+    background: url('../../../../assets/images/inputClear.svg');
     margin-right: 2px;
     cursor: pointer; 
   }

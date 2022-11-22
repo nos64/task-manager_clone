@@ -1,23 +1,16 @@
 import BoardModal from 'components/BoardModal';
 import NewBoard from 'components/NewBoard';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import IBoard from 'types/IBoard';
 import Board from '../../components/Board';
 import styles from './BoardsPage.module.scss';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { getBoardsByUserId } from 'store/reducers/boardsSlice';
+import { useAppSelector } from 'hooks/redux';
 
 const BoardsPage = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
   const [selectedBoard, setSelectedBoard] = useState<IBoard | null>(null);
-  const dispatch = useAppDispatch();
   const boards = useAppSelector((state) => state.boards.boards);
-  const userID = useAppSelector((state) => state.user.id);
-
-  useEffect(() => {
-    dispatch(getBoardsByUserId(userID));
-  }, [dispatch, userID]);
 
   const toggleModal = () => {
     setIsModalOpened((prev) => !prev);
