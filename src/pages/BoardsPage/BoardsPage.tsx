@@ -4,39 +4,24 @@ import React, { useState } from 'react';
 import IBoard from 'types/IBoard';
 import Board from '../../components/Board';
 import styles from './BoardsPage.module.scss';
+import { useAppSelector } from 'hooks/redux';
 
 const BoardsPage = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
   const [selectedBoard, setSelectedBoard] = useState<IBoard | null>(null);
+  const boards = useAppSelector((state) => state.boards.boards);
 
   const toggleModal = () => {
     setIsModalOpened((prev) => !prev);
   };
 
-  const boards = [
-    {
-      _id: '1',
-      title: 'Board 111111111111111111111111111111111',
-      description:
-        'board description 11111111111111111111111111111111 1111111111111111111111111111111111111111',
-      owner: '1',
-      users: [],
-    },
-    { _id: '2', title: 'Board 2', description: 'board description 2', owner: '1', users: [] },
-    { _id: '3', title: 'Board 3', description: 'board description 3', owner: '1', users: [] },
-    { _id: '4', title: 'Board 4', description: 'board description 4', owner: '1', users: [] },
-    { _id: '5', title: 'Board 5', description: 'board description 5', owner: '1', users: [] },
-    { _id: '6', title: 'Board 6', description: 'board description 6', owner: '1', users: [] },
-    { _id: '7', title: 'Board 7', description: 'board description 7', owner: '1', users: [] },
-  ];
-
   return (
     <div className={styles.pageContent}>
       <h3 className={styles.title}>Boards</h3>
       <div className={styles.boardsContainer}>
-        {boards.map((board) => {
-          return (
+        {boards &&
+          boards.map((board) => (
             <Board
               key={board._id}
               item={board}
@@ -44,8 +29,7 @@ const BoardsPage = () => {
               setModalMode={setModalMode}
               setSelectedBoard={setSelectedBoard}
             />
-          );
-        })}
+          ))}
         <NewBoard
           toggleModal={toggleModal}
           setModalMode={setModalMode}
