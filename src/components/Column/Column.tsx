@@ -145,6 +145,7 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
         modalActive={isModalOpened}
         setModalActive={setIsModalOpened}
         modalMode={modalMode}
+        currentColumn={item}
         selectedTask={selectedTask}
       />
       <WarningModal

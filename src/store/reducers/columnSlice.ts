@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { deleteTask, getTasksInColumn } from 'api/tasks';
+import { createTask, deleteTask, getTasksInColumn } from 'api/tasks';
 import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
+import { RootState } from 'store/store';
 import ITask from 'types/ITask';
 
 interface IColumnsState {
@@ -34,12 +35,36 @@ export const getTasks = createAsyncThunk(
 );
 
 export const deleteColumnTask = createAsyncThunk(
-  'column/deleteTask',
+  'column/deleteColumnTask',
   async (task: ITask, { rejectWithValue }) => {
     try {
       const deletedTask = await deleteTask(task.boardId, task.columnId, task._id);
 
       return deletedTask;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.status);
+      }
+
+      throw error;
+    }
+  }
+);
+
+export const createColumnTask = createAsyncThunk(
+  'column/createColumnTask',
+  async (task: Omit<ITask, '_id' | 'order'>, { rejectWithValue, getState }) => {
+    const tasksCount = (getState() as RootState).column.tasks[task.columnId].length;
+    try {
+      const newTask = await createTask(task.boardId, task.columnId, {
+        title: task.title,
+        description: task.description,
+        order: tasksCount,
+        userId: task.userId,
+        users: task.users,
+      });
+
+      return newTask;
     } catch (error) {
       if (error instanceof AxiosError) {
         return rejectWithValue(error.response?.status);
@@ -76,20 +101,35 @@ export const columnSlice = createSlice({
     });
     builder.addCase(deleteColumnTask.fulfilled, (state, action) => {
       const deletedTask = action.payload;
-      console.log('task', deletedTask);
-      const columnsEntry = Object.entries(state.tasks).find(
-        (entry) => entry[0] === deletedTask.columnId
-      );
-      console.log('columnsEntry', columnsEntry);
-      const tasks = columnsEntry ? columnsEntry[1] : null;
-      console.log('tasks', tasks);
+      const tasks = state.tasks[deletedTask.columnId];
+
       const newTasks = tasks?.filter((task) => task._id !== deletedTask._id);
-      console.log('newTasks', newTasks);
       state.tasks[deletedTask.columnId] = newTasks || [];
 
       state.isPending = false;
     });
     builder.addCase(deleteColumnTask.rejected, (state, action) => {
+      state.isPending = false;
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
+    });
+
+    builder.addCase(createColumnTask.pending, (state) => {
+      state.isPending = true;
+    });
+    builder.addCase(createColumnTask.fulfilled, (state, action) => {
+      const newTask = action.payload;
+
+      const tasks = state.tasks[newTask.columnId];
+      const newTasks = [...tasks, newTask];
+
+      state.tasks[newTask.columnId] = newTasks || [];
+
+      state.isPending = false;
+    });
+    builder.addCase(createColumnTask.rejected, (state, action) => {
       state.isPending = false;
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
