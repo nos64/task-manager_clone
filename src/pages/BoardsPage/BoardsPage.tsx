@@ -27,19 +27,16 @@ const BoardsPage = () => {
     <div className={styles.pageContent}>
       <h3 className={styles.title}>Boards</h3>
       <div className={styles.boardsContainer}>
-        {boards.map((board) => {
-          if (board) {
-            return (
-              <Board
-                key={board._id}
-                item={board}
-                toggleModal={toggleModal}
-                setModalMode={setModalMode}
-                setSelectedBoard={setSelectedBoard}
-              />
-            );
-          }
-        })}
+        {boards &&
+          boards.map((board) => (
+            <Board
+              key={board._id}
+              item={board}
+              toggleModal={toggleModal}
+              setModalMode={setModalMode}
+              setSelectedBoard={setSelectedBoard}
+            />
+          ))}
         <NewBoard
           toggleModal={toggleModal}
           setModalMode={setModalMode}

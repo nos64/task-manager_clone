@@ -19,7 +19,6 @@ const Header = () => {
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
   const isBurgerOpen = useAppSelector((state) => state.boards.isBurgerOpen);
   const [topOffset, setTopOffset] = useState(0);
-  // const [isOpenBurger, setIsOpenBurger] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
   const offsetLimit = 15;
   const handleScroll = () => {
