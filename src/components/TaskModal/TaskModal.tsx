@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getAllUsers } from 'store/reducers/userSlice';
 import ITaskModalForm from 'types/ITaskModalForm';
 import IColumn from 'types/IColumn';
-import { createColumnTask } from 'store/reducers/columnSlice';
+import { createColumnTask, updateColumnTask } from 'store/reducers/columnSlice';
 
 interface TaskModalProps {
   modalActive: boolean;
@@ -72,17 +72,40 @@ const TaskModal: React.FC<TaskModalProps> = ({
   }, [modalActive, modalMode, setValue]);
 
   const onSubmit = (data: Partial<ITaskModalForm>) => {
+    switch (modalMode) {
+      case 'create':
+        dispatch(
+          createColumnTask({
+            title: data.title || '',
+            description: data.description || ' ',
+            boardId: boardId,
+            columnId: currentColumn._id,
+            userId: currentUserId,
+            users: data.users ? [data.users] : [],
+          })
+        );
+        break;
+      case 'edit':
+        dispatch(
+          updateColumnTask({
+            task: {
+              _id: selectedTask?._id || '',
+              title: data.title || '',
+              description: data.description || ' ',
+              order: selectedTask?.order || 0,
+              boardId: boardId,
+              columnId: data.columnId || '',
+              userId: currentUserId,
+              users: data.users ? [data.users] : [],
+            },
+            oldColumnId: selectedTask?.columnId || '',
+          })
+        );
+        break;
+      default:
+        throw new Error('no such modal mode');
+    }
     if (modalMode === 'create') {
-      dispatch(
-        createColumnTask({
-          title: data.title || '',
-          description: data.description || ' ',
-          boardId: boardId,
-          columnId: currentColumn._id,
-          userId: currentUserId,
-          users: data.users ? [data.users] : [],
-        })
-      );
     }
     setModalActive(false);
     onReset();

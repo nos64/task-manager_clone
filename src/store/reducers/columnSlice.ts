@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createTask, deleteTask, getTasksInColumn } from 'api/tasks';
+import { createTask, deleteTask, getTasksInColumn, updateTask } from 'api/tasks';
 import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
 import { RootState } from 'store/store';
@@ -75,6 +75,30 @@ export const createColumnTask = createAsyncThunk(
   }
 );
 
+export const updateColumnTask = createAsyncThunk(
+  'column/updateColumnTask',
+  async (data: { task: ITask; oldColumnId: string }, { rejectWithValue }) => {
+    try {
+      const newTask = await updateTask(data.task.boardId, data.oldColumnId, data.task._id, {
+        title: data.task.title,
+        description: data.task.description,
+        columnId: data.task.columnId,
+        order: data.task.order,
+        userId: data.task.userId,
+        users: data.task.users,
+      });
+
+      return { task: newTask, oldColumnId: data.oldColumnId };
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.status);
+      }
+
+      throw error;
+    }
+  }
+);
+
 export const columnSlice = createSlice({
   name: 'column',
   initialState,
@@ -130,6 +154,38 @@ export const columnSlice = createSlice({
       state.isPending = false;
     });
     builder.addCase(createColumnTask.rejected, (state, action) => {
+      state.isPending = false;
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
+    });
+
+    builder.addCase(updateColumnTask.pending, (state) => {
+      state.isPending = true;
+    });
+    builder.addCase(updateColumnTask.fulfilled, (state, action) => {
+      const { task, oldColumnId } = action.payload;
+
+      if (oldColumnId !== task.columnId) {
+        const oldColumnTasks = state.tasks[oldColumnId].filter((item) => item._id !== task._id);
+        state.tasks[oldColumnId] = oldColumnTasks;
+
+        const newColumnTasks = state.tasks[task.columnId];
+        const maxTaskOrder = newColumnTasks.reduce(
+          (acc, item) => (item.order > acc ? item.order : acc),
+          0
+        );
+        task.order = newColumnTasks.length ? maxTaskOrder + 1 : 0;
+        state.tasks[task.columnId] = [...newColumnTasks, task];
+      } else {
+        const taskIndex = state.tasks[task.columnId].findIndex((item) => item._id === task._id);
+        state.tasks[task.columnId][taskIndex] = task;
+      }
+
+      state.isPending = false;
+    });
+    builder.addCase(updateColumnTask.rejected, (state, action) => {
       state.isPending = false;
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
