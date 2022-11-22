@@ -1,6 +1,5 @@
 @import '../../../../styles/colors.scss';
 @import '../../../../styles/mixins.scss';
-@import '../../../../styles/extensions.scss';
 
 .menuContent {
   position: relative;
@@ -48,12 +47,11 @@
 }
 
 .createBoardBtn {
-  display: none;
+  display: flex;
   align-items:flex-start;
-  padding: 5px 5px;
   margin: 10px auto 10px 0;
   gap: 5px;
-  font-size: 20px;;
+  font-size: 16px;
   color: inherit;
   background-color: transparent;
   font-weight: 700;
@@ -81,7 +79,7 @@
   display: flex;
   flex-direction: column;
   width: 95%;
-  margin: 0 auto 5px auto;
+  margin: 16px auto;
   height: 40px;
 
   & .inputLine {
@@ -89,12 +87,22 @@
     font-size: 18px;
     z-index: 2;
   }
+
+  & ::-webkit-search-cancel-button {
+    -webkit-appearance: none; 
+    width: 20px; 
+    height: 20px;
+    background: url('../../../../assets/images/inputClear.svg');
+    margin-right: 2px;
+    cursor: pointer; 
+  }
 }
 
 .boardList {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  width: 100%;
 }
 
 .boardItem {
@@ -105,6 +113,7 @@
   padding: 3px 0;
   border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
+  @include contentLimit(1);
   
   &:hover {
     background-color: $background-hovered;
@@ -117,10 +126,14 @@
   }
 }
 
-@media (max-width: 830px) {
-  .createBoardBtn {
-    display: flex;
-  }
+.noMatchesMessage {
+  font-size: 16px;
+}
+
+.noMatchesValue {
+  font-size: 16px;
+  font-weight: 700;
+  @include contentLimit(1);
 }
 
 @media (max-width: 620px) {

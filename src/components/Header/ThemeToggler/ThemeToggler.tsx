@@ -2,15 +2,15 @@ import React from 'react';
 import styles from './ThemeToggler.module.scss';
 import { BsSun } from 'react-icons/bs';
 import { BsMoon } from 'react-icons/bs';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { setIsBurgerOpen } from 'store/reducers/boardsSlice';
 
-interface IThemeTogglerProps {
-  isOpenBurger: boolean;
-  setIsOpenBurger: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const ThemeToggler = () => {
+  const isBurgerOpen = useAppSelector((state) => state.boards.isBurgerOpen);
+  const dispatch = useAppDispatch();
 
-const ThemeToggler: React.FC<IThemeTogglerProps> = ({ isOpenBurger, setIsOpenBurger }) => {
   const handleThemeClick = () => {
-    if (isOpenBurger) setIsOpenBurger(false);
+    if (isBurgerOpen) dispatch(setIsBurgerOpen(false));
   };
 
   return (

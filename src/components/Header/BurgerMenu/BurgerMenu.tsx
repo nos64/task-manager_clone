@@ -1,30 +1,32 @@
 import React, { useEffect } from 'react';
 import styles from './BurgerMenu.module.scss';
 import { scrollController } from '../../../utils/scrollController';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { setIsBurgerOpen } from 'store/reducers/boardsSlice';
 
 interface IBurgerMenuProps {
-  isOpenBurger: boolean;
-  setIsOpenBurger: React.Dispatch<React.SetStateAction<boolean>>;
   children?: React.ReactNode;
 }
 
-const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isOpenBurger, setIsOpenBurger, children }) => {
+const BurgerMenu: React.FC<IBurgerMenuProps> = ({ children }) => {
+  const isBurgerOpen = useAppSelector((state) => state.boards.isBurgerOpen);
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    isOpenBurger ? scrollController.disableScroll() : scrollController.enableScroll();
-  }, [isOpenBurger]);
+    isBurgerOpen ? scrollController.disableScroll() : scrollController.enableScroll();
+  }, [isBurgerOpen]);
 
   return (
     <div
-      className={isOpenBurger ? `${styles.overlay} ${styles.active}` : styles.overlay}
-      onClick={() => setIsOpenBurger(!isOpenBurger)}
+      className={isBurgerOpen ? `${styles.overlay} ${styles.active}` : styles.overlay}
+      onClick={() => dispatch(setIsBurgerOpen(!isBurgerOpen))}
     >
       <div
-        className={isOpenBurger ? `${styles.menu} ${styles.active}` : styles.menu}
+        className={isBurgerOpen ? `${styles.menu} ${styles.active}` : styles.menu}
         onClick={(e) => e.stopPropagation()}
       >
         <div
-          className={isOpenBurger ? styles.burger + ' ' + styles.active : styles.burger}
-          onClick={() => setIsOpenBurger(false)}
+          className={isBurgerOpen ? styles.burger + ' ' + styles.active : styles.burger}
+          onClick={() => dispatch(setIsBurgerOpen(false))}
         >
           <span className={styles.burgerLine}></span>
         </div>

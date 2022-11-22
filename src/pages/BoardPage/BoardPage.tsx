@@ -13,12 +13,11 @@ import { getColumns, updateColumnsOrder } from 'store/reducers/boardSlice';
 import ColumnModal from 'components/ColumnModal';
 
 const BoardPage = () => {
-  const boardId = '637899303b52a5922e7c5655';
-  const boardTitle = 'board title';
-  const boardDescription = 'Booard description';
   const dispatch = useAppDispatch();
+  const boardId = useAppSelector((state) => state.boards.activeBoard?._id);
+  const boardTitle = useAppSelector((state) => state.boards.activeBoard?.title);
+  const boardDescription = useAppSelector((state) => state.boards.activeBoard?.description);
   const columns = useAppSelector((state) => state.board.columns);
-
   const [isModalOpened, setIsModalOpened] = useState(false);
 
   const handleDragEnd = (result: DropResult) => {
@@ -70,8 +69,10 @@ const BoardPage = () => {
   };
 
   useEffect(() => {
-    dispatch(getColumns(boardId));
-  }, [dispatch]);
+    if (boardId) {
+      dispatch(getColumns(boardId));
+    }
+  }, [boardId, dispatch]);
 
   const toggleModal = () => {
     setIsModalOpened((prev) => !prev);
@@ -111,11 +112,13 @@ const BoardPage = () => {
           </div>
         </div>
       </DragDropContext>
-      <ColumnModal
-        modalActive={isModalOpened}
-        boardId={boardId}
-        setModalActive={setIsModalOpened}
-      />
+      {boardId && (
+        <ColumnModal
+          modalActive={isModalOpened}
+          boardId={boardId}
+          setModalActive={setIsModalOpened}
+        />
+      )}
     </>
   );
 };
