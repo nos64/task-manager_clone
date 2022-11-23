@@ -12,6 +12,7 @@ import ITask from 'types/ITask';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getAllUsers } from 'store/reducers/userSlice';
 import ITaskModalForm from 'types/ITaskModalForm';
+import { useTranslation } from 'react-i18next';
 
 // Temporary columns options Delete when columns slice is created
 const TEMPORARY_COLUMNS_OPTIONS = [
@@ -66,6 +67,8 @@ const TaskModal: React.FC<TaskModalProps> = ({
   // const columns = useAppSelector((state) => state.columns.columns);
   const dispatch = useAppDispatch();
 
+  const { t } = useTranslation();
+
   const {
     register,
     handleSubmit,
@@ -117,31 +120,37 @@ const TaskModal: React.FC<TaskModalProps> = ({
       <div className={styles.elementModal}>
         <div className={styles.titleWrapper}>
           <MdAddTask size={25} />
-          <h2>{modalMode === 'create' ? 'Add' : 'Edit'} task</h2>
+          <h2>
+            {modalMode === 'create' ? t('addButton') : t('edit')} {t('task')}
+          </h2>
         </div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)} onChange={onChange}>
           <InputLineText
             inputName={'title'}
-            label={'Title'}
-            placeholder={'Name your task'}
+            label={t('titleLabel')}
+            placeholder={t('taskTitlePlaceholder')}
             register={register}
             fieldValue={fileldsValues.title || ''}
             symbolsLimit={1}
           />
-          <ValidationErrorMessage message={errors.title && 'Min 1 symbol'} />
+          <ValidationErrorMessage
+            message={errors.title && (t('oneSymbolValidationMessage') || '')}
+          />
           <InputTextarea
             inputName={'description'}
-            label={'Description'}
-            placeholder={'Add a description'}
+            label={t('descriptionLabel')}
+            placeholder={t('descriptionPlaceholder')}
             register={register}
             fieldValue={fileldsValues.description || ''}
             symbolsLimit={200}
           />
-          <ValidationErrorMessage message={errors.description && 'Max 200 symbols'} />
+          <ValidationErrorMessage
+            message={errors.description && (t('twoHundredSymbolsValidationMessage') || '')}
+          />
           {modalMode === 'edit' && (
             <Selectelement
               inputName={'columnId'}
-              label={'Status'}
+              label={t('column')}
               register={register}
               fieldValue={fileldsValues.columnId || ''}
               // Pass `columns` instead of mocked values
@@ -151,7 +160,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
           )}
           <Selectelement
             inputName={'users'}
-            label={'Assign to'}
+            label={t('assignees')}
             register={register}
             fieldValue={fileldsValues.users || ''}
             options={users}
@@ -159,7 +168,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
           />
           <FormButtons
             handleCancelBtnClick={onReset}
-            acceptBtnTitle={modalMode === 'create' ? 'Add' : 'Update'}
+            acceptBtnTitle={modalMode === 'create' ? t('addButton') : t('updateButton')}
           />
         </form>
       </div>
