@@ -123,6 +123,7 @@ export const userSlice = createSlice({
     setIsAuthorised(state, action: PayloadAction<false>) {
       state.isAuthorised = action.payload;
       state.isRoutesProtected = action.payload;
+      state.language = 'EN';
     },
     setLanguage(state, action: PayloadAction<Languages>) {
       state.language = action.payload;

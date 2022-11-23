@@ -23,17 +23,23 @@ const HeroComponent = () => {
           <ul className={styles.navList}>
             {!isAuthorised ? (
               <>
-                <li className={styles.navItem}>
-                  <NavLink to={ROUTES.SIGN_IN}>{t('signIn')}</NavLink>
+                <li>
+                  <NavLink className={styles.navLink} to={ROUTES.SIGN_IN}>
+                    {t('signIn')}
+                  </NavLink>
                 </li>
                 <li className={styles.navSeparator}></li>
-                <li className={styles.navItem}>
-                  <NavLink to={ROUTES.SIGN_UP}>{t('signUp')}</NavLink>
+                <li>
+                  <NavLink className={styles.navLinkAlt} to={ROUTES.SIGN_UP}>
+                    {t('signUp')}
+                  </NavLink>
                 </li>
               </>
             ) : (
-              <li className={styles.navItem}>
-                <NavLink to={ROUTES.BOARDS}>{t('main')}</NavLink>
+              <li>
+                <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
+                  {t('main')}
+                </NavLink>
               </li>
             )}
           </ul>
