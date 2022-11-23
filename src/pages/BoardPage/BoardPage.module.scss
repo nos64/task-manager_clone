@@ -4,7 +4,8 @@
 
 .pageContent {
   display: flex;
-  height: 100%;
+  align-items: stretch;
+  max-height: calc(100vh - 205px);
   flex-direction: column;
   flex: 1 1 auto;
 }
