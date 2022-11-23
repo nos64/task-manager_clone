@@ -4,10 +4,8 @@ import { deleteColumn, getColumnsInBoard } from 'api/columns';
 import { deleteTask, getTasksInColumn } from 'api/tasks';
 import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
-import { RootState } from 'store/store';
 import { BoardPick } from 'types/APIModel';
 import IBoard from 'types/IBoard';
-import { getTasks } from './columnSlice';
 
 export const getBoardsByUserId = createAsyncThunk(
   'boards/getBoardsByUserId',
