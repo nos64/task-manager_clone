@@ -12,12 +12,23 @@ import {
   setIsRoutesProtected,
   setIsTokenRequireUpdate,
 } from 'store/reducers/userSlice';
+import { getBoardsByUserId } from 'store/reducers/boardsSlice';
 
 const Layout: React.FC = () => {
   const isUserPending = useAppSelector((state) => state.user.isPending);
+  const isBoardsPending = useAppSelector((state) => state.boards.isPending);
   const isColumnsPending = useAppSelector((state) => state.board.isPending);
   const isTokenExpired = useAppSelector((state) => state.user.isTokenExpired);
+  const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
+  const boards = useAppSelector((state) => state.boards.boards);
+  const userID = useAppSelector((state) => state.user.id);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isAuthorised && !boards.length) {
+      dispatch(getBoardsByUserId(userID));
+    }
+  }, [boards.length, dispatch, isAuthorised, userID]);
 
   useEffect(() => {
     if (isTokenExpired) {
@@ -42,7 +53,8 @@ const Layout: React.FC = () => {
         </Container>
       </main>
       <Footer />
-      {(isUserPending || isColumnsPending) && <Loader />}
+
+      {(isUserPending || isBoardsPending || isColumnsPending) && <Loader />}
     </div>
   );
 };

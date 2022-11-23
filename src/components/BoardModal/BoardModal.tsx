@@ -9,6 +9,10 @@ import ValidationErrorMessage from 'components/ValidationErrorMessage';
 import { FaRegClipboard } from 'react-icons/fa';
 import InputTextarea from 'components/InputTextarea';
 import { useTranslation } from 'react-i18next';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { createNewBoard, setIsBurgerOpen, updateBoardById } from '../../store/reducers/boardsSlice';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from 'common/routes';
 
 interface BoardModalProps {
   modalActive: boolean;
@@ -26,6 +30,11 @@ const BoardModal: React.FC<BoardModalProps> = ({
   const [fileldsValues, setFieldsValues] = useState<Partial<IBoard>>({});
 
   const { t } = useTranslation();
+
+  const userID = useAppSelector((state) => state.user.id);
+  const activeBoard = useAppSelector((state) => state.boards.activeBoard);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -49,8 +58,31 @@ const BoardModal: React.FC<BoardModalProps> = ({
   }, [modalActive, modalMode, selectedBoard, setValue]);
 
   const onSubmit = (data: Partial<IBoard>) => {
-    // Do your magic here ...
-    console.log(data);
+    if (modalActive && selectedBoard && modalMode === 'edit') {
+      dispatch(
+        updateBoardById({
+          boardId: selectedBoard._id,
+          options: {
+            title: data.title || ' ',
+            description: data.description || `${data.title} description`,
+            owner: userID,
+            users: selectedBoard.users,
+          },
+        })
+      );
+    } else {
+      dispatch(
+        createNewBoard({
+          title: data.title || ' ',
+          description: data.description || `${data.title} description`,
+          owner: userID,
+          users: [],
+        })
+      );
+      dispatch(setIsBurgerOpen(false));
+      navigate(`${ROUTES.BOARDS}/${activeBoard?._id}`);
+    }
+    onReset();
   };
 
   const onChange = () => {
