@@ -6,11 +6,12 @@ import Column from '../../components/Column';
 import { FaLessThan } from 'react-icons/fa';
 import NewColumn from '../../components/NewColumn';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
-import { moveColumn } from 'utils/dnd-helper';
+import { moveColumn, moveTask, reorderTasks } from 'utils/dnd-helper';
 import { DndType } from 'common/dnd-types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getColumns, updateColumnsOrder } from 'store/reducers/boardSlice';
 import ColumnModal from 'components/ColumnModal';
+import { updateTasksOrder } from 'store/reducers/columnSlice';
 
 const BoardPage = () => {
   const boardId = '637899303b52a5922e7c5655';
@@ -18,6 +19,7 @@ const BoardPage = () => {
   const boardDescription = 'Booard description';
   const dispatch = useAppDispatch();
   const columns = useAppSelector((state) => state.board.columns);
+  const tasks = useAppSelector((state) => state.column.tasks);
 
   const [isModalOpened, setIsModalOpened] = useState(false);
 
@@ -34,36 +36,28 @@ const BoardPage = () => {
 
         dispatch(updateColumnsOrder(newOrderedColumns));
         return;
-      // case DndType.TASK:
-      //   const sourceColumn = columns.find((item) => item._id == source.droppableId);
-      //   if (!sourceColumn || !sourceColumn.tasks) return;
-      //   if (destination.droppableId !== source.droppableId) {
-      //     const { newSourceColumn, newDestinationColumn } = moveTask(
-      //       source,
-      //       destination,
-      //       draggableId,
-      //       sourceColumn,
-      //       columns
-      //     );
-      //     if (!newSourceColumn || !newDestinationColumn) return;
-      //     const newColumns = [
-      //       ...columns.filter(
-      //         (item) => item._id !== source.droppableId && item._id !== destination.droppableId
-      //       ),
-      //       newDestinationColumn,
-      //       newSourceColumn,
-      //     ].sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
-      //     setColumns(newColumns);
-      //   } else {
-      //     const newSourceColumn = reorderTasks(destination, draggableId, sourceColumn);
-      //     if (!newSourceColumn) return;
-      //     const newColumns = [
-      //       ...columns.filter((item) => item._id !== source.droppableId),
-      //       newSourceColumn,
-      //     ].sort((col1, col2) => (col1.order < col2.order ? -1 : 1));
-      //     setColumns(newColumns);
-      //   }
-      //   return;
+      case DndType.TASK:
+        const sourceColumnTasks = tasks[source.droppableId];
+        if (!sourceColumnTasks) return;
+
+        if (destination.droppableId !== source.droppableId) {
+          const { newSourceOrderedTasks, newDestinationOrderedTasks } = moveTask(
+            source,
+            destination,
+            draggableId,
+            sourceColumnTasks,
+            tasks[destination.droppableId]
+          );
+          if (!newSourceOrderedTasks || !newDestinationOrderedTasks) return;
+
+          dispatch(updateTasksOrder([...newSourceOrderedTasks, ...newDestinationOrderedTasks]));
+        } else {
+          const newOrderedTasks = reorderTasks(destination, draggableId, sourceColumnTasks);
+          if (!newOrderedTasks) return;
+
+          dispatch(updateTasksOrder(newOrderedTasks));
+        }
+        return;
       default:
         throw new Error('No such DND type');
     }

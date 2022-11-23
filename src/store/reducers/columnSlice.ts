@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createTask, deleteTask, getTasksInColumn, updateTask } from 'api/tasks';
+import { createTask, deleteTask, getTasksInColumn, updateTask, updateTasksSet } from 'api/tasks';
 import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
 import { RootState } from 'store/store';
@@ -99,6 +99,28 @@ export const updateColumnTask = createAsyncThunk(
   }
 );
 
+export const updateTasksOrder = createAsyncThunk(
+  'column/updateTasksOrder',
+  async (tasks: ITask[], { rejectWithValue }) => {
+    const tasksData = tasks.map((item) => ({
+      _id: item._id,
+      order: item.order,
+      columnId: item.columnId,
+    }));
+    try {
+      const newTasks = await updateTasksSet(tasksData);
+
+      return newTasks;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.status);
+      }
+
+      throw error;
+    }
+  }
+);
+
 export const columnSlice = createSlice({
   name: 'column',
   initialState,
@@ -186,6 +208,30 @@ export const columnSlice = createSlice({
       state.isPending = false;
     });
     builder.addCase(updateColumnTask.rejected, (state, action) => {
+      state.isPending = false;
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
+    });
+
+    builder.addCase(updateTasksOrder.pending, (state) => {
+      state.isPending = true;
+    });
+    builder.addCase(updateTasksOrder.fulfilled, (state, action) => {
+      const tasks = action.payload;
+      const columnIds = Object.keys(state.tasks);
+
+      columnIds.forEach(
+        (columnId) =>
+          (state.tasks[columnId] = tasks
+            .filter((item) => item.columnId === columnId)
+            .sort((task1, task2) => (task1.order < task2.order ? -1 : 1)))
+      );
+
+      state.isPending = false;
+    });
+    builder.addCase(updateTasksOrder.rejected, (state, action) => {
       state.isPending = false;
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {

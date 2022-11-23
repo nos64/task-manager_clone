@@ -5,53 +5,46 @@ import ITask from 'types/ITask';
 export const reorderTasks = (
   destination: DraggableLocation,
   draggableId: string,
-  sourceColumn: { _id: string; title: string; order: number; tasks: ITask[] }
+  sourceColumnTasks: ITask[]
 ) => {
-  const removedTask = sourceColumn.tasks.find((task) => task._id === draggableId);
+  const removedTask = sourceColumnTasks.find((task) => task._id === draggableId);
   if (!removedTask) return;
 
-  const tasksWithoutRemoved = sourceColumn.tasks.filter((task) => task._id !== draggableId);
+  const tasksWithoutRemoved = sourceColumnTasks.filter((task) => task._id !== draggableId);
   const newOrderedTasks = [
     ...tasksWithoutRemoved.slice(0, destination.index),
     removedTask,
     ...tasksWithoutRemoved.slice(destination.index),
   ].map((task, index) => ({ ...task, order: index }));
 
-  const newSourceColumn = { ...sourceColumn, tasks: newOrderedTasks };
-  return newSourceColumn;
+  return newOrderedTasks;
 };
 
 export const moveTask = (
   source: DraggableLocation,
   destination: DraggableLocation,
   draggableId: string,
-  sourceColumn: { _id: string; title: string; order: number; tasks: ITask[] },
-  columns: { _id: string; title: string; order: number; tasks: ITask[] }[]
+  sourceColumnTasks: ITask[],
+  destinationColumnTasks: ITask[]
 ) => {
-  const destinationColumn = columns.find((item) => item._id == destination.droppableId);
-  if (!destinationColumn) return { sourceColumn, destinationColumn };
+  const removedTask = sourceColumnTasks.find((task) => task._id === draggableId);
+  if (!removedTask) return { sourceColumnTasks, destinationColumnTasks };
 
-  const removedTask = sourceColumn.tasks.find((task) => task._id === draggableId);
-  if (!removedTask) return { sourceColumn, destinationColumn };
-
-  const tasksWithoutRemoved = sourceColumn.tasks.filter((task) => task._id !== draggableId);
+  const tasksWithoutRemoved = sourceColumnTasks.filter((task) => task._id !== draggableId);
 
   const newSourceOrderedTasks = [
     ...tasksWithoutRemoved.slice(0, source.index),
     ...tasksWithoutRemoved.slice(source.index),
   ].map((task, index) => ({ ...task, order: index }));
 
-  const newSourceColumn = { ...sourceColumn, tasks: newSourceOrderedTasks };
-
+  const newTask = { ...removedTask, columnId: destination.droppableId };
   const newDestinationOrderedTasks = [
-    ...destinationColumn.tasks.slice(0, destination.index),
-    removedTask,
-    ...destinationColumn.tasks.slice(destination.index),
+    ...destinationColumnTasks.slice(0, destination.index),
+    newTask,
+    ...destinationColumnTasks.slice(destination.index),
   ].map((task, index) => ({ ...task, order: index }));
 
-  const newDestinationColumn = { ...destinationColumn, tasks: newDestinationOrderedTasks };
-
-  return { newSourceColumn, newDestinationColumn };
+  return { newSourceOrderedTasks, newDestinationOrderedTasks };
 };
 
 export const moveColumn = (

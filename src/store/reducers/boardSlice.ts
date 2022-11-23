@@ -106,7 +106,6 @@ export const updateColumnsOrder = createAsyncThunk(
   'board/updateColumnsOrder',
   async (columns: IColumn[], { rejectWithValue }) => {
     const columnsData = columns.map((item) => ({ _id: item._id, order: item.order }));
-    console.log(columnsData);
     try {
       const newColumns = await updateColumnsSet(columnsData);
 
