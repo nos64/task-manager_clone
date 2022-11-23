@@ -1,6 +1,6 @@
 import HeroComponent from 'components/HeroComponent';
 import React from 'react';
-import styles from './WelcomePage.module.scss';
+// import styles from './WelcomePage.module.scss';
 
 const WelcomePage = () => {
   return (
