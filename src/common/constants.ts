@@ -13,6 +13,7 @@ export const API_URL = `https://task-manager.adaptable.app`;
 
 export const deleteAccountWarningMessage = 'delete your account';
 export const deleteColumnWarningMessage = 'delete this column';
+export const deleteTaskWarningMessage = 'delete this task';
 
 export const avatars = [
   {
