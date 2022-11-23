@@ -40,10 +40,10 @@ const Layout: React.FC = () => {
   }, [dispatch, isTokenExpired]);
 
   useEffect(() => {
-    isUserPending || isColumnsPending || isTasksPending
+    isUserPending || isBoardsPending || isColumnsPending || isTasksPending
       ? scrollController.disableScroll()
       : scrollController.enableScroll();
-  }, [isUserPending, isColumnsPending]);
+  }, [isUserPending, isBoardsPending, isColumnsPending, isTasksPending]);
 
   return (
     <div className={styles.wrapper}>
