@@ -11,11 +11,14 @@ import { useAppSelector } from 'hooks/redux';
 import BurgerMenu from './BurgerMenu';
 import BurgerContentAuth from './BurgerMenu/BurgerContentAuth';
 import BurgerContentNotAuth from './BurgerMenu/BurgerContentNotAuth';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
   const [topOffset, setTopOffset] = useState(0);
   const [isOpenBurger, setIsOpenBurger] = useState(false);
+
+  const { t } = useTranslation();
 
   const offsetLimit = 15;
 
@@ -53,11 +56,11 @@ const Header = () => {
                 <>
                   <button className={styles.createBoardBtn} type="button">
                     <GoPlus />
-                    Create Board
+                    {t('createBoard')}
                   </button>
                   <div className={styles.routToglersWrapper}>
                     <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
-                      Main
+                      {t('main')}
                     </NavLink>
                     <LangToggler isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
                     <ThemeToggler isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
