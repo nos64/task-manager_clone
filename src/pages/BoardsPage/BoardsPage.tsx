@@ -1,6 +1,7 @@
 import BoardModal from 'components/BoardModal';
 import NewBoard from 'components/NewBoard';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import IBoard from 'types/IBoard';
 import Board from '../../components/Board';
 import styles from './BoardsPage.module.scss';
@@ -9,6 +10,8 @@ const BoardsPage = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
   const [selectedBoard, setSelectedBoard] = useState<IBoard | null>(null);
+
+  const { t } = useTranslation();
 
   const toggleModal = () => {
     setIsModalOpened((prev) => !prev);
@@ -33,7 +36,7 @@ const BoardsPage = () => {
 
   return (
     <div className={styles.pageContent}>
-      <h3 className={styles.title}>Boards</h3>
+      <h3 className={styles.title}>{t('boards')}</h3>
       <div className={styles.boardsContainer}>
         {boards.map((board) => {
           return (
