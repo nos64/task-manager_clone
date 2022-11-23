@@ -1,27 +1,20 @@
 import React, { useState } from 'react';
 import styles from './ChangeAvatarContent.module.scss';
+import { avatars } from '../../../../common/constants';
+import IAvatar from 'types/IAvatar';
 
-interface IAvatar {
-  id: number;
-  src: string;
-  isCurrent: boolean;
-  isActive: boolean;
-}
 interface IChangeAvatarContent {
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
   currentAvatar: IAvatar;
   setCurrentAvatar: React.Dispatch<React.SetStateAction<IAvatar>>;
-  avatarsArray: IAvatar[];
-  setAvatarArray: React.Dispatch<React.SetStateAction<IAvatar[]>>;
 }
 const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
   setModalActive,
   currentAvatar,
   setCurrentAvatar,
-  avatarsArray,
-  setAvatarArray,
 }) => {
   const [activeAvatar, setActiveAvatar] = useState(currentAvatar);
+  const [avatarsArray, setAvatarArray] = useState(avatars);
 
   const chooseActiveAvatar = (id: number) => {
     const newAvatarArray = avatarsArray.map((img) =>
