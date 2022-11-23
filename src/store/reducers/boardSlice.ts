@@ -70,9 +70,16 @@ export const createBoardColumn = createAsyncThunk(
   'board/createBoardColumn',
   async (data: { boardId: string; title: string }, { rejectWithValue, getState }) => {
     const columnsCount = (getState() as RootState).board.columns.length;
+    const maxColumnOrder = (getState() as RootState).board.columns.reduce(
+      (acc, item) => (item.order > acc ? item.order : acc),
+      0
+    );
 
     try {
-      const column = await createColumn(data.boardId, { title: data.title, order: columnsCount });
+      const column = await createColumn(data.boardId, {
+        title: data.title,
+        order: columnsCount ? maxColumnOrder + 1 : 0,
+      });
 
       return column;
     } catch (error) {

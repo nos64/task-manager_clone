@@ -55,11 +55,16 @@ export const createColumnTask = createAsyncThunk(
   'column/createColumnTask',
   async (task: Omit<ITask, '_id' | 'order'>, { rejectWithValue, getState }) => {
     const tasksCount = (getState() as RootState).column.tasks[task.columnId].length;
+    const maxTaskOrder = (getState() as RootState).column.tasks[task.columnId].reduce(
+      (acc, item) => (item.order > acc ? item.order : acc),
+      0
+    );
+
     try {
       const newTask = await createTask(task.boardId, task.columnId, {
         title: task.title,
         description: task.description,
-        order: tasksCount,
+        order: tasksCount ? maxTaskOrder + 1 : 0,
         userId: task.userId,
         users: task.users,
       });
