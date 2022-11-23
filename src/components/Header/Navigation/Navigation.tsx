@@ -5,12 +5,15 @@ import styles from './Navigation.module.scss';
 import { useAppSelector } from 'hooks/redux';
 import { avatars } from '../../../common/constants';
 import DropDownList from '../DropDownList';
+import { useTranslation } from 'react-i18next';
 
 const Navigation = () => {
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
   const avatarID = useAppSelector((state) => state.user.avatarID);
 
   const [isMenuOpened, setIsMenuOpened] = useState(false);
+
+  const { t } = useTranslation();
 
   const handleUserClick = () => {
     setIsMenuOpened(!isMenuOpened);
@@ -32,11 +35,11 @@ const Navigation = () => {
         ) : (
           <div className={!isAuthorised ? styles.navItemHidden : ''}>
             <li className={styles.navItem}>
-              <NavLink to={ROUTES.SIGN_IN}>Sign in</NavLink>
+              <NavLink to={ROUTES.SIGN_IN}>{t('signIn')}</NavLink>
             </li>
             <li className={styles.navSeparator}></li>
             <li className={styles.navItem}>
-              <NavLink to={ROUTES.SIGN_UP}>Sign up</NavLink>
+              <NavLink to={ROUTES.SIGN_UP}>{t('signUp')}</NavLink>
             </li>
           </div>
         )}
