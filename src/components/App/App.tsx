@@ -14,6 +14,7 @@ import NotFoundPage from 'pages/NotFoundPage';
 import ProtectedRoute from 'components/ProtectedRoute';
 import AuthPage from 'pages/AuthPage';
 import BoardsPage from 'pages/BoardsPage';
+import WelcomePage from 'pages/WelcomePage';
 
 const App: React.FC = () => {
   const isLoginAlreadyExist = useAppSelector((state) => state.user.isLoginAlreadyExist);
@@ -54,7 +55,7 @@ const App: React.FC = () => {
     <>
       <Routes>
         <Route path={ROUTES.WELCOME} element={<Layout />}>
-          {/* <Route index element={<WelcomePage />} /> */}
+          <Route index element={<WelcomePage />} />
           <Route
             element={<ProtectedRoute isAllowed={!isRoutesProtected} redirectPath={ROUTES.BOARDS} />}
           >

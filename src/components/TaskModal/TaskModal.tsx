@@ -13,45 +13,14 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getAllUsers } from 'store/reducers/userSlice';
 import ITaskModalForm from 'types/ITaskModalForm';
 import { useTranslation } from 'react-i18next';
-
-// Temporary columns options Delete when columns slice is created
-const TEMPORARY_COLUMNS_OPTIONS = [
-  {
-    _id: 'id 1',
-    title: 'my awesome column 1',
-    order: 0,
-    boardId: '1',
-  },
-  {
-    _id: 'id 2',
-    title: 'my awesome column 2',
-    order: 1,
-    boardId: '1',
-  },
-  {
-    _id: 'id 3',
-    title: 'my awesome column 3',
-    order: 2,
-    boardId: '1',
-  },
-  {
-    _id: 'id 4',
-    title: 'my awesome column 4',
-    order: 3,
-    boardId: '1',
-  },
-  {
-    _id: 'id 5',
-    title: 'my awesome column 5',
-    order: 4,
-    boardId: '1',
-  },
-];
+import IColumn from 'types/IColumn';
+import { createColumnTask, updateColumnTask } from 'store/reducers/columnSlice';
 
 interface TaskModalProps {
   modalActive: boolean;
   modalMode: 'create' | 'edit';
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+  currentColumn: IColumn;
   selectedTask: ITask | null;
 }
 
@@ -59,12 +28,18 @@ const TaskModal: React.FC<TaskModalProps> = ({
   modalActive,
   modalMode,
   setModalActive,
+  currentColumn,
   selectedTask,
 }) => {
   const [fileldsValues, setFieldsValues] = useState<Partial<ITaskModalForm>>({});
+
+  const boardId = '637899303b52a5922e7c5655';
+  // delete mock value and use data from store
+  // const boardId = useAppSelector((state) => state.boards.currentBoard);
+
+  const currentUserId = useAppSelector((state) => state.user.id);
   const users = useAppSelector((state) => state.user.users);
-  // We have to get all avaliable columns in board
-  // const columns = useAppSelector((state) => state.columns.columns);
+  const columns = useAppSelector((state) => state.board.columns);
   const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
@@ -100,8 +75,42 @@ const TaskModal: React.FC<TaskModalProps> = ({
   }, [modalActive, modalMode, setValue]);
 
   const onSubmit = (data: Partial<ITaskModalForm>) => {
-    // Do your magic here ...
-    console.log(data);
+    switch (modalMode) {
+      case 'create':
+        dispatch(
+          createColumnTask({
+            title: data.title || '',
+            description: data.description || ' ',
+            boardId: boardId,
+            columnId: currentColumn._id,
+            userId: currentUserId,
+            users: data.users ? [data.users] : [],
+          })
+        );
+        break;
+      case 'edit':
+        dispatch(
+          updateColumnTask({
+            task: {
+              _id: selectedTask?._id || '',
+              title: data.title || '',
+              description: data.description || ' ',
+              order: selectedTask?.order || 0,
+              boardId: boardId,
+              columnId: data.columnId || '',
+              userId: currentUserId,
+              users: data.users ? [data.users] : [],
+            },
+            oldColumnId: selectedTask?.columnId || '',
+          })
+        );
+        break;
+      default:
+        throw new Error('no such modal mode');
+    }
+
+    setModalActive(false);
+    onReset();
   };
 
   const onChange = () => {
@@ -153,8 +162,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
               label={t('column')}
               register={register}
               fieldValue={fileldsValues.columnId || ''}
-              // Pass `columns` instead of mocked values
-              options={TEMPORARY_COLUMNS_OPTIONS}
+              options={columns}
               type={'status'}
             />
           )}
