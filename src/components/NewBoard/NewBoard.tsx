@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './NewBoard.module.scss';
 import { BsPlusCircle } from 'react-icons/bs';
 import IBoard from 'types/IBoard';
+import { useTranslation } from 'react-i18next';
 
 interface NewBoardProps {
   toggleModal: () => void;
@@ -16,10 +17,12 @@ const NewBoard: React.FC<NewBoardProps> = ({ toggleModal, setModalMode, setSelec
     setSelectedBoard(null);
   };
 
+  const { t } = useTranslation();
+
   return (
     <div className={styles.newBoard} onClick={handleClick}>
       <BsPlusCircle className={styles.icon} />
-      <p className={styles.title}>Add board</p>
+      <p className={styles.title}>{t('addBoard')}</p>
     </div>
   );
 };
