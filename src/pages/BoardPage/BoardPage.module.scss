@@ -1,5 +1,6 @@
 @import "./../../styles/colors.scss";
 @import "./../../styles/variables.scss";
+@import './../../styles/mixins.scss';
 
 .pageContent {
   display: flex;
@@ -45,6 +46,7 @@
 .title {
   font-size: 25px;
   color: $text-color;
+  @include contentLimit(1);
 }
 
 .description {

@@ -77,3 +77,6 @@ export const avatars = [
     isActive: false,
   },
 ];
+
+export const deleteBoardMessage = 'delete this board';
+export const noMatchesMessage = 'No results were found for ';
