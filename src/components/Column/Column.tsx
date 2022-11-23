@@ -13,7 +13,7 @@ import { getTasks } from 'store/reducers/columnSlice';
 import { deleteBoardColumn, setColumnTitle } from 'store/reducers/boardSlice';
 import TaskModal from 'components/TaskModal';
 import WarningModal from 'components/WarningModal';
-import { deleteColumnWarningMessage } from 'common/constants';
+import { useTranslation } from 'react-i18next';
 
 type ColumnProps = {
   item: IColumn;
@@ -31,6 +31,8 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
 
   const [isColumnDeleting, setIsColumnDeleting] = useState(false);
+
+  const { t } = useTranslation();
 
   const toggleModal = () => {
     setIsModalOpened((prev) => !prev);
@@ -151,7 +153,7 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
         isModalActive={isColumnDeleting}
         deleteBtnHandler={() => deleteColumn()}
         cancelBtnHandler={() => setIsColumnDeleting(false)}
-        message={deleteColumnWarningMessage}
+        message={t('deleteColumnWarningMessage')}
       />
     </>
   );
