@@ -1,5 +1,5 @@
-@import "./../../styles/colors.scss";
-@import "./../../styles/variables.scss";
+@import './../../styles/colors.scss';
+@import './../../styles/variables.scss';
 @import './../../styles/mixins.scss';
 
 .pageContent {
@@ -35,7 +35,12 @@
 }
 
 .backBtnIcon {
+  min-width: 8px;
   width: 8px;
+}
+
+.backLink {
+  white-space: nowrap;
 }
 
 .boardInfo {

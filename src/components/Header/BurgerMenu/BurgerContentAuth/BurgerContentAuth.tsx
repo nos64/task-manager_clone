@@ -8,7 +8,6 @@ import ThemeToggler from 'components/Header/ThemeToggler';
 import { GoPlus } from 'react-icons/go';
 import { useTranslation } from 'react-i18next';
 import BoardModal from 'components/BoardModal';
-import { noMatchesMessage } from 'common/constants';
 import { setActiveBoard, setIsBurgerOpen } from 'store/reducers/boardsSlice';
 import IBoard from 'types/IBoard';
 
@@ -95,7 +94,7 @@ const BurgerContentAuth = () => {
             )
           ) : (
             <>
-              <p className={styles.noMatchesMessage}>{noMatchesMessage}</p>
+              <p className={styles.noMatchesMessage}>{t('noMatchesMessage')}</p>
               <p className={styles.noMatchesValue}>{enteredSearchValue}</p>
             </>
           )}

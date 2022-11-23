@@ -88,6 +88,7 @@
 
   & ::-webkit-search-cancel-button {
     -webkit-appearance: none;
+    appearance: none;
     width: 20px;
     height: 20px;
     background: url('../../../../assets/images/inputClear.svg');

@@ -56,6 +56,8 @@ const translationsRu = {
   home: 'домой',
   toPreviousPage: 'назад',
   notfoundPageMessage: `Кажется, вы потерялся в вечной черной дыре. Позвольте нам помочь вам выбраться и вернуться домой`,
+  deleteBoardMessage: 'удалить доску',
+  noMatchesMessage: 'Ничего не найдено по запросу',
 };
 
 export default translationsRu;

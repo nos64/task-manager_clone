@@ -88,7 +88,7 @@ const BoardPage = () => {
           <div className={styles.topBlock}>
             <Link className={styles.backBtn} to={ROUTES.BOARDS}>
               <FaLessThan className={styles.backBtnIcon} />
-              <span>{t('back')}</span>
+              <span className={styles.backLink}>{t('back')}</span>
             </Link>
             <div className={styles.boardInfo}>
               <h3 className={styles.title}>{`${t('boardPageTitle')}: ${boardTitle}`}</h3>

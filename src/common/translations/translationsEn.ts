@@ -57,6 +57,8 @@ const translationsEn = {
   toPreviousPage: 'back',
   notfoundPageMessage: `It seems that you're lost in a perpetual black hole. Let us help guide you out and
   get you back home`,
+  deleteBoardMessage: 'delete this board',
+  noMatchesMessage: 'No results were found for',
 };
 
 export default translationsEn;
