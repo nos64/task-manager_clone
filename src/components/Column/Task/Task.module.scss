@@ -41,15 +41,19 @@
 
 .assignee {
   font-size: 13px;
+  word-wrap: wrapi;
+  word-break: break-all;
 }
 
 .removeTaskIcon {
+  width: 17px;
+  min-width: 17px;
   opacity: 0.5;
   cursor: pointer;
   transition: 0.3s ease;
 
   &:hover {
     color: $text-color;
-    width: 17px;
+    
   }
 }
