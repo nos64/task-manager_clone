@@ -33,9 +33,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
 }) => {
   const [fileldsValues, setFieldsValues] = useState<Partial<ITaskModalForm>>({});
 
-  const boardId = '637899303b52a5922e7c5655';
-  // delete mock value and use data from store
-  // const boardId = useAppSelector((state) => state.boards.currentBoard);
+  const boardId = useAppSelector((state) => state.boards.activeBoard?._id);
 
   const currentUserId = useAppSelector((state) => state.user.id);
   const users = useAppSelector((state) => state.user.users);
@@ -81,7 +79,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
           createColumnTask({
             title: data.title || '',
             description: data.description || ' ',
-            boardId: boardId,
+            boardId: boardId || '',
             columnId: currentColumn._id,
             userId: currentUserId,
             users: data.users ? [data.users] : [],
@@ -96,7 +94,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
               title: data.title || '',
               description: data.description || ' ',
               order: selectedTask?.order || 0,
-              boardId: boardId,
+              boardId: boardId || '',
               columnId: data.columnId || '',
               userId: currentUserId,
               users: data.users ? [data.users] : [],
