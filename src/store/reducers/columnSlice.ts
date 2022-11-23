@@ -106,8 +106,11 @@ export const updateColumnTask = createAsyncThunk(
 
 export const updateTasksOrder = createAsyncThunk(
   'column/updateTasksOrder',
-  async (tasks: ITask[], { rejectWithValue }) => {
-    const tasksData = tasks.map((item) => ({
+  async (
+    data: { tasks: ITask[]; oldColumnId: string; newColumnId: string },
+    { rejectWithValue }
+  ) => {
+    const tasksData = data.tasks.map((item) => ({
       _id: item._id,
       order: item.order,
       columnId: item.columnId,
@@ -115,7 +118,7 @@ export const updateTasksOrder = createAsyncThunk(
     try {
       const newTasks = await updateTasksSet(tasksData);
 
-      return newTasks;
+      return { tasks: newTasks, oldColumnId: data.oldColumnId, newColumnId: data.newColumnId };
     } catch (error) {
       if (error instanceof AxiosError) {
         return rejectWithValue(error.response?.status);
@@ -224,15 +227,15 @@ export const columnSlice = createSlice({
       state.isPending = true;
     });
     builder.addCase(updateTasksOrder.fulfilled, (state, action) => {
-      const tasks = action.payload;
-      const columnIds = Object.keys(state.tasks);
+      const { tasks, oldColumnId, newColumnId } = action.payload;
 
-      columnIds.forEach(
-        (columnId) =>
-          (state.tasks[columnId] = tasks
-            .filter((item) => item.columnId === columnId)
-            .sort((task1, task2) => (task1.order < task2.order ? -1 : 1)))
-      );
+      state.tasks[oldColumnId] = tasks
+        .filter((item) => item.columnId === oldColumnId)
+        .sort((task1, task2) => (task1.order < task2.order ? -1 : 1));
+
+      state.tasks[newColumnId] = tasks
+        .filter((item) => item.columnId === newColumnId)
+        .sort((task1, task2) => (task1.order < task2.order ? -1 : 1));
 
       state.isPending = false;
     });

@@ -50,12 +50,24 @@ const BoardPage = () => {
           );
           if (!newSourceOrderedTasks || !newDestinationOrderedTasks) return;
 
-          dispatch(updateTasksOrder([...newSourceOrderedTasks, ...newDestinationOrderedTasks]));
+          dispatch(
+            updateTasksOrder({
+              tasks: [...newSourceOrderedTasks, ...newDestinationOrderedTasks],
+              oldColumnId: source.droppableId,
+              newColumnId: destination.droppableId,
+            })
+          );
         } else {
           const newOrderedTasks = reorderTasks(destination, draggableId, sourceColumnTasks);
           if (!newOrderedTasks) return;
 
-          dispatch(updateTasksOrder(newOrderedTasks));
+          dispatch(
+            updateTasksOrder({
+              tasks: newOrderedTasks,
+              oldColumnId: source.droppableId,
+              newColumnId: destination.droppableId,
+            })
+          );
         }
         return;
       default:
