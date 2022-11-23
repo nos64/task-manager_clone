@@ -4,7 +4,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './HeroComponent.module.scss';
 import heroImage from '../../assets/images/heroImage.png';
-import heroBackground from '../../assets/images/heroBackground.jpeg';
 
 const HeroComponent = () => {
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
