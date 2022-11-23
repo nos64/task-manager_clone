@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import styles from './UserPreview.module.scss';
 import Modal from 'components/Modal';
 import ChangeAvatarContent from './ChangeAvatar';
-import { avatars } from 'common/constants';
 import { useAppSelector } from 'hooks/redux';
+import IAvatar from 'types/IAvatar';
 
-const UserPreview = () => {
+interface UserPreviewProps {
+  currentAvatar: IAvatar;
+  setCurrentAvatar: React.Dispatch<React.SetStateAction<IAvatar>>;
+}
+
+const UserPreview: React.FC<UserPreviewProps> = ({ currentAvatar, setCurrentAvatar }) => {
   const [modalActive, setModalActive] = useState(false);
-  const [avatarsArray, setAvatarArray] = useState(avatars);
-  const [currentAvatar, setCurrentAvatar] = useState(avatars[0]);
   const name = useAppSelector((state) => state.user.name);
   const login = useAppSelector((state) => state.user.login);
 
@@ -39,8 +42,6 @@ const UserPreview = () => {
           setModalActive={setModalActive}
           currentAvatar={currentAvatar}
           setCurrentAvatar={setCurrentAvatar}
-          avatarsArray={avatarsArray}
-          setAvatarArray={setAvatarArray}
         />
       </Modal>
     </>
