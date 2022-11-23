@@ -6,6 +6,7 @@ import { ROUTES } from 'common/routes';
 import LangToggler from 'components/Header/LangToggler';
 import ThemeToggler from 'components/Header/ThemeToggler';
 import { GoPlus } from 'react-icons/go';
+import { useTranslation } from 'react-i18next';
 
 interface IBurgerContentAuthProps {
   isOpenBurger: boolean;
@@ -17,6 +18,8 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
   setIsOpenBurger,
 }) => {
   const userName = useAppSelector((state) => state.user.name);
+
+  const { t } = useTranslation();
 
   const boards = [
     {
@@ -41,7 +44,7 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
           to={ROUTES.BOARDS}
           onClick={() => setIsOpenBurger(false)}
         >
-          Main
+          {t('main')}
         </NavLink>
         <ThemeToggler isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
         <LangToggler isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
@@ -50,12 +53,12 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
       <div className={styles.menuHeader}>
         <h2>{userName}</h2>
       </div>
-      <div className={styles.boardListTitle}>My Boards</div>
+      <div className={styles.boardListTitle}>{t('myBoards')}</div>
       <div className={styles.inputWrapper}>
         <input
           className={styles.inputLine}
           type="search"
-          placeholder="Search..."
+          placeholder={t('searchFieldPlaceholder') || ''}
           autoComplete="off"
         />
       </div>
@@ -65,7 +68,7 @@ const BurgerContentAuth: React.FC<IBurgerContentAuthProps> = ({
         onClick={() => setIsOpenBurger(false)}
       >
         <GoPlus />
-        Create Board
+        {t('createBoard')}
       </button>
       <ul className={styles.boardList}>
         {boards.map((board) => (
