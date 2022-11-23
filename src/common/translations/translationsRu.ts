@@ -58,6 +58,7 @@ const translationsRu = {
   notfoundPageMessage: `Кажется, вы потерялся в вечной черной дыре. Позвольте нам помочь вам выбраться и вернуться домой`,
   deleteBoardMessage: 'удалить доску',
   noMatchesMessage: 'Ничего не найдено по запросу',
+  deleteTaskWarningMessage: 'удалить задачу',
 };
 
 export default translationsRu;

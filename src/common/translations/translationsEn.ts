@@ -59,6 +59,7 @@ const translationsEn = {
   get you back home`,
   deleteBoardMessage: 'delete this board',
   noMatchesMessage: 'No results were found for',
+  deleteTaskWarningMessage: 'delete this task',
 };
 
 export default translationsEn;
