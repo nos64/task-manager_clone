@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { setIsAuthorised } from 'store/reducers/userSlice';
 import OutsideClickHandler from 'react-outside-click-handler';
 import styles from './DropDownList.module.scss';
+import { setActiveBoard, setBoards } from 'store/reducers/boardsSlice';
 
 interface DropDownListProps {
   setIsMenuOpened: (value: React.SetStateAction<boolean>) => void;
@@ -17,6 +18,8 @@ const DropDownList: React.FC<DropDownListProps> = ({ setIsMenuOpened, isMenuOpen
 
   const handleSignOutClick = () => {
     dispatch(setIsAuthorised(false));
+    dispatch(setBoards([]));
+    dispatch(setActiveBoard(null));
     localStorage.removeItem('token');
 
     setIsMenuOpened(false);

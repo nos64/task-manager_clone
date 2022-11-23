@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { signIn, signUp } from 'api/auth';
 import jwt_decode from 'jwt-decode';
 import { AxiosError } from 'axios';
-import { getUser, getUsers, updateUser } from 'api/users';
+import { deleteUser, getUser, getUsers, updateUser } from 'api/users';
 import IJWTDecode from 'types/IJWTDecode';
 import updateStorage from 'utils/updateStorage';
 import StatusCodes from 'common/statusCodes';
@@ -100,6 +100,23 @@ export const updateUserInfo = createAsyncThunk(
   }
 );
 
+export const deleteUserAccount = createAsyncThunk(
+  'user/deleteUserAccount',
+  async (_, { rejectWithValue, getState }) => {
+    const userId = (getState() as RootState).user.id;
+
+    try {
+      return await deleteUser(userId);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.status);
+      }
+
+      throw error;
+    }
+  }
+);
+
 interface UserState {
   isAuthorised: boolean;
   isPending: boolean;
@@ -141,6 +158,12 @@ export const userSlice = createSlice({
     setIsAuthorised(state, action: PayloadAction<false>) {
       state.isAuthorised = action.payload;
       state.isRoutesProtected = action.payload;
+      state.id = '';
+      state.login = '';
+      state.name = '';
+      state.language = 'EN';
+      state.theme = 'dark';
+      state.avatarID = 0;
     },
     setLanguage(state, action: PayloadAction<Languages>) {
       state.language = action.payload;
@@ -158,12 +181,15 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(signUpUser.pending, (state) => {
       state.isPending = true;
-      state.isLoginAlreadyExist = false;
       state.isAuthorisationError = false;
+      state.isLoginAlreadyExist = false;
+      state.isTokenRequireUpdate = false;
+      state.isTokenExpired = false;
     });
     builder.addCase(signUpUser.fulfilled, (state, action) => {
       state.isPending = false;
       state.isAuthorised = true;
+      state.isRoutesProtected = true;
 
       const userInfo = updateStorage(action.payload.userInfo._id, action.payload.userInfo);
 
@@ -266,6 +292,31 @@ export const userSlice = createSlice({
       state.id = action.payload._id;
     });
     builder.addCase(updateUserInfo.rejected, (state, action) => {
+      state.isPending = false;
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
+    });
+
+    builder.addCase(deleteUserAccount.pending, (state) => {
+      state.isPending = true;
+    });
+    builder.addCase(deleteUserAccount.fulfilled, (state) => {
+      localStorage.removeItem('token');
+      localStorage.removeItem(state.id);
+
+      state.isPending = false;
+      state.isAuthorised = false;
+      state.isRoutesProtected = false;
+      state.id = '';
+      state.login = '';
+      state.name = '';
+      state.language = 'EN';
+      state.theme = 'dark';
+      state.avatarID = 0;
+    });
+    builder.addCase(deleteUserAccount.rejected, (state, action) => {
       state.isPending = false;
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {

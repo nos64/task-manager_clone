@@ -116,6 +116,9 @@ export const boardsSlice = createSlice({
     setIsBurgerOpen(state, action: PayloadAction<boolean>) {
       state.isBurgerOpen = action.payload;
     },
+    setBoards(state, action: PayloadAction<IBoard[]>) {
+      state.boards = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardsByUserId.pending, (state) => {
@@ -183,5 +186,5 @@ export const boardsSlice = createSlice({
     });
   },
 });
-export const { setActiveBoard, setIsBurgerOpen } = boardsSlice.actions;
+export const { setActiveBoard, setIsBurgerOpen, setBoards } = boardsSlice.actions;
 export default boardsSlice.reducer;
