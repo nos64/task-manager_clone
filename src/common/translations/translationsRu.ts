@@ -59,6 +59,8 @@ const translationsRu = {
   deleteBoardMessage: 'удалить доску',
   noMatchesMessage: 'Ничего не найдено по запросу',
   deleteTaskWarningMessage: 'удалить задачу',
+  heroTitle: 'Объедините свою команду',
+  heroMessage: `- это легкий способ спланировать, организовать и отслеживать прогресс ваших проектов.`,
 };
 
 export default translationsRu;

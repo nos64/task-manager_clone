@@ -60,6 +60,8 @@ const translationsEn = {
   deleteBoardMessage: 'delete this board',
   noMatchesMessage: 'No results were found for',
   deleteTaskWarningMessage: 'delete this task',
+  heroTitle: 'Unite your team',
+  heroMessage: ' - the easy way to organize, plan and track progress on your projects.',
 };
 
 export default translationsEn;
