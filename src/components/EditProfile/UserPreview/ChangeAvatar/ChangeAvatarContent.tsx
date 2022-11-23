@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './ChangeAvatarContent.module.scss';
 
 interface IAvatar {
@@ -22,6 +23,8 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
   setAvatarArray,
 }) => {
   const [activeAvatar, setActiveAvatar] = useState(currentAvatar);
+
+  const { t } = useTranslation();
 
   const chooseActiveAvatar = (id: number) => {
     const newAvatarArray = avatarsArray.map((img) =>
@@ -76,10 +79,10 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
           onClick={saveNewAvatar}
           disabled={currentAvatar.src === activeAvatar.src}
         >
-          CHANGE
+          {t('changeButton')}
         </button>
         <button className={styles.canselBtn} type="button" onClick={() => setModalActive(false)}>
-          CANCEL
+          {t('cancelButton')}
         </button>
       </div>
     </>
