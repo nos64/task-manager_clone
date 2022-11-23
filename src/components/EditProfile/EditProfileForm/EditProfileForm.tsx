@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './EditProfileForm.module.scss';
 import { FaUserEdit } from 'react-icons/fa';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
@@ -7,6 +7,7 @@ import InputLinePassword from 'components/InputLinePassword';
 import InputLineText from 'components/InputLineText';
 import IUser from 'types/IUser';
 import FormButtons from 'components/FormButtons';
+import { useAppSelector } from 'hooks/redux';
 
 const EditProfileForm = () => {
   const {
@@ -15,9 +16,23 @@ const EditProfileForm = () => {
     handleSubmit,
     getValues,
     reset,
+    setValue,
   } = useForm<Partial<IUser>>();
 
   const [fileldsValues, setFieldsValues] = useState<Partial<IUser>>({});
+
+  const userName = useAppSelector((state) => state.user.name);
+  const userLogin = useAppSelector((state) => state.user.login);
+
+  useEffect(() => {
+    setValue('name', userName);
+    setValue('login', userLogin);
+
+    setFieldsValues({
+      name: userName,
+      login: userLogin,
+    });
+  }, [setValue, userName, userLogin]);
 
   const onChange = () => {
     const currentFieldsValues = getValues();
