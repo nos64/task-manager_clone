@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   createColumn,
   deleteColumn,
@@ -70,9 +70,16 @@ export const createBoardColumn = createAsyncThunk(
   'board/createBoardColumn',
   async (data: { boardId: string; title: string }, { rejectWithValue, getState }) => {
     const columnsCount = (getState() as RootState).board.columns.length;
+    const maxColumnOrder = (getState() as RootState).board.columns.reduce(
+      (acc, item) => (item.order > acc ? item.order : acc),
+      0
+    );
 
     try {
-      const column = await createColumn(data.boardId, { title: data.title, order: columnsCount });
+      const column = await createColumn(data.boardId, {
+        title: data.title,
+        order: columnsCount ? maxColumnOrder + 1 : 0,
+      });
 
       return column;
     } catch (error) {
@@ -106,7 +113,6 @@ export const updateColumnsOrder = createAsyncThunk(
   'board/updateColumnsOrder',
   async (columns: IColumn[], { rejectWithValue }) => {
     const columnsData = columns.map((item) => ({ _id: item._id, order: item.order }));
-    console.log(columnsData);
     try {
       const newColumns = await updateColumnsSet(columnsData);
 
@@ -124,11 +130,7 @@ export const updateColumnsOrder = createAsyncThunk(
 export const boardSlice = createSlice({
   name: 'board',
   initialState,
-  reducers: {
-    setColumns(state, action: PayloadAction<IColumn[]>) {
-      state.columns = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getColumns.pending, (state) => {
       state.isPending = true;
@@ -214,5 +216,4 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { setColumns } = boardSlice.actions;
 export default boardSlice.reducer;

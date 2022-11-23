@@ -4,7 +4,8 @@
 
 .pageContent {
   display: flex;
-  height: 100%;
+  align-items: stretch;
+  max-height: calc(100vh - 205px);
   flex-direction: column;
   flex: 1 1 auto;
 }
@@ -62,9 +63,12 @@
 
 .columnsContainer {
   display: flex;
+  align-items: stretch;
+  // flex: 1 1 auto;
   padding-bottom: 5px;
   border-radius: 5px;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .columnsContainer::-webkit-scrollbar {
