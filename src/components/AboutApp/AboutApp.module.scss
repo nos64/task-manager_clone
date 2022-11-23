@@ -2,15 +2,21 @@
 @import '../../styles/extensions.scss';
 @import '../../styles/mixins.scss';
 
+.contentWrapper {
+  @extend %centered;
+  flex-direction: column;
+  gap: 80px;
+}
+
 .wrapper {
   @extend %centered;
   overflow: hidden;
   gap: 15px;
-  min-height: 100vh;
+  // min-height: 100vh;
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 2rem;
   color: $base-light-color;
   line-height: 1.25;
   font-weight: 700;
@@ -18,7 +24,7 @@
 }
 
 .subtitle {
-  font-size: 24px;
+  font-size: 1.5rem;
   color: $color-text-secondary;
   line-height: 1.5;
   margin-bottom: 3rem;
