@@ -105,8 +105,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
       default:
         throw new Error('no such modal mode');
     }
-    if (modalMode === 'create') {
-    }
+
     setModalActive(false);
     onReset();
   };
