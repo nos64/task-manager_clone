@@ -62,6 +62,12 @@ const translationsEn = {
   deleteTaskWarningMessage: 'delete this task',
   heroTitle: 'Unite your team',
   heroMessage: ' - the easy way to organize, plan and track progress on your projects.',
+  createNewAccount: 'Create new account',
+  alreadyWithUs: 'Already with us',
+  signUpMessage: 'Sign up to Task Manager',
+  signInMessage: 'Sign in to Task Manager',
+  authPageSwitcherRegistred: 'Already with us',
+  authPageSwitcherNew: 'No account',
 };
 
 export default translationsEn;

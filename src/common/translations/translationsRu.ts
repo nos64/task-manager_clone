@@ -61,6 +61,12 @@ const translationsRu = {
   deleteTaskWarningMessage: 'удалить задачу',
   heroTitle: 'Объедините свою команду',
   heroMessage: `- это легкий способ спланировать, организовать и отслеживать прогресс ваших проектов.`,
+  createNewAccount: 'Создайте аккаунт',
+  alreadyWithUs: 'Уже с нами',
+  signUpMessage: 'Зарегестрироваться в Task Manager',
+  signInMessage: 'Врйти в Task Manager',
+  authPageSwitcherRegistred: 'Уже с нами',
+  authPageSwitcherNew: 'Нет аккаунта',
 };
 
 export default translationsRu;
