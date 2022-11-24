@@ -6,11 +6,11 @@
   @extend %centered;
   overflow: hidden;
   gap: 15px;
-  min-height: calc(100vh - 192px);
+  min-height: 100vh;
 }
 
 .title {
-  font-size: 48px;
+  font-size: 3rem;
   color: $base-light-color;
   line-height: 1.25;
   font-weight: 700;
@@ -28,17 +28,19 @@
 .navList {
   display: flex;
   gap: 15px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .navLink {
   display: block;
-  @include buttonStyle(5px, 30px);
+  @include buttonStyle(10px, 25px);
+  width: 180px;
 }
 
 .navLinkAlt {
   display: block;
-  @include buttonStyleNegative(5px, 30px);
+  @include buttonStyleNegative(10px, 25px);
+  width: 180px;
 }
 
 .imageWrapper {
