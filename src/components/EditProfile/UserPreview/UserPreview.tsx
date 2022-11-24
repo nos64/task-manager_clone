@@ -3,6 +3,7 @@ import styles from './UserPreview.module.scss';
 import ChangeAvatarContent from './ChangeAvatar';
 import { useAppSelector } from 'hooks/redux';
 import IAvatar from 'types/IAvatar';
+import { useTranslation } from 'react-i18next';
 
 interface UserPreviewProps {
   currentAvatar: IAvatar;
@@ -14,25 +15,28 @@ const UserPreview: React.FC<UserPreviewProps> = ({ currentAvatar, setCurrentAvat
   const name = useAppSelector((state) => state.user.name);
   const login = useAppSelector((state) => state.user.login);
 
+  const { t } = useTranslation();
+
   return (
     <>
       <div className={styles.wrapper}>
         <div className={styles.avatrWrapper}>
           <img src={currentAvatar.src} width={120} alt={`User image-${currentAvatar.id}`} />
+
           <button
             className={styles.avatarButon}
             type="button"
             onClick={() => setIsModalActive(true)}
           >
-            Change avatar
+            {t('changeAvatar')}
           </button>
         </div>
         <div className={styles.nameWrapper}>
           <p className={styles.description}>
-            Name: <span className={styles.value}>{name}</span>
+            {t('profileName')}: <span className={styles.value}>{name}</span>
           </p>
           <p className={styles.description}>
-            Login: <span className={styles.value}>{login}</span>
+            {t('profileLogin')}: <span className={styles.value}>{login}</span>
           </p>
         </div>
       </div>

@@ -11,6 +11,7 @@ import { useAppSelector, useAppDispatch } from 'hooks/redux';
 import BurgerMenu from './BurgerMenu';
 import BurgerContentAuth from './BurgerMenu/BurgerContentAuth';
 import BurgerContentNotAuth from './BurgerMenu/BurgerContentNotAuth';
+import { useTranslation } from 'react-i18next';
 import BoardModal from 'components/BoardModal';
 import { setIsBurgerOpen } from 'store/reducers/boardsSlice';
 
@@ -20,6 +21,9 @@ const Header = () => {
   const isBurgerOpen = useAppSelector((state) => state.boards.isBurgerOpen);
   const [topOffset, setTopOffset] = useState(0);
   const [isModalOpened, setIsModalOpened] = useState(false);
+
+  const { t } = useTranslation();
+
   const offsetLimit = 15;
   const handleScroll = () => {
     setTopOffset(window.scrollY);
@@ -62,11 +66,11 @@ const Header = () => {
                     onClick={handleCreateBoard}
                   >
                     <GoPlus />
-                    Create Board
+                    {t('createBoard')}
                   </button>
                   <div className={styles.routToglersWrapper}>
                     <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
-                      Main
+                      {t('main')}
                     </NavLink>
                     <LangToggler />
                     <ThemeToggler />
