@@ -8,6 +8,7 @@ import useCurrentPage from 'hooks/useCurrentPage';
 import InputLineText from 'components/InputLineText';
 import ValidationErrorMessage from 'components/ValidationErrorMessage';
 import InputLinePassword from 'components/InputLinePassword';
+import { useTranslation } from 'react-i18next';
 
 const AuthForm = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +18,8 @@ const AuthForm = () => {
   const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [fileldsValues, setFieldsValues] = useState<Partial<IUser>>({});
+
+  const { t } = useTranslation();
 
   const {
     register,
@@ -74,33 +77,38 @@ const AuthForm = () => {
         <>
           <InputLineText
             inputName={'name'}
-            label={'Name'}
-            placeholder={'Enter your name'}
+            label={t('profileName')}
+            placeholder={t('namePlaceholder')}
             register={register}
             fieldValue={fileldsValues.name || ''}
             symbolsLimit={2}
           />
-          <ValidationErrorMessage message={errors.name && 'Min 2 symbols'} />
+          <ValidationErrorMessage
+            message={errors.name && (t('twoSymbolsValidationMessage') || '')}
+          />
         </>
       )}
       <InputLineText
         inputName={'login'}
-        label={'Login'}
-        placeholder={'Enter your login'}
+        label={t('profileLogin')}
+        placeholder={t('loginPlaceholder')}
         register={register}
         fieldValue={fileldsValues.login || ''}
         symbolsLimit={2}
       />
-      <ValidationErrorMessage message={errors.login && 'Min 2 symbols'} />
+      <ValidationErrorMessage message={errors.login && (t('twoSymbolsValidationMessage') || '')} />
       <InputLinePassword
         inputName={'password'}
-        label={'Password'}
+        label={t('passwordLabel')}
         register={register}
         fieldValue={fileldsValues.password || ''}
+        placeholder={t('passwordPlaceholder') || ''}
       />
-      <ValidationErrorMessage message={errors.password && 'Required, min 6 symbols'} />
+      <ValidationErrorMessage
+        message={errors.password && (t('sixSymbolsValidationMessage') || '')}
+      />
       <button className={styles.button} disabled={isSubmitBtnDisabled}>
-        {isAuthPage ? 'Sign up' : 'Sign in'}
+        {isAuthPage ? t('signUp') : t('signIn')}
       </button>
     </form>
   );

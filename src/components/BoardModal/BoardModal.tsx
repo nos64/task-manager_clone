@@ -8,6 +8,7 @@ import FormButtons from 'components/FormButtons';
 import ValidationErrorMessage from 'components/ValidationErrorMessage';
 import { FaRegClipboard } from 'react-icons/fa';
 import InputTextarea from 'components/InputTextarea';
+import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { createNewBoard, setIsBurgerOpen, updateBoardById } from '../../store/reducers/boardsSlice';
 import { useNavigate } from 'react-router-dom';
@@ -27,10 +28,14 @@ const BoardModal: React.FC<BoardModalProps> = ({
   selectedBoard,
 }) => {
   const [fileldsValues, setFieldsValues] = useState<Partial<IBoard>>({});
+
+  const { t } = useTranslation();
+
   const userID = useAppSelector((state) => state.user.id);
   const activeBoard = useAppSelector((state) => state.boards.activeBoard);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -100,30 +105,36 @@ const BoardModal: React.FC<BoardModalProps> = ({
       <div className={styles.elementModal}>
         <div className={styles.titleWrapper}>
           <FaRegClipboard size={25} />
-          <h2>{modalMode === 'create' ? 'Create' : 'Edit'} board</h2>
+          <h2>
+            {modalMode === 'create' ? t('create') : t('edit')} {t('board')}
+          </h2>
         </div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)} onChange={onChange}>
           <InputLineText
             inputName={'title'}
-            label={'Title'}
-            placeholder={'Name your board'}
+            label={t('titleLabel')}
+            placeholder={t('titlePlaceholder')}
             register={register}
             fieldValue={fileldsValues.title || ''}
             symbolsLimit={1}
           />
-          <ValidationErrorMessage message={errors.title && 'Min 1 symbol'} />
+          <ValidationErrorMessage
+            message={errors.title && (t('oneSymbolValidationMessage') || '')}
+          />
           <InputTextarea
             inputName={'description'}
-            label={'Description'}
-            placeholder={'Add a description'}
+            label={t('descriptionLabel')}
+            placeholder={t('descriptionPlaceholder')}
             register={register}
             fieldValue={fileldsValues.description || ''}
             symbolsLimit={200}
           />
-          <ValidationErrorMessage message={errors.description && 'Max 200 symbols'} />
+          <ValidationErrorMessage
+            message={errors.description && (t('twoHundredSymbolsValidationMessage') || '')}
+          />
           <FormButtons
             handleCancelBtnClick={onReset}
-            acceptBtnTitle={modalMode === 'create' ? 'Create' : 'Update'}
+            acceptBtnTitle={modalMode === 'create' ? t('create') : t('updateButton')}
           />
         </form>
       </div>

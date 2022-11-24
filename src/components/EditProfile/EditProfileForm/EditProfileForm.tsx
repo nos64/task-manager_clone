@@ -7,6 +7,7 @@ import InputLinePassword from 'components/InputLinePassword';
 import InputLineText from 'components/InputLineText';
 import IUser from 'types/IUser';
 import FormButtons from 'components/FormButtons';
+import { useTranslation } from 'react-i18next';
 
 const EditProfileForm = () => {
   const {
@@ -18,6 +19,8 @@ const EditProfileForm = () => {
   } = useForm<Partial<IUser>>();
 
   const [fileldsValues, setFieldsValues] = useState<Partial<IUser>>({});
+
+  const { t } = useTranslation();
 
   const onChange = () => {
     const currentFieldsValues = getValues();
@@ -40,36 +43,41 @@ const EditProfileForm = () => {
     <div className={styles.formWrapper}>
       <div className={styles.titleWrapper}>
         <FaUserEdit size={25} />
-        <h2>Edit your profile</h2>
+        <h2>{t('profileTitle')}</h2>
       </div>
 
       <form className={styles.form} onSubmit={handleSubmit(handlerSubmitForm)} onChange={onChange}>
         <InputLineText
           inputName={'name'}
-          label={'Name'}
-          placeholder={'Enter new name'}
+          label={t('profileName')}
+          placeholder={t('newNamePlaceholder')}
           register={register}
           fieldValue={fileldsValues.name || ''}
           symbolsLimit={2}
         />
-        <ValidationErrorMessage message={errors.name && 'Min 2 symbols'} />
+        <ValidationErrorMessage message={errors.name && (t('twoSymbolsValidationMessage') || '')} />
         <InputLineText
           inputName={'login'}
-          label={'Login'}
-          placeholder={'Enter new Login'}
+          label={t('profileLogin')}
+          placeholder={t('newLoginPlaceholder')}
           register={register}
           fieldValue={fileldsValues.login || ''}
           symbolsLimit={2}
         />
-        <ValidationErrorMessage message={errors.login && 'Min 2 symbols'} />
+        <ValidationErrorMessage
+          message={errors.login && (t('twoSymbolsValidationMessage') || '')}
+        />
         <InputLinePassword
           inputName={'password'}
-          label={'New Password'}
+          label={t('newPasswordLabel')}
           register={register}
           fieldValue={fileldsValues.password || ''}
+          placeholder={t('newPasswordPlaceholder') || ''}
         />
-        <ValidationErrorMessage message={errors.password && 'Required, min 6 symbols'} />
-        <FormButtons handleCancelBtnClick={onReset} acceptBtnTitle={'Update'} />
+        <ValidationErrorMessage
+          message={errors.password && (t('sixSymbolsValidationMessage') || '')}
+        />
+        <FormButtons handleCancelBtnClick={onReset} acceptBtnTitle={t('updateButton')} />
       </form>
     </div>
   );

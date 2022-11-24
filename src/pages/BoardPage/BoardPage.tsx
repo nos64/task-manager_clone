@@ -11,6 +11,7 @@ import { DndType } from 'common/dnd-types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getColumns, updateColumnsOrder } from 'store/reducers/boardSlice';
 import ColumnModal from 'components/ColumnModal';
+import { useTranslation } from 'react-i18next';
 import { updateTasksOrder } from 'store/reducers/columnSlice';
 
 const BoardPage = () => {
@@ -22,6 +23,8 @@ const BoardPage = () => {
   const tasks = useAppSelector((state) => state.column.tasks);
 
   const [isModalOpened, setIsModalOpened] = useState(false);
+
+  const { t } = useTranslation();
 
   const handleDragEnd = (result: DropResult) => {
     const { destination, source, type, draggableId } = result;
@@ -92,10 +95,10 @@ const BoardPage = () => {
           <div className={styles.topBlock}>
             <Link className={styles.backBtn} to={ROUTES.BOARDS}>
               <FaLessThan className={styles.backBtnIcon} />
-              <span>Back</span>
+              <span className={styles.backLink}>{t('back')}</span>
             </Link>
             <div className={styles.boardInfo}>
-              <h3 className={styles.title}>{`Board: ${boardTitle}`}</h3>
+              <h3 className={styles.title}>{`${t('boardPageTitle')}: ${boardTitle}`}</h3>
               <p className={styles.description}>{boardDescription}</p>
             </div>
           </div>

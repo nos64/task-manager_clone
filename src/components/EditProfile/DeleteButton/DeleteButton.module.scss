@@ -7,5 +7,6 @@
 }
 
 .deleteBtn {
+  text-transform: uppercase;
   @include deleteButtonStyle;
 }
