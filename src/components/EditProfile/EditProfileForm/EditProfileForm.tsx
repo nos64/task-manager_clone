@@ -1,24 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './EditProfileForm.module.scss';
 import { FaUserEdit } from 'react-icons/fa';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import ValidationErrorMessage from '../../ValidationErrorMessage';
 import InputLinePassword from 'components/InputLinePassword';
 import InputLineText from 'components/InputLineText';
 import IUser from 'types/IUser';
 import FormButtons from 'components/FormButtons';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import IAvatar from 'types/IAvatar';
+import { setAvatarId, updateUserInfo } from 'store/reducers/userSlice';
 import { useTranslation } from 'react-i18next';
 
-const EditProfileForm = () => {
+interface EditProfileFormProps {
+  currentAvatar: IAvatar;
+}
+
+const EditProfileForm: React.FC<EditProfileFormProps> = ({ currentAvatar }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
     getValues,
     reset,
+    setValue,
   } = useForm<Partial<IUser>>();
 
   const [fileldsValues, setFieldsValues] = useState<Partial<IUser>>({});
+
+  const userName = useAppSelector((state) => state.user.name);
+  const userLogin = useAppSelector((state) => state.user.login);
+  const userId = useAppSelector((state) => state.user.id);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    setValue('name', userName);
+    setValue('login', userLogin);
+
+    setFieldsValues({
+      name: userName,
+      login: userLogin,
+    });
+  }, [setValue, userName, userLogin]);
 
   const { t } = useTranslation();
 
@@ -37,7 +60,22 @@ const EditProfileForm = () => {
     });
   };
 
-  const handlerSubmitForm: SubmitHandler<FieldValues> = (data) => console.log(data);
+  const onSubmit = (data: Partial<IUser>) => {
+    const userInfo = JSON.parse(localStorage.getItem(userId) || '');
+    const avatarID = currentAvatar.id;
+    const options = {
+      name: data.name || '',
+      login: data.login || '',
+      password: data.password || '',
+    };
+
+    localStorage.setItem(userId, JSON.stringify({ ...userInfo, ...{ avatarID } }));
+    dispatch(setAvatarId(avatarID));
+    dispatch(updateUserInfo(options));
+
+    setValue('password', '');
+    setFieldsValues({ ...data, password: '' });
+  };
 
   return (
     <div className={styles.formWrapper}>
@@ -46,7 +84,7 @@ const EditProfileForm = () => {
         <h2>{t('profileTitle')}</h2>
       </div>
 
-      <form className={styles.form} onSubmit={handleSubmit(handlerSubmitForm)} onChange={onChange}>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)} onChange={onChange}>
         <InputLineText
           inputName={'name'}
           label={t('profileName')}
