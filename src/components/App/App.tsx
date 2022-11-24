@@ -21,6 +21,7 @@ const App: React.FC = () => {
   const isAuthorisationError = useAppSelector((state) => state.user.isAuthorisationError);
   const isTokenRequireUpdate = useAppSelector((state) => state.user.isTokenRequireUpdate);
   const isRoutesProtected = useAppSelector((state) => state.user.isRoutesProtected);
+  const isProfileUpdated = useAppSelector((state) => state.user.isProfileUpdated);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -46,6 +47,17 @@ const App: React.FC = () => {
       });
     }
   }, [isTokenRequireUpdate]);
+
+  useEffect(() => {
+    if (isProfileUpdated) {
+      toast.success('Profile was updated successfully', {
+        position: toast.POSITION.TOP_CENTER,
+        theme: 'dark',
+        className: styles.toastMessageSuccess,
+        progressClassName: styles.toastProgressBarSuccess,
+      });
+    }
+  }, [isProfileUpdated]);
 
   useEffect(() => {
     dispatch(getUserById());

@@ -66,11 +66,12 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ currentAvatar }) => {
       password: data.password || '',
     };
 
-    setValue('password', '');
-
     localStorage.setItem(userId, JSON.stringify({ ...userInfo, ...{ avatarID } }));
     dispatch(setAvatarId(avatarID));
     dispatch(updateUserInfo(options));
+    // displaying errors on type after submit
+    setValue('password', '');
+    setFieldsValues({ ...data, password: '' });
   };
 
   return (

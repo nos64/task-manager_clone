@@ -2,7 +2,8 @@
 @import './../../styles/variables.scss';
 
 .toastMessage,
-.toastMessageWarning {
+.toastMessageWarning,
+.toastMessageSuccess {
   margin-top: 70px;
   border-radius: $border-raduis-small;
   background-color: $base-light-color !important;
@@ -27,10 +28,20 @@
   }
 }
 
+.toastMessageSuccess {
+  & svg path {
+    fill: $accent-color-second !important;
+  }
+}
+
 .toastProgressBar {
   background-color: $warning-color !important;
 }
 
 .toastProgressBarWarning {
   background-color: $warning-color-second !important;
+}
+
+.toastProgressBarSuccess {
+  background-color: $accent-color-second !important;
 }

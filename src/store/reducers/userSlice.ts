@@ -132,6 +132,7 @@ interface UserState {
   isTokenRequireUpdate: boolean;
   isRoutesProtected: boolean;
   isTokenExpired: boolean;
+  isProfileUpdated: boolean;
 }
 
 const initialState: UserState = {
@@ -149,6 +150,7 @@ const initialState: UserState = {
   isTokenRequireUpdate: false,
   isRoutesProtected: !!localStorage.getItem('token'),
   isTokenExpired: false,
+  isProfileUpdated: false,
 };
 
 export const userSlice = createSlice({
@@ -284,12 +286,14 @@ export const userSlice = createSlice({
 
     builder.addCase(updateUserInfo.pending, (state) => {
       state.isPending = true;
+      state.isProfileUpdated = false;
     });
     builder.addCase(updateUserInfo.fulfilled, (state, action) => {
       state.isPending = false;
       state.name = action.payload.name;
       state.login = action.payload.login;
       state.id = action.payload._id;
+      state.isProfileUpdated = true;
     });
     builder.addCase(updateUserInfo.rejected, (state, action) => {
       state.isPending = false;
