@@ -133,6 +133,7 @@ interface UserState {
   isRoutesProtected: boolean;
   isTokenExpired: boolean;
   isProfileUpdated: boolean;
+  isProfileDeleted: boolean;
 }
 
 const initialState: UserState = {
@@ -151,6 +152,7 @@ const initialState: UserState = {
   isRoutesProtected: !!localStorage.getItem('token'),
   isTokenExpired: false,
   isProfileUpdated: false,
+  isProfileDeleted: false,
 };
 
 export const userSlice = createSlice({
@@ -305,6 +307,7 @@ export const userSlice = createSlice({
 
     builder.addCase(deleteUserAccount.pending, (state) => {
       state.isPending = true;
+      state.isProfileDeleted = false;
     });
     builder.addCase(deleteUserAccount.fulfilled, (state) => {
       localStorage.removeItem('token');
@@ -319,6 +322,7 @@ export const userSlice = createSlice({
       state.language = 'EN';
       state.theme = 'dark';
       state.avatarID = 0;
+      state.isProfileDeleted = true;
     });
     builder.addCase(deleteUserAccount.rejected, (state, action) => {
       state.isPending = false;
