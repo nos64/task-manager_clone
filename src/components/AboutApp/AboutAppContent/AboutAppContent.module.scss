@@ -6,12 +6,6 @@
   @extend %centered;
   overflow: hidden;
   gap: 15px;
-  visibility: hidden;
-  transition: all 2s ease;
-}
-
-.activeWrapper {
-  visibility: visible;
 }
 
 .title {
@@ -30,28 +24,13 @@
   width: 550px;
 }
 
-.navList {
-  display: flex;
-  gap: 15px;
-  font-size: 20px;
-}
-
-.navItem:first-child {
-  @include buttonStyle(5px, 30px);
-  width: 150px;
-  text-align: center;
-}
-
-.navItem {
-  @include buttonStyleNegative(5px, 30px);
-}
-
 .imageWrapper {
   max-width: 700px;
 }
 
-.image {
-  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0)), linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0));
+.benefitImage {
+  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0)),
+    linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0));
   -webkit-mask-size: 100% 90%;
   -webkit-mask-repeat: no-repeat;
 }

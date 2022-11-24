@@ -39,12 +39,16 @@
 }
 
 .contentItem {
-  // visibility: hidden;
-  // transition: all 0.3s ease;
-  display: none;
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
 }
 
 .contentItemActive {
-  // visibility: visible;
-  display: block;
+  opacity: 1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=1);
 }
