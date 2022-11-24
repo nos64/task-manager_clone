@@ -46,7 +46,7 @@ const HeroComponent = () => {
         </div>
       </div>
       <div className={styles.imageWrapper}>
-        <img className={styles.heroImage} src={heroImage} alt="Hero Image" width="700px" />
+        <img className={styles.image} src={heroImage} alt="Hero Image" width="700px" />
       </div>
     </section>
   );
