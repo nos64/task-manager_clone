@@ -5,14 +5,7 @@
 .contentWrapper {
   @extend %centered;
   flex-direction: column;
-  gap: 80px;
-}
-
-.wrapper {
-  @extend %centered;
-  overflow: hidden;
-  gap: 15px;
-  // min-height: 100vh;
+  gap: 30px;
 }
 
 .title {
@@ -23,36 +16,33 @@
   margin-bottom: 1.5rem
 }
 
-.subtitle {
-  font-size: 1.5rem;
-  color: $color-text-secondary;
-  line-height: 1.5;
-  margin-bottom: 3rem;
-  width: 550px;
-}
-
-.navList {
+.buttonList {
   display: flex;
-  gap: 15px;
-  font-size: 20px;
+  gap: 30px;
 }
 
-.navItem:first-child {
+.button {
   @include buttonStyle(5px, 30px);
   width: 150px;
   text-align: center;
 }
 
-.navItem {
+.activeButton {
   @include buttonStyleNegative(5px, 30px);
+  width: 150px;
 }
 
-.imageWrapper {
-  max-width: 700px;
+.contentList {
+  min-height: 500px;
+  width: 100%;
+  position: relative;
 }
 
-.image {
-  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0)), linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0));
-  -webkit-mask-size: 100% 90%;
-  -webkit-mask-repeat: no-repeat;
+.contentItem {
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.contentItemActive {
+  visibility: visible;
 }

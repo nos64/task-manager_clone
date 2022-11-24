@@ -1,49 +1,86 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './AboutApp.module.scss';
 import planImage from '../../assets/images/planImage.png';
-import descriptionImage from '../../assets/images/descriptionImage.png';
+import simpleImage from '../../assets/images/descriptionImage.png';
 import changeImage from '../../assets/images/changeImage.png';
+import dragNdropImage from '../../assets/images/dragNdropImage.png';
+import AboutAppContent from './AboutAppContent';
+
 const AboutApp = () => {
+  const benefitsContent = [
+    {
+      id: '01',
+      title: 'Plan',
+      isActive: true,
+      description:
+        ' Break the big ideas down into manageable chunks across teams with user stories, issues, and tasks.',
+      video: planImage,
+    },
+    {
+      id: '02',
+      title: 'Simplicity',
+      isActive: false,
+      description:
+        'Break the big ideas down into manageable chunks across teams with user stories, issues, and tasks.',
+      video: simpleImage,
+    },
+    {
+      id: '03',
+      title: 'Change',
+      isActive: false,
+      description: 'Customize your profile.',
+      video: changeImage,
+    },
+    {
+      id: '04',
+      title: 'Comfortable',
+      isActive: false,
+      description: 'Transfer tasks and columns by drag and drop. Add an unlimited number of tasks.',
+      video: dragNdropImage,
+    },
+  ];
+  const [benefitsArray, setBenefitsArray] = useState(benefitsContent);
+
+  const chooseActiveBenefit = (id: string) => {
+    const modifyArray = benefitsContent.map((item) =>
+      item.id === id ? { ...item, isActive: true } : { ...item, isActive: false }
+    );
+    setBenefitsArray(modifyArray);
+  };
+
   return (
-    <div className={styles.contentWrapper}>
-      <section className={styles.wrapper}>
-        <div className={styles.imageWrapper}>
-          <img className={styles.image} src={planImage} alt="Plan Image" width="700px" />
-        </div>
-        <div className={styles.content}>
-          <h2 className={styles.title}>Plan</h2>
-          <p className={styles.subtitle}>
-            Break the big ideas down into manageable chunks across teams with user stories, issues,
-            and tasks.
-          </p>
-        </div>
-      </section>
-      <section className={styles.wrapper}>
-        <div className={styles.content}>
-          <h2 className={styles.title}>Simplicity</h2>
-          <p className={styles.subtitle}>
-            CreateBoards, add description, distribute tasks among team members.
-          </p>
-        </div>
-        <div className={styles.imageWrapper}>
-          <img
-            className={styles.image}
-            src={descriptionImage}
-            alt="Description Image"
-            width="700px"
-          />
-        </div>
-      </section>
-      <section className={styles.wrapper}>
-        <div className={styles.imageWrapper}>
-          <img className={styles.image} src={changeImage} alt="Change Image" width="700px" />
-        </div>
-        <div className={styles.content}>
-          <h2 className={styles.title}>Change</h2>
-          <p className={styles.subtitle}>Customize your profile.</p>
-        </div>
-      </section>
-    </div>
+    <section className={styles.contentWrapper}>
+      <h2 className={styles.title}>Benefits of our Task Manager</h2>
+      <ul className={styles.buttonList}>
+        {benefitsArray.map((button) => (
+          <li className={styles.bittonItem} key={button.id}>
+            <button
+              className={
+                button.isActive ? styles.button + ' ' + styles.activeButton : styles.button
+              }
+              type="button"
+              onClick={() => chooseActiveBenefit(button.id)}
+            >
+              {button.title}
+            </button>
+          </li>
+        ))}
+      </ul>
+      <ul className={styles.contentList}>
+        {benefitsArray.map((item) => (
+          <li
+            key={item.id}
+            className={
+              item.isActive
+                ? styles.contentItem + ' ' + styles.contentItemActive
+                : styles.contentItem
+            }
+          >
+            <AboutAppContent title={item.title} description={item.description} video={item.video} />
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 };
 
