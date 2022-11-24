@@ -2,6 +2,7 @@ import { ROUTES } from 'common/routes';
 import AuthForm from 'components/AuthForm';
 import useCurrentPage from 'hooks/useCurrentPage';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import styles from './AuthPage.module.scss';
 
@@ -10,13 +11,17 @@ const AuthPage = () => {
 
   const isAuthPage = useCurrentPage();
 
+  const { t } = useTranslation();
+
   const switchPage = () => {
     isAuthPage ? navigate(ROUTES.SIGN_IN) : navigate(ROUTES.SIGN_UP);
   };
 
-  const title = isAuthPage ? 'Create new account' : 'Already with us?';
-  const subtitle = isAuthPage ? 'Sign up to Task Manager' : 'Sign in to Task Manager';
-  const switcherText = isAuthPage ? 'Already with us? ' : 'No account? ';
+  const title = isAuthPage ? t('createNewAccount') : `${t('alreadyWithUs')}?`;
+  const subtitle = isAuthPage ? t('signUpMessage') : t('signInMessage');
+  const switcherText = isAuthPage
+    ? `${t('authPageSwitcherRegistred')}? `
+    : `${t('authPageSwitcherNew')}? `;
 
   return (
     <div className={styles.wrapper}>
@@ -27,7 +32,7 @@ const AuthPage = () => {
         <div className={styles.formSwitcher}>
           {switcherText}
           <span className={styles.navigateTo} onClick={switchPage}>
-            {isAuthPage ? 'Sign in!' : 'Sign up!'}{' '}
+            {isAuthPage ? t('signIn') : t('signUp')}
           </span>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import { ROUTES } from 'common/routes';
 import { useAppSelector } from 'hooks/redux';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import sytles from './NotFoundPage.module.scss';
 
@@ -9,6 +10,8 @@ const NotFoundPage = () => {
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
 
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const handleBackBtnClick = () => {
     navigate(-1);
@@ -21,20 +24,17 @@ const NotFoundPage = () => {
   return (
     <div className={sytles.wrapper}>
       <div className={sytles.content}>
-        <h2 className={sytles.title}>Hmm.</h2>
-        <p className={sytles.description}>
-          It seems that you&apos;re lost in a perpetual black hole. Let us help guide you out and
-          get you back home.
-        </p>
+        <h2 className={sytles.title}>{t('hmm')}.</h2>
+        <p className={sytles.description}>{t('notfoundPageMessage')}.</p>
         <div className={sytles.btnsContainer}>
           <button className={sytles.button} type="button" onClick={handleBackBtnClick}>
-            back
+            {t('toPreviousPage')}
           </button>
           <button className={sytles.button} type="button" onClick={handleHomeBtnClick}>
-            home
+            {t('home')}
           </button>
         </div>
-        <p className={sytles.text}>Help me out</p>
+        <p className={sytles.text}>{t('help')}</p>
       </div>
       <div className={sytles.space}>
         <div className={sytles.blackhole}></div>
