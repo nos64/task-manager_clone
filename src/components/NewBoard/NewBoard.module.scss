@@ -27,6 +27,11 @@
       opacity: 0.5;
     }
   }
+
+  @media (max-width: 550px) {
+    max-width: 280px;
+    width: 100%;
+  }
 }
 
 .icon {
