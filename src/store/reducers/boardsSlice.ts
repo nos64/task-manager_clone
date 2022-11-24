@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createBoard, deleteBoard, findBoard, getUserRelatedBoards, updateBoard } from 'api/boards';
+import { createBoard, deleteBoard, getUserRelatedBoards, updateBoard } from 'api/boards';
 import { deleteColumn, getColumnsInBoard } from 'api/columns';
 import { deleteTask, getTasksInColumn } from 'api/tasks';
 import { AxiosError } from 'axios';
@@ -64,22 +64,6 @@ export const deleteBoardById = createAsyncThunk(
   }
 );
 
-export const getBoardById = createAsyncThunk(
-  'boards/getBoardById',
-  async (boardId: string, { rejectWithValue }) => {
-    try {
-      const board = await findBoard(boardId);
-      return board;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        return rejectWithValue(error.response?.status);
-      }
-
-      throw error;
-    }
-  }
-);
-
 interface updateParams {
   boardId: string;
   options: BoardPick;
@@ -130,6 +114,9 @@ export const boardsSlice = createSlice({
     setBoards(state, action: PayloadAction<IBoard[]>) {
       state.boards = action.payload;
     },
+    resetBoardsTokenExpiration(state) {
+      state.isTokenExpired = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardsByUserId.pending, (state) => {
@@ -177,6 +164,7 @@ export const boardsSlice = createSlice({
         state.isTokenExpired = true;
       }
     });
+
     builder.addCase(updateBoardById.pending, (state) => {
       state.isPending = true;
     });
@@ -197,5 +185,6 @@ export const boardsSlice = createSlice({
     });
   },
 });
-export const { setActiveBoard, setIsBurgerOpen, setBoards } = boardsSlice.actions;
+export const { setActiveBoard, setIsBurgerOpen, setBoards, resetBoardsTokenExpiration } =
+  boardsSlice.actions;
 export default boardsSlice.reducer;
