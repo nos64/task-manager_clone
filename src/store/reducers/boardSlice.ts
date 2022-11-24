@@ -6,6 +6,7 @@ import {
   updateColumn,
   updateColumnsSet,
 } from 'api/columns';
+import { deleteTask } from 'api/tasks';
 import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
 import { RootState } from 'store/store';
@@ -94,8 +95,13 @@ export const createBoardColumn = createAsyncThunk(
 
 export const deleteBoardColumn = createAsyncThunk(
   'board/deleteBoardColumn',
-  async (column: IColumn, { rejectWithValue }) => {
+  async (column: IColumn, { rejectWithValue, getState }) => {
     try {
+      const columnTasks = (getState() as RootState).column.tasks[column._id];
+      columnTasks.forEach((item) => {
+        deleteTask(item.boardId, item.columnId, item._id);
+      });
+
       const deletedColumn = await deleteColumn(column.boardId, column._id);
 
       return deletedColumn;
