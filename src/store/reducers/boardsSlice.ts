@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createBoard, deleteBoard, findBoard, getUserRelatedBoards, updateBoard } from 'api/boards';
+import { deleteColumn, getColumnsInBoard } from 'api/columns';
+import { deleteTask, getTasksInColumn } from 'api/tasks';
 import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
 import { BoardPick } from 'types/APIModel';
@@ -41,6 +43,15 @@ export const deleteBoardById = createAsyncThunk(
   'boards/deleteBoardById',
   async (boardId: string, { rejectWithValue }) => {
     try {
+      const boardColumns = await getColumnsInBoard(boardId);
+      for (const column of boardColumns) {
+        const columnTasks = await getTasksInColumn(boardId, column._id);
+        columnTasks.forEach((item) => {
+          deleteTask(item.boardId, item.columnId, item._id);
+        });
+        await deleteColumn(boardId, column._id);
+      }
+
       const deletedBoard = await deleteBoard(boardId);
       return deletedBoard;
     } catch (error) {
@@ -116,6 +127,9 @@ export const boardsSlice = createSlice({
     setIsBurgerOpen(state, action: PayloadAction<boolean>) {
       state.isBurgerOpen = action.payload;
     },
+    setBoards(state, action: PayloadAction<IBoard[]>) {
+      state.boards = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardsByUserId.pending, (state) => {
@@ -183,5 +197,5 @@ export const boardsSlice = createSlice({
     });
   },
 });
-export const { setActiveBoard, setIsBurgerOpen } = boardsSlice.actions;
+export const { setActiveBoard, setIsBurgerOpen, setBoards } = boardsSlice.actions;
 export default boardsSlice.reducer;

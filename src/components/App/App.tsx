@@ -6,46 +6,21 @@ import EditProfilePage from 'pages/EditProfilePage';
 import BoardPage from 'pages/BoardPage';
 import { Route, Routes } from 'react-router-dom';
 import { getUserById } from 'store/reducers/userSlice';
-
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import styles from './App.module.scss';
 import NotFoundPage from 'pages/NotFoundPage';
 import ProtectedRoute from 'components/ProtectedRoute';
 import AuthPage from 'pages/AuthPage';
 import BoardsPage from 'pages/BoardsPage';
 import WelcomePage from 'pages/WelcomePage';
+import useAppToasts from 'hooks/useAppToasts';
 
 const App: React.FC = () => {
-  const isLoginAlreadyExist = useAppSelector((state) => state.user.isLoginAlreadyExist);
-  const isAuthorisationError = useAppSelector((state) => state.user.isAuthorisationError);
-  const isTokenRequireUpdate = useAppSelector((state) => state.user.isTokenRequireUpdate);
   const isRoutesProtected = useAppSelector((state) => state.user.isRoutesProtected);
+
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (isLoginAlreadyExist || isAuthorisationError) {
-      const message = isLoginAlreadyExist ? 'Login already exists' : 'Wrong login or password';
-
-      toast.error(message, {
-        position: toast.POSITION.TOP_CENTER,
-        theme: 'dark',
-        className: styles.toastMessage,
-        progressClassName: styles.toastProgressBar,
-      });
-    }
-  }, [isLoginAlreadyExist, isAuthorisationError]);
-
-  useEffect(() => {
-    if (isTokenRequireUpdate) {
-      toast.warning('Invalid token. Please sign in again', {
-        position: toast.POSITION.TOP_CENTER,
-        theme: 'dark',
-        className: styles.toastMessageWarning,
-        progressClassName: styles.toastProgressBarWarning,
-      });
-    }
-  }, [isTokenRequireUpdate]);
+  useAppToasts();
 
   useEffect(() => {
     dispatch(getUserById());
@@ -72,7 +47,7 @@ const App: React.FC = () => {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
-      <ToastContainer className={styles.toastError} rtl />
+      <ToastContainer rtl />
     </>
   );
 };
