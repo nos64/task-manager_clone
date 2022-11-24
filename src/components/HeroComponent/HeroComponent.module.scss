@@ -28,21 +28,19 @@
 .navList {
   display: flex;
   gap: 15px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .navLink {
   display: block;
-  @include buttonStyle(10px, 30px);
+  @include buttonStyle(10px, 25px);
   width: 180px;
-  text-align: center;
 }
 
 .navLinkAlt {
   display: block;
-  @include buttonStyleNegative(10px, 30px);
+  @include buttonStyleNegative(10px, 25px);
   width: 180px;
-  text-align: center;
 }
 
 .imageWrapper {
