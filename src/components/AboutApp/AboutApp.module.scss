@@ -22,14 +22,16 @@
 }
 
 .button {
-  @include buttonStyle(5px, 30px);
+  @include buttonStyle(10px, 30px);
   width: 180px;
   text-align: center;
+  font-size: 20px;
 }
 
 .activeButton {
-  @include buttonStyleNegative(5px, 30px);
+  @include buttonStyleNegative(10px, 30px);
   width: 180px;
+  font-size: 20px;
 }
 
 .contentList {
@@ -42,7 +44,7 @@
   position: absolute;
   left: 0;
   opacity: 0;
-  transition: opacity 0.1s ease-out;
+  transition: opacity 0.2s ease-out;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
 }

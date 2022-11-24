@@ -33,12 +33,16 @@
 
 .navLink {
   display: block;
-  @include buttonStyle(5px, 30px);
+  @include buttonStyle(10px, 30px);
+  width: 180px;
+  text-align: center;
 }
 
 .navLinkAlt {
   display: block;
-  @include buttonStyleNegative(5px, 30px);
+  @include buttonStyleNegative(10px, 30px);
+  width: 180px;
+  text-align: center;
 }
 
 .imageWrapper {
