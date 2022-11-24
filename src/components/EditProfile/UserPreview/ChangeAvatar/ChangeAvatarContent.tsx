@@ -1,20 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ChangeAvatarContent.module.scss';
 import { avatars } from '../../../../common/constants';
 import IAvatar from 'types/IAvatar';
+import Modal from 'components/Modal';
 
 interface IChangeAvatarContent {
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
   currentAvatar: IAvatar;
   setCurrentAvatar: React.Dispatch<React.SetStateAction<IAvatar>>;
+  isModalActive: boolean;
 }
 const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
   setModalActive,
   currentAvatar,
   setCurrentAvatar,
+  isModalActive,
 }) => {
-  const [activeAvatar, setActiveAvatar] = useState(currentAvatar);
-  const [avatarsArray, setAvatarArray] = useState(avatars);
+  const [activeAvatar, setActiveAvatar] = useState<IAvatar>();
+  const [avatarsArray, setAvatarArray] = useState<IAvatar[]>([]);
+
+  useEffect(() => {
+    const newAvatars = avatars.map((avatar) =>
+      avatar.id === currentAvatar.id ? { ...avatar, isCurrent: true } : { ...avatar }
+    );
+
+    setActiveAvatar(currentAvatar);
+    setAvatarArray(newAvatars);
+  }, [currentAvatar]);
 
   const chooseActiveAvatar = (id: number) => {
     const newAvatarArray = avatarsArray.map((img) =>
@@ -36,8 +48,17 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
     if (currentImage) setCurrentAvatar(currentImage);
     setModalActive(false);
   };
+
+  const closeModal = () => {
+    const newAvatars = avatarsArray.map((img) => ({ ...img, isActive: false }));
+
+    setAvatarArray(newAvatars);
+    setActiveAvatar(currentAvatar);
+    setModalActive(false);
+  };
+
   return (
-    <>
+    <Modal modalActive={isModalActive} setModalActive={closeModal}>
       <div className={styles.imagesWrapper}>
         {avatarsArray.map((image) => (
           <span
@@ -67,15 +88,15 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
           className={styles.submitBtn}
           type="button"
           onClick={saveNewAvatar}
-          disabled={currentAvatar.src === activeAvatar.src}
+          disabled={currentAvatar.src === activeAvatar?.src}
         >
           CHANGE
         </button>
-        <button className={styles.canselBtn} type="button" onClick={() => setModalActive(false)}>
+        <button className={styles.canselBtn} type="button" onClick={closeModal}>
           CANCEL
         </button>
       </div>
-    </>
+    </Modal>
   );
 };
 

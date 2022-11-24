@@ -19,7 +19,7 @@ export const avatars = [
   {
     id: 0,
     src: userImage0,
-    isCurrent: true,
+    isCurrent: false,
     isActive: false,
   },
   {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from './UserPreview.module.scss';
-import Modal from 'components/Modal';
 import ChangeAvatarContent from './ChangeAvatar';
 import { useAppSelector } from 'hooks/redux';
 import IAvatar from 'types/IAvatar';
@@ -11,20 +10,20 @@ interface UserPreviewProps {
 }
 
 const UserPreview: React.FC<UserPreviewProps> = ({ currentAvatar, setCurrentAvatar }) => {
-  const [modalActive, setModalActive] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
   const name = useAppSelector((state) => state.user.name);
   const login = useAppSelector((state) => state.user.login);
-
-  const closeModal = () => {
-    setModalActive(false);
-  };
 
   return (
     <>
       <div className={styles.wrapper}>
         <div className={styles.avatrWrapper}>
           <img src={currentAvatar.src} width={120} alt={`User image-${currentAvatar.id}`} />
-          <button className={styles.avatarButon} type="button" onClick={() => setModalActive(true)}>
+          <button
+            className={styles.avatarButon}
+            type="button"
+            onClick={() => setIsModalActive(true)}
+          >
             Change avatar
           </button>
         </div>
@@ -37,13 +36,12 @@ const UserPreview: React.FC<UserPreviewProps> = ({ currentAvatar, setCurrentAvat
           </p>
         </div>
       </div>
-      <Modal modalActive={modalActive} setModalActive={closeModal}>
-        <ChangeAvatarContent
-          setModalActive={setModalActive}
-          currentAvatar={currentAvatar}
-          setCurrentAvatar={setCurrentAvatar}
-        />
-      </Modal>
+      <ChangeAvatarContent
+        setModalActive={setIsModalActive}
+        currentAvatar={currentAvatar}
+        setCurrentAvatar={setCurrentAvatar}
+        isModalActive={isModalActive}
+      />
     </>
   );
 };
