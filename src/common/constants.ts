@@ -73,3 +73,27 @@ export const avatars = [
     isActive: false,
   },
 ];
+
+export const ourTeams = [
+  {
+    imageSrc: 'https://avatars.githubusercontent.com/u/91889887?v=4',
+    gitLink: 'https://github.com/andrewkarev',
+    name: 'Andrew',
+    role: 'Frontend Developer, Backend Developer TeamLaed',
+    description: '',
+  },
+  {
+    imageSrc: 'https://avatars.githubusercontent.com/u/37663828?v=4',
+    gitLink: 'https://github.com/kritskaya',
+    name: 'Tatyana Kritskaya',
+    role: 'Frontend Developer',
+    description: '',
+  },
+  {
+    imageSrc: 'https://avatars.githubusercontent.com/u/67101576?v=4',
+    gitLink: 'https://github.com/nos64',
+    name: 'Mikhail Nosov',
+    role: 'Frontend Developer',
+    description: '',
+  },
+];

@@ -1,0 +1,68 @@
+@import '../../styles/colors.scss';
+@import '../../styles/extensions.scss';
+@import '../../styles/mixins.scss';
+@import '../../styles/fonts.scss';
+@import '../../styles/variables.scss';
+
+.contentWrapper {
+  @extend %centered;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
+
+.title {
+  font-size: 2rem;
+  color: $base-light-color;
+  line-height: 1.25;
+  font-weight: 700;
+  margin-bottom: 1.5rem
+}
+
+.teamList {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
+
+.teamItem {
+  display: flex;
+  justify-content: left;
+  gap: 50px;
+}
+
+.teamItem:nth-child(even) {
+  justify-content: right;
+  flex-direction: row-reverse;
+}
+
+.imageWrapper {
+  display: flex;
+  width: 200px;
+  height: auto;
+  border-radius: $border-radius-medium;
+  overflow: hidden;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: $base-light-color;
+  line-height: 1.5;
+}
+
+.memberTitle {
+  font-size: 32px;
+  font-weight: 700;
+  transition: color 0.3s ease-in-out;
+}
+
+.memberTitle:hover {
+  color: $primary-button;
+}
+
+.memberRole {
+  font-size: 24px;
+}
