@@ -12,22 +12,20 @@
   color: $base-light-color;
   padding: 0 20px;
   z-index: 50;
-  transition: all .6s ease;
+  transition: all 0.6s ease;
 }
 
 .togglersWrapper {
   position: absolute;
   right: 20px;
   top: -60px;
-  display: flex;
   gap: 15px;
   display: none;
 }
 
 .navLink {
   display: flex;
-  padding: 8px 25px;
-  width: 95px;
+  padding: 8px 12.5px;
   border-radius: 22px;
   border: 2px solid $accent-color;
   transition: 0.3s ease-in-out;
@@ -48,7 +46,7 @@
 
 .createBoardBtn {
   display: flex;
-  align-items:flex-start;
+  align-items: flex-start;
   margin: 10px auto 10px 0;
   gap: 5px;
   font-size: 16px;
@@ -89,12 +87,13 @@
   }
 
   & ::-webkit-search-cancel-button {
-    -webkit-appearance: none; 
-    width: 20px; 
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
     height: 20px;
     background: url('../../../../assets/images/inputClear.svg');
     margin-right: 2px;
-    cursor: pointer; 
+    cursor: pointer;
   }
 }
 
@@ -113,8 +112,8 @@
   padding: 3px 0;
   border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
+
   @include contentLimit(1);
-  
   &:hover {
     background-color: $background-hovered;
     border: 1px solid $base-dark-lighter-color;
@@ -141,4 +140,3 @@
     display: flex;
   }
 }
-

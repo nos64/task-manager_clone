@@ -1,48 +1,51 @@
 import React, { useState } from 'react';
 import styles from './UserPreview.module.scss';
-import Modal from 'components/Modal';
 import ChangeAvatarContent from './ChangeAvatar';
-import { avatars } from 'common/constants';
 import { useAppSelector } from 'hooks/redux';
+import IAvatar from 'types/IAvatar';
+import { useTranslation } from 'react-i18next';
 
-const UserPreview = () => {
-  const [modalActive, setModalActive] = useState(false);
-  const [avatarsArray, setAvatarArray] = useState(avatars);
-  const [currentAvatar, setCurrentAvatar] = useState(avatars[0]);
+interface UserPreviewProps {
+  currentAvatar: IAvatar;
+  setCurrentAvatar: React.Dispatch<React.SetStateAction<IAvatar>>;
+}
+
+const UserPreview: React.FC<UserPreviewProps> = ({ currentAvatar, setCurrentAvatar }) => {
+  const [isModalActive, setIsModalActive] = useState(false);
   const name = useAppSelector((state) => state.user.name);
   const login = useAppSelector((state) => state.user.login);
 
-  const closeModal = () => {
-    setModalActive(false);
-  };
+  const { t } = useTranslation();
 
   return (
     <>
       <div className={styles.wrapper}>
         <div className={styles.avatrWrapper}>
           <img src={currentAvatar.src} width={120} alt={`User image-${currentAvatar.id}`} />
-          <button className={styles.avatarButon} type="button" onClick={() => setModalActive(true)}>
-            Change avatar
+
+          <button
+            className={styles.avatarButon}
+            type="button"
+            onClick={() => setIsModalActive(true)}
+          >
+            {t('changeAvatar')}
           </button>
         </div>
         <div className={styles.nameWrapper}>
           <p className={styles.description}>
-            Name: <span className={styles.value}>{name}</span>
+            {t('profileName')}: <span className={styles.value}>{name}</span>
           </p>
           <p className={styles.description}>
-            Login: <span className={styles.value}>{login}</span>
+            {t('profileLogin')}: <span className={styles.value}>{login}</span>
           </p>
         </div>
       </div>
-      <Modal modalActive={modalActive} setModalActive={closeModal}>
-        <ChangeAvatarContent
-          setModalActive={setModalActive}
-          currentAvatar={currentAvatar}
-          setCurrentAvatar={setCurrentAvatar}
-          avatarsArray={avatarsArray}
-          setAvatarArray={setAvatarArray}
-        />
-      </Modal>
+      <ChangeAvatarContent
+        setModalActive={setIsModalActive}
+        currentAvatar={currentAvatar}
+        setCurrentAvatar={setCurrentAvatar}
+        isModalActive={isModalActive}
+      />
     </>
   );
 };

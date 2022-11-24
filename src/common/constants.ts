@@ -11,15 +11,11 @@ import userImage9 from '../assets/images/userImage9.png';
 
 export const API_URL = `https://task-manager.adaptable.app`;
 
-export const deleteAccountWarningMessage = 'delete your account';
-export const deleteColumnWarningMessage = 'delete this column';
-export const deleteTaskWarningMessage = 'delete this task';
-
 export const avatars = [
   {
     id: 0,
     src: userImage0,
-    isCurrent: true,
+    isCurrent: false,
     isActive: false,
   },
   {
@@ -77,6 +73,3 @@ export const avatars = [
     isActive: false,
   },
 ];
-
-export const deleteBoardMessage = 'delete this board';
-export const noMatchesMessage = 'No results were found for ';

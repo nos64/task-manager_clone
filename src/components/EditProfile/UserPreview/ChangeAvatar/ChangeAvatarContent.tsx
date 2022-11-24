@@ -1,27 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './ChangeAvatarContent.module.scss';
+import { avatars } from '../../../../common/constants';
+import IAvatar from 'types/IAvatar';
+import Modal from 'components/Modal';
 
-interface IAvatar {
-  id: number;
-  src: string;
-  isCurrent: boolean;
-  isActive: boolean;
-}
 interface IChangeAvatarContent {
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
   currentAvatar: IAvatar;
   setCurrentAvatar: React.Dispatch<React.SetStateAction<IAvatar>>;
-  avatarsArray: IAvatar[];
-  setAvatarArray: React.Dispatch<React.SetStateAction<IAvatar[]>>;
+  isModalActive: boolean;
 }
 const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
   setModalActive,
   currentAvatar,
   setCurrentAvatar,
-  avatarsArray,
-  setAvatarArray,
+  isModalActive,
 }) => {
-  const [activeAvatar, setActiveAvatar] = useState(currentAvatar);
+  const [activeAvatar, setActiveAvatar] = useState<IAvatar>();
+  const [avatarsArray, setAvatarArray] = useState<IAvatar[]>([]);
+
+  useEffect(() => {
+    const newAvatars = avatars.map((avatar) =>
+      avatar.id === currentAvatar.id ? { ...avatar, isCurrent: true } : { ...avatar }
+    );
+
+    setActiveAvatar(currentAvatar);
+    setAvatarArray(newAvatars);
+  }, [currentAvatar]);
+
+  const { t } = useTranslation();
 
   const chooseActiveAvatar = (id: number) => {
     const newAvatarArray = avatarsArray.map((img) =>
@@ -43,8 +51,17 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
     if (currentImage) setCurrentAvatar(currentImage);
     setModalActive(false);
   };
+
+  const closeModal = () => {
+    const newAvatars = avatarsArray.map((img) => ({ ...img, isActive: false }));
+
+    setAvatarArray(newAvatars);
+    setActiveAvatar(currentAvatar);
+    setModalActive(false);
+  };
+
   return (
-    <>
+    <Modal modalActive={isModalActive} setModalActive={closeModal}>
       <div className={styles.imagesWrapper}>
         {avatarsArray.map((image) => (
           <span
@@ -74,15 +91,15 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
           className={styles.submitBtn}
           type="button"
           onClick={saveNewAvatar}
-          disabled={currentAvatar.src === activeAvatar.src}
+          disabled={currentAvatar.src === activeAvatar?.src}
         >
-          CHANGE
+          {t('changeButton')}
         </button>
-        <button className={styles.canselBtn} type="button" onClick={() => setModalActive(false)}>
-          CANCEL
+        <button className={styles.canselBtn} type="button" onClick={closeModal}>
+          {t('cancelButton')}
         </button>
       </div>
-    </>
+    </Modal>
   );
 };
 

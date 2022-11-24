@@ -4,33 +4,42 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './HeroComponent.module.scss';
 import heroImage from '../../assets/images/heroImage.png';
+import { useTranslation } from 'react-i18next';
 
 const HeroComponent = () => {
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
 
+  const { t } = useTranslation();
+
   return (
     <section className={styles.wrapper}>
       <div className={styles.content}>
-        <h2 className={styles.title}>Unite your team</h2>
+        <h2 className={styles.title}>{t('heroTitle')}</h2>
         <p className={styles.subtitle}>
-          <strong>Task Manager</strong> - the easy way to organize, plan and track progress on your
-          projects.
+          <strong>Task Manager</strong>
+          {t('heroMessage')}
         </p>
         <div className={styles.navButtons}>
           <ul className={styles.navList}>
             {!isAuthorised ? (
               <>
-                <li className={styles.navItem}>
-                  <NavLink to={ROUTES.SIGN_IN}>Sign in</NavLink>
+                <li>
+                  <NavLink className={styles.navLink} to={ROUTES.SIGN_IN}>
+                    {t('signIn')}
+                  </NavLink>
                 </li>
                 <li className={styles.navSeparator}></li>
-                <li className={styles.navItem}>
-                  <NavLink to={ROUTES.SIGN_UP}>Sign up</NavLink>
+                <li>
+                  <NavLink className={styles.navLinkAlt} to={ROUTES.SIGN_UP}>
+                    {t('signUp')}
+                  </NavLink>
                 </li>
               </>
             ) : (
-              <li className={styles.navItem}>
-                <NavLink to={ROUTES.BOARDS}>Main</NavLink>
+              <li>
+                <NavLink className={styles.navLink} to={ROUTES.BOARDS}>
+                  {t('main')}
+                </NavLink>
               </li>
             )}
           </ul>
