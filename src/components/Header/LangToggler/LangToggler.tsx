@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import i18n from 'i18next';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { setIsBurgerOpen } from 'store/reducers/boardsSlice';
 import { setLanguage } from 'store/reducers/userSlice';
 import Languages from 'types/Languages';
@@ -20,10 +19,6 @@ const LangToggler = () => {
 
     if (isBurgerOpen) dispatch(setIsBurgerOpen(false));
   };
-
-  useEffect(() => {
-    i18n.changeLanguage(language);
-  }, [language]);
 
   return (
     <div className={styles.langToggler}>

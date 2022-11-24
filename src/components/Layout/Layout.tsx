@@ -12,13 +12,20 @@ import useAppPending from 'hooks/useAppPending';
 import useTokenExpiration from 'hooks/useTokenExpiration';
 import { setLanguage } from 'store/reducers/userSlice';
 
+import i18n from 'i18next';
+
 const Layout: React.FC = () => {
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
+  const language = useAppSelector((state) => state.user.language);
   const boards = useAppSelector((state) => state.boards.boards);
   const userID = useAppSelector((state) => state.user.id);
   const dispatch = useAppDispatch();
 
   const isPending = useAppPending();
+
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [language]);
 
   useEffect(() => {
     if (isAuthorised && !boards.length) {
