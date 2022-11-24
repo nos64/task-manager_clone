@@ -5,10 +5,16 @@ interface IAboutAppContentProps {
   title: string;
   description: string;
   video: string;
+  isActive: boolean;
 }
-const AboutAppContent: React.FC<IAboutAppContentProps> = ({ title, description, video }) => {
+const AboutAppContent: React.FC<IAboutAppContentProps> = ({
+  title,
+  description,
+  video,
+  isActive,
+}) => {
   return (
-    <section className={styles.wrapper}>
+    <section className={isActive ? styles.wrapper + ' ' + styles.activeWrapper : styles.wrapper}>
       <div className={styles.content}>
         <h2 className={styles.title}>{title}</h2>
         <p className={styles.subtitle}>{description}</p>

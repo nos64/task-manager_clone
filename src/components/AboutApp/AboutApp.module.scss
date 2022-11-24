@@ -39,10 +39,12 @@
 }
 
 .contentItem {
-  visibility: hidden;
-  transition: all 0.3s ease;
+  // visibility: hidden;
+  // transition: all 0.3s ease;
+  display: none;
 }
 
 .contentItemActive {
-  visibility: visible;
+  // visibility: visible;
+  display: block;
 }
