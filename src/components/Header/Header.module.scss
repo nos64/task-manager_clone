@@ -59,13 +59,11 @@
   opacity: 0;
 }
 
-.burgerLine:before
-.burgerLine:after {
-  content: "";
+.burgerLine:before .burgerLine:after {
+  content: '';
   background-color: $accent-color;
   top: -10px;
-  transition: top 0.4s 0.4s,
-  transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: top 0.4s 0.4s, transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .burgerLine:after {
@@ -73,23 +71,21 @@
 }
 
 .active .burgerLine:before {
-  content: "";
+  content: '';
   top: 0px;
   transform: rotate(45deg);
-  transition: top 0.4s,
-  transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: top 0.4s, transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .active .burgerLine:after {
-  content: "";
+  content: '';
   bottom: 0;
   transform: rotate(-45deg);
-  transition: bottom 0.4s,
-  transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: bottom 0.4s, transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .active .burgerLine {
-  background: transparent; 
+  background: transparent;
   border-radius: 5px;
   background-color: $accent-color;
   transition: all 0.4s ease-in-out;
@@ -99,32 +95,28 @@
   content: '';
   background-color: $accent-color;
   top: -10px;
-  transition: top 0.4s 0.4s,
-  transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: top 0.4s 0.4s, transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .burgerLine:after {
   content: '';
   background-color: $accent-color;
   bottom: -10px;
-  transition: bottom 0.4s 0.4s,
-  transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: bottom 0.4s 0.4s, transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .active .burgerLine:before {
   content: '';
   top: 0px;
   transform: rotate(45deg);
-  transition: top 0.4s,
-  transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: top 0.4s, transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .active .burgerLine:after {
   content: '';
   bottom: 0;
   transform: rotate(-45deg);
-  transition: bottom 0.3s,
-  transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: bottom 0.3s, transform 0.4s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .active .burgerLine {
@@ -191,14 +183,12 @@
 .navLink {
   display: block;
   padding: 8px 25px;
-  width: 95px;
   border-radius: 22px;
   border: 2px solid $accent-color;
   transition: 0.3s ease-in-out;
 
   &:hover {
-    color: $accent-color;
-    font-weight: 700;
+    color: $accent-color-hovered;
     background-color: $base-light-color;
     border-color: $base-light-color;
   }

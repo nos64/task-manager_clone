@@ -6,8 +6,8 @@ import { ROUTES } from 'common/routes';
 import LangToggler from 'components/Header/LangToggler';
 import ThemeToggler from 'components/Header/ThemeToggler';
 import { GoPlus } from 'react-icons/go';
+import { useTranslation } from 'react-i18next';
 import BoardModal from 'components/BoardModal';
-import { noMatchesMessage } from 'common/constants';
 import { setActiveBoard, setIsBurgerOpen } from 'store/reducers/boardsSlice';
 import IBoard from 'types/IBoard';
 
@@ -19,6 +19,8 @@ const BurgerContentAuth = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [enteredSearchValue, setEnteredSearchValue] = useState('');
   const [activeSearchValue, setActiveSearchValue] = useState('');
+
+  const { t } = useTranslation();
 
   const filteredBoards = boards.filter((board) =>
     board?.title.toLowerCase().trim().includes(activeSearchValue.toLowerCase().trim())
@@ -53,21 +55,20 @@ const BurgerContentAuth = () => {
             to={ROUTES.BOARDS}
             onClick={() => dispatch(setIsBurgerOpen(false))}
           >
-            Main
+            {t('main')}
           </NavLink>
           <ThemeToggler />
           <LangToggler />
         </div>
-
         <div className={styles.menuHeader}>
           <h2>{userName}</h2>
         </div>
-        <div className={styles.boardListTitle}>My Boards</div>
+        <div className={styles.boardListTitle}>{t('myBoards')}</div>
         <div className={styles.inputWrapper}>
           <input
             className={styles.inputLine}
             type="search"
-            placeholder="Please enter board name"
+            placeholder={t('searchFieldPlaceholder') || ''}
             autoComplete="off"
             onChange={(e) => setEnteredSearchValue(e.target.value)}
             value={enteredSearchValue}
@@ -75,7 +76,7 @@ const BurgerContentAuth = () => {
         </div>
         <button className={styles.createBoardBtn} type="button" onClick={handleCreateBoard}>
           <GoPlus />
-          Create Board
+          {t('createBoard')}
         </button>
         <ul className={styles.boardList}>
           {filteredBoards.length ? (
@@ -93,7 +94,7 @@ const BurgerContentAuth = () => {
             )
           ) : (
             <>
-              <p className={styles.noMatchesMessage}>{noMatchesMessage}</p>
+              <p className={styles.noMatchesMessage}>{t('noMatchesMessage')}</p>
               <p className={styles.noMatchesValue}>{enteredSearchValue}</p>
             </>
           )}

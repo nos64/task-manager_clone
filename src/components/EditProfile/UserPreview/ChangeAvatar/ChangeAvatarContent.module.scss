@@ -17,7 +17,7 @@
   cursor: pointer;
   background-color: transparent;
   outline: 4px solid transparent;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
     background-color: $accent-color-lighter;
@@ -26,9 +26,7 @@
 
 .activeAvatar {
   background-color: $accent-color-darker;
-
 }
-
 
 .currentAvatar {
   outline: 4px solid $accent-color;
@@ -41,10 +39,12 @@
   margin-top: 20px;
 
   .submitBtn {
+    text-transform: uppercase;
     @include buttonStyle(5px, 30px);
   }
 
   .canselBtn {
+    text-transform: uppercase;
     @include buttonStyleNegative(5px, 30px);
   }
 }

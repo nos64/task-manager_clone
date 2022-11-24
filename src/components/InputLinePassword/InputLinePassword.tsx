@@ -15,6 +15,7 @@ const InputLinePassword: React.FC<IInputLineProps> = ({
   label,
   register,
   fieldValue,
+  placeholder,
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -35,6 +36,7 @@ const InputLinePassword: React.FC<IInputLineProps> = ({
         })}
         autoComplete="off"
         type={!isClicked ? 'password' : 'text'}
+        placeholder={placeholder}
       />
       <label className={!fieldValue.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
       <button className={styles.showPassword} type="button" onClick={handleBtnClick}>

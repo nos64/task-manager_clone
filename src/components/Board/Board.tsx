@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import styles from './Board.module.scss';
 import { RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
-
 import { deleteBoardById, setActiveBoard } from 'store/reducers/boardsSlice';
 import { useAppDispatch } from 'hooks/redux';
 import IBoard from 'types/IBoard';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'common/routes';
 import WarningModal from 'components/WarningModal';
-import { deleteBoardMessage } from 'common/constants';
+import { useTranslation } from 'react-i18next';
 
 type BoardProops = {
   item: IBoard;
@@ -21,6 +20,9 @@ const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSele
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [isModalActive, setIsModalActive] = useState(false);
+
+  const { t } = useTranslation();
+
   const handleEditIconClick = (e: React.SyntheticEvent) => {
     e.stopPropagation();
     toggleModal();
@@ -56,7 +58,7 @@ const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSele
       <WarningModal
         deleteBtnHandler={handleDeleteBoard}
         cancelBtnHandler={() => setIsModalActive(false)}
-        message={deleteBoardMessage}
+        message={t('deleteBoardMessage')}
         isModalActive={isModalActive}
       />
     </>

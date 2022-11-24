@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getTaskAssignee } from 'store/reducers/taskSlice';
 import { deleteColumnTask } from 'store/reducers/columnSlice';
 import WarningModal from 'components/WarningModal';
-import { deleteTaskWarningMessage } from 'common/constants';
+import { useTranslation } from 'react-i18next';
 
 type TaskProps = {
   item: ITask;
@@ -22,6 +22,8 @@ const Task: React.FC<TaskProps> = ({ item, index, toggleModal, setModalMode, set
   const assigneeName = useAppSelector((state) => state.task.assignees[item._id]);
 
   const [isTaskDeleting, setIsTaskDeleting] = useState(false);
+
+  const { t } = useTranslation();
 
   const assigneeId = item.users[0];
 
@@ -72,7 +74,7 @@ const Task: React.FC<TaskProps> = ({ item, index, toggleModal, setModalMode, set
         isModalActive={isTaskDeleting}
         deleteBtnHandler={() => removeTask()}
         cancelBtnHandler={() => setIsTaskDeleting(false)}
-        message={deleteTaskWarningMessage}
+        message={t('deleteTaskWarningMessage')}
       />
     </>
   );
