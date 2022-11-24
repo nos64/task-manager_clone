@@ -7,23 +7,18 @@ import styles from './Layout.module.scss';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import Loader from 'components/Loader';
 import { scrollController } from 'utils/scrollController';
-import {
-  setIsAuthorised,
-  setIsRoutesProtected,
-  setIsTokenRequireUpdate,
-} from 'store/reducers/userSlice';
 import { getBoardsByUserId } from 'store/reducers/boardsSlice';
+import useAppPending from 'hooks/useAppPending';
+import useTokenExpiration from 'hooks/useTokenExpiration';
+import { setLanguage } from 'store/reducers/userSlice';
 
 const Layout: React.FC = () => {
-  const isUserPending = useAppSelector((state) => state.user.isPending);
-  const isBoardsPending = useAppSelector((state) => state.boards.isPending);
-  const isColumnsPending = useAppSelector((state) => state.board.isPending);
-  const isTasksPending = useAppSelector((state) => state.column.isPending);
-  const isTokenExpired = useAppSelector((state) => state.user.isTokenExpired);
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
   const boards = useAppSelector((state) => state.boards.boards);
   const userID = useAppSelector((state) => state.user.id);
   const dispatch = useAppDispatch();
+
+  const isPending = useAppPending();
 
   useEffect(() => {
     if (isAuthorised && !boards.length) {
@@ -32,18 +27,14 @@ const Layout: React.FC = () => {
   }, [boards.length, dispatch, isAuthorised, userID]);
 
   useEffect(() => {
-    if (isTokenExpired) {
-      dispatch(setIsAuthorised(false));
-      dispatch(setIsRoutesProtected(false));
-      dispatch(setIsTokenRequireUpdate(true));
-    }
-  }, [dispatch, isTokenExpired]);
+    !isAuthorised && dispatch(setLanguage('EN'));
+  }, [dispatch, isAuthorised]);
+
+  useTokenExpiration();
 
   useEffect(() => {
-    isUserPending || isBoardsPending || isColumnsPending || isTasksPending
-      ? scrollController.disableScroll()
-      : scrollController.enableScroll();
-  }, [isUserPending, isBoardsPending, isColumnsPending, isTasksPending]);
+    isPending ? scrollController.disableScroll() : scrollController.enableScroll();
+  }, [isPending]);
 
   return (
     <div className={styles.wrapper}>
@@ -54,7 +45,7 @@ const Layout: React.FC = () => {
         </Container>
       </main>
       <Footer />
-      {(isUserPending || isBoardsPending || isColumnsPending || isTasksPending) && <Loader />}
+      {isPending && <Loader />}
     </div>
   );
 };
