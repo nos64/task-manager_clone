@@ -17,6 +17,7 @@ const LangToggler = () => {
 
     localStorage.setItem(userId, JSON.stringify({ ...userInfo, ...{ language: language } }));
     dispatch(setLanguage(language));
+
     if (isBurgerOpen) dispatch(setIsBurgerOpen(false));
   };
 
@@ -28,11 +29,11 @@ const LangToggler = () => {
     <div className={styles.langToggler}>
       <div className={styles.preview}>{language}</div>
       <ul className={styles.langTogglerContent}>
-        <li className={styles.option} onClick={() => handleOptionClick('EN')}>
-          EN
-        </li>
-        <li className={styles.option} onClick={() => handleOptionClick('RU')}>
-          RU
+        <li
+          className={styles.option}
+          onClick={() => handleOptionClick(`${language === 'EN' ? 'RU' : 'EN'}`)}
+        >
+          {language === 'EN' ? 'RU' : 'EN'}
         </li>
       </ul>
     </div>
