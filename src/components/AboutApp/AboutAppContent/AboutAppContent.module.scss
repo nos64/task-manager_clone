@@ -1,0 +1,36 @@
+@import '../../../styles/colors.scss';
+@import '../../../styles/extensions.scss';
+@import '../../../styles/mixins.scss';
+
+.wrapper {
+  @extend %centered;
+  overflow: hidden;
+  gap: 15px;
+}
+
+.title {
+  font-size: 2rem;
+  color: $base-light-color;
+  line-height: 1.25;
+  font-weight: 700;
+  margin-bottom: 1.5rem
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: $color-text-secondary;
+  line-height: 1.5;
+  margin-bottom: 3rem;
+  width: 550px;
+}
+
+.imageWrapper {
+  max-width: 700px;
+}
+
+.benefitImage {
+  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0)),
+    linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0));
+  -webkit-mask-size: 100% 90%;
+  -webkit-mask-repeat: no-repeat;
+}
