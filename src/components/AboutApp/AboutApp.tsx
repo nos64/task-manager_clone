@@ -1,44 +1,9 @@
 import React, { useState } from 'react';
 import styles from './AboutApp.module.scss';
-import planImage from '../../assets/images/planImage.png';
-import simpleImage from '../../assets/images/descriptionImage.png';
-import changeImage from '../../assets/images/changeImage.png';
-import dragNdropImage from '../../assets/images/dragNdropImage.png';
 import AboutAppContent from './AboutAppContent';
+import { benefitsContent } from '../../common/constants';
 
 const AboutApp = () => {
-  const benefitsContent = [
-    {
-      id: '01',
-      title: 'Plan',
-      isActive: true,
-      description:
-        ' Break the big ideas down into manageable chunks across teams with user stories, issues, and tasks.',
-      video: planImage,
-    },
-    {
-      id: '02',
-      title: 'Simplicity',
-      isActive: false,
-      description:
-        'Break the big ideas down into manageable chunks across teams with user stories, issues, and tasks.',
-      video: simpleImage,
-    },
-    {
-      id: '03',
-      title: 'Change',
-      isActive: false,
-      description: 'Customize your profile.',
-      video: changeImage,
-    },
-    {
-      id: '04',
-      title: 'Comfortable',
-      isActive: false,
-      description: 'Transfer tasks and columns by drag and drop. Add an unlimited number of tasks.',
-      video: dragNdropImage,
-    },
-  ];
   const [benefitsArray, setBenefitsArray] = useState(benefitsContent);
 
   const chooseActiveBenefit = (id: string) => {

@@ -23,13 +23,13 @@
 
 .button {
   @include buttonStyle(5px, 30px);
-  width: 150px;
+  width: 180px;
   text-align: center;
 }
 
 .activeButton {
   @include buttonStyleNegative(5px, 30px);
-  width: 150px;
+  width: 180px;
 }
 
 .contentList {
