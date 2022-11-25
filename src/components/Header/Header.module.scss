@@ -134,6 +134,7 @@
   align-items: center;
   font-size: 32px;
   font-weight: bold;
+  color: $text-color;
   transition: color 0.3s ease;
 
   &:hover {
@@ -158,7 +159,7 @@
   gap: 5px;
   font-family: inherit;
   font-size: inherit;
-  color: inherit;
+  color: $button-text-color;
   background-color: $accent-color;
   transition: 0.3s ease;
 
@@ -186,11 +187,11 @@
   border-radius: 22px;
   border: 2px solid $accent-color;
   transition: 0.3s ease-in-out;
+  
 
   &:hover {
-    color: $accent-color-hovered;
-    background-color: $base-light-color;
-    border-color: $base-light-color;
+    color: $button-text-color;
+    background-color: $accent-color;
   }
 }
 

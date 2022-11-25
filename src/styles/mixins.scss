@@ -4,7 +4,7 @@
 
 @mixin buttonStyle($paddingV: 5px, $paddingH: 5px) {
   background-color: $button-active;
-  color: $base-light-color;
+  color: $text-color;
   border-radius: 30px;
   padding: $paddingV $paddingH;
   border: 1px solid transparent;
@@ -35,7 +35,7 @@
 }
 
 @mixin buttonStyleNegative($paddingV: 5px, $paddingH: 5px) {
-  background-color: $base-light-color;
+  background-color: $text-color;
   color: $button-active;
   border-radius: 25px;
   padding: $paddingV $paddingH;

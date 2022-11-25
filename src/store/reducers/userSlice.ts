@@ -131,6 +131,12 @@ export const deleteUserAccount = createAsyncThunk(
   }
 );
 
+const getTheme = () => {
+  const theme = `${window?.localStorage?.getItem('theme')}`;
+  if (['light', 'dark'].includes(theme)) return theme;
+
+  return 'dark';
+};
 interface UserState {
   isAuthorised: boolean;
   isPending: boolean;
@@ -157,7 +163,8 @@ const initialState: UserState = {
   login: '',
   name: '',
   language: 'EN',
-  theme: 'dark',
+  // theme: 'dark',
+  theme: getTheme(),
   avatarID: 0,
   users: [],
   isLoginAlreadyExist: false,
@@ -173,6 +180,9 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setTheme(state, action: PayloadAction<string>) {
+      state.theme = action.payload;
+    },
     setIsAuthorised(state, action: PayloadAction<false>) {
       state.isAuthorised = action.payload;
       state.isRoutesProtected = action.payload;
@@ -349,6 +359,7 @@ export const userSlice = createSlice({
 });
 
 export const {
+  setTheme,
   setIsAuthorised,
   setLanguage,
   setIsRoutesProtected,

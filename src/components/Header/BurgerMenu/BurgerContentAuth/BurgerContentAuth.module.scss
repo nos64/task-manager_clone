@@ -9,7 +9,7 @@
   flex-direction: column;
   height: 100%;
   background-color: $base-dark-color;
-  color: $base-light-color;
+  color: $text-color;
   padding: 0 20px;
   z-index: 50;
   transition: all 0.6s ease;
@@ -33,8 +33,8 @@
   &:hover {
     color: $accent-color;
     font-weight: 700;
-    background-color: $base-light-color;
-    border-color: $base-light-color;
+    background-color: $text-color;
+    border-color: $text-color;
   }
 }
 
