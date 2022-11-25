@@ -20,11 +20,15 @@ const UserPreview: React.FC<UserPreviewProps> = ({ currentAvatar, setCurrentAvat
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={styles.avatrWrapper}>
-          <img src={currentAvatar.src} width={120} alt={`User image-${currentAvatar.id}`} />
+        <div className={styles.avatarWrapper}>
+          <img
+            className={styles.avatarImg}
+            src={currentAvatar.src}
+            alt={`User image-${currentAvatar.id}`}
+          />
 
           <button
-            className={styles.avatarButon}
+            className={styles.avatarButton}
             type="button"
             onClick={() => setIsModalActive(true)}
           >
