@@ -14,10 +14,9 @@
 
 .title {
   font-size: 2rem;
-  color: $text-color;
-  line-height: 1.25;
   font-weight: 700;
-  margin-bottom: 1.5rem
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 2px $background-light-hovered;
 }
 
 .buttonList {
@@ -36,11 +35,13 @@
   box-shadow: none;
 }
 
-// .activeButton {
-//   @include buttonStyleNegative(10px, 25px);
-//   width: 180px;
-//   font-weight: 700;
-// }
+.activeButton {
+  @include buttonStyleNegative(10px, 25px);
+  width: 180px;
+  font-weight: 700;
+  border-color: $accent-color;
+  box-shadow: none;
+}
 
 // .button {
 //   font-family: inherit;
