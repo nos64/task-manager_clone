@@ -35,7 +35,11 @@ export const getTaskAssignee = createAsyncThunk(
 export const taskSlice = createSlice({
   name: 'task',
   initialState,
-  reducers: {},
+  reducers: {
+    resetTaskTokenExpiration(state) {
+      state.isTokenExpired = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getTaskAssignee.pending, (state) => {
       state.isPending = true;
@@ -56,3 +60,4 @@ export const taskSlice = createSlice({
 });
 
 export default taskSlice.reducer;
+export const { resetTaskTokenExpiration } = taskSlice.actions;
