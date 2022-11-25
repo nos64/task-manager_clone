@@ -10,10 +10,19 @@ import { SignInPick, UserPick } from 'types/APIModel';
 import Languages from 'types/Languages';
 import IUser from 'types/IUser';
 import { RootState } from 'store/store';
+import { resetTaskTokenExpiration } from './taskSlice';
+import { resetBoardTokenExpiration } from './boardSlice';
+import { resetBoardsTokenExpiration } from './boardsSlice';
+import { resetColumnTokenExpiration } from './columnSlice';
 
 export const signUpUser = createAsyncThunk(
   'user/signUpUser',
-  async (options: UserPick, { rejectWithValue }) => {
+  async (options: UserPick, { rejectWithValue, dispatch }) => {
+    dispatch(resetTaskTokenExpiration());
+    dispatch(resetBoardTokenExpiration());
+    dispatch(resetBoardsTokenExpiration());
+    dispatch(resetColumnTokenExpiration());
+
     try {
       const userInfo = await signUp(options);
       const token = await signIn({ login: options.login, password: options.password });
@@ -34,7 +43,12 @@ export const signUpUser = createAsyncThunk(
 
 export const signInUser = createAsyncThunk(
   'user/signInUser',
-  async (options: SignInPick, { rejectWithValue }) => {
+  async (options: SignInPick, { rejectWithValue, dispatch }) => {
+    dispatch(resetTaskTokenExpiration());
+    dispatch(resetBoardTokenExpiration());
+    dispatch(resetBoardsTokenExpiration());
+    dispatch(resetColumnTokenExpiration());
+
     try {
       const response = await signIn(options);
       const tokenInfo: IJWTDecode = jwt_decode(response.token || '');
