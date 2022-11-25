@@ -132,7 +132,11 @@ export const updateTasksOrder = createAsyncThunk(
 export const columnSlice = createSlice({
   name: 'column',
   initialState,
-  reducers: {},
+  reducers: {
+    resetColumnTokenExpiration(state) {
+      state.isTokenExpired = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getTasks.pending, (state) => {
       state.isPending = true;
@@ -250,3 +254,4 @@ export const columnSlice = createSlice({
 });
 
 export default columnSlice.reducer;
+export const { resetColumnTokenExpiration } = columnSlice.actions;

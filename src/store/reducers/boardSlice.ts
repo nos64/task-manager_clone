@@ -136,7 +136,11 @@ export const updateColumnsOrder = createAsyncThunk(
 export const boardSlice = createSlice({
   name: 'board',
   initialState,
-  reducers: {},
+  reducers: {
+    resetBoardTokenExpiration(state) {
+      state.isTokenExpired = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getColumns.pending, (state) => {
       state.isPending = true;
@@ -223,3 +227,4 @@ export const boardSlice = createSlice({
 });
 
 export default boardSlice.reducer;
+export const { resetBoardTokenExpiration } = boardSlice.actions;
