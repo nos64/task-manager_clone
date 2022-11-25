@@ -17,7 +17,7 @@
   padding: 20px;
   color: $text-color;
   border-radius: $border-raduis-small;
-  background-color: $base-dark-color;
+  background-color: $base-darkest-color;
   box-shadow: 0 0 10px 3px $background-hovered;
 
   &::before {
@@ -27,8 +27,8 @@
     width: 15px;
     height: 15px;
     top: -8px;
-    background-color: $base-dark-color;
-    box-shadow: -2px -2px 4px -1px $background-hovered;
+    background-color: $base-darkest-color;
+    box-shadow: -2px -2px 2px -1px $background-hovered;
     transform: rotate(45deg);
   }
 }

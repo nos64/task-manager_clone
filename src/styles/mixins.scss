@@ -4,13 +4,15 @@
 
 @mixin buttonStyle($paddingV: 5px, $paddingH: 5px) {
   background-color: $button-active;
-  color: $text-color;
+  box-shadow: 0px 0px 4px 1px $background-light-hovered;
+  color: $button-text-color;
   border-radius: 30px;
   padding: $paddingV $paddingH;
   border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
   width: fit-content;
   font-family: $font-name, sans-serif;
+  font-weight: 700;
   text-align: center;
 
   &:hover {
@@ -35,7 +37,8 @@
 }
 
 @mixin buttonStyleNegative($paddingV: 5px, $paddingH: 5px) {
-  background-color: $text-color;
+  background-color: $white;
+  box-shadow: 0px 0px 4px 1px $background-light-hovered;
   color: $button-active;
   border-radius: 25px;
   padding: $paddingV $paddingH;
@@ -43,15 +46,16 @@
   transition: all 0.3s ease-in-out;
   width: fit-content;
   font-family: $font-name, sans-serif;
+  font-weight: 700;
   text-align: center;
 
   &:hover {
-    background-color: $text-color-hovered;
-    border: 1px solid $text-color-hovered;
+    background-color: $color-button;
+    border: 1px solid $color-button;
   }
 
   &:active {
-    background-color: $text-color-hovered;
+    background-color: $color-button;
     color: $button-active;
   }
 
@@ -62,7 +66,8 @@
 }
 
 @mixin deleteButtonStyle($paddingV: 10px, $paddingH: 20px) {
-  background-color: $text-color-hovered;
+  background-color: $white;
+  box-shadow: 0px 0px 4px 1px $background-light-hovered;
   color: $warning-color;
   border-color: $warning-color;
   border-radius: 25px;
@@ -75,7 +80,7 @@
   &:hover {
     background-color: $warning-color;
     border-color: $warning-color;
-    color: $text-color-hovered;
+    color: $button-text-color;
   }
 
   &:active {

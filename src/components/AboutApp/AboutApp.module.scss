@@ -6,7 +6,10 @@
 .contentWrapper {
   @extend %centered;
   flex-direction: column;
-  gap: 30px;
+    gap: 20px;
+    width: 100%;
+    color: var(--text-color);
+    line-height: 1.25;
 }
 
 .title {
@@ -24,16 +27,31 @@
 }
 
 .button {
-  @include buttonStyle(10px, 25px);
-  width: 180px;
-  font-size: inherit;
-}
-
-.activeButton {
   @include buttonStyleNegative(10px, 25px);
   width: 180px;
-  font-weight: 700;
+  font-size: inherit;
+  background-color: transparent;
+  border-color: $accent-color;
+  color: $text-color;
+  box-shadow: none;
 }
+
+// .activeButton {
+//   @include buttonStyleNegative(10px, 25px);
+//   width: 180px;
+//   font-weight: 700;
+// }
+
+// .button {
+//   font-family: inherit;
+//   color: $text-color;
+//   font-size: 24px;
+//   background-color: transparent;
+// }
+
+// .activeButton {
+//   color: $accent-color;
+// }
 
 .contentList {
   min-height: 500px;

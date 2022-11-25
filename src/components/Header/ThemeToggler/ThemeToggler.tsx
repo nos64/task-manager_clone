@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './ThemeToggler.module.scss';
 import { BsSun } from 'react-icons/bs';
 import { BsMoon } from 'react-icons/bs';
@@ -10,11 +10,6 @@ const ThemeToggler = () => {
   const isBurgerOpen = useAppSelector((state) => state.boards.isBurgerOpen);
   const theme = useAppSelector((state) => state.user.theme);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem('theme', theme);
-  }, [theme]);
 
   const handleThemeClick = () => {
     const next = theme === 'dark' ? 'light' : 'dark';

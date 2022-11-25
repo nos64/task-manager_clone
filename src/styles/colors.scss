@@ -1,41 +1,30 @@
+$white: #fff;
 $button-text-color: var(--button-text-color); //текст кнопки не меняется
 $accent-color: var(--accent-color); //кнопка не меняется
 $accent-color-hovered: var(--accent-color-hovered); //кнопка не меняется
+$accent-color-darker: var(--accent-color-darker);
 $base-dark-color: var(--base-dark-color); // не меняющийся темный
-
+$color-button: var(--text-button-hovered);// не меняющийся светлый
+$color-text-secondary: var(--color-text-secondary); //ховер белых кнопок
 $text-color: var(--text-color); //текст
 $text-color-hovered: var(--text-color-hovered);
-$base-darkest-color: var(--base-darkest-color); //текст в языковой панели
-
-
-// $base-dark-color: var(--base-dark-color);
+$base-darkest-color: var(--base-darkest-color); //текст в языковой панели hover
+$background-primary-darker: var(--background-primary-darker); //Layout
+$background-primary-lighter: var(--background-primary-lighter); //тень хэдера
+$background-light: var(--background-light);
+$background-light-hovered: var(--background-light-hovered);
 $base-dark-lighter-color: var(--base-dark-lighter-color);
-
-
-$color-text-secondary: var(--color-text-secondary);
-//$color-text-secondary-hovered: var(--color-text-secondary-hovere);
-//$primary-button: var(--primary-button);
 $button-hovered: var(--button-hovered);
 $button-active: var(--button-active);
 $button-disabled: var(--button-disabled);
 $background-primary: var(--background-primary);
-$background-primary-darker: var(--background-primary-darker);
-$background-primary-lighter: var(--background-primary-lighter);
 $background-hovered: var(--background-hovered);
-//$background-active: var(--background-active);
-$background-light: var(--background-light);
-$background-light-hovered: var(--background-light-hovered);
 $light-shadow: var(--light-shadow);
 $dark-shadow: var(--dark-shadow);
-
-$accent-color-darker: var(--accent-color-darker);
 $accent-color-lighter: var(--accent-color-lighter);
 $accent-color-lighter-xs: var(--accent-color-lighter-x);
-
 $accent-color-second: var(--accent-color-second);
-//$accent-color-second-hovered: var(--accent-color-second-hovered);
 $accent-color-third: var(--accent-color-third);
-//$accent-color-third-hovered: var(--accent-color-third-hovered);
 $warning-color: var(--warning-color);
 $warning-color-second: var(--warning-color-second);
 $loader-color: var(--loader-color);
@@ -46,43 +35,30 @@ $loader-color-left: var(--loader-color-left);
   --button-text-color: #e1e1e1;
   --accent-color: #715be3;
   --accent-color-hovered: #604acc;
+  --accent-color-darker: #604acc;
   --base-dark-color: #2c2c37;
-
-
+  --text-button-hovered: #f9f9f9;
   --text-color: #1f202a;
   --text-color-hovered: #393947;
-  --base-darkest-color: #e1e1e1;
-
-
-
---background-primary: #e1e1e1;
---background-primary-lighter: #9c9c9c;
-
-// --base-dark-color: #2c2c37;
+  --base-darkest-color: #f2f1fd;
+  --background-primary: #f9f9f9;
+  --color-text-secondary: #f2f1fd;
+  --background-primary-darker: #f3f2fa;
+  --background-primary-lighter: #e1e1e1;
+  --background-light: #f9f9f9;
+  --background-light-hovered: #3d3b44;
 --base-dark-lighter-color: #393947;
-
-
 --color-text-secondary: #9c9c9c;
-//--color-text-secondary-hovered: #757575;
-//--primary-button: #7b61ff;
 --button-hovered: #907bfc;
 --button-active: #715be3;
 --button-disabled: #9c9c9c;
---background-primary-darker: #21222d;
---background-primary-lighter: #393947;
 --background-hovered: #181622;
 --background-active: #1d1e22;
---background-light: #2d2b38;
---background-light-hovered: #3d3b44;
 --light-shadow: #b5b5b5;
 --dark-shadow: #5c5b5b;
-
---accent-color-darker: #604acc;
 --accent-color-lighter: #7d65f6;
 --accent-color-lighter-xs: #9f8ff0;
---accent-color-hovered: #604acc;
 --accent-color-second: #42946e;
-//--accent-color-second-hovered: #95d0b4;
 --accent-color-third: #306ee8;
 --accent-color-third-hovered: #8caef2;
 --warning-color: #fc4c4c;
@@ -97,24 +73,18 @@ $loader-color-left: var(--loader-color-left);
 --accent-color: #715be3;
 --accent-color-hovered: #604acc;
 --base-dark-color: #2c2c37;
-
---text-color: #e1e1e1;
 --text-color-hovered: #f9f9f9;
-
-
-// --base-dark-color: #2c2c37;
+--text-button-hovered: #f9f9f9;
+--text-color: #e1e1e1;
+--background-primary-darker: #21222d;
+--background-primary-lighter: #393947;
 --base-dark-lighter-color: #393947;
 --base-darkest-color: #1f202a;
-
 --color-text-secondary: #9c9c9c;
-//--color-text-secondary-hovered: #757575;
-//--primary-button: #7b61ff;
 --button-hovered: #907bfc;
 --button-active: #715be3;
 --button-disabled: #9c9c9c;
 --background-primary: #2c2c37;
---background-primary-darker: #21222d;
---background-primary-lighter: #393947;
 --background-hovered: #181622;
 --background-active: #1d1e22;
 --background-light: #2d2b38;
@@ -125,11 +95,8 @@ $loader-color-left: var(--loader-color-left);
 --accent-color-darker: #604acc;
 --accent-color-lighter: #7d65f6;
 --accent-color-lighter-xs: #9f8ff0;
-
 --accent-color-second: #42946e;
-//--accent-color-second-hovered: #95d0b4;
 --accent-color-third: #306ee8;
-//--accent-color-third-hovered: #8caef2;
 --warning-color: #fc4c4c;
 --warning-color-second: #d5ba24;
 --loader-color: #8c6ff0;

@@ -11,7 +11,6 @@ import { getBoardsByUserId } from 'store/reducers/boardsSlice';
 import useAppPending from 'hooks/useAppPending';
 import useTokenExpiration from 'hooks/useTokenExpiration';
 import { setLanguage } from 'store/reducers/userSlice';
-
 import i18n from 'i18next';
 
 const Layout: React.FC = () => {
@@ -19,6 +18,7 @@ const Layout: React.FC = () => {
   const language = useAppSelector((state) => state.user.language);
   const boards = useAppSelector((state) => state.boards.boards);
   const userID = useAppSelector((state) => state.user.id);
+  const theme = useAppSelector((state) => state.user.theme);
   const dispatch = useAppDispatch();
 
   const isPending = useAppPending();
@@ -26,6 +26,11 @@ const Layout: React.FC = () => {
   useEffect(() => {
     i18n.changeLanguage(language);
   }, [language]);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   useEffect(() => {
     if (isAuthorised && !boards.length) {
