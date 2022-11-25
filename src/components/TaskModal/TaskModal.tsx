@@ -119,7 +119,12 @@ const TaskModal: React.FC<TaskModalProps> = ({
   const onReset = () => {
     setModalActive(false);
     setFieldsValues({});
-    reset();
+    reset({
+      title: '',
+      description: '',
+      columnId: '',
+      users: '',
+    });
   };
 
   return (
