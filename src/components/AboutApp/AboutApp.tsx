@@ -41,7 +41,7 @@ const AboutApp = () => {
                 : styles.contentItem
             }
           >
-            <AboutAppContent title={item.title} description={item.description} video={item.video} />
+            <AboutAppContent {...item} />
           </li>
         ))}
       </ul>

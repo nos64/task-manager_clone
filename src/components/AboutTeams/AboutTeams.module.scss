@@ -22,24 +22,24 @@
 .teamList {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 25px;
   width: 100%;
 }
 
 .teamItem {
   display: flex;
   justify-content: left;
-  gap: 50px;
+  gap: 30px;
 }
 
-.teamItem:nth-child(even) {
-  justify-content: right;
-  flex-direction: row-reverse;
-}
+// .teamItem:nth-child(even) {
+//   justify-content: right;
+//   flex-direction: row-reverse;
+// }
 
 .imageWrapper {
   display: flex;
-  width: 200px;
+  width: 120px;
   height: auto;
   border-radius: $border-radius-medium;
   overflow: hidden;
@@ -64,5 +64,5 @@
 }
 
 .memberRole {
-  font-size: 24px;
+  font-size: 20px;
 }
