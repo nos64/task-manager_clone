@@ -5,11 +5,27 @@
   @extend %centered;
   flex-direction: column;
   gap: 15px;
+
+  @media (max-width: 768px) {
+    width: 400px;
+  }
+
+  @media (max-width: 500px) {
+    width: 250px;
+  }
 }
 
 .title {
   margin-bottom: 15px;
   font-size: 24px;
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 18px;
+  }
 }
 
 .buttonsWrapper {
@@ -18,11 +34,19 @@
 
   .submitBtn {
     text-transform: uppercase;
-    @include buttonStyle(10px, 30px);
+    @include formBtn(10px, 130px);
+
+    @media (max-width: 500px) {
+      @include formBtn(5px, 100px);
+    }
   }
 
   .deleteBtn {
     text-transform: uppercase;
-    @include deleteButtonStyle(10px, 30px);
+    @include deleteFormBtn(10px, 130px);
+
+    @media (max-width: 500px) {
+      @include deleteFormBtn(5px, 100px);
+    }
   }
 }
