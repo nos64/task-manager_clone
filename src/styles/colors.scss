@@ -1,49 +1,36 @@
-$base-light-color: #e1e1e1;
-$base-dark-color: #2c2c37;
-$base-dark-lighter-color: #393947;
-$base-darkest-color: #1f202a;
-
-$text-color: $base-light-color;
+$text-color: #e1e1e1;
 $text-color-hovered: #f9f9f9;
-$color-text-secondary: #9c9c9c;
-$color-text-secondary-hovered: #757575;
 
-$primary-button: #7b61ff;
-$button-hovered: #907bfc;
-$button-active: #715be3;
-$button-disabled: #9c9c9c;
+$color-text-secondary: #9c9c9c; //border input
 
-$background-primary: $base-dark-color;
-$background-primary-darker: #21222d;
-$background-primary-lighter: $base-dark-lighter-color;
+$shadow-color: #181622; //Dropdown shadow
 
-$background-hovered: #181622;
-$background-active: #1d1e22;
-$background-light: #2d2b38;
-$background-light-hovered: #3d3b44;
+$background-primary: #2c2c37;
+$background-primary-lighter: #393947;
+$background-primary-darkest: #1f202a;
+$background-primary-darker: #21222d; //Layout
 
-$light-shadow: #b5b5b5;
-$dark-shadow: #5c5b5b;
 
-$accent-color: #715be3;
-$accent-color-darker: #604acc;
-$accent-color-lighter: #7d65f6;
-$accent-color-lighter-xs: #9f8ff0;
-$accent-color-hovered: $accent-color-darker;
+$accent-color: #715be3; //button don't change
+$accent-color-darker: #604acc; //button don't change
+$accent-color-lighter: #907bfc; //button don't change
 
-$accent-color-second: #42946e;
-$accent-color-second-hovered: #95d0b4;
+$accent-color-second: #42946e; //don't change
+$accent-color-third: #306ee8; //don't change
 
-$accent-color-third: #306ee8;
-$accent-color-third-hovered: #8caef2;
+$light-shadow: #b5b5b5; //scroll don't change
+$dark-shadow: #5c5b5b; //scroll don't change
 
-$warning-color: #fc4c4c;
-$warning-color-second: #d5ba24;
+$warning-color: #fc4c4c; //don't change
+$warning-color-second: #d5ba24; //don't change
 
-$loader-color: #8c6ff0;
-$loader-color-right: #5628ee;
-$loader-color-left: #23c4f8;
+$loader-color: #8c6ff0; //don't change
+$loader-color-right: #5628ee; //don't change
+$loader-color-left: #23c4f8; //don't change
 
-// $heroGradient: linear-gradient(327.21deg, rgba(33, 0, 75, 0.24) 3.65%, rgba(60, 0, 136, 0) 40.32%),
-//   linear-gradient(245.93deg, rgba(109, 21, 209, 0.164)%, rgba(209, 25, 80, 0) 36.63%),
-//   linear-gradient(147.6deg, rgba(58, 19, 255, 0) 29.79%, rgba(98, 19, 255, 0.01) 85.72%), #13111C;
+$toast-light-color: #e1e1e1; //don't change
+$toast-dark-color: #2c2c37; //don't change
+
+
+$accent-color-second-hovered: #95d0b4; //not used
+$accent-color-third-hovered: #8caef2;  //not used

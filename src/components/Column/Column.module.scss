@@ -13,8 +13,8 @@
   transition: background-color 0.5s ease;
 
   &:hover {
-    background-color: $base-darkest-color;
-    border: 2px dotted $base-dark-lighter-color;
+    background-color: $background-primary-darkest;
+    border: 2px dotted $background-primary-lighter;
 
     .removeBtn{
       opacity: 0.8;
@@ -42,8 +42,8 @@
 
 .column.dragged,
 .column.dropped {
-  background-color: $base-darkest-color;
-  border: 2px dotted $base-dark-lighter-color;
+  background-color: $background-primary;
+  border: 2px dotted $background-primary-lighter;
 }
 
 .columnHeader {
@@ -143,15 +143,15 @@
   
   &::-webkit-scrollbar-track {
     border-radius: 5px;
-    background: $light-shadow;
+    background: $dark-shadow;
   }
   
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background: $base-dark-lighter-color;
+    background: $background-primary-lighter;
   }
   
   &::-webkit-scrollbar-thumb:hover {
-    background: $base-dark-color;
+    background: $background-primary;
   }
 }
