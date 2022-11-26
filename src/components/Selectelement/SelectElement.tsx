@@ -25,6 +25,7 @@ const SelectElement: React.FC<IInputLineProps> = ({
     <>
       <div className={styles.inputWrapper}>
         <select className={styles.select} {...register(inputName)}>
+          <option hidden disabled value={''}></option>
           {options.map((option) => (
             <option value={option?._id} key={option?._id}>
               {type === 'users' ? option.name : option.title}

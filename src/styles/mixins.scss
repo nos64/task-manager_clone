@@ -1,18 +1,20 @@
 @import './colors.scss';
 @import './extensions.scss';
+@import './fonts.scss';
 
 @mixin buttonStyle($paddingV: 5px, $paddingH: 5px) {
-  background-color: $primary-button;
-  color: $text-color;
+  background-color: $button-active;
+  color: $base-light-color;
   border-radius: 30px;
   padding: $paddingV $paddingH;
   border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
   width: fit-content;
+  font-family: $font-name, sans-serif;
+  text-align: center;
 
   &:hover {
-    background-color: $button-hovered;
-    color: $text-color-hovered;
+    background-color: $accent-color-hovered;
     border: 1px solid $button-active;
   }
 
@@ -33,17 +35,18 @@
 }
 
 @mixin buttonStyleNegative($paddingV: 5px, $paddingH: 5px) {
-  background-color: $text-color-hovered;
-  color: $primary-button;
-  border-radius: 30px;
+  background-color: $base-light-color;
+  color: $button-active;
+  border-radius: 25px;
   padding: $paddingV $paddingH;
   border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
   width: fit-content;
+  font-family: $font-name, sans-serif;
+  text-align: center;
 
   &:hover {
-    background-color: $text-color;
-    color: $button-hovered;
+    background-color: $text-color-hovered;
     border: 1px solid $text-color-hovered;
   }
 
@@ -119,7 +122,7 @@
   background-color: $text-color-hovered;
   color: $warning-color;
   border-color: $warning-color;
-  border-radius: 30px;
+  border-radius: 25px;
   padding: $paddingV $paddingH;
   border: 1px solid transparent;
   transition: all 0.3s ease-in-out;

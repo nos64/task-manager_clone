@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import i18n from 'i18next';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { setIsBurgerOpen } from 'store/reducers/boardsSlice';
 import { setLanguage } from 'store/reducers/userSlice';
 import Languages from 'types/Languages';
@@ -17,22 +16,19 @@ const LangToggler = () => {
 
     localStorage.setItem(userId, JSON.stringify({ ...userInfo, ...{ language: language } }));
     dispatch(setLanguage(language));
+
     if (isBurgerOpen) dispatch(setIsBurgerOpen(false));
   };
-
-  useEffect(() => {
-    i18n.changeLanguage(language);
-  }, [language]);
 
   return (
     <div className={styles.langToggler}>
       <div className={styles.preview}>{language}</div>
       <ul className={styles.langTogglerContent}>
-        <li className={styles.option} onClick={() => handleOptionClick('EN')}>
-          EN
-        </li>
-        <li className={styles.option} onClick={() => handleOptionClick('RU')}>
-          RU
+        <li
+          className={styles.option}
+          onClick={() => handleOptionClick(`${language === 'EN' ? 'RU' : 'EN'}`)}
+        >
+          {language === 'EN' ? 'RU' : 'EN'}
         </li>
       </ul>
     </div>
