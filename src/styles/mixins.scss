@@ -117,6 +117,10 @@
   .elementModal {
     width: 359px;
     max-width: 600px;
+
+    @media (max-width: 450px) {
+      width: auto;
+    }
   }
 
   .titleWrapper {
