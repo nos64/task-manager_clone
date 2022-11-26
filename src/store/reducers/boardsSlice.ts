@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createBoard, deleteBoard, getUserRelatedBoards, updateBoard } from 'api/boards';
+import { createBoard, deleteBoard, findBoard, getUserRelatedBoards, updateBoard } from 'api/boards';
 import { deleteColumn, getColumnsInBoard } from 'api/columns';
 import { deleteTask, getTasksInColumn } from 'api/tasks';
 import { AxiosError } from 'axios';
@@ -85,12 +85,29 @@ export const updateBoardById = createAsyncThunk<IBoard, updateParams>(
   }
 );
 
+export const getBoardById = createAsyncThunk(
+  'boards/getBoardById',
+  async (boardId: string, { rejectWithValue }) => {
+    try {
+      const board = await findBoard(boardId);
+      return board;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.status);
+      }
+
+      throw error;
+    }
+  }
+);
+
 interface BoardsState {
   boards: IBoard[];
   isTokenExpired: boolean;
   isPending: boolean;
   activeBoard: IBoard | null;
   isBurgerOpen: boolean;
+  isBoardCreated: boolean;
 }
 
 const initialState: BoardsState = {
@@ -99,6 +116,7 @@ const initialState: BoardsState = {
   isPending: false,
   activeBoard: null,
   isBurgerOpen: false,
+  isBoardCreated: false,
 };
 
 export const boardsSlice = createSlice({
@@ -116,6 +134,9 @@ export const boardsSlice = createSlice({
     },
     resetBoardsTokenExpiration(state) {
       state.isTokenExpired = false;
+    },
+    setIsBoardCreated(state, action: PayloadAction<boolean>) {
+      state.isBoardCreated = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -141,6 +162,7 @@ export const boardsSlice = createSlice({
       state.isPending = false;
       state.boards.push(action.payload);
       state.activeBoard = action.payload;
+      state.isBoardCreated = true;
     });
     builder.addCase(createNewBoard.rejected, (state, action) => {
       state.isPending = false;
@@ -183,8 +205,32 @@ export const boardsSlice = createSlice({
         state.isTokenExpired = true;
       }
     });
+
+    builder.addCase(getBoardById.pending, (state) => {
+      state.isPending = true;
+    });
+    builder.addCase(getBoardById.fulfilled, (state, action) => {
+      state.isPending = false;
+      state.activeBoard = action.payload;
+    });
+    builder.addCase(getBoardById.rejected, (state, action) => {
+      state.isPending = false;
+
+      if (action.payload === StatusCodes.EXPIRED_TOKEN) {
+        state.isTokenExpired = true;
+      }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        console.log('Cant get board by id 404');
+      }
+    });
   },
 });
-export const { setActiveBoard, setIsBurgerOpen, setBoards, resetBoardsTokenExpiration } =
-  boardsSlice.actions;
+export const {
+  setActiveBoard,
+  setIsBurgerOpen,
+  setBoards,
+  resetBoardsTokenExpiration,
+  setIsBoardCreated,
+} = boardsSlice.actions;
 export default boardsSlice.reducer;
