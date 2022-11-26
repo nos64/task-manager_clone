@@ -27,6 +27,8 @@
   @include buttonStyle(10px, 25px);
   width: 180px;
   font-size: inherit;
+  background-color: transparent;
+  border: 2px solid $accent-color;
 }
 
 .activeButton {
