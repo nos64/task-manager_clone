@@ -16,14 +16,11 @@ import {
 } from 'store/reducers/boardsSlice';
 import IBoard from 'types/IBoard';
 
-interface BurgerContentAuthProps {
-  isBurgerOpen: boolean;
-}
-
-const BurgerContentAuth: React.FC<BurgerContentAuthProps> = ({ isBurgerOpen }) => {
+const BurgerContentAuth = () => {
   const userName = useAppSelector((state) => state.user.name);
   const boards = useAppSelector((state) => state.boards.boards);
   const userID = useAppSelector((state) => state.user.id);
+  const isBurgerOpen = useAppSelector((state) => state.boards.isBurgerOpen);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isModalOpened, setIsModalOpened] = useState(false);

@@ -33,11 +33,7 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isAuthorised }) => {
         >
           <span className={styles.burgerLine}></span>
         </div>
-        {isAuthorised ? (
-          <BurgerContentAuth isBurgerOpen={isBurgerOpen} />
-        ) : (
-          <BurgerContentNotAuth />
-        )}
+        {isAuthorised ? <BurgerContentAuth /> : <BurgerContentNotAuth />}
       </div>
     </div>
   );
