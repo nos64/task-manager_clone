@@ -38,9 +38,10 @@
 
   @media (max-width: 425px) {
     width: 40px;
+    min-width: 40px;
     height: 40px;
     padding: 0;
-    border-radius: 50%;
+    border-radius: 20px;
 
     .backBtnIcon {
       min-width: 14px;
