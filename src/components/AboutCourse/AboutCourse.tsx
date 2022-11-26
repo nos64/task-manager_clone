@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './AboutCourse.module.scss';
-import rssImg from './../../assets/images/rs_school_js.svg';
 
 const AboutCourse = () => {
   return (
