@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from './AboutTeams.module.scss';
+import styles from './AboutTeam.module.scss';
 import { ourTeams } from '../../common/constants';
 
-const AboutTeams = () => {
+const AboutTeam = () => {
   return (
     <section className={styles.contentWrapper}>
-      <h2 className={styles.title}>Our Teams</h2>
+      <h2 className={styles.title}>Our Team</h2>
       <ul className={styles.teamList}>
         {ourTeams.map((item) => (
           <li className={styles.teamItem} key={item.name}>
@@ -25,4 +25,4 @@ const AboutTeams = () => {
   );
 };
 
-export default AboutTeams;
+export default AboutTeam;
