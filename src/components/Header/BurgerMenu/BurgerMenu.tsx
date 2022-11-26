@@ -3,14 +3,17 @@ import styles from './BurgerMenu.module.scss';
 import { scrollController } from '../../../utils/scrollController';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { setIsBurgerOpen } from 'store/reducers/boardsSlice';
+import BurgerContentAuth from './BurgerContentAuth';
+import BurgerContentNotAuth from './BurgerContentNotAuth';
 
 interface IBurgerMenuProps {
-  children?: React.ReactNode;
+  isAuthorised: boolean;
 }
 
-const BurgerMenu: React.FC<IBurgerMenuProps> = ({ children }) => {
+const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isAuthorised }) => {
   const isBurgerOpen = useAppSelector((state) => state.boards.isBurgerOpen);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     isBurgerOpen ? scrollController.disableScroll() : scrollController.enableScroll();
   }, [isBurgerOpen]);
@@ -30,7 +33,11 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({ children }) => {
         >
           <span className={styles.burgerLine}></span>
         </div>
-        {children}
+        {isAuthorised ? (
+          <BurgerContentAuth isBurgerOpen={isBurgerOpen} />
+        ) : (
+          <BurgerContentNotAuth />
+        )}
       </div>
     </div>
   );

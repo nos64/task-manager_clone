@@ -8,12 +8,22 @@ import ThemeToggler from 'components/Header/ThemeToggler';
 import { GoPlus } from 'react-icons/go';
 import { useTranslation } from 'react-i18next';
 import BoardModal from 'components/BoardModal';
-import { setActiveBoard, setIsBurgerOpen } from 'store/reducers/boardsSlice';
+import {
+  getBoardsByUserId,
+  setActiveBoard,
+  setBoards,
+  setIsBurgerOpen,
+} from 'store/reducers/boardsSlice';
 import IBoard from 'types/IBoard';
 
-const BurgerContentAuth = () => {
+interface BurgerContentAuthProps {
+  isBurgerOpen: boolean;
+}
+
+const BurgerContentAuth: React.FC<BurgerContentAuthProps> = ({ isBurgerOpen }) => {
   const userName = useAppSelector((state) => state.user.name);
   const boards = useAppSelector((state) => state.boards.boards);
+  const userID = useAppSelector((state) => state.user.id);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isModalOpened, setIsModalOpened] = useState(false);
@@ -25,6 +35,13 @@ const BurgerContentAuth = () => {
   const filteredBoards = boards.filter((board) =>
     board?.title.toLowerCase().trim().includes(activeSearchValue.toLowerCase().trim())
   );
+
+  useEffect(() => {
+    if (isBurgerOpen) {
+      dispatch(setBoards([]));
+      userID && dispatch(getBoardsByUserId(userID));
+    }
+  }, [dispatch, userID, isBurgerOpen]);
 
   useEffect(() => {
     const handler = setTimeout(() => {
