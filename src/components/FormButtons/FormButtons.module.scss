@@ -23,7 +23,7 @@
     @include buttonStyleNegative(5px, 30px);
 
     @media (max-width: 425px) {
-      @include buttonStyleNegative(5px, 20px);
+      @include buttonStyleNegative(5px, 15px);
     }
   }
 }
