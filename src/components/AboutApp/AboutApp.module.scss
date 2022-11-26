@@ -31,6 +31,10 @@
   border: 2px solid $accent-color;
 }
 
+.button:hover {
+  border: 2px solid $accent-color;
+}
+
 .activeButton {
   @include buttonStyleNegative(10px, 25px);
   width: 180px;
