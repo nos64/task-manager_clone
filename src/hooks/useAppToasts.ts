@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { useAppSelector } from './redux';
+import { useAppDispatch, useAppSelector } from './redux';
 import { toast } from 'react-toastify';
 import styles from '../styles/toasts.module.scss';
+import { setIsInexistentBoard } from 'store/reducers/boardsSlice';
 
 const useAppToasts = () => {
   const isLoginAlreadyExist = useAppSelector((state) => state.user.isLoginAlreadyExist);
@@ -9,6 +10,8 @@ const useAppToasts = () => {
   const isTokenRequireUpdate = useAppSelector((state) => state.user.isTokenRequireUpdate);
   const isProfileUpdated = useAppSelector((state) => state.user.isProfileUpdated);
   const isProfileDeleted = useAppSelector((state) => state.user.isProfileDeleted);
+  const isInexistentBoard = useAppSelector((state) => state.boards.isInexistentBoard);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (isLoginAlreadyExist || isAuthorisationError) {
@@ -22,6 +25,19 @@ const useAppToasts = () => {
       });
     }
   }, [isLoginAlreadyExist, isAuthorisationError]);
+
+  useEffect(() => {
+    if (isInexistentBoard) {
+      dispatch(setIsInexistentBoard());
+
+      toast.error(`Can't find board with this id`, {
+        position: toast.POSITION.TOP_CENTER,
+        theme: 'dark',
+        className: styles.toastMessage,
+        progressClassName: styles.toastProgressBar,
+      });
+    }
+  }, [dispatch, isInexistentBoard]);
 
   useEffect(() => {
     if (isTokenRequireUpdate) {

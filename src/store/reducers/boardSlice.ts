@@ -140,6 +140,9 @@ export const boardSlice = createSlice({
     resetBoardTokenExpiration(state) {
       state.isTokenExpired = false;
     },
+    setColumns(state, action) {
+      state.columns = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getColumns.pending, (state) => {
@@ -227,4 +230,4 @@ export const boardSlice = createSlice({
 });
 
 export default boardSlice.reducer;
-export const { resetBoardTokenExpiration } = boardSlice.actions;
+export const { resetBoardTokenExpiration, setColumns } = boardSlice.actions;
