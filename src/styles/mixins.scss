@@ -32,6 +32,37 @@
   }
 }
 
+@mixin formBtn($padding: 5px, $width: fit-content) {
+  background-color: $primary-button;
+  color: $text-color;
+  border-radius: 30px;
+  padding: $padding;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
+  width: $width;
+
+  &:hover {
+    background-color: $button-hovered;
+    color: $text-color-hovered;
+    border: 1px solid $button-active;
+  }
+
+  &:active {
+    background-color: $button-active;
+    color: $color-text-secondary;
+  }
+
+  &:disabled {
+    color: $text-color-hovered;
+    background-color: $button-disabled;
+    cursor: not-allowed;
+  }
+
+  &:disabled:hover {
+    border: 1px solid transparent;
+  }
+}
+
 @mixin buttonStyleNegative($paddingV: 5px, $paddingH: 5px) {
   background-color: $text-color-hovered;
   color: $primary-button;
@@ -40,6 +71,32 @@
   border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
   width: fit-content;
+
+  &:hover {
+    background-color: $text-color;
+    color: $button-hovered;
+    border: 1px solid $text-color-hovered;
+  }
+
+  &:active {
+    background-color: $text-color-hovered;
+    color: $button-active;
+  }
+
+  &:disabled {
+    background-color: $color-text-secondary;
+    color: $button-disabled;
+  }
+}
+
+@mixin cancelFormBtn($padding: 5px, $width: fit-content) {
+  background-color: $text-color-hovered;
+  color: $primary-button;
+  border-radius: 30px;
+  padding: $padding;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
+  width: $width;
 
   &:hover {
     background-color: $text-color;
