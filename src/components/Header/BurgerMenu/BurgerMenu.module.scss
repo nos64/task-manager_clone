@@ -33,6 +33,10 @@
   &.active {
     transform: translateX(0%);
   }
+
+  @media (max-width: 320px) {
+    width: 100%;
+  }
 }
 
 .burger {
