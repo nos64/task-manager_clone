@@ -9,8 +9,6 @@ import ThemeToggler from './ThemeToggler';
 import { GoPlus } from 'react-icons/go';
 import { useAppSelector, useAppDispatch } from 'hooks/redux';
 import BurgerMenu from './BurgerMenu';
-import BurgerContentAuth from './BurgerMenu/BurgerContentAuth';
-import BurgerContentNotAuth from './BurgerMenu/BurgerContentNotAuth';
 import { useTranslation } from 'react-i18next';
 import BoardModal from 'components/BoardModal';
 import { setIsBurgerOpen } from 'store/reducers/boardsSlice';
@@ -82,7 +80,7 @@ const Header = () => {
           </div>
         </Container>
       </header>
-      <BurgerMenu>{isAuthorised ? <BurgerContentAuth /> : <BurgerContentNotAuth />}</BurgerMenu>
+      <BurgerMenu isAuthorised={isAuthorised}></BurgerMenu>
       <BoardModal
         modalActive={isModalOpened}
         setModalActive={setIsModalOpened}

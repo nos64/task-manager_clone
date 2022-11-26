@@ -1,19 +1,34 @@
 import BoardModal from 'components/BoardModal';
 import NewBoard from 'components/NewBoard';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import IBoard from 'types/IBoard';
 import Board from '../../components/Board';
 import styles from './BoardsPage.module.scss';
-import { useAppSelector } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { getBoardsByUserId, setActiveBoard, setBoards } from 'store/reducers/boardsSlice';
+import { setColumns } from 'store/reducers/boardSlice';
 
 const BoardsPage = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
   const [selectedBoard, setSelectedBoard] = useState<IBoard | null>(null);
+
   const boards = useAppSelector((state) => state.boards.boards);
+  const userID = useAppSelector((state) => state.user.id);
+  const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
+
+  useEffect(() => {
+    dispatch(setActiveBoard(null));
+    dispatch(setColumns([]));
+    dispatch(setBoards([]));
+  }, [dispatch]);
+
+  useEffect(() => {
+    userID && dispatch(getBoardsByUserId(userID));
+  }, [dispatch, userID]);
 
   const toggleModal = () => {
     setIsModalOpened((prev) => !prev);

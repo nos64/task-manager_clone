@@ -10,7 +10,12 @@ import { FaRegClipboard } from 'react-icons/fa';
 import InputTextarea from 'components/InputTextarea';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { createNewBoard, setIsBurgerOpen, updateBoardById } from '../../store/reducers/boardsSlice';
+import {
+  createNewBoard,
+  setIsBoardCreated,
+  setIsBurgerOpen,
+  updateBoardById,
+} from '../../store/reducers/boardsSlice';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'common/routes';
 
@@ -32,8 +37,10 @@ const BoardModal: React.FC<BoardModalProps> = ({
   const { t } = useTranslation();
 
   const userID = useAppSelector((state) => state.user.id);
-  const activeBoard = useAppSelector((state) => state.boards.activeBoard);
+  const activeBoardID = useAppSelector((state) => state.boards.activeBoard?._id);
+  const isCreated = useAppSelector((state) => state.boards.isBoardCreated);
   const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
 
   const {
@@ -44,6 +51,13 @@ const BoardModal: React.FC<BoardModalProps> = ({
     setValue,
     formState: { errors },
   } = useForm<Partial<IBoard>>();
+
+  useEffect(() => {
+    if (isCreated && activeBoardID) {
+      dispatch(setIsBoardCreated(false));
+      navigate(`${ROUTES.BOARDS}/${activeBoardID}`);
+    }
+  }, [activeBoardID, dispatch, isCreated, navigate]);
 
   useEffect(() => {
     if (modalActive && selectedBoard && modalMode === 'edit') {
@@ -80,7 +94,7 @@ const BoardModal: React.FC<BoardModalProps> = ({
         })
       );
       dispatch(setIsBurgerOpen(false));
-      navigate(`${ROUTES.BOARDS}/${activeBoard?._id}`);
+      dispatch(setIsBoardCreated(true));
     }
     onReset();
   };
