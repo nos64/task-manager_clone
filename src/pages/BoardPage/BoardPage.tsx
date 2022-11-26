@@ -1,6 +1,6 @@
 import { ROUTES } from 'common/routes';
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './BoardPage.module.scss';
 import Column from '../../components/Column';
 import { FaLessThan } from 'react-icons/fa';
@@ -22,6 +22,7 @@ const BoardPage = () => {
   const columns = useAppSelector((state) => state.board.columns);
   const tasks = useAppSelector((state) => state.column.tasks);
   const activeBoardId = useAppSelector((state) => state.boards.activeBoard?._id);
+  const isInexistentBoard = useAppSelector((state) => state.boards.isInexistentBoard);
 
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [boardId, setBoardId] = useState<string>();
@@ -29,6 +30,7 @@ const BoardPage = () => {
   const { t } = useTranslation();
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const pathName = location.pathname.slice(location.pathname.lastIndexOf('/') + 1);
@@ -40,6 +42,10 @@ const BoardPage = () => {
       dispatch(getBoardById(boardId));
     }
   }, [boardDescription, boardId, boardTitle, dispatch]);
+
+  useEffect(() => {
+    isInexistentBoard && navigate(ROUTES.BOARDS);
+  }, [isInexistentBoard, navigate]);
 
   const handleDragEnd = (result: DropResult) => {
     const { destination, source, type, draggableId } = result;

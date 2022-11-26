@@ -108,6 +108,7 @@ interface BoardsState {
   activeBoard: IBoard | null;
   isBurgerOpen: boolean;
   isBoardCreated: boolean;
+  isInexistentBoard: boolean;
 }
 
 const initialState: BoardsState = {
@@ -117,6 +118,7 @@ const initialState: BoardsState = {
   activeBoard: null,
   isBurgerOpen: false,
   isBoardCreated: false,
+  isInexistentBoard: false,
 };
 
 export const boardsSlice = createSlice({
@@ -137,6 +139,9 @@ export const boardsSlice = createSlice({
     },
     setIsBoardCreated(state, action: PayloadAction<boolean>) {
       state.isBoardCreated = action.payload;
+    },
+    setIsInexistentBoard(state) {
+      state.isInexistentBoard = false;
     },
   },
   extraReducers: (builder) => {
@@ -221,7 +226,7 @@ export const boardsSlice = createSlice({
       }
 
       if (action.payload === StatusCodes.NOT_FOUND) {
-        console.log('Cant get board by id 404');
+        state.isInexistentBoard = true;
       }
     });
   },
@@ -232,5 +237,6 @@ export const {
   setBoards,
   resetBoardsTokenExpiration,
   setIsBoardCreated,
+  setIsInexistentBoard,
 } = boardsSlice.actions;
 export default boardsSlice.reducer;
