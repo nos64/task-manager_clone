@@ -3,7 +3,7 @@
 @import './fonts.scss';
 
 @mixin buttonStyle($paddingV: 5px, $paddingH: 5px) {
-  background-color: $accent-color-darker;
+  background-color: $accent-color;
   color: $text-color;
   border-radius: 30px;
   padding: $paddingV $paddingH;
@@ -36,7 +36,7 @@
 
 @mixin buttonStyleNegative($paddingV: 5px, $paddingH: 5px) {
   background-color: $text-color;
-  color: $accent-color-darker;
+  color: $accent-color;
   border-radius: 25px;
   padding: $paddingV $paddingH;
   border: 1px solid transparent;
@@ -101,7 +101,7 @@
 
 @mixin inputStyle($padding: 7px) {
   outline: none;
-  border: 1.5px solid $color-text-secondary;
+  border: 1.5px solid $dark-shadow;
   border-radius: 3px;
   background-color: transparent;
   color: $color-text-secondary;
