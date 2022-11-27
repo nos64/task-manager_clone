@@ -13,13 +13,13 @@
   flex-direction: column;
   gap: 10px;
   color: $color-text-secondary;
-  background-color: rgba(44, 44, 55, 0.5);
+  background-color: $new-element-color;
   cursor: pointer;
   transition: 0.3s ease;
 
   &:hover {
     color: $color-text-secondary;
-    background-color: rgba(44, 44, 55, 1);
+    background-color: $new-element-color-hovered;
 
     .newColumnIcon,
     .newColumnTitle {

@@ -9,12 +9,12 @@
   border-radius: $border-raduis-small;
   gap: 5px;
   color: $color-text-secondary;
-  background-color: rgba(44, 44, 55, 0.5);
+  background-color: $new-element-color;
   cursor: pointer;
 
   &:hover {
     color: $color-text-secondary;
-    background-color: rgba(44, 44, 55, 1);
+    background-color: $new-element-color-hovered;
 
     .newTaskIcon {
       opacity: 1;

@@ -67,6 +67,6 @@
 
   .canselBtn {
     text-transform: uppercase;
-    @include formBtn(5px, 100px);
+    @include cancelFormBtn(5px, 100px);
   }
 }

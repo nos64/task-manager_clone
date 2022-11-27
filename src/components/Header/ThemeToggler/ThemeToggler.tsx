@@ -19,11 +19,17 @@ const ThemeToggler = () => {
 
   return (
     <div className={styles.themeToggler} onClick={handleThemeClick}>
-      {/* {theme === 'dark' ? ( */}
-      <BsSun className={styles.themeIcon} />
-      {/* ) : ( */}
-      <BsMoon className={styles.themeIcon} />
-      {/* )} */}
+      {theme === 'dark' ? (
+        <>
+          <BsMoon className={styles.themeIcon} />
+          <BsSun className={styles.themeIcon} />
+        </>
+      ) : (
+        <>
+          <BsSun className={styles.themeIcon} />
+          <BsMoon className={styles.themeIcon} />
+        </>
+      )}
     </div>
   );
 };

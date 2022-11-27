@@ -24,8 +24,8 @@
 }
 
 .button {
-  @include buttonStyle(10px, 25px);
-  width: 180px;
+  @include formBtn(10px, 180px);
+  color: $text-color;
   font-size: inherit;
   background-color: transparent;
   border: 2px solid $accent-color;
@@ -34,19 +34,19 @@
 .button:hover {
   border: 2px solid $accent-color;
   background-color: $accent-color;
+  color: $const-light-color-hover;
 }
 
 .activeButton {
-  @include buttonStyleNegative(10px, 25px);
-  width: 180px;
-  font-weight: 700;
+  @include cancelFormBtn(10px, 180px);
   border: 2px solid $accent-color;
+  background-color: $const-light-color-hover;
 }
 
 .activeButton:hover {
   border: 2px solid $accent-color;
   background-color: $accent-color;
-  color: $text-color;
+  color: $const-light-color-hover;;
 }
 
 .contentList {
