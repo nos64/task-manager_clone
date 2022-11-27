@@ -18,6 +18,7 @@
 
 .headerAnimated {
   background-color: rgb(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
   outline-color: transparent;
   padding: 10px 20px;
 }
