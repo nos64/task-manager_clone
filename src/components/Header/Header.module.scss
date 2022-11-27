@@ -185,12 +185,13 @@
   padding: 8px 25px;
   border-radius: 22px;
   border: 2px solid $accent-color;
+  background-color: $background-primary;
   transition: 0.3s ease-in-out;
 
   &:hover {
-    color: $accent-color-darker;
-    background-color: $text-color;
-    border-color: $text-color;
+    color: $text-color;
+    background-color: $accent-color;
+    // border-color: $text-color;
   }
 }
 

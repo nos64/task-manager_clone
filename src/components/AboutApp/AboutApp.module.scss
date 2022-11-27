@@ -33,12 +33,20 @@
 
 .button:hover {
   border: 2px solid $accent-color;
+  background-color: $accent-color;
 }
 
 .activeButton {
   @include buttonStyleNegative(10px, 25px);
   width: 180px;
   font-weight: 700;
+  border: 2px solid $accent-color;
+}
+
+.activeButton:hover {
+  border: 2px solid $accent-color;
+  background-color: $accent-color;
+  color: $text-color;
 }
 
 .contentList {

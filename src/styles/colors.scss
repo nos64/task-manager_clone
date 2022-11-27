@@ -1,12 +1,22 @@
-$text-color: #e1e1e1;
-$text-color-hovered: #f9f9f9;
+// $text-color: #e1e1e1;
+// $text-color-hovered: #f9f9f9;
 
-$color-text-secondary: #9c9c9c;
+// $color-text-secondary: #9c9c9c;
 
-$background-primary: #2c2c37;
-$background-primary-lighter: #393947;
-$background-primary-darkest: #1f202a;
-$background-primary-darker: #21222d; //Layout
+// $background-primary: #2c2c37;
+// $background-primary-lighter: #393947;
+// $background-primary-darkest: #1f202a;
+// $background-primary-darker: #21222d; //Layout
+
+$text-color: var(--text-color);
+$text-color-hovered: var(--text-color-hovered);
+
+$color-text-secondary: var(--color-text-secondary);
+
+$background-primary: var(--background-primary);
+$background-primary-lighter: var(--background-primary-lighter);
+$background-primary-darkest: var(--background-primary-darkest);
+$background-primary-darker: var(--background-primary-darker);
 
 $shadow-color: #181622; //shadow don't change
 
@@ -29,3 +39,27 @@ $loader-color-left: #23c4f8; //don't change
 
 $toast-light-color: #e1e1e1; //don't change
 $toast-dark-color: #2c2c37; //don't change
+
+:root[data-theme="dark"] {
+  --text-color: #e1e1e1;
+  --text-color-hovered: #f9f9f9;
+  
+  --color-text-secondary: #9c9c9c;
+  
+  --background-primary: #2c2c37;
+  --background-primary-lighter: #393947;
+  --background-primary-darkest: #1f202a;
+  --background-primary-darker: #21222d; //Layout
+}
+:root[data-theme="light"] {
+  --text-color: #21222d;
+  // --text-color-hovered: #f9f9f9;
+  
+  --color-text-secondary: #9c9c9c;
+  
+  --background-primary: #f0eefa;
+  // --background-primary-lighter: #e7e5f8;
+  // --background-primary-darkest: #1f202a;
+  --background-primary-darker: #e7e5f8; //Layout
+
+}

@@ -173,6 +173,9 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setTheme(state, action: PayloadAction<string>) {
+      state.theme = action.payload;
+    },
     setIsAuthorised(state, action: PayloadAction<false>) {
       state.isAuthorised = action.payload;
       state.isRoutesProtected = action.payload;
@@ -349,6 +352,7 @@ export const userSlice = createSlice({
 });
 
 export const {
+  setTheme,
   setIsAuthorised,
   setLanguage,
   setIsRoutesProtected,
