@@ -56,7 +56,7 @@ const ColumnModal: React.FC<ColumnModalProps> = ({ modalActive, boardId, setModa
     <Modal modalActive={modalActive} setModalActive={onReset}>
       <div className={styles.elementModal}>
         <div className={styles.titleWrapper}>
-          <FaListUl size={25} />
+          <FaListUl size={25} className={styles.modalIcon} />
           <h2>{t('createColumn')}</h2>
         </div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)} onChange={onChange}>

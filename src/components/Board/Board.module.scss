@@ -19,6 +19,11 @@
   &:hover {
     border: 1px solid $accent-color;
   }
+
+  @media (max-width: 550px) {
+    max-width: 280px;
+    width: 100%;
+  }
 }
 
 .boardContent {
