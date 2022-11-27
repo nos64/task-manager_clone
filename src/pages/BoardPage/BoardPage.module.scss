@@ -1,6 +1,7 @@
 @import './../../styles/colors.scss';
 @import './../../styles/variables.scss';
 @import './../../styles/mixins.scss';
+@import "./../../styles/extensions.scss";
 
 .pageContent {
   display: flex;
@@ -18,7 +19,8 @@
 }
 
 .backBtn {
-  display: flex;
+  // display: flex;
+  @extend %centered;
   padding: 7px 20px;
   border-radius: $border-raduis-small;
   gap: 8px;
@@ -32,6 +34,21 @@
 
   &:hover {
     color: $text-color;
+  }
+
+  @media (max-width: 425px) {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 20px;
+
+    .backBtnIcon {
+      min-width: 14px;
+    }
+    .backLink {
+      display: none;
+    }
   }
 }
 
@@ -53,10 +70,15 @@
   font-size: 25px;
   color: $text-color;
   @include contentLimit(1);
+
+  @media (max-width: 568px) {
+    font-size: 20px;
+  }
 }
 
 .description {
   color: $color-text-secondary;
+  @include contentLimit(2);
 }
 
 .boardContent {
@@ -64,6 +86,10 @@
   height: 100%;
   align-items: stretch;
   flex: 1 1 auto;
+
+  @media (max-width: 568px) {
+    flex-direction: column;
+  }
 }
 
 .columnsContainer {

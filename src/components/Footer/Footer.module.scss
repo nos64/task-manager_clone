@@ -3,7 +3,7 @@
 
 .footer {
   padding: 15px 20px;
-  border: 3px solid $background-primary-lighter;
+  border-top: 3px solid $background-primary-lighter;
   background-color: $background-primary;
   color: $text-color;
 }
@@ -16,11 +16,19 @@
 
 .courseImg {
   width: 100px;
+
+  @media (max-width: 425px) {
+    width: 60px;
+  }
 }
 
 .githubList {
   display: flex;
   gap: 25px;
+
+  @media (max-width: 425px) {
+    gap: 10px;
+  }
 }
 
 .githubItem {
@@ -29,4 +37,22 @@
   &:hover {
     color: $accent-color;
   }
+
+  span {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
 }
+
+.githubIcon {
+  display: none;
+  width: 25px;
+  color: $base-light-color;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+

@@ -13,4 +13,9 @@
   gap: 20px;
   margin: 30px;
   color: $text-color;
+
+  @media (max-width: 500px) {
+    margin: 0;
+    width: 100%;
+  }
 }
