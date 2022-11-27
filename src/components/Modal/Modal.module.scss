@@ -6,7 +6,6 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(2px);
   position: fixed;
   top: 0;
   left: 0;
@@ -28,10 +27,10 @@
 .modalContent {
   padding: 20px;
   border-radius: $border-raduis-small;
-  color: $base-light-color;
+  color: $text-color;
   font-weight: 700;
   background-color: $background-primary;
-  box-shadow: 0px 0px 4px 1px $background-light-hovered;
+  box-shadow: 0px 0px 4px 1px $shadow-color;
   transform: scale(0.5);
   transition: all 0.3s ease-in-out;
 
@@ -42,7 +41,7 @@
 
 @media (max-width: 768px) {
   .modalContent {
-    width: 50vw;
+    // width: 50vw;
     font-size: 18px;
   }
 }

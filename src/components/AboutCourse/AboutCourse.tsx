@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './AboutCourse.module.scss';
-import rssImg from './../../assets/images/rs_school_js.svg';
 
 const AboutCourse = () => {
   return (
@@ -12,8 +11,8 @@ const AboutCourse = () => {
       </p>
       <div className={styles.aboutRSText}>
         <span>
-          <a href="https://rs.school/index.html" className={styles.courswLink}>
-            <img className={styles.courseImg} src={rssImg} alt="course img" />
+          <a href="https://rs.school/index.html" className={styles.courseLink}>
+            RS School
           </a>
           <span>
             is free-of-charge and community-based education program conducted by The Rolling Scopes

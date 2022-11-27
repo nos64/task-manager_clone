@@ -15,8 +15,8 @@
     right: 10px;
     width: 8px;
     height: 8px;
-    border-top: 2px solid $button-disabled;
-    border-left: 2px solid $button-disabled;
+    border-top: 2px solid $color-text-secondary;
+    border-left: 2px solid $color-text-secondary;
     transform: rotate(-135deg);
   }
 
@@ -43,7 +43,7 @@
     bottom: 10px;
     left: 6px;
     font-size: 18px;
-    background-color: $background-light;
+    background-color: $background-primary;
     padding: 0 4px;
     transition: all 0.3s ease;
   }
@@ -53,7 +53,7 @@
     bottom: -10px;
     left: 6px;
     font-size: 18px;
-    background-color: $background-light;
+    background-color: $background-primary;
     padding: 0 4px;
     transition: all 0.3s ease;
     z-index: 3;
