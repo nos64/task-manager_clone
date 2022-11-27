@@ -41,12 +41,11 @@
   padding: $paddingV $paddingH;
   border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
-  width: fit-content;
-  font-family: $font-name, sans-serif;
-  text-align: center;
+  width: $width;
 
   &:hover {
-    background-color: $text-color-hovered;
+    background-color: $text-color;
+    color: $button-hovered;
     border: 1px solid $text-color-hovered;
   }
 
