@@ -13,33 +13,33 @@
   flex-direction: column;
   gap: 10px;
   color: $color-text-secondary;
-  background-color: rgba(44, 44, 55, 0.2);
+  background-color: rgba(44, 44, 55, 0.5);
   cursor: pointer;
   transition: 0.3s ease;
 
   &:hover {
     color: $color-text-secondary;
-    background-color: rgba(44, 44, 55, 0.4);
+    background-color: rgba(44, 44, 55, 1);
 
     .newColumnIcon {
-      opacity: 0.5;
+      opacity: 1;
     }
 
     .newColumnTitle {
-      opacity: 0.5;
+      opacity: 1;
     }
   }
 }
 
 .newColumnIcon {
   width: 40px;
-  opacity: 0.2;
+  opacity: 0.8;
   transition: 0.3s ease;
 }
 
 .newColumnTitle {
   font-size: 20px;
   font-weight: bold;
-  opacity: 0.2;
+  opacity: 0.8;
   transition: 0.3s ease;
 }

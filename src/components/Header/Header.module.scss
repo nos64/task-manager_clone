@@ -126,7 +126,7 @@
 .burger:hover .burgerLine,
 .burger:hover .burgerLine::before,
 .burger:hover .burgerLine::after {
-  background-color: $accent-color-hovered;
+  background-color: $accent-color-darker;
 }
 
 .logo {
@@ -170,7 +170,7 @@
   }
 
   &:hover {
-    background-color: $accent-color-hovered;
+    background-color: $accent-color-darker;
     cursor: pointer;
   }
 }
@@ -188,9 +188,9 @@
   transition: 0.3s ease-in-out;
 
   &:hover {
-    color: $accent-color-hovered;
-    background-color: $base-light-color;
-    border-color: $base-light-color;
+    color: $accent-color-darker;
+    background-color: $text-color;
+    border-color: $text-color;
   }
 }
 

@@ -1,4 +1,4 @@
-import AboutTeams from 'components/AboutTeams';
+import AboutTeams from 'components/AboutTeam';
 import AboutApp from 'components/AboutApp';
 import HeroComponent from 'components/HeroComponent';
 import React from 'react';

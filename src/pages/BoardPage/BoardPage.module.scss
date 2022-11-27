@@ -88,9 +88,9 @@
 
 .columnsContainer::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background: $base-dark-lighter-color;
+  background: $background-primary-lighter;
 }
 
 .columnsContainer::-webkit-scrollbar-thumb:hover {
-  background: $base-dark-color;
+  background: $background-primary;
 }

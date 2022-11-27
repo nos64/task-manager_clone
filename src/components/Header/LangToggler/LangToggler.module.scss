@@ -41,7 +41,7 @@
 
 .option:hover {
   transition: color 0.3s ease-in-out;
-  color: $base-darkest-color;
+  color: $background-primary;
 }
 
 .langToggler:hover .langTogglerContent {
@@ -60,7 +60,7 @@
     background-color: $accent-color;
     border-color: $accent-color;
     border-top-color: transparent;
-    color: $base-light-color;
+    color: $text-color;
   }
 }
 
@@ -101,6 +101,6 @@
   }
 
   100% {
-    background-color: $accent-color-lighter-xs;
+    background-color: $accent-color-lighter;
   }
 }
