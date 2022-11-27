@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './Modal.module.scss';
 import { scrollController } from '../../utils/scrollController';
+import { useAppSelector } from 'hooks/redux';
 
 interface ModalProps {
   modalActive: boolean;
@@ -9,9 +10,13 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ modalActive, setModalActive, children }) => {
+  const isBurgerOpen = useAppSelector((state) => state.boards.isBurgerOpen);
+
   useEffect(() => {
-    modalActive ? scrollController.disableScroll() : scrollController.enableScroll();
-  }, [modalActive]);
+    modalActive || isBurgerOpen
+      ? scrollController.disableScroll()
+      : scrollController.enableScroll();
+  }, [modalActive, isBurgerOpen]);
 
   return (
     <div

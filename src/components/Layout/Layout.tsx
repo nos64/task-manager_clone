@@ -14,6 +14,7 @@ import i18n from 'i18next';
 
 const Layout: React.FC = () => {
   const language = useAppSelector((state) => state.user.language);
+  const isBurgerOpen = useAppSelector((state) => state.boards.isBurgerOpen);
 
   const isPending = useAppPending();
 
@@ -24,8 +25,8 @@ const Layout: React.FC = () => {
   }, [language]);
 
   useEffect(() => {
-    isPending ? scrollController.disableScroll() : scrollController.enableScroll();
-  }, [isPending]);
+    isPending || isBurgerOpen ? scrollController.disableScroll() : scrollController.enableScroll();
+  }, [isBurgerOpen, isPending]);
 
   return (
     <div className={styles.wrapper}>
