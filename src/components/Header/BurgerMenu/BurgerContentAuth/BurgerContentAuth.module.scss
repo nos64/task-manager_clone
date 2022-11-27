@@ -8,8 +8,8 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
-  background-color: $base-dark-color;
-  color: $base-light-color;
+  background-color: $background-primary;
+  color: $text-color;
   padding: 0 20px;
   z-index: 50;
   transition: all 0.6s ease;
@@ -33,13 +33,13 @@
   &:hover {
     color: $accent-color;
     font-weight: 700;
-    background-color: $base-light-color;
-    border-color: $base-light-color;
+    background-color: $text-color;
+    border-color: $text-color;
   }
 }
 
 .menuHeader {
-  border-bottom: 1px solid $dark-shadow;
+  border-bottom: 1px solid $color-text-secondary;
   width: 100%;
   margin-bottom: 20px;
 }
@@ -111,12 +111,12 @@
   min-width: 100%;
   padding: 3px 0;
   border: 1px solid transparent;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.1s ease;
 
   @include contentLimit(1);
   &:hover {
-    background-color: $background-hovered;
-    border: 1px solid $base-dark-lighter-color;
+    background-color: $background-primary-darker;
+    border: 1px solid $background-primary-lighter;
   }
 
   .boardNavLink {

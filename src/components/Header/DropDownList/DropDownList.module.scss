@@ -15,10 +15,10 @@
   gap: 10px;
   width: 200px;
   padding: 20px;
-  color: $base-light-color;
+  color: $text-color;
   border-radius: $border-raduis-small;
-  background-color: $base-dark-color;
-  box-shadow: 0 0 10px 3px $background-hovered;
+  background-color: $background-primary;
+  box-shadow: 0 0 10px 3px $shadow-color;
 
   &::before {
     content: '';
@@ -27,19 +27,19 @@
     width: 15px;
     height: 15px;
     top: -8px;
-    background-color: $base-dark-color;
-    box-shadow: -2px -2px 4px -1px $background-hovered;
+    background-color: $background-primary;
+    box-shadow: -2px -2px 4px -1px $shadow-color;
     transform: rotate(45deg);
   }
 }
 
 .userName {
   font-weight: 700;
-  border-bottom: 1px solid $base-dark-color;
+  border-bottom: 1px solid $background-primary;
   text-align: center;
   margin-bottom: 10px;
   padding-bottom: 4px;
-  border-bottom: 1px solid $button-disabled;
+  border-bottom: 1px solid $color-text-secondary;
   @include contentLimit(1);
 }
 

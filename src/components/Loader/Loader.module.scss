@@ -9,7 +9,6 @@
   bottom: 0;
   right: 0;
   @extend %centered;
-  backdrop-filter: blur(5px);
   z-index: 999;
 }
 

@@ -3,8 +3,8 @@
 @import './fonts.scss';
 
 @mixin buttonStyle($paddingV: 5px, $paddingH: 5px) {
-  background-color: $button-active;
-  color: $base-light-color;
+  background-color: $accent-color;
+  color: $text-color;
   border-radius: 30px;
   padding: $paddingV $paddingH;
   border: 1px solid transparent;
@@ -14,18 +14,18 @@
   text-align: center;
 
   &:hover {
-    background-color: $accent-color-hovered;
-    border: 1px solid $button-active;
+    background-color: $accent-color-darker;
+    border: 1px solid $accent-color-darker;
   }
 
   &:active {
-    background-color: $button-active;
+    background-color: $accent-color-darker;
     color: $color-text-secondary;
   }
 
   &:disabled {
     color: $text-color-hovered;
-    background-color: $button-disabled;
+    background-color: $color-text-secondary;
     cursor: not-allowed;
   }
 
@@ -35,8 +35,8 @@
 }
 
 @mixin buttonStyleNegative($paddingV: 5px, $paddingH: 5px) {
-  background-color: $base-light-color;
-  color: $button-active;
+  background-color: $text-color;
+  color: $accent-color;
   border-radius: 25px;
   padding: $paddingV $paddingH;
   border: 1px solid transparent;
@@ -52,12 +52,12 @@
 
   &:active {
     background-color: $text-color-hovered;
-    color: $button-active;
+    color: $accent-color-darker;
   }
 
   &:disabled {
     background-color: $color-text-secondary;
-    color: $button-disabled;
+    color: $color-text-secondary;
   }
 }
 
@@ -84,18 +84,18 @@
 }
 
 @mixin taskStyle {
-  background-color: $background-light;
+  background-color: $background-primary;
   border-radius: 10px;
   cursor: grab;
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    background-color: $background-light-hovered;
+    background-color: $shadow-color;
   }
 
   &:active {
     cursor: grabbing;
-    box-shadow: 0px 0px 4px 1px $light-shadow;
+    box-shadow: 0px 0px 4px 1px $color-text-secondary;
   }
 }
 
