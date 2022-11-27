@@ -1,5 +1,7 @@
+
 $text-color: var(--text-color);
 $text-color-hovered: var(--text-color-hovered);
+
 $color-text-secondary: var(--color-text-secondary);
 
 $background-primary: var(--background-primary);
@@ -48,12 +50,11 @@ $toast-dark-color: #2c2c37; //don't change
   --new-element-color: rgba(44, 44, 55, 0.5);
   --new-element-color-hovered: rgba(44, 44, 55, 1);
 }
-
 :root[data-theme="light"] {
   --text-color: #2c2c37;
   --text-color-hovered: #1f202a;
   
-  --color-text-secondary: #727171;
+  --color-text-secondary: #9c9c9c;
   
   --background-primary: #f0eefa;
   --background-primary-lighter: #eeedf8;
