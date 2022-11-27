@@ -24,17 +24,15 @@
 }
 
 .navLink {
-  display: flex;
-  padding: 8px 12.5px;
+  display: block;
+  padding: 8px 25px;
   border-radius: 22px;
   border: 2px solid $accent-color;
   transition: 0.3s ease-in-out;
 
   &:hover {
-    color: $accent-color;
-    font-weight: 700;
-    background-color: $text-color;
-    border-color: $text-color;
+    color: $accent-color-darker;
+    background-color: $const-light-color-hover;
   }
 }
 

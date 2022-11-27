@@ -20,10 +20,6 @@ const ThemeToggler = () => {
     dispatch(setTheme(theme));
 
     if (isBurgerOpen) dispatch(setIsBurgerOpen(false));
-
-    // const next = theme === 'dark' ? 'light' : 'dark';
-    // dispatch(setTheme(next));
-    // if (isBurgerOpen) dispatch(setIsBurgerOpen(false));
   };
 
   return (

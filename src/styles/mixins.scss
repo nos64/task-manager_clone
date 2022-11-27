@@ -35,7 +35,7 @@
 }
 
 @mixin cancelFormBtn($padding: 5px, $width: fit-content) {
-  background-color: $const-light-color;
+  background-color: $const-light-color-hover;
   color: $accent-color;
   border-radius: 25px;
   padding: $padding;
@@ -46,7 +46,7 @@
   text-align: center;
 
   &:hover {
-    background-color: $const-light-color-hover;
+    background-color: $const-light-color;
   }
 
   &:active {
