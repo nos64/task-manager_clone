@@ -116,7 +116,7 @@ export const ourTeams = [
     imageSrc: 'https://avatars.githubusercontent.com/u/91889887?v=4',
     gitLink: 'https://github.com/andrewkarev',
     name: 'Andrew Karev',
-    role: 'Frontend Developer, Backend Developer, TeamLaed',
+    role: 'Frontend Developer, Backend Developer, TeamLead',
     description: '',
   },
   {
