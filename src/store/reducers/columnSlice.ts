@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { updateBoard } from 'api/boards';
 import { createTask, deleteTask, getTasksInColumn, updateTask, updateTasksSet } from 'api/tasks';
 import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
 import { RootState } from 'store/store';
 import ITask from 'types/ITask';
+import { setActiveBoard } from './boardsSlice';
 
 interface IColumnsState {
   tasks: { [columnId: string]: ITask[] };
@@ -36,9 +38,45 @@ export const getTasks = createAsyncThunk(
 
 export const deleteColumnTask = createAsyncThunk(
   'column/deleteColumnTask',
-  async (task: ITask, { rejectWithValue }) => {
+  async (task: ITask, { rejectWithValue, getState, dispatch }) => {
     try {
+      const allBoardTasks = Object.values((getState() as RootState).column.tasks).flat();
+
       const deletedTask = await deleteTask(task.boardId, task.columnId, task._id);
+
+      if (!task.users.length) return deletedTask;
+
+      const currentBoard = (getState() as RootState).boards.activeBoard;
+      if (!currentBoard) return deletedTask;
+
+      const assigneeDeletedTask = task.users[0];
+      if (!assigneeDeletedTask) return deletedTask;
+
+      const assigneeDeletedTaskInOtherTasks = allBoardTasks.find(
+        (item) => item.users.includes(assigneeDeletedTask) && item._id !== task._id
+      );
+
+      if (assigneeDeletedTaskInOtherTasks) return deletedTask;
+
+      const usersWithoutDeletedAssignee = currentBoard.users.filter(
+        (item) => item !== assigneeDeletedTask
+      );
+
+      await updateBoard(currentBoard._id, {
+        title: currentBoard.title,
+        description: currentBoard.description,
+        owner: currentBoard.owner,
+        users: [...usersWithoutDeletedAssignee],
+      });
+      dispatch(
+        setActiveBoard({
+          _id: currentBoard._id,
+          title: currentBoard.title,
+          description: currentBoard.description,
+          owner: currentBoard.owner,
+          users: [...usersWithoutDeletedAssignee],
+        })
+      );
 
       return deletedTask;
     } catch (error) {
@@ -53,7 +91,7 @@ export const deleteColumnTask = createAsyncThunk(
 
 export const createColumnTask = createAsyncThunk(
   'column/createColumnTask',
-  async (task: Omit<ITask, '_id' | 'order'>, { rejectWithValue, getState }) => {
+  async (task: Omit<ITask, '_id' | 'order'>, { rejectWithValue, getState, dispatch }) => {
     const tasksCount = (getState() as RootState).column.tasks[task.columnId].length;
     const maxTaskOrder = (getState() as RootState).column.tasks[task.columnId].reduce(
       (acc, item) => (item.order > acc ? item.order : acc),
@@ -69,6 +107,30 @@ export const createColumnTask = createAsyncThunk(
         users: task.users,
       });
 
+      if (task.users.length) {
+        const currentBoard = (getState() as RootState).boards.activeBoard;
+
+        if (!currentBoard) return newTask;
+
+        if (currentBoard.users.includes(task.users[0])) return newTask;
+        await updateBoard(currentBoard._id, {
+          title: currentBoard.title,
+          description: currentBoard.description,
+          owner: currentBoard.owner,
+          users: [...currentBoard.users, ...task.users],
+        });
+
+        dispatch(
+          setActiveBoard({
+            _id: currentBoard._id,
+            title: currentBoard.title,
+            description: currentBoard.description,
+            owner: currentBoard.owner,
+            users: [...currentBoard.users, ...task.users],
+          })
+        );
+      }
+
       return newTask;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -82,7 +144,12 @@ export const createColumnTask = createAsyncThunk(
 
 export const updateColumnTask = createAsyncThunk(
   'column/updateColumnTask',
-  async (data: { task: ITask; oldColumnId: string }, { rejectWithValue }) => {
+  async (data: { task: ITask; oldColumnId: string }, { rejectWithValue, getState, dispatch }) => {
+    const currentColumnTasks = (getState() as RootState).column.tasks[data.task.columnId];
+    const oldAssignee = currentColumnTasks.find((item) => item._id === data.task._id)?.users[0];
+    const newAssignee = data.task.users[0];
+    const allBoardTasks = Object.values((getState() as RootState).column.tasks).flat();
+
     try {
       const newTask = await updateTask(data.task.boardId, data.oldColumnId, data.task._id, {
         title: data.task.title,
@@ -92,6 +159,58 @@ export const updateColumnTask = createAsyncThunk(
         userId: data.task.userId,
         users: data.task.users,
       });
+
+      if (!data.task.users.length) return { task: newTask, oldColumnId: data.oldColumnId };
+
+      const currentBoard = (getState() as RootState).boards.activeBoard;
+      if (!currentBoard) return { task: newTask, oldColumnId: data.oldColumnId };
+
+      let usersWithoutOldAssignee: string[] = [];
+      if (oldAssignee && oldAssignee !== newAssignee) {
+        const oldAssigneeInOtherTasks = allBoardTasks.find(
+          (item) => item.users.includes(oldAssignee) && item._id !== data.task._id
+        );
+
+        if (!oldAssigneeInOtherTasks) {
+          usersWithoutOldAssignee = currentBoard.users.filter((item) => item !== oldAssignee);
+        } else {
+          usersWithoutOldAssignee = [...currentBoard.users];
+        }
+      }
+
+      if (currentBoard.users.includes(newAssignee)) {
+        await updateBoard(currentBoard._id, {
+          title: currentBoard.title,
+          description: currentBoard.description,
+          owner: currentBoard.owner,
+          users: [...usersWithoutOldAssignee],
+        });
+        dispatch(
+          setActiveBoard({
+            _id: currentBoard._id,
+            title: currentBoard.title,
+            description: currentBoard.description,
+            owner: currentBoard.owner,
+            users: [...usersWithoutOldAssignee],
+          })
+        );
+      } else {
+        await updateBoard(currentBoard._id, {
+          title: currentBoard.title,
+          description: currentBoard.description,
+          owner: currentBoard.owner,
+          users: [...usersWithoutOldAssignee, ...data.task.users],
+        });
+        dispatch(
+          setActiveBoard({
+            _id: currentBoard._id,
+            title: currentBoard.title,
+            description: currentBoard.description,
+            owner: currentBoard.owner,
+            users: [...usersWithoutOldAssignee, ...data.task.users],
+          })
+        );
+      }
 
       return { task: newTask, oldColumnId: data.oldColumnId };
     } catch (error) {
