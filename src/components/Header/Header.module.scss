@@ -17,8 +17,8 @@
 }
 
 .headerAnimated {
-  background-color: rgb(0, 0, 0, 0.2);
-  backdrop-filter: blur(2px);
+  // background-color: rgb(0, 0, 0, 0.2);
+  // backdrop-filter: blur(2px);
   outline-color: transparent;
   padding: 10px 20px;
 }
@@ -185,13 +185,12 @@
   padding: 8px 25px;
   border-radius: 22px;
   border: 2px solid $accent-color;
-  background-color: $background-primary;
   transition: 0.3s ease-in-out;
 
   &:hover {
-    color: $text-color;
-    background-color: $accent-color;
-    // border-color: $text-color;
+    color: $accent-color-darker;
+    background-color: $text-color;
+    border-color: $text-color;
   }
 }
 
