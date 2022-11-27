@@ -79,64 +79,69 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
                 {...dragProvided.draggableProps}
                 {...dragProvided.dragHandleProps}
               >
-                <div className={styles.columnHeader}>
-                  <RiDeleteBin6Line
-                    className={styles.removeBtn}
-                    onClick={() => setIsColumnDeleting(true)}
-                  />
-                  <div className={styles.columnColor}></div>
-                  {!isTitleEditing && (
-                    <h4 className={styles.title} onClick={() => setIsTitleEditing(true)}>
-                      {item.title}
-                    </h4>
-                  )}
-                  {isTitleEditing && (
-                    <div className={styles.editControl}>
-                      <input
-                        className={styles.editInput}
-                        type="text"
-                        defaultValue={item.title}
-                        ref={columnTitleRef}
-                        onKeyDown={handleColumnTitleKeyDown}
-                      />
-                      <div className={styles.editBtns}>
-                        <IoIosCheckmark className={styles.editBtnOK} onClick={updateColumnTitle} />
-                        <IoIosClose
-                          className={styles.editBtnCancel}
-                          onClick={() => setIsTitleEditing(false)}
+                <div
+                  className={styles.columnWrapper}
+                  ref={dropProvided.innerRef}
+                  {...dropProvided.droppableProps}
+                >
+                  <div className={styles.columnHeader}>
+                    <RiDeleteBin6Line
+                      className={styles.removeBtn}
+                      onClick={() => setIsColumnDeleting(true)}
+                    />
+                    <div className={styles.columnColor}></div>
+                    {!isTitleEditing && (
+                      <h4 className={styles.title} onClick={() => setIsTitleEditing(true)}>
+                        {item.title}
+                      </h4>
+                    )}
+                    {isTitleEditing && (
+                      <div className={styles.editControl}>
+                        <input
+                          className={styles.editInput}
+                          type="text"
+                          defaultValue={item.title}
+                          ref={columnTitleRef}
+                          onKeyDown={handleColumnTitleKeyDown}
                         />
+                        <div className={styles.editBtns}>
+                          <IoIosCheckmark
+                            className={styles.editBtnOK}
+                            onClick={updateColumnTitle}
+                          />
+                          <IoIosClose
+                            className={styles.editBtnCancel}
+                            onClick={() => setIsTitleEditing(false)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  {!isTitleEditing && <p className={styles.tasksCount}>({tasks.length})</p>}
-                </div>
-
-                <div className={styles.columnContent}>
-                  <div
-                    className={styles.tasksContainer}
-                    ref={dropProvided.innerRef}
-                    {...dropProvided.droppableProps}
-                  >
-                    {tasks.map((task, index) => {
-                      return (
-                        <Task
-                          key={task._id}
-                          item={task}
-                          index={index}
-                          toggleModal={toggleModal}
-                          setModalMode={setModalMode}
-                          setSelectedTask={setSelectedTask}
-                        />
-                      );
-                    })}
-                    {dropProvided.placeholder}
+                    )}
+                    {!isTitleEditing && <p className={styles.tasksCount}>({tasks.length})</p>}
                   </div>
 
-                  <NewTask
-                    toggleModal={toggleModal}
-                    setModalMode={setModalMode}
-                    setSelectedTask={setSelectedTask}
-                  />
+                  <div className={styles.columnContent}>
+                    <div className={styles.tasksContainer}>
+                      {tasks.map((task, index) => {
+                        return (
+                          <Task
+                            key={task._id}
+                            item={task}
+                            index={index}
+                            toggleModal={toggleModal}
+                            setModalMode={setModalMode}
+                            setSelectedTask={setSelectedTask}
+                          />
+                        );
+                      })}
+                      {dropProvided.placeholder}
+                    </div>
+
+                    <NewTask
+                      toggleModal={toggleModal}
+                      setModalMode={setModalMode}
+                      setSelectedTask={setSelectedTask}
+                    />
+                  </div>
                 </div>
               </div>
             )}
