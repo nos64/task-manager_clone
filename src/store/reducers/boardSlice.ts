@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { updateBoard } from 'api/boards';
 import {
   createColumn,
   deleteColumn,
@@ -12,6 +13,7 @@ import StatusCodes from 'common/statusCodes';
 import { RootState } from 'store/store';
 import IBoard from 'types/IBoard';
 import IColumn from 'types/IColumn';
+import { setActiveBoard } from './boardsSlice';
 
 interface IBoardState extends IBoard {
   columns: IColumn[];
@@ -95,7 +97,7 @@ export const createBoardColumn = createAsyncThunk(
 
 export const deleteBoardColumn = createAsyncThunk(
   'board/deleteBoardColumn',
-  async (column: IColumn, { rejectWithValue, getState }) => {
+  async (column: IColumn, { rejectWithValue, getState, dispatch }) => {
     try {
       const columnTasks = (getState() as RootState).column.tasks[column._id];
       columnTasks.forEach((item) => {
@@ -103,6 +105,42 @@ export const deleteBoardColumn = createAsyncThunk(
       });
 
       const deletedColumn = await deleteColumn(column.boardId, column._id);
+
+      const taskOtherColumns = Object.entries((getState() as RootState).column.tasks)
+        .filter((item) => item[0] !== column._id)
+        .map((item) => item[1])
+        .flat();
+
+      const usersOnlyInDeletedColumnTasks: string[] = [];
+      columnTasks.forEach((item) => {
+        if (!item.users[0]) return;
+        if (!taskOtherColumns.find((task) => task.users.includes(item.users[0]))) {
+          usersOnlyInDeletedColumnTasks.push(item.users[0]);
+        }
+      });
+
+      const currentBoard = (getState() as RootState).boards.activeBoard;
+      if (!currentBoard) return deletedColumn;
+
+      const newBoardUsers = currentBoard.users.filter(
+        (item) => !usersOnlyInDeletedColumnTasks.includes(item)
+      );
+
+      await updateBoard(currentBoard._id, {
+        title: currentBoard.title,
+        description: currentBoard.description,
+        owner: currentBoard.owner,
+        users: [...newBoardUsers],
+      });
+      dispatch(
+        setActiveBoard({
+          _id: currentBoard._id,
+          title: currentBoard.title,
+          description: currentBoard.description,
+          owner: currentBoard.owner,
+          users: [...newBoardUsers],
+        })
+      );
 
       return deletedColumn;
     } catch (error) {
