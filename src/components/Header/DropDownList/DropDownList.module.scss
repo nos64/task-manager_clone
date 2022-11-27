@@ -20,6 +20,10 @@
   background-color: $background-primary;
   box-shadow: 0 0 10px 3px $shadow-color;
 
+  @media (max-width: 425px) {
+    right: -10px;
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -30,6 +34,10 @@
     background-color: $background-primary;
     box-shadow: -2px -2px 4px -1px $shadow-color;
     transform: rotate(45deg);
+
+    @media (max-width: 425px) {
+      right: 20px;
+    }
   }
 }
 

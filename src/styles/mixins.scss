@@ -61,6 +61,65 @@
   }
 }
 
+@mixin formBtn($padding: 5px, $width: fit-content) {
+  background-color: $accent-color;
+  color: $text-color;
+  border-radius: 30px;
+  padding: $padding;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
+  width: $width;
+  font-family: $font-name, sans-serif;
+  text-align: center;
+
+  &:hover {
+    background-color: $accent-color-darker;
+    border: 1px solid $accent-color-darker;
+  }
+
+  &:active {
+    background-color: $accent-color-darker;
+    color: $color-text-secondary;
+  }
+
+  &:disabled {
+    color: $text-color-hovered;
+    background-color: $color-text-secondary;
+    cursor: not-allowed;
+  }
+
+  &:disabled:hover {
+    border: 1px solid transparent;
+  }
+}
+
+@mixin cancelFormBtn($padding: 5px, $width: fit-content) {
+  background-color: $text-color;
+  color: $accent-color;
+  border-radius: 25px;
+  padding: $padding;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
+  width: $width;
+  font-family: $font-name, sans-serif;
+  text-align: center;
+
+  &:hover {
+    background-color: $text-color-hovered;
+    border: 1px solid $text-color-hovered;
+  }
+
+  &:active {
+    background-color: $text-color-hovered;
+    color: $accent-color-darker;
+  }
+
+  &:disabled {
+    background-color: $color-text-secondary;
+    color: $color-text-secondary;
+  }
+}
+
 @mixin deleteButtonStyle($paddingV: 10px, $paddingH: 20px) {
   background-color: $text-color-hovered;
   color: $warning-color;
@@ -71,6 +130,28 @@
   transition: all 0.3s ease-in-out;
   font-weight: 700;
   width: fit-content;
+
+  &:hover {
+    background-color: $warning-color;
+    border-color: $warning-color;
+    color: $text-color-hovered;
+  }
+
+  &:active {
+    color: $text-color-hovered;
+  }
+}
+
+@mixin deleteFormBtn($padding: 5px, $width: fit-content) {
+  background-color: $text-color-hovered;
+  color: $warning-color;
+  border-color: $warning-color;
+  border-radius: 30px;
+  padding: $padding;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
+  font-weight: 700;
+  width: $width;
 
   &:hover {
     background-color: $warning-color;
@@ -120,6 +201,10 @@
   .elementModal {
     width: 359px;
     max-width: 600px;
+
+    @media (max-width: 450px) {
+      width: auto;
+    }
   }
 
   .titleWrapper {

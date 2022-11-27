@@ -81,7 +81,7 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
               type="button"
               onClick={() => chooseActiveAvatar(image.id)}
             >
-              <img src={image.src} width={120} alt={`User image-${image.id}`} />
+              <img className={styles.avatarImg} src={image.src} alt={`User image-${image.id}`} />
             </button>
           </span>
         ))}

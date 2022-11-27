@@ -80,8 +80,8 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ currentAvatar }) => {
   return (
     <div className={styles.formWrapper}>
       <div className={styles.titleWrapper}>
-        <FaUserEdit size={25} />
-        <h2>{t('profileTitle')}</h2>
+        <FaUserEdit className={styles.titleImg} size={25} />
+        <h2 className={styles.profileTitle}>{t('profileTitle')}</h2>
       </div>
 
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)} onChange={onChange}>

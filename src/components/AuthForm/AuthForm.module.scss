@@ -12,6 +12,11 @@
   background-color: $background-primary;
   border-radius: 5px;
   box-shadow: 0px 0px 4px 1px $shadow-color;
+
+  @media (max-width: 425px) {
+    width: 100%;
+    padding: 30px 15px;
+  }
 }
 
 .button {
