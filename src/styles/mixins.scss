@@ -39,19 +39,22 @@
   color: $accent-color;
   border-radius: 25px;
   padding: $padding;
-  border: 2px solid $accent-color;
+  border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
   width: $width;
   font-family: $font-name, sans-serif;
   text-align: center;
 
   &:hover {
-    background-color: $const-light-color;
+    border: 1px solid $accent-color;
+    background-color: transparent;
+    color: $text-color;
   }
 
   &:active {
-    background-color: $text-color-hovered;
-    color: $accent-color-darker;
+    border: 1px solid $accent-color;
+    background-color: transparent;
+    color: $text-color;
   }
 
   &:disabled {
