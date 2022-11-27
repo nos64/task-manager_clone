@@ -18,7 +18,7 @@ const AboutApp = () => {
       <h2 className={styles.title}>Benefits of our Task Manager</h2>
       <ul className={styles.buttonList}>
         {benefitsArray.map((button) => (
-          <li className={styles.bittonItem} key={button.id}>
+          <li className={styles.buttonItem} key={button.id}>
             <button
               className={
                 button.isActive ? styles.button + ' ' + styles.activeButton : styles.button
@@ -41,7 +41,7 @@ const AboutApp = () => {
                 : styles.contentItem
             }
           >
-            <AboutAppContent title={item.title} description={item.description} video={item.video} />
+            <AboutAppContent {...item} />
           </li>
         ))}
       </ul>

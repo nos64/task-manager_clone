@@ -1,6 +1,6 @@
 import { ROUTES } from 'common/routes';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './BoardPage.module.scss';
 import Column from '../../components/Column';
 import { FaLessThan } from 'react-icons/fa';
@@ -13,18 +13,39 @@ import { getColumns, updateColumnsOrder } from 'store/reducers/boardSlice';
 import ColumnModal from 'components/ColumnModal';
 import { useTranslation } from 'react-i18next';
 import { updateTasksOrder } from 'store/reducers/columnSlice';
+import { getBoardById } from 'store/reducers/boardsSlice';
 
 const BoardPage = () => {
   const dispatch = useAppDispatch();
-  const boardId = useAppSelector((state) => state.boards.activeBoard?._id);
   const boardTitle = useAppSelector((state) => state.boards.activeBoard?.title);
   const boardDescription = useAppSelector((state) => state.boards.activeBoard?.description);
   const columns = useAppSelector((state) => state.board.columns);
   const tasks = useAppSelector((state) => state.column.tasks);
+  const activeBoardId = useAppSelector((state) => state.boards.activeBoard?._id);
+  const isInexistentBoard = useAppSelector((state) => state.boards.isInexistentBoard);
 
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const [boardId, setBoardId] = useState<string>();
 
   const { t } = useTranslation();
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const pathName = location.pathname.slice(location.pathname.lastIndexOf('/') + 1);
+    setBoardId(activeBoardId ? activeBoardId : pathName);
+  }, [activeBoardId, location.pathname]);
+
+  useEffect(() => {
+    if (boardId && !(boardTitle || boardDescription)) {
+      dispatch(getBoardById(boardId));
+    }
+  }, [boardDescription, boardId, boardTitle, dispatch]);
+
+  useEffect(() => {
+    isInexistentBoard && navigate(ROUTES.BOARDS);
+  }, [isInexistentBoard, navigate]);
 
   const handleDragEnd = (result: DropResult) => {
     const { destination, source, type, draggableId } = result;
@@ -98,8 +119,8 @@ const BoardPage = () => {
               <span className={styles.backLink}>{t('back')}</span>
             </Link>
             <div className={styles.boardInfo}>
-              <h3 className={styles.title}>{`${t('boardPageTitle')}: ${boardTitle}`}</h3>
-              <p className={styles.description}>{boardDescription}</p>
+              <h3 className={styles.title}>{`${t('boardPageTitle')}: ${boardTitle || ''}`}</h3>
+              <p className={styles.description}>{boardDescription || ''}</p>
             </div>
           </div>
           <div className={styles.boardContent}>

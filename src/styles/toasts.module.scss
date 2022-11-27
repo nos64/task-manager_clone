@@ -6,12 +6,12 @@
 .toastMessageSuccess {
   margin-top: 70px;
   border-radius: $border-raduis-small;
-  background-color: $base-light-color !important;
-  color: $base-dark-color !important;
+  background-color: $toast-light-color !important;
+  color: $toast-dark-color !important;
   text-align: center;
 
   & button svg path {
-    fill: $base-dark-color !important;
+    fill: $toast-dark-color !important;
   }
 }
 
@@ -23,7 +23,7 @@
 
 .toastMessageWarning {
   & svg path {
-    fill: $base-dark-color !important;
+    fill: $toast-dark-color !important;
     fill: $warning-color-second !important;
   }
 }

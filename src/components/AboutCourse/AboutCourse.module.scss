@@ -1,0 +1,46 @@
+@import '../../styles/colors.scss';
+@import '../../styles/extensions.scss';
+@import '../../styles/mixins.scss';
+@import '../../styles/fonts.scss';
+@import '../../styles/variables.scss';
+
+.contentWrapper {
+  @extend %centered;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  color: $text-color;
+  line-height: 1.25;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem
+}
+
+.aboutText {
+  font-size: 1.5rem;
+  text-indent: 30px;
+}
+
+.aboutRSText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  font-size: 1.25rem;
+  margin-bottom: 40px;
+}
+
+.courseLink {
+  margin-right: 10px;
+  font-weight: 700;
+  transition: color 0.3s ease-in-out;
+}
+
+.courseLink:hover {
+  color: $accent-color;
+}
+
