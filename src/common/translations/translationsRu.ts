@@ -67,6 +67,7 @@ const translationsRu = {
   signInMessage: 'Войти в Task Manager',
   authPageSwitcherRegistred: 'Уже с нами',
   authPageSwitcherNew: 'Нет аккаунта',
+  findTask: 'Найти задачу',
 };
 
 export default translationsRu;

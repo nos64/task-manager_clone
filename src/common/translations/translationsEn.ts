@@ -68,6 +68,7 @@ const translationsEn = {
   signInMessage: 'Sign in to Task Manager',
   authPageSwitcherRegistred: 'Already with us',
   authPageSwitcherNew: 'No account',
+  findTask: 'Find task',
 };
 
 export default translationsEn;
