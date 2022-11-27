@@ -12,6 +12,7 @@
   gap: 5px;
   color: $color-text-secondary;
   background-color: $background-primary;
+  outline: 1px solid $background-primary-darkest;
   transition: border 0.3s;
   cursor: pointer;
 
