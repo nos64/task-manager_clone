@@ -62,28 +62,29 @@
 }
 
 @mixin formBtn($padding: 5px, $width: fit-content) {
-  background-color: $primary-button;
+  background-color: $accent-color;
   color: $text-color;
   border-radius: 30px;
   padding: $padding;
   border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
   width: $width;
+  font-family: $font-name, sans-serif;
+  text-align: center;
 
   &:hover {
-    background-color: $button-hovered;
-    color: $text-color-hovered;
-    border: 1px solid $button-active;
+    background-color: $accent-color-darker;
+    border: 1px solid $accent-color-darker;
   }
 
   &:active {
-    background-color: $button-active;
+    background-color: $accent-color-darker;
     color: $color-text-secondary;
   }
 
   &:disabled {
     color: $text-color-hovered;
-    background-color: $button-disabled;
+    background-color: $color-text-secondary;
     cursor: not-allowed;
   }
 
@@ -93,28 +94,29 @@
 }
 
 @mixin cancelFormBtn($padding: 5px, $width: fit-content) {
-  background-color: $text-color-hovered;
-  color: $primary-button;
-  border-radius: 30px;
+  background-color: $text-color;
+  color: $accent-color;
+  border-radius: 25px;
   padding: $padding;
   border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
   width: $width;
+  font-family: $font-name, sans-serif;
+  text-align: center;
 
   &:hover {
-    background-color: $text-color;
-    color: $button-hovered;
+    background-color: $text-color-hovered;
     border: 1px solid $text-color-hovered;
   }
 
   &:active {
     background-color: $text-color-hovered;
-    color: $button-active;
+    color: $accent-color-darker;
   }
 
   &:disabled {
     background-color: $color-text-secondary;
-    color: $button-disabled;
+    color: $color-text-secondary;
   }
 }
 
