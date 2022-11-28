@@ -14,6 +14,7 @@ const UserPreview: React.FC<UserPreviewProps> = ({ currentAvatar, setCurrentAvat
   const [isModalActive, setIsModalActive] = useState(false);
   const name = useAppSelector((state) => state.user.name);
   const login = useAppSelector((state) => state.user.login);
+  const theme = useAppSelector((state) => state.user.theme);
 
   const { t } = useTranslation();
 
@@ -23,7 +24,7 @@ const UserPreview: React.FC<UserPreviewProps> = ({ currentAvatar, setCurrentAvat
         <div className={styles.avatarWrapper}>
           <img
             className={styles.avatarImg}
-            src={currentAvatar.src}
+            src={theme === 'dark' ? currentAvatar.srcL : currentAvatar.srcD}
             alt={`User image-${currentAvatar.id}`}
           />
 

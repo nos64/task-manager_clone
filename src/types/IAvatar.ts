@@ -1,6 +1,7 @@
 interface IAvatar {
   id: number;
-  src: string;
+  srcD: string;
+  srcL: string;
   isCurrent: boolean;
   isActive: boolean;
 }
