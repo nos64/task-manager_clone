@@ -12,6 +12,7 @@
   background-color: $new-element-color;
   // outline: 1px solid $background-primary-darkest;
   cursor: pointer;
+  transition: 0.3s ease;
 
   &:hover {
     color: $color-text-secondary;
