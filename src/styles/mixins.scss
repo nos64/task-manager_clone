@@ -43,6 +43,7 @@
   transition: all 0.3s ease-in-out;
   width: $width;
   font-family: $font-name, sans-serif;
+  outline: 1px solid $background-primary-darkest;
   text-align: center;
 
   &:hover {
