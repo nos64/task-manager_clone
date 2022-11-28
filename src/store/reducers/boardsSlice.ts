@@ -199,7 +199,12 @@ export const boardsSlice = createSlice({
       state.isPending = false;
       state.boards = state.boards.map((board) =>
         board?._id === action.payload._id
-          ? { ...board, description: action.payload.description, title: action.payload.title }
+          ? {
+              ...board,
+              description: action.payload.description,
+              title: action.payload.title,
+              users: action.payload.users,
+            }
           : board
       );
     });

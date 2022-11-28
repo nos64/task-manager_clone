@@ -40,6 +40,10 @@
   }
 }
 
+.columnWrapper {
+  height: 100%;
+}
+
 .column.dragged,
 .column.dropped {
   background-color: $background-primary-darkest;
