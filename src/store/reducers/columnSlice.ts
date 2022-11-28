@@ -230,7 +230,19 @@ export const updateTasksOrder = createAsyncThunk(
     { rejectWithValue, dispatch }
   ) => {
     try {
-      dispatch(setTasks({ columnId: data.newColumnId, tasks: data.tasks }));
+      dispatch(
+        setTasks({
+          columnId: data.oldColumnId,
+          tasks: data.tasks.filter((item) => item.columnId === data.oldColumnId),
+        })
+      );
+
+      dispatch(
+        setTasks({
+          columnId: data.newColumnId,
+          tasks: data.tasks.filter((item) => item.columnId === data.newColumnId),
+        })
+      );
 
       const tasksData = data.tasks.map((item) => ({
         _id: item._id,
