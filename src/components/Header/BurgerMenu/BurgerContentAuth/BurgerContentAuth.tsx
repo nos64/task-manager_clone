@@ -16,6 +16,8 @@ import {
   setIsBurgerOpen,
 } from 'store/reducers/boardsSlice';
 import IBoard from 'types/IBoard';
+import TaskSearchModal from 'components/TaskSearchModal';
+import useDebounce from 'hooks/useDebouce';
 
 const BurgerContentAuth = () => {
   const userName = useAppSelector((state) => state.user.name);
@@ -26,7 +28,9 @@ const BurgerContentAuth = () => {
   const dispatch = useAppDispatch();
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [enteredSearchValue, setEnteredSearchValue] = useState('');
-  const [activeSearchValue, setActiveSearchValue] = useState('');
+  const [isFindTaskModalOpened, setIsFindTaskModalOpened] = useState(false);
+
+  const activeSearchValue = useDebounce(enteredSearchValue);
 
   const { t } = useTranslation();
 
@@ -40,16 +44,6 @@ const BurgerContentAuth = () => {
       userID && dispatch(getBoardsByUserId(userID));
     }
   }, [dispatch, userID, isBurgerOpen]);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setActiveSearchValue(enteredSearchValue);
-    }, 300);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [enteredSearchValue]);
 
   const handleCreateBoard = () => {
     setIsModalOpened(true);
@@ -99,7 +93,7 @@ const BurgerContentAuth = () => {
                     key={board && board._id}
                     onClick={() => handleBoardLinkClick(board)}
                   >
-                    <span className={styles.boardNavLink}>{board && board.title}</span>
+                    <span className={styles.boardNavLink}>{board.title}</span>
                   </li>
                 )
             )
@@ -115,7 +109,11 @@ const BurgerContentAuth = () => {
             <GoPlus />
             {t('createBoard')}
           </button>
-          <button className={styles.createBoardBtn} type="button" onClick={() => undefined}>
+          <button
+            className={styles.createBoardBtn}
+            type="button"
+            onClick={() => setIsFindTaskModalOpened(true)}
+          >
             <FiSearch />
             {t('findTask')}
           </button>
@@ -126,6 +124,10 @@ const BurgerContentAuth = () => {
         setModalActive={setIsModalOpened}
         modalMode={'create'}
         selectedBoard={null}
+      />
+      <TaskSearchModal
+        modalActive={isFindTaskModalOpened}
+        setModalActive={setIsFindTaskModalOpened}
       />
     </>
   );
