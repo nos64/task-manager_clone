@@ -24,8 +24,8 @@
 }
 
 .navLink {
-  display: block;
-  padding: 8px 25px;
+  display: flex;
+  padding: 8px 12.5px;
   border-radius: 22px;
   border: 2px solid $accent-color;
   transition: 0.3s ease-in-out;
