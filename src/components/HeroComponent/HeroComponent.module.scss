@@ -33,13 +33,12 @@
 
 .navLink {
   display: block;
-  @include buttonStyle(10px, 25px);
-  width: 180px;
+  @include formBtn(10px, 180px);
 }
 
 .navLinkAlt {
   display: block;
-  @include buttonStyleNegative(10px, 25px);
+  @include cancelFormBtn(10px, 180px);
   width: 180px;
 }
 

@@ -8,5 +8,5 @@
 
 .deleteBtn {
   text-transform: uppercase;
-  @include deleteButtonStyle;
+  @include deleteFormBtn(10px, 180px);
 }

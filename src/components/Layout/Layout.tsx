@@ -14,7 +14,7 @@ import i18n from 'i18next';
 
 const Layout: React.FC = () => {
   const language = useAppSelector((state) => state.user.language);
-
+  const theme = useAppSelector((state) => state.user.theme);
   const isPending = useAppPending();
 
   useTokenExpiration();
@@ -26,6 +26,10 @@ const Layout: React.FC = () => {
   useEffect(() => {
     isPending ? scrollController.disableScroll() : scrollController.enableScroll();
   }, [isPending]);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   return (
     <div className={styles.wrapper}>

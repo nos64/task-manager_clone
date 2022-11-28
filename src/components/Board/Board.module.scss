@@ -13,6 +13,7 @@
   justify-content: space-between;
   color: $color-text-secondary;
   background-color: $background-primary;
+  outline: 1px solid $background-primary-darkest;
   cursor: pointer;
   transition: 0.3s ease;
 
