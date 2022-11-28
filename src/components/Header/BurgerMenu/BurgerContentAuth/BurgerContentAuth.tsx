@@ -6,6 +6,7 @@ import { ROUTES } from 'common/routes';
 import LangToggler from 'components/Header/LangToggler';
 import ThemeToggler from 'components/Header/ThemeToggler';
 import { GoPlus } from 'react-icons/go';
+import { FiSearch } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
 import BoardModal from 'components/BoardModal';
 import {
@@ -88,10 +89,6 @@ const BurgerContentAuth = () => {
             value={enteredSearchValue}
           />
         </div>
-        <button className={styles.createBoardBtn} type="button" onClick={handleCreateBoard}>
-          <GoPlus />
-          {t('createBoard')}
-        </button>
         <ul className={styles.boardList}>
           {filteredBoards.length ? (
             filteredBoards.map(
@@ -102,7 +99,7 @@ const BurgerContentAuth = () => {
                     key={board && board._id}
                     onClick={() => handleBoardLinkClick(board)}
                   >
-                    {board && board.title}
+                    <span className={styles.boardNavLink}>{board && board.title}</span>
                   </li>
                 )
             )
@@ -113,6 +110,16 @@ const BurgerContentAuth = () => {
             </>
           )}
         </ul>
+        <div className={styles.btnsWrapper}>
+          <button className={styles.createBoardBtn} type="button" onClick={handleCreateBoard}>
+            <GoPlus />
+            {t('createBoard')}
+          </button>
+          <button className={styles.createBoardBtn} type="button" onClick={() => undefined}>
+            <FiSearch />
+            {t('findTask')}
+          </button>
+        </div>
       </div>
       <BoardModal
         modalActive={isModalOpened}

@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 100%;
+  height: calc(100vh - 80px);
   background-color: $background-primary;
   color: $text-color;
   padding: 0 20px;
@@ -47,7 +47,6 @@
 .createBoardBtn {
   display: flex;
   align-items: flex-start;
-  margin: 10px auto 10px 0;
   gap: 5px;
   font-size: 16px;
   color: inherit;
@@ -76,9 +75,9 @@
 .inputWrapper {
   display: flex;
   flex-direction: column;
-  width: 95%;
-  margin: 16px auto;
   height: 40px;
+  width: 92%;
+  margin: 16px 10px;
 
   & .inputLine {
     @include inputStyle;
@@ -102,18 +101,40 @@
   flex-direction: column;
   gap: 2px;
   width: 100%;
+  height: calc(100vh - 318px);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background: $light-shadow;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: $background-primary-lighter;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $background-primary;
+  }
 }
 
 .boardItem {
   display: block;
   text-align: left;
-  cursor: pointer;
   min-width: 100%;
   padding: 3px 0;
   border: 1px solid transparent;
   transition: all 0.1s ease;
+  cursor: pointer;
 
-  @include contentLimit(1);
+  font-size: 16px;
+
   &:hover {
     background-color: $background-primary-darker;
     border: 1px solid $background-primary-lighter;
@@ -133,6 +154,16 @@
   font-size: 16px;
   font-weight: 700;
   @include contentLimit(1);
+}
+
+.btnsWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  margin-top: auto;
+  padding: 20px 0;
 }
 
 @media (max-width: 620px) {
