@@ -29,7 +29,6 @@ const Layout: React.FC = () => {
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    localStorage.setItem('theme', theme);
   }, [theme]);
 
   return (
