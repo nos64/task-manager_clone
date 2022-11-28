@@ -20,7 +20,7 @@
   gap: 20px;
 
   & .avatarButton {
-    @include buttonStyle(10px, 10px);
+    @include formBtn(10px, 150px);
     text-transform: uppercase;
     width: 100%;
   }

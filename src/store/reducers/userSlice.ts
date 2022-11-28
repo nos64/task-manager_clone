@@ -14,6 +14,7 @@ import { resetTaskTokenExpiration } from './taskSlice';
 import { resetBoardTokenExpiration } from './boardSlice';
 import { resetBoardsTokenExpiration } from './boardsSlice';
 import { resetColumnTokenExpiration } from './columnSlice';
+import Themes from 'types/Theme';
 
 export const signUpUser = createAsyncThunk(
   'user/signUpUser',
@@ -138,7 +139,7 @@ interface UserState {
   login: string;
   name: string;
   language: Languages;
-  theme: string;
+  theme: Themes;
   avatarID: number;
   users: Partial<IUser>[];
   isLoginAlreadyExist: boolean;
@@ -185,6 +186,9 @@ export const userSlice = createSlice({
     },
     setLanguage(state, action: PayloadAction<Languages>) {
       state.language = action.payload;
+    },
+    setTheme(state, action: PayloadAction<Themes>) {
+      state.theme = action.payload;
     },
     setIsRoutesProtected(state, action: PayloadAction<false>) {
       state.isRoutesProtected = action.payload;
@@ -349,6 +353,7 @@ export const userSlice = createSlice({
 });
 
 export const {
+  setTheme,
   setIsAuthorised,
   setLanguage,
   setIsRoutesProtected,

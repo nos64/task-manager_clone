@@ -20,7 +20,7 @@
 }
 
 .button {
-  @include buttonStyle(5px, 30px);
+  @include formBtn(5px, 100px);
   margin: 0 auto;
   text-transform: uppercase;
 }
