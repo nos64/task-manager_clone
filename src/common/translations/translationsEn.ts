@@ -69,6 +69,8 @@ const translationsEn = {
   authPageSwitcherRegistred: 'Already with us',
   authPageSwitcherNew: 'No account',
   findTask: 'Find task',
+  taskSearchPlaceholder: 'Enter task title or description',
+  noTasksmessage: "You don't have any tasks yet",
 };
 
 export default translationsEn;
