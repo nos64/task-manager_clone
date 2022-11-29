@@ -44,7 +44,7 @@ const Header = () => {
       >
         <Container>
           <div className={styles.headerContent}>
-            <span className={!isAuthorised ? styles.burgerWrapper : ''}>
+            <span className={!isAuthorised ? styles.burgerWrapper : styles.opened}>
               <div
                 className={isBurgerOpen ? styles.burger + ' ' + styles.active : styles.burger}
                 onClick={() => dispatch(setIsBurgerOpen(!isBurgerOpen))}
