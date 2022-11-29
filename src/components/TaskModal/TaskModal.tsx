@@ -10,11 +10,11 @@ import InputTextarea from 'components/InputTextarea';
 import Selectelement from 'components/Selectelement';
 import ITask from 'types/ITask';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { getAllUsers } from 'store/reducers/userSlice';
 import ITaskModalForm from 'types/ITaskModalForm';
 import { useTranslation } from 'react-i18next';
 import IColumn from 'types/IColumn';
 import { createColumnTask, updateColumnTask } from 'store/reducers/columnSlice';
+import { getAllUsers } from 'store/reducers/userSlice';
 
 interface TaskModalProps {
   modalActive: boolean;
@@ -56,7 +56,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
   }, [dispatch, modalActive]);
 
   useEffect(() => {
-    if (modalActive && selectedTask && modalMode === 'edit') {
+    if (users.length && modalActive && selectedTask && modalMode === 'edit') {
       setValue('title', selectedTask.title);
       setValue('description', selectedTask.description);
       setValue('columnId', selectedTask.columnId);
@@ -64,7 +64,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
 
       setFieldsValues(getValues());
     }
-  }, [getValues, modalActive, modalMode, selectedTask, setValue]);
+  }, [users.length, getValues, modalActive, modalMode, selectedTask, setValue]);
 
   useEffect(() => {
     if (modalActive && modalMode === 'create') {
@@ -107,7 +107,6 @@ const TaskModal: React.FC<TaskModalProps> = ({
         throw new Error('no such modal mode');
     }
 
-    setModalActive(false);
     onReset();
   };
 

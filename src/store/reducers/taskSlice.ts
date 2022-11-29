@@ -1,18 +1,22 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getTasksSet } from 'api/tasks';
 import { getUser } from 'api/users';
 import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
+import ITask from 'types/ITask';
 
 interface ITasksState {
   assignees: { [taskId: string]: string };
   isPending: boolean;
   isTokenExpired: boolean;
+  tasksList: ITask[];
 }
 
 const initialState: ITasksState = {
   assignees: {},
   isPending: false,
   isTokenExpired: false,
+  tasksList: [],
 };
 
 export const getTaskAssignee = createAsyncThunk(
@@ -32,12 +36,30 @@ export const getTaskAssignee = createAsyncThunk(
   }
 );
 
+export const getTasksBySearchQuery = createAsyncThunk(
+  'task/getTaskBysearchquery',
+  async (options: { userId: string; query: string }, { rejectWithValue }) => {
+    try {
+      return await getTasksSet([], options.userId, options.query);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.status);
+      }
+
+      throw error;
+    }
+  }
+);
+
 export const taskSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
     resetTaskTokenExpiration(state) {
       state.isTokenExpired = false;
+    },
+    setTasksList(state, action: PayloadAction<ITask[]>) {
+      state.tasksList = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -56,8 +78,19 @@ export const taskSlice = createSlice({
         state.isTokenExpired = true;
       }
     });
+
+    builder.addCase(getTasksBySearchQuery.pending, (state) => {
+      state.isPending = true;
+    });
+    builder.addCase(getTasksBySearchQuery.fulfilled, (state, action) => {
+      state.isPending = false;
+      state.tasksList = action.payload;
+    });
+    builder.addCase(getTasksBySearchQuery.rejected, (state) => {
+      state.isPending = false;
+    });
   },
 });
 
 export default taskSlice.reducer;
-export const { resetTaskTokenExpiration } = taskSlice.actions;
+export const { resetTaskTokenExpiration, setTasksList } = taskSlice.actions;

@@ -6,13 +6,15 @@ const useAppPending = () => {
   const isBoardsPending = useAppSelector((state) => state.boards.isPending);
   const isColumnsPending = useAppSelector((state) => state.board.isPending);
   const isTasksPending = useAppSelector((state) => state.column.isPending);
+  const isTaskPending = useAppSelector((state) => state.task.isPending);
 
   const [isPending, setIsPending] = useState(false);
 
   useEffect(() => {
-    const pendingStatus = isUserPending || isBoardsPending || isColumnsPending || isTasksPending;
+    const pendingStatus =
+      isUserPending || isBoardsPending || isColumnsPending || isTasksPending || isTaskPending;
     setIsPending(pendingStatus);
-  }, [isUserPending, isBoardsPending, isColumnsPending, isTasksPending]);
+  }, [isUserPending, isBoardsPending, isColumnsPending, isTasksPending, isTaskPending]);
 
   return isPending;
 };
