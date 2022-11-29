@@ -1,6 +1,7 @@
 @import '../../styles/colors.scss';
 @import '../../styles/extensions.scss';
 @import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
 
 .wrapper {
   @extend %centered;
@@ -44,6 +45,10 @@
 
 .imageWrapper {
   max-width: 700px;
+  margin-right: 10px;
+  border-radius: $border-radius-medium;
+  box-shadow: 0 0 10px $dark-shadow;
+  overflow: hidden;
 }
 
 .heroImage {

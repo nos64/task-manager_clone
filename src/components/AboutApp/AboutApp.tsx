@@ -15,7 +15,7 @@ const AboutApp = () => {
 
   return (
     <section className={styles.contentWrapper}>
-      <h2 className={styles.title}>Benefits of our Task Manager</h2>
+      <h2 className={styles.title}>Task Manager will help you to...</h2>
       <ul className={styles.buttonList}>
         {benefitsArray.map((button) => (
           <li className={styles.buttonItem} key={button.id}>
@@ -26,7 +26,7 @@ const AboutApp = () => {
               type="button"
               onClick={() => chooseActiveBenefit(button.id)}
             >
-              {button.title}
+              {button.buttonText}
             </button>
           </li>
         ))}
