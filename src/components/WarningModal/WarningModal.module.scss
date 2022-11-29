@@ -32,12 +32,16 @@
   @extend %centered;
   gap: 30px;
 
+  @media (max-width: 500px) {
+    gap: 15px;
+  }
+
   .submitBtn {
     text-transform: uppercase;
     @include formBtn(10px, 130px);
 
     @media (max-width: 500px) {
-      @include formBtn(5px, 100px);
+      @include formBtn(5px, 110px);
     }
   }
 
@@ -46,7 +50,7 @@
     @include deleteFormBtn(10px, 130px);
 
     @media (max-width: 500px) {
-      @include deleteFormBtn(5px, 100px);
+      @include deleteFormBtn(5px, 110px);
     }
   }
 }
