@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { updateBoard } from 'api/boards';
 import { createTask, deleteTask, getTasksInColumn, updateTask, updateTasksSet } from 'api/tasks';
 import { AxiosError } from 'axios';
@@ -227,14 +227,29 @@ export const updateTasksOrder = createAsyncThunk(
   'column/updateTasksOrder',
   async (
     data: { tasks: ITask[]; oldColumnId: string; newColumnId: string },
-    { rejectWithValue }
+    { rejectWithValue, dispatch }
   ) => {
-    const tasksData = data.tasks.map((item) => ({
-      _id: item._id,
-      order: item.order,
-      columnId: item.columnId,
-    }));
     try {
+      dispatch(
+        setTasks({
+          columnId: data.oldColumnId,
+          tasks: data.tasks.filter((item) => item.columnId === data.oldColumnId),
+        })
+      );
+
+      dispatch(
+        setTasks({
+          columnId: data.newColumnId,
+          tasks: data.tasks.filter((item) => item.columnId === data.newColumnId),
+        })
+      );
+
+      const tasksData = data.tasks.map((item) => ({
+        _id: item._id,
+        order: item.order,
+        columnId: item.columnId,
+      }));
+
       const newTasks = await updateTasksSet(tasksData);
 
       return { tasks: newTasks, oldColumnId: data.oldColumnId, newColumnId: data.newColumnId };
@@ -254,6 +269,10 @@ export const columnSlice = createSlice({
   reducers: {
     resetColumnTokenExpiration(state) {
       state.isTokenExpired = false;
+    },
+    setTasks(state, action: PayloadAction<{ columnId: string; tasks: ITask[] }>) {
+      const { columnId, tasks } = action.payload;
+      state.tasks[columnId] = tasks;
     },
   },
   extraReducers: (builder) => {
@@ -373,4 +392,4 @@ export const columnSlice = createSlice({
 });
 
 export default columnSlice.reducer;
-export const { resetColumnTokenExpiration } = columnSlice.actions;
+export const { resetColumnTokenExpiration, setTasks } = columnSlice.actions;
