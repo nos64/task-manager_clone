@@ -1,12 +1,12 @@
-@import "./../../../styles/colors.scss";
-@import "./../../../styles/variables.scss";
-@import "./../../../styles/extensions.scss";
+@import './../../../styles/colors.scss';
+@import './../../../styles/variables.scss';
+@import './../../../styles/extensions.scss';
 
 .newTask {
   @extend %centered;
   padding: 15px 15px;
   margin-right: 5px;
-  border-radius: $border-raduis-small;
+  border-radius: $border-radius-small;
   gap: 5px;
   color: $color-text-secondary;
   background-color: $new-element-color;

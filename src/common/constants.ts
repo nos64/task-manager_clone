@@ -9,10 +9,11 @@ import userImage6 from '../assets/images/userImage6.png';
 import userImage7 from '../assets/images/userImage7.png';
 import userImage8 from '../assets/images/userImage8.png';
 import userImage9 from '../assets/images/userImage9.png';
-import planImage from '../assets/images/planImage.png';
-import simpleImage from '../assets/images/descriptionImage.png';
-import changeImage from '../assets/images/changeImage.png';
-import dragNdropImage from '../assets/images/dragNdropImage.png';
+
+import planVideoSrc from '../assets/videos/plan.mp4';
+import manageVideoSrc from '../assets/videos/manage.mp4';
+import customizeVideoSrc from '../assets/videos/customize.mp4';
+import simplifyVideoSrc from '../assets/videos/simplify.mp4';
 
 export const API_URL = `https://task-manager.adaptable.app`;
 
@@ -92,33 +93,37 @@ export const avatars = [
 export const benefitsContent = [
   {
     id: '01',
-    title: 'Plan',
+    title: '...plan your workflow',
+    buttonText: 'Plan',
     isActive: true,
     description:
-      ' Break the big ideas down into manageable chunks across teams with user stories, issues, and tasks.',
-    video: planImage,
+      'Break the big ideas down into manageable chunks across teams with kanban boards, columns and tasks.',
+    video: planVideoSrc,
   },
   {
     id: '02',
-    title: 'Simplicity',
+    title: '...manage your project',
+    buttonText: 'Manage',
     isActive: false,
     description:
-      'Break the big ideas down into manageable chunks across teams with user stories, issues, and tasks.',
-    video: simpleImage,
+      'Add an unlimited number of kanban boards, columns and tasks. Move tasks and columns using drag and drop. Assign tasks to teammates.',
+    video: manageVideoSrc,
   },
   {
     id: '03',
-    title: 'Change',
+    title: '...customize your profile',
+    buttonText: 'Customize',
     isActive: false,
-    description: 'Customize your profile.',
-    video: changeImage,
+    description: 'Change your name and avatar. Choose a convenient color theme and language.',
+    video: customizeVideoSrc,
   },
   {
     id: '04',
-    title: 'Comfortable',
+    title: '...simplify your work',
+    buttonText: 'Simplify',
     isActive: false,
-    description: 'Transfer tasks and columns by drag and drop. Add an unlimited number of tasks.',
-    video: dragNdropImage,
+    description: 'Use the handy sidebar to navigate your boards and tasks at any time.',
+    video: simplifyVideoSrc,
   },
 ];
 
@@ -127,7 +132,7 @@ export const ourTeams = [
     imageSrc: 'https://avatars.githubusercontent.com/u/91889887?v=4',
     gitLink: 'https://github.com/andrewkarev',
     name: 'Andrew Karev',
-    role: 'Frontend Developer, Backend Developer, TeamLead',
+    role: 'Frontend Developer',
     description: '',
   },
   {

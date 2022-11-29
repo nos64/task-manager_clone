@@ -1,12 +1,12 @@
-@import "./../../styles/colors.scss";
-@import "./../../styles/variables.scss";
+@import './../../styles/colors.scss';
+@import './../../styles/variables.scss';
 
 .column {
   width: 250px;
   min-width: 250px;
   padding: 10px 5px 10px 10px;
   border: 2px solid transparent;
-  border-radius: $border-raduis-small;
+  border-radius: $border-radius-small;
   scroll-snap-align: center;
   scroll-snap-stop: always;
   user-select: none;
@@ -16,7 +16,7 @@
     background-color: $background-primary-darkest;
     border: 2px dotted $background-primary-lighter;
 
-    .removeBtn{
+    .removeBtn {
       opacity: 0.8;
     }
   }
@@ -84,7 +84,7 @@
     width: 180px;
     padding: 4px 50px 4px 10px;
     border: 1px solid $background-primary-lighter;
-    border-radius: $border-raduis-small;
+    border-radius: $border-radius-small;
     outline: none;
     text-transform: uppercase;
     color: $color-text-secondary;
@@ -126,7 +126,7 @@
   color: $color-text-secondary;
 }
 
-.columnContent{
+.columnContent {
   display: flex;
   flex-direction: column;
 }
@@ -148,17 +148,17 @@
     width: 5px;
     height: 10px;
   }
-  
+
   &::-webkit-scrollbar-track {
     border-radius: 5px;
     background: $light-shadow;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
     background: $background-primary-lighter;
   }
-  
+
   &::-webkit-scrollbar-thumb:hover {
     background: $background-primary;
   }

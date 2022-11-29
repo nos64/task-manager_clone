@@ -13,8 +13,17 @@ const AboutAppContent: React.FC<IAboutAppContentProps> = ({ title, description, 
         <h2 className={styles.title}>{title}</h2>
         <p className={styles.subtitle}>{description}</p>
       </div>
-      <div className={styles.imageWrapper}>
-        <img className={styles.benefitImage} src={video} alt="Description Image" width="700px" />
+      <div className={styles.videoWrapper}>
+        <video
+          className={styles.benefitVideo}
+          width="750"
+          height="auto"
+          autoPlay
+          playsInline
+          loop
+          muted
+          src={video}
+        />
       </div>
     </section>
   );

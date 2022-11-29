@@ -1,6 +1,6 @@
-@import "./../../styles/colors.scss";
-@import "./../../styles/variables.scss";
-@import "./../../styles/mixins.scss";
+@import './../../styles/colors.scss';
+@import './../../styles/variables.scss';
+@import './../../styles/mixins.scss';
 
 .board {
   display: flex;
@@ -8,7 +8,7 @@
   height: 125px;
   padding: 20px;
   border: 1px solid transparent;
-  border-radius: $border-raduis-small;
+  border-radius: $border-radius-small;
   flex-direction: column;
   justify-content: space-between;
   color: $color-text-secondary;
@@ -36,7 +36,7 @@
 .title {
   @include contentLimit(1);
   font-size: 16px;
-  color: $text-color;  
+  color: $text-color;
 }
 
 .description {
