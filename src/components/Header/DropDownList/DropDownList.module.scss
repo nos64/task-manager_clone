@@ -30,9 +30,9 @@
     right: 30px;
     width: 15px;
     height: 15px;
-    top: -8px;
+    top: -7px;
     background-color: $background-primary;
-    box-shadow: -2px -2px 4px -1px $shadow-color;
+    box-shadow: -3px -3px 5px -2.5px $shadow-color;
     transform: rotate(45deg);
 
     @media (max-width: 425px) {
@@ -59,4 +59,3 @@
     color: $accent-color;
   }
 }
-
