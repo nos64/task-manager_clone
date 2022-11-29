@@ -43,7 +43,10 @@ const TaskSearchModal: React.FC<TaskSearchModalProps> = ({ modalActive, setModal
   } = useForm<Partial<ITaskModalForm>>();
 
   useEffect(() => {
-    modalActive && dispatch(getTasksBySearchQuery({ userId, query: activeSearchValue }));
+    if (modalActive) {
+      dispatch(getTasksBySearchQuery({ userId, query: activeSearchValue }));
+      dispatch(getAllUsers());
+    }
   }, [activeSearchValue, dispatch, modalActive, userId]);
 
   useEffect(() => {
@@ -53,8 +56,6 @@ const TaskSearchModal: React.FC<TaskSearchModalProps> = ({ modalActive, setModal
       setValue('users', selectedTask.users[0]);
 
       setFieldsValues(getValues());
-
-      dispatch(getAllUsers());
     }
   }, [dispatch, getValues, modalActive, selectedTask, setValue]);
 
@@ -161,7 +162,7 @@ const TaskSearchModal: React.FC<TaskSearchModalProps> = ({ modalActive, setModal
             label={t('assignees')}
             register={register}
             fieldValue={fileldsValues.users || ''}
-            options={users}
+            options={selectedTask ? users : []}
             type={'users'}
           />
         </fieldset>
