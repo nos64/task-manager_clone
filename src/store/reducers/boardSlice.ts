@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { updateBoard } from 'api/boards';
 import {
   createColumn,
@@ -155,9 +155,12 @@ export const deleteBoardColumn = createAsyncThunk(
 
 export const updateColumnsOrder = createAsyncThunk(
   'board/updateColumnsOrder',
-  async (columns: IColumn[], { rejectWithValue }) => {
-    const columnsData = columns.map((item) => ({ _id: item._id, order: item.order }));
+  async (columns: IColumn[], { rejectWithValue, dispatch }) => {
     try {
+      dispatch(setColumns(columns));
+
+      const columnsData = columns.map((item) => ({ _id: item._id, order: item.order }));
+
       const newColumns = await updateColumnsSet(columnsData);
 
       return newColumns;
@@ -178,7 +181,7 @@ export const boardSlice = createSlice({
     resetBoardTokenExpiration(state) {
       state.isTokenExpired = false;
     },
-    setColumns(state, action) {
+    setColumns(state, action: PayloadAction<IColumn[]>) {
       state.columns = action.payload;
     },
   },
