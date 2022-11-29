@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './BurgerMenu.module.scss';
-import { scrollController } from '../../../utils/scrollController';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { setIsBurgerOpen } from 'store/reducers/boardsSlice';
 import BurgerContentAuth from './BurgerContentAuth';
@@ -13,10 +12,6 @@ interface IBurgerMenuProps {
 const BurgerMenu: React.FC<IBurgerMenuProps> = ({ isAuthorised }) => {
   const isBurgerOpen = useAppSelector((state) => state.boards.isBurgerOpen);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    isBurgerOpen ? scrollController.disableScroll() : scrollController.enableScroll();
-  }, [isBurgerOpen]);
 
   return (
     <div
