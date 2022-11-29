@@ -1,6 +1,7 @@
 @import '../../../styles/colors.scss';
 @import '../../../styles/extensions.scss';
 @import '../../../styles/mixins.scss';
+@import '../../../styles/variables.scss';
 
 .wrapper {
   @extend %centered;
@@ -13,7 +14,7 @@
   color: $text-color;
   line-height: 1.25;
   font-weight: 700;
-  margin-bottom: 1.5rem
+  margin-bottom: 1.5rem;
 }
 
 .subtitle {
@@ -24,13 +25,16 @@
   width: 550px;
 }
 
-.imageWrapper {
+.videoWrapper {
   max-width: 700px;
+
+  margin: 10px;
+  border-radius: $border-radius-medium;
+  box-shadow: 0 0 10px $dark-shadow;
+  overflow: hidden;
 }
 
-.benefitImage {
-  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0)),
-    linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0));
-  -webkit-mask-size: 100% 90%;
-  -webkit-mask-repeat: no-repeat;
+.benefitVideo {
+  display: block;
+  width: 100%;
 }
