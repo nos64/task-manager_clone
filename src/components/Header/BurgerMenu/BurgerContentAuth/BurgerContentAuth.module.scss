@@ -11,7 +11,6 @@
   background-color: $background-primary;
   color: $text-color;
   padding: 0 20px;
-  z-index: 50;
   transition: all 0.6s ease;
 }
 
@@ -80,7 +79,6 @@
   & .inputLine {
     @include inputStyle;
     font-size: 18px;
-    z-index: 2;
   }
 
   & ::-webkit-search-cancel-button {

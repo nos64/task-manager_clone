@@ -12,7 +12,6 @@
   & .inputLine {
     @include inputStyle;
     font-size: 18px;
-    z-index: 2;
   }
 
   & ::-webkit-search-cancel-button {
