@@ -100,11 +100,11 @@
 
   .submitBtn {
     text-transform: uppercase;
-    @include buttonStyle(5px, 30px);
+    @include formBtn(5px, 120px);
   }
 
   .canselBtn {
     text-transform: uppercase;
-    @include buttonStyleNegative(5px, 30px);
+    @include cancelFormBtn(5px, 120px);
   }
 }
