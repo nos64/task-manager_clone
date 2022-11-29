@@ -92,33 +92,37 @@ export const avatars = [
 export const benefitsContent = [
   {
     id: '01',
-    title: 'Plan',
+    title: '...plan your workflow',
+    buttonText: 'Plan',
     isActive: true,
     description:
-      ' Break the big ideas down into manageable chunks across teams with user stories, issues, and tasks.',
+      'Break the big ideas down into manageable chunks across teams with kanban boards, columns and tasks.',
     video: planImage,
   },
   {
     id: '02',
-    title: 'Simplicity',
+    title: '...manage your project',
+    buttonText: 'Manage',
     isActive: false,
     description:
-      'Break the big ideas down into manageable chunks across teams with user stories, issues, and tasks.',
-    video: simpleImage,
+      'Add an unlimited number of kanban boards, columns and tasks. Move tasks and columns using drag and drop. Assign tasks to teammates.',
+    video: dragNdropImage,
   },
   {
     id: '03',
-    title: 'Change',
+    title: '...customize your profile',
+    buttonText: 'Customize',
     isActive: false,
-    description: 'Customize your profile.',
+    description: 'Change your name and avatar. Choose a convenient color theme and language.',
     video: changeImage,
   },
   {
     id: '04',
-    title: 'Comfortable',
+    title: '...simplify your work',
+    buttonText: 'Simplify',
     isActive: false,
-    description: 'Transfer tasks and columns by drag and drop. Add an unlimited number of tasks.',
-    video: dragNdropImage,
+    description: 'Use the handy sidebar to navigate your boards and tasks at any time.',
+    video: simpleImage,
   },
 ];
 
@@ -127,7 +131,7 @@ export const ourTeams = [
     imageSrc: 'https://avatars.githubusercontent.com/u/91889887?v=4',
     gitLink: 'https://github.com/andrewkarev',
     name: 'Andrew Karev',
-    role: 'Frontend Developer, Backend Developer, TeamLead',
+    role: 'Frontend Developer',
     description: '',
   },
   {
