@@ -40,9 +40,13 @@
   }
 }
 
+.columnWrapper {
+  height: 100%;
+}
+
 .column.dragged,
 .column.dropped {
-  background-color: $background-primary;
+  background-color: $background-primary-darkest;
   border: 2px dotted $background-primary-lighter;
 }
 
@@ -133,7 +137,7 @@
   flex-grow: 1;
   flex: 1 1 auto;
   min-height: 5px;
-  max-height: calc(100vh - 390px);
+  max-height: calc(100vh - 470px);
   overflow: hidden auto;
 
   &::-webkit-scrollbar {

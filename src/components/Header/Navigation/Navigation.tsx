@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 const Navigation = () => {
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
   const avatarID = useAppSelector((state) => state.user.avatarID);
+  const theme = useAppSelector((state) => state.user.theme);
 
   const [isMenuOpened, setIsMenuOpened] = useState(false);
 
@@ -28,7 +29,11 @@ const Navigation = () => {
               className={`${isMenuOpened ? styles.userDisabled : styles.user}`}
               onClick={handleUserClick}
             >
-              <img className={styles.userAvatar} src={avatars[avatarID].src} alt="user avatar" />
+              <img
+                className={styles.userAvatar}
+                src={theme === 'dark' ? avatars[avatarID].srcL : avatars[avatarID].srcD}
+                alt="user avatar"
+              />
             </div>
             {isMenuOpened && <div className={styles.overlay}></div>}
           </>

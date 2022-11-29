@@ -15,6 +15,7 @@ import i18n from 'i18next';
 const Layout: React.FC = () => {
   const language = useAppSelector((state) => state.user.language);
   const isBurgerOpen = useAppSelector((state) => state.boards.isBurgerOpen);
+  const theme = useAppSelector((state) => state.user.theme);
 
   const isPending = useAppPending();
 
@@ -27,6 +28,10 @@ const Layout: React.FC = () => {
   useEffect(() => {
     isPending || isBurgerOpen ? scrollController.disableScroll() : scrollController.enableScroll();
   }, [isBurgerOpen, isPending]);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   return (
     <div className={styles.wrapper}>

@@ -7,6 +7,16 @@
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .imageWrapper {
@@ -32,6 +42,18 @@
   outline: 4px solid $accent-color;
 }
 
+.avatarImg {
+  width: 120px;
+
+  @media (max-width: 768px) {
+    width: 90px;
+  }
+
+  @media (max-width: 425px) {
+    width: 70px;
+  }
+}
+
 .buttonsWrapper {
   display: flex;
   justify-content: center;
@@ -40,11 +62,11 @@
 
   .submitBtn {
     text-transform: uppercase;
-    @include buttonStyle(5px, 30px);
+    @include formBtn(5px, 100px);
   }
 
   .canselBtn {
     text-transform: uppercase;
-    @include buttonStyleNegative(5px, 30px);
+    @include cancelFormBtn(5px, 100px);
   }
 }

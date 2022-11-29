@@ -11,13 +11,14 @@
   flex-direction: column;
   gap: 10px;
   color: $color-text-secondary;
-  background-color: rgba(44, 44, 55, 0.5);
+  background-color: $new-element-color;
+  // outline: 1px solid $background-primary-darkest;
   cursor: pointer;
   transition: 0.3s ease;
 
   &:hover {
     color: $color-text-secondary;
-    background-color: rgba(44, 44, 55, 1);
+    background-color: $new-element-color-hovered;
 
     .icon {
       opacity: 1;
@@ -26,6 +27,11 @@
     .title {
       opacity: 1;
     }
+  }
+
+  @media (max-width: 550px) {
+    max-width: 280px;
+    width: 100%;
   }
 }
 

@@ -4,6 +4,7 @@ import styles from './ChangeAvatarContent.module.scss';
 import { avatars } from '../../../../common/constants';
 import IAvatar from 'types/IAvatar';
 import Modal from 'components/Modal';
+import { useAppSelector } from 'hooks/redux';
 
 interface IChangeAvatarContent {
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,6 +20,7 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
 }) => {
   const [activeAvatar, setActiveAvatar] = useState<IAvatar>();
   const [avatarsArray, setAvatarArray] = useState<IAvatar[]>([]);
+  const theme = useAppSelector((state) => state.user.theme);
 
   useEffect(() => {
     const newAvatars = avatars.map((avatar) =>
@@ -81,7 +83,11 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
               type="button"
               onClick={() => chooseActiveAvatar(image.id)}
             >
-              <img src={image.src} width={120} alt={`User image-${image.id}`} />
+              <img
+                className={styles.avatarImg}
+                src={theme === 'dark' ? image.srcL : image.srcD}
+                alt={`User image-${image.id}`}
+              />
             </button>
           </span>
         ))}
@@ -91,7 +97,7 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
           className={styles.submitBtn}
           type="button"
           onClick={saveNewAvatar}
-          disabled={currentAvatar.src === activeAvatar?.src}
+          disabled={currentAvatar.id === activeAvatar?.id}
         >
           {t('changeButton')}
         </button>

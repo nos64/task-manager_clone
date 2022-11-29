@@ -31,10 +31,8 @@
   transition: 0.3s ease-in-out;
 
   &:hover {
-    color: $accent-color;
-    font-weight: 700;
-    background-color: $text-color;
-    border-color: $text-color;
+    color: $accent-color-darker;
+    background-color: $const-light-color-hover;
   }
 }
 

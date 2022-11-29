@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Footer.module.scss';
 import rssImg from './../../assets/images/rs_school_js.svg';
 import Container from 'components/Container';
+import { AiFillGithub } from 'react-icons/ai';
 
 const Footer = () => (
   <footer className={styles.footer}>
@@ -13,17 +14,20 @@ const Footer = () => (
         <ul className={styles.githubList}>
           <li className={styles.githubItem}>
             <a className="githubLink" href="https://github.com/andrewkarev">
-              andrewkarev
+              <AiFillGithub className={styles.githubIcon} title="andrewkarev" />
+              <span>andrewkarev</span>
             </a>
           </li>
           <li className={styles.githubItem}>
             <a className="githubLink" href="https://github.com/nos64">
-              nos64
+              <AiFillGithub className={styles.githubIcon} title="nos64" />
+              <span>nos64</span>
             </a>
           </li>
           <li className={styles.githubItem}>
             <a className="githubLink" href="https://github.com/kritskaya">
-              kritskaya
+              <AiFillGithub className={styles.githubIcon} title="kritskaya" />
+              <span>kritskaya</span>
             </a>
           </li>
         </ul>

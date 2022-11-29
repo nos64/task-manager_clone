@@ -40,11 +40,7 @@ const InputLinePassword: React.FC<IInputLineProps> = ({
       />
       <label className={!fieldValue.length ? styles.labelLine : styles.labelLineTop}>{label}</label>
       <button className={styles.showPassword} type="button" onClick={handleBtnClick}>
-        {!isClicked ? (
-          <FaEyeSlash size={20} color={'#E1E1E1'} />
-        ) : (
-          <FaEye size={20} color={'#E1E1E1'} />
-        )}
+        {!isClicked ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
       </button>
     </div>
   );

@@ -130,7 +130,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
     <Modal modalActive={modalActive} setModalActive={onReset}>
       <div className={styles.elementModal}>
         <div className={styles.titleWrapper}>
-          <MdAddTask size={25} />
+          <MdAddTask size={25} className={styles.modalIcon} />
           <h2>
             {modalMode === 'create' ? t('addButton') : t('edit')} {t('task')}
           </h2>
