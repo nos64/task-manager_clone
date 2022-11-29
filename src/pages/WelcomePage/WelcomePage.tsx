@@ -1,4 +1,3 @@
-import AboutTeams from 'components/AboutTeam';
 import AboutApp from 'components/AboutApp';
 import HeroComponent from 'components/HeroComponent';
 import React from 'react';
@@ -10,7 +9,6 @@ const WelcomePage = () => {
       <HeroComponent />
       <AboutApp />
       <AboutCourse />
-      <AboutTeams />
     </>
   );
 };
