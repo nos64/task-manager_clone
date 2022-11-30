@@ -71,6 +71,7 @@ const translationsEn = {
   findTask: 'Find task',
   taskSearchPlaceholder: 'Enter task title or description',
   noTasksmessage: "You don't have any tasks yet",
+  noBoardsmessage: "You don't have any boards yet",
 };
 
 export default translationsEn;

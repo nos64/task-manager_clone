@@ -89,21 +89,18 @@ const BurgerContentAuth = () => {
             value={enteredSearchValue}
           />
         </div>
-        {boards.length !== 0 && (
+        {boards.length !== 0 ? (
           <ul className={styles.boardList}>
             {filteredBoards.length ? (
-              filteredBoards.map(
-                (board) =>
-                  board && (
-                    <li
-                      className={styles.boardItem}
-                      key={board && board._id}
-                      onClick={() => handleBoardLinkClick(board)}
-                    >
-                      <span className={styles.boardNavLink}>{board.title}</span>
-                    </li>
-                  )
-              )
+              filteredBoards.map((board) => (
+                <li
+                  className={styles.boardItem}
+                  key={board && board._id}
+                  onClick={() => handleBoardLinkClick(board)}
+                >
+                  <span className={styles.boardNavLink}>{board.title}</span>
+                </li>
+              ))
             ) : (
               <>
                 <p className={styles.noMatchesMessage}>{t('noMatchesMessage')}</p>
@@ -111,6 +108,8 @@ const BurgerContentAuth = () => {
               </>
             )}
           </ul>
+        ) : (
+          <p className={styles.noMatchesMessage}>{t('noBoardsmessage')}</p>
         )}
         <div className={styles.btnsWrapper}>
           <button className={styles.createBoardBtn} type="button" onClick={handleCreateBoard}>
