@@ -45,6 +45,12 @@ const BurgerContentAuth = () => {
     }
   }, [dispatch, userID, isBurgerOpen]);
 
+  useEffect(() => {
+    if (isBurgerOpen) {
+      setEnteredSearchValue('');
+    }
+  }, [isBurgerOpen]);
+
   const handleCreateBoard = () => {
     setIsModalOpened(true);
   };
@@ -83,27 +89,29 @@ const BurgerContentAuth = () => {
             value={enteredSearchValue}
           />
         </div>
-        <ul className={styles.boardList}>
-          {filteredBoards.length ? (
-            filteredBoards.map(
-              (board) =>
-                board && (
-                  <li
-                    className={styles.boardItem}
-                    key={board && board._id}
-                    onClick={() => handleBoardLinkClick(board)}
-                  >
-                    <span className={styles.boardNavLink}>{board.title}</span>
-                  </li>
-                )
-            )
-          ) : (
-            <>
-              <p className={styles.noMatchesMessage}>{t('noMatchesMessage')}</p>
-              <p className={styles.noMatchesValue}>{enteredSearchValue}</p>
-            </>
-          )}
-        </ul>
+        {boards.length !== 0 && (
+          <ul className={styles.boardList}>
+            {filteredBoards.length ? (
+              filteredBoards.map(
+                (board) =>
+                  board && (
+                    <li
+                      className={styles.boardItem}
+                      key={board && board._id}
+                      onClick={() => handleBoardLinkClick(board)}
+                    >
+                      <span className={styles.boardNavLink}>{board.title}</span>
+                    </li>
+                  )
+              )
+            ) : (
+              <>
+                <p className={styles.noMatchesMessage}>{t('noMatchesMessage')}</p>
+                <p className={styles.noMatchesValue}>{enteredSearchValue}</p>
+              </>
+            )}
+          </ul>
+        )}
         <div className={styles.btnsWrapper}>
           <button className={styles.createBoardBtn} type="button" onClick={handleCreateBoard}>
             <GoPlus />
