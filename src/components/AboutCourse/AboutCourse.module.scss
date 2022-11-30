@@ -6,8 +6,8 @@
 
 .contentWrapper {
   @extend %centered;
-  height: calc(100vh - 180px);
-  padding-bottom: 40px;
+  // height: calc(100vh - 200px);
+  // padding-bottom: 40px;
   flex-direction: column;
   gap: 20px;
   width: 100%;
@@ -22,13 +22,14 @@
 }
 
 .title {
+  margin: 40px 0;
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 1rem;
 }
 
 .content {
   display: flex;
+  margin-bottom: 50px;;
   align-items: flex-start;
   gap: 40px;
 
