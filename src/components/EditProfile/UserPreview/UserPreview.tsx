@@ -33,7 +33,7 @@ const UserPreview: React.FC<UserPreviewProps> = ({ currentAvatar, setCurrentAvat
             type="button"
             onClick={() => setIsModalActive(true)}
           >
-            {t('changeAvatar')}
+            {t('chooseAvatar')}
           </button>
         </div>
         <div className={styles.nameWrapper}>

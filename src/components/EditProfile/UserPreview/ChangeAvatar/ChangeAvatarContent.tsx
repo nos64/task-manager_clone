@@ -99,7 +99,7 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
           onClick={saveNewAvatar}
           disabled={currentAvatar.id === activeAvatar?.id}
         >
-          {t('changeButton')}
+          {t('chooseButton')}
         </button>
         <button className={styles.canselBtn} type="button" onClick={closeModal}>
           {t('cancelButton')}
