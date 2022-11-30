@@ -1,13 +1,13 @@
-@import "./../../styles/colors.scss";
-@import "./../../styles/variables.scss";
-@import "./../../styles/extensions.scss";
+@import './../../styles/colors.scss';
+@import './../../styles/variables.scss';
+@import './../../styles/extensions.scss';
 
 .newBoard {
   @extend %centered;
   width: 230px;
   height: 125px;
   padding: 20px;
-  border-radius: $border-raduis-small;
+  border-radius: $border-radius-small;
   flex-direction: column;
   gap: 10px;
   color: $color-text-secondary;

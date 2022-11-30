@@ -3,11 +3,13 @@ import { useAppSelector } from 'hooks/redux';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './HeroComponent.module.scss';
-import heroImage from '../../assets/images/heroImage.png';
+import heroImageDark from '../../assets/images/board-dark.webp';
+import heroImageLight from '../../assets/images/board-light.webp';
 import { useTranslation } from 'react-i18next';
 
 const HeroComponent = () => {
   const isAuthorised = useAppSelector((state) => state.user.isAuthorised);
+  const theme = useAppSelector((state) => state.user.theme);
 
   const { t } = useTranslation();
 
@@ -46,7 +48,12 @@ const HeroComponent = () => {
         </div>
       </div>
       <div className={styles.imageWrapper}>
-        <img className={styles.image} src={heroImage} alt="Hero Image" width="700px" />
+        <img
+          className={styles.image}
+          src={theme === 'dark' ? heroImageDark : heroImageLight}
+          alt={t('heroImage') || ''}
+          width="700px"
+        />
       </div>
     </section>
   );

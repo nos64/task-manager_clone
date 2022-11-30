@@ -1,7 +1,7 @@
 @import './../../styles/colors.scss';
 @import './../../styles/variables.scss';
 @import './../../styles/mixins.scss';
-@import "./../../styles/extensions.scss";
+@import './../../styles/extensions.scss';
 
 .pageContent {
   display: flex;
@@ -22,7 +22,7 @@
   // display: flex;
   @extend %centered;
   padding: 7px 20px;
-  border-radius: $border-raduis-small;
+  border-radius: $border-radius-small;
   gap: 8px;
   color: $color-text-secondary;
   background-color: $background-primary;

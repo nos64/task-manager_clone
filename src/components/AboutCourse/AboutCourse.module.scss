@@ -16,31 +16,23 @@
 .title {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 1rem
+  margin-bottom: 1rem;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
 .aboutText {
   font-size: 1.5rem;
   text-indent: 30px;
+  text-align: justify;
 }
-
-.aboutRSText {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  width: 100%;
-  font-size: 1.25rem;
-  margin-bottom: 40px;
-}
-
-.courseLink {
-  margin-right: 10px;
-  font-weight: 700;
-  transition: color 0.3s ease-in-out;
-}
-
-.courseLink:hover {
-  color: $accent-color;
-}
-

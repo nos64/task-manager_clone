@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import styles from './AboutApp.module.scss';
 import AboutAppContent from './AboutAppContent';
 import { benefitsContent } from '../../common/constants';
+import { useTranslation } from 'react-i18next';
 
 const AboutApp = () => {
   const [benefitsArray, setBenefitsArray] = useState(benefitsContent);
+
+  const { t } = useTranslation();
 
   const chooseActiveBenefit = (id: string) => {
     const modifyArray = benefitsContent.map((item) =>
@@ -15,7 +18,7 @@ const AboutApp = () => {
 
   return (
     <section className={styles.contentWrapper}>
-      <h2 className={styles.title}>Benefits of our Task Manager</h2>
+      <h2 className={styles.title}>Task Manager {t('aboutApp')}...</h2>
       <ul className={styles.buttonList}>
         {benefitsArray.map((button) => (
           <li className={styles.buttonItem} key={button.id}>
@@ -26,7 +29,7 @@ const AboutApp = () => {
               type="button"
               onClick={() => chooseActiveBenefit(button.id)}
             >
-              {button.title}
+              {t(button.buttonText)}
             </button>
           </li>
         ))}
