@@ -6,8 +6,31 @@
 .wrapper {
   @extend %centered;
   overflow: hidden;
-  gap: 15px;
+  gap: 35px;
   min-height: 100vh;
+
+  @media (max-width: 900px) {
+    min-height: calc(100vh - 120px);
+    flex-direction: column;
+    gap: 65px;
+  }
+}
+
+.content {
+  width: 550px;
+
+  @media (max-width: 1024px) {
+    width: 400px;
+  }
+
+  @media (max-width: 900px) {
+    max-width: 500px;
+    width: 90%;
+  }
+
+  @media (max-width: 425px) {
+    width: 100%;
+  }
 }
 
 .title {
@@ -16,6 +39,15 @@
   line-height: 1.25;
   font-weight: 700;
   margin-bottom: 1.5rem;
+
+  @media (max-width: 1024px) {
+    font-size: 38px;
+  }
+
+  @media (max-width: 425px) {
+    font-size: 30px;
+    text-align: center;
+  }
 }
 
 .subtitle {
@@ -23,13 +55,24 @@
   color: $color-text-secondary;
   line-height: 1.5;
   margin-bottom: 3rem;
-  width: 550px;
+
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 425px) {
+    text-align: center;
+  }
 }
 
 .navList {
   display: flex;
   gap: 15px;
   font-size: 16px;
+
+  @media (max-width: 425px) {
+    justify-content: center;
+  }
 }
 
 .navLink {
@@ -45,19 +88,26 @@
 
 .imageWrapper {
   max-width: 700px;
+  width: 65%;
   margin-right: 10px;
   border-radius: $border-radius-medium;
   box-shadow: 0 0 10px $dark-shadow;
   overflow: hidden;
+
+  @media (max-width: 900px) {
+    max-width: 500px;
+    width: 90%;
+  }
+
+  @media (max-width: 425px) {
+    width: 100%;
+  }
 }
 
-.heroImage {
-  -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),
-    linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-  -webkit-mask-size: 100% 90%;
-  -webkit-mask-repeat: no-repeat;
-  mask-image: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),
-    linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-  mask-size: 100% 90%;
-  mask-repeat: no-repeat;
+.image {
+  width: 700px;
+  
+  @media (max-width: 900px) {
+    width: 100%;
+  }
 }

@@ -52,7 +52,6 @@ const HeroComponent = () => {
           className={styles.image}
           src={theme === 'dark' ? heroImageDark : heroImageLight}
           alt={t('heroImage') || ''}
-          width="700px"
         />
       </div>
     </section>
