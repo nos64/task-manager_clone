@@ -5,16 +5,31 @@
 @import '../../styles/variables.scss';
 
 .contentWrapper {
-  @extend %centered;
-  flex-direction: column;
-  gap: 30px;
+  // @extend %centered;
+  display: flex;
   width: 100%;
+  flex-direction: column;
+  align-self: center;
+  gap: 30px;
 }
 
 .teamList {
   display: flex;
   flex-direction: column;
   gap: 25px;
+
+  @media (max-width: 1024px) {
+    gap: 35px;
+  }
+
+  @media (max-width: 900px) {
+    gap: 25px;
+  }
+  
+  @media (max-width: 700px) {
+    align-items: center;
+    gap: 15px;
+  }
 }
 
 .teamItem {
@@ -29,6 +44,14 @@
   &:hover {
     background-color: $new-element-color-hovered;
   }
+
+  @media (max-width: 700px) {
+    width: 370px;
+  }
+
+  @media (max-width: 425px) {
+    width: 270px;
+  }
 }
 
 .imageWrapper {
@@ -36,6 +59,18 @@
   width: 120px;
   border-radius: $border-radius-medium;
   overflow: hidden;
+
+  @media (max-width: 1024px) {
+    width: 90px;
+  }
+
+  @media (max-width: 700px) {
+    width: 70px;
+  }
+
+  @media (max-width: 425px) {
+    width: 60px;
+  }
 }
 
 .memberImage {
@@ -54,6 +89,22 @@
   font-weight: 700;
   transition: color 0.3s ease-in-out;
   white-space: nowrap;
+
+  @media (max-width: 900px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 900px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 700px) {
+    font-size: 22px;
+  }
+
+  @media (max-width: 425px) {
+    font-size: 18px;
+  }
 }
 
 .memberRole {

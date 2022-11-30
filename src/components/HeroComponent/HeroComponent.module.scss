@@ -10,7 +10,7 @@
   min-height: 100vh;
 
   @media (max-width: 900px) {
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 100px);
     flex-direction: column;
     gap: 65px;
   }
