@@ -91,6 +91,10 @@
   min-height: 400px;
   width: 100%;
 
+  @media (max-width: 1200px) {
+    min-height: 310px;
+  }
+
   @media (max-width: 900px) {
     min-height: 530px;
   }
