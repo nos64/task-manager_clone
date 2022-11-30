@@ -71,6 +71,29 @@ const translationsEn = {
   findTask: 'Find task',
   taskSearchPlaceholder: 'Enter task title or description',
   noTasksmessage: "You don't have any tasks yet",
+  aboutApp: 'will help you to',
+  benefitTitle1: '...plan your workflow',
+  benefitBtn1: 'Plan',
+  benefitDescription1: `Break the big ideas down into manageable chunks across teams with kanban boards, columns and tasks.`,
+  benefitTitle2: '...manage your project',
+  benefitBtn2: 'Manage',
+  benefitDescription2: `Add an unlimited number of kanban boards, columns and tasks. Move tasks and columns using drag and drop. Assign tasks to teammates.`,
+  benefitTitle3: '...customize your workspace',
+  benefitBtn3: 'Customize',
+  benefitDescription3: `Change your name and avatar. Choose a convenient color theme and language.`,
+  benefitTitle4: '...simplify your work',
+  benefitBtn4: 'Simplify',
+  benefitDescription4: `Use the handy sidebar to navigate your boards and tasks at any time.`,
+  aboutUs: 'About us',
+  aboutTeam: `Our team is a united group of students of the Rolling Scopes School and this application
+  represents a solution for the React.JS course task. The goal of this course is to gain
+  knowledge and experience in work with React library, share best coding practice and give
+  an experience of teamwork.`,
+  aboutCourse: `RS School is free-of-charge and community-based education program conducted by The
+  Rolling Scopes developer community and based on Open Source philosophy and 'Teach
+  It Forward' principle. Everyone can study at RS School, regardless of age,
+  professional employment, or place of residence.The mentors and trainers of this school
+  are front-end and javascript developers from different companies and countries.`,
 };
 
 export default translationsEn;
