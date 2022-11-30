@@ -10,7 +10,7 @@
   min-height: 100vh;
 
   @media (max-width: 1024px) {
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 90px);
     flex-direction: column;
     gap: 65px;
   }
@@ -85,17 +85,37 @@
   @media (max-width: 900px) {
     justify-content: center;
   }
+
+  @media (max-width: 375px) {
+    gap: 10px;
+  }
 }
 
 .navLink {
   display: block;
   @include formBtn(10px, 180px);
+
+  @media (max-width: 500px) {
+    @include formBtn(10px, 150px);
+  }
+
+  @media (max-width: 375px) {
+    @include formBtn(5px, 130px);
+  }
 }
 
 .navLinkAlt {
   display: block;
   @include cancelFormBtn(10px, 180px);
   width: 180px;
+
+  @media (max-width: 500px) {
+    @include cancelFormBtn(10px, 150px);
+  }
+
+  @media (max-width: 375px) {
+    @include cancelFormBtn(5px, 130px);
+  }
 }
 
 .imageWrapper {
