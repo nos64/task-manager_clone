@@ -86,7 +86,7 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
               <img
                 className={styles.avatarImg}
                 src={theme === 'dark' ? image.srcL : image.srcD}
-                alt={`User image-${image.id}`}
+                alt={`${t('userPreviewAlt')}-${image.id}`}
               />
             </button>
           </span>
@@ -99,7 +99,7 @@ const ChangeAvatarContent: React.FC<IChangeAvatarContent> = ({
           onClick={saveNewAvatar}
           disabled={currentAvatar.id === activeAvatar?.id}
         >
-          {t('changeButton')}
+          {t('chooseButton')}
         </button>
         <button className={styles.canselBtn} type="button" onClick={closeModal}>
           {t('cancelButton')}

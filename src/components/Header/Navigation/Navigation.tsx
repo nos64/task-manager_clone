@@ -32,7 +32,7 @@ const Navigation = () => {
               <img
                 className={styles.userAvatar}
                 src={theme === 'dark' ? avatars[avatarID].srcL : avatars[avatarID].srcD}
-                alt="user avatar"
+                alt={t('userAvatar') || ''}
               />
             </div>
             {isMenuOpened && <div className={styles.overlay}></div>}
