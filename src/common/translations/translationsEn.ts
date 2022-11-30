@@ -100,6 +100,11 @@ const translationsEn = {
   invalidToken: 'Invalid token. Please sign in again',
   successfulUpdate: 'Profile updated successfully',
   successfulDelet: 'Profile deleted successfully',
+  teamMemberPhotoAlt: 'Team member photo',
+  userPreviewAlt: 'User image',
+  courseImg: 'Course img',
+  userAvatar: 'User avatar',
+  heroImage: 'Hero Image',
 };
 
 export default translationsEn;

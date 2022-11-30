@@ -25,7 +25,7 @@ const UserPreview: React.FC<UserPreviewProps> = ({ currentAvatar, setCurrentAvat
           <img
             className={styles.avatarImg}
             src={theme === 'dark' ? currentAvatar.srcL : currentAvatar.srcD}
-            alt={`User image-${currentAvatar.id}`}
+            alt={`${t('userPreviewAlt')}-${currentAvatar.id}`}
           />
 
           <button

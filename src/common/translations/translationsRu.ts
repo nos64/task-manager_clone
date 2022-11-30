@@ -94,6 +94,11 @@ const translationsRu = {
   invalidToken: 'Неверный токен Пожалуйста, войдите еще раз.',
   successfulUpdate: 'Профиль успешно обновлен',
   successfulDelet: 'Профиль успешно удален',
+  teamMemberPhotoAlt: 'Фото участника команды',
+  userPreviewAlt: 'Изображение пользователя',
+  courseImg: 'Логотип курса',
+  userAvatar: 'Аватар пользователя',
+  heroImage: 'Превью приложения',
 };
 
 export default translationsRu;
