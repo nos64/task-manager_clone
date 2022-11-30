@@ -70,6 +70,7 @@ const translationsRu = {
   findTask: 'Найти задачу',
   taskSearchPlaceholder: 'Введите имя задачи или описание',
   noTasksmessage: 'У вас нет задач пока что',
+  noBoardsmessage: 'У вас нет досок пока что',
   aboutApp: 'поможет вам',
   benefitTitle1: '...спланировать рабочий процесс',
   benefitBtn1: 'Планируйте',
