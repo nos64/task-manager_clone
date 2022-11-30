@@ -94,6 +94,12 @@ const translationsEn = {
   It Forward' principle. Everyone can study at RS School, regardless of age,
   professional employment, or place of residence.The mentors and trainers of this school
   are front-end and javascript developers from different companies and countries.`,
+  loginAlreadyExists: 'Login already exists',
+  wrongLoginOrPassword: 'Wrong login or password',
+  inexistentBoard: `Can't find board with this id`,
+  invalidToken: 'Invalid token. Please sign in again',
+  successfulUpdate: 'Profile updated successfully',
+  successfulDelet: 'Profile deleted successfully',
 };
 
 export default translationsEn;

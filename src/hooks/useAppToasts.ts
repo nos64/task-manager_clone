@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from './redux';
 import { toast } from 'react-toastify';
 import styles from '../styles/toasts.module.scss';
 import { setIsInexistentBoard } from 'store/reducers/boardsSlice';
+import { useTranslation } from 'react-i18next';
 
 const useAppToasts = () => {
   const isLoginAlreadyExist = useAppSelector((state) => state.user.isLoginAlreadyExist);
@@ -13,9 +14,18 @@ const useAppToasts = () => {
   const isInexistentBoard = useAppSelector((state) => state.boards.isInexistentBoard);
   const dispatch = useAppDispatch();
 
+  const { t } = useTranslation();
+
   useEffect(() => {
-    if (isLoginAlreadyExist || isAuthorisationError) {
-      const message = isLoginAlreadyExist ? 'Login already exists' : 'Wrong login or password';
+    if (isLoginAlreadyExist || isAuthorisationError || isInexistentBoard) {
+      let message = '';
+
+      if (isLoginAlreadyExist) message = t('loginAlreadyExists');
+      if (isAuthorisationError) message = t('wrongLoginOrPassword');
+      if (isInexistentBoard) {
+        message = t('inexistentBoard');
+        dispatch(setIsInexistentBoard());
+      }
 
       toast.error(message, {
         position: toast.POSITION.TOP_CENTER,
@@ -24,53 +34,31 @@ const useAppToasts = () => {
         progressClassName: styles.toastProgressBar,
       });
     }
-  }, [isLoginAlreadyExist, isAuthorisationError]);
-
-  useEffect(() => {
-    if (isInexistentBoard) {
-      dispatch(setIsInexistentBoard());
-
-      toast.error(`Can't find board with this id`, {
-        position: toast.POSITION.TOP_CENTER,
-        theme: 'dark',
-        className: styles.toastMessage,
-        progressClassName: styles.toastProgressBar,
-      });
-    }
-  }, [dispatch, isInexistentBoard]);
+  }, [isLoginAlreadyExist, isAuthorisationError, isInexistentBoard, dispatch, t]);
 
   useEffect(() => {
     if (isTokenRequireUpdate) {
-      toast.warning('Invalid token. Please sign in again', {
+      toast.warning(t('invalidToken'), {
         position: toast.POSITION.TOP_CENTER,
         theme: 'dark',
         className: styles.toastMessageWarning,
         progressClassName: styles.toastProgressBarWarning,
       });
     }
-  }, [isTokenRequireUpdate]);
+  }, [isTokenRequireUpdate, t]);
 
   useEffect(() => {
-    if (isProfileUpdated) {
-      toast.success('Profile updated successfully', {
+    if (isProfileUpdated || isProfileDeleted) {
+      const message = isProfileUpdated ? t('successfulUpdate') : t('successfulDelet');
+
+      toast.success(message, {
         position: toast.POSITION.TOP_CENTER,
         theme: 'dark',
         className: styles.toastMessageSuccess,
         progressClassName: styles.toastProgressBarSuccess,
       });
     }
-  }, [isProfileUpdated]);
-
-  useEffect(() => {
-    if (isProfileDeleted) {
-      toast.success('Profile deleted successfully', {
-        position: toast.POSITION.TOP_CENTER,
-        theme: 'dark',
-        className: styles.toastMessageSuccess,
-        progressClassName: styles.toastProgressBarSuccess,
-      });
-    }
-  }, [isProfileDeleted]);
+  }, [isProfileUpdated, isProfileDeleted, t]);
 };
 
 export default useAppToasts;
