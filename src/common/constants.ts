@@ -93,36 +93,34 @@ export const avatars = [
 export const benefitsContent = [
   {
     id: '01',
-    title: '...plan your workflow',
-    buttonText: 'Plan',
+    title: 'benefitTitle1',
+    buttonText: 'benefitBtn1',
     isActive: true,
-    description:
-      'Break the big ideas down into manageable chunks across teams with kanban boards, columns and tasks.',
+    description: 'benefitDescription1',
     video: planVideoSrc,
   },
   {
     id: '02',
-    title: '...manage your project',
-    buttonText: 'Manage',
+    title: 'benefitTitle2',
+    buttonText: 'benefitBtn2',
     isActive: false,
-    description:
-      'Add an unlimited number of kanban boards, columns and tasks. Move tasks and columns using drag and drop. Assign tasks to teammates.',
+    description: 'benefitDescription2',
     video: manageVideoSrc,
   },
   {
     id: '03',
-    title: '...customize your profile',
-    buttonText: 'Customize',
+    title: 'benefitTitle3',
+    buttonText: 'benefitBtn3',
     isActive: false,
-    description: 'Change your name and avatar. Choose a convenient color theme and language.',
+    description: 'benefitDescription3',
     video: customizeVideoSrc,
   },
   {
     id: '04',
-    title: '...simplify your work',
-    buttonText: 'Simplify',
+    title: 'benefitTitle4',
+    buttonText: 'benefitBtn4',
     isActive: false,
-    description: 'Use the handy sidebar to navigate your boards and tasks at any time.',
+    description: 'benefitDescription4',
     video: simplifyVideoSrc,
   },
 ];

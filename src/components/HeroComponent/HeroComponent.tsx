@@ -51,7 +51,7 @@ const HeroComponent = () => {
         <img
           className={styles.image}
           src={theme === 'dark' ? heroImageDark : heroImageLight}
-          alt="Hero Image"
+          alt={t('heroImage') || ''}
           width="700px"
         />
       </div>

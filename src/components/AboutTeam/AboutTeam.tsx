@@ -1,8 +1,11 @@
 import React from 'react';
 import styles from './AboutTeam.module.scss';
 import { ourTeams } from '../../common/constants';
+import { useTranslation } from 'react-i18next';
 
 const AboutTeam = () => {
+  const { t } = useTranslation();
+
   return (
     <section className={styles.contentWrapper}>
       <ul className={styles.teamList}>
@@ -13,7 +16,11 @@ const AboutTeam = () => {
             onClick={() => (window.location.href = item.gitLink)}
           >
             <div className={styles.imageWrapper}>
-              <img className={styles.memberImage} src={item.imageSrc} alt="Photo" />
+              <img
+                className={styles.memberImage}
+                src={item.imageSrc}
+                alt={t('teamMemberPhotoAlt') || ''}
+              />
             </div>
             <div className={styles.textWrapper}>
               <p className={styles.memberTitle}>{item.name}</p>
