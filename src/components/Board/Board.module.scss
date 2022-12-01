@@ -7,13 +7,12 @@
   width: 230px;
   height: 125px;
   padding: 20px;
-  border: 1px solid transparent;
+  border: 1px solid $background-primary-darkest;
   border-radius: $border-radius-small;
   flex-direction: column;
   justify-content: space-between;
   color: $color-text-secondary;
   background-color: $background-primary;
-  outline: 1px solid $background-primary-darkest;
   cursor: pointer;
   transition: 0.3s ease;
 
