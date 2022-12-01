@@ -6,7 +6,31 @@
 .wrapper {
   @extend %centered;
   overflow: hidden;
-  gap: 15px;
+  gap: 35px;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+.content {
+  width: 550px;
+
+  @media (max-width: 1024px) {
+    width: 40%;
+    align-items: center;
+  }
+
+  @media (max-width: 900px) {
+    max-width: 650px;
+    width: 90%;
+  }
+
+  @media (max-width: 425px) {
+    width: 100%;
+  }
 }
 
 .title {
@@ -15,26 +39,65 @@
   line-height: 1.25;
   font-weight: 700;
   margin-bottom: 1.5rem;
+
+  @media (max-width: 1024px) {
+    font-size: 30px;
+  }
+
+  @media (max-width: 900px) {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 28px;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 24px;
+    text-align: center;
+  }
 }
 
 .subtitle {
-  font-size: 1.5rem;
-  color: $color-text-secondary;
-  line-height: 1.5;
   margin-bottom: 3rem;
-  width: 550px;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: $color-text-secondary;
+
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 900px) {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 20px;
+  }
+
+  @media (max-width: 425px) {
+    font-size: 18px;
+  }
 }
 
 .videoWrapper {
   max-width: 700px;
-
+  width: 55%;
   margin: 10px;
   border-radius: $border-radius-medium;
   box-shadow: 0 0 10px $dark-shadow;
   overflow: hidden;
+
+  @media (max-width: 900px) {
+    max-width: 500px;
+    width: 90%;
+    margin-right: 10px;
+  }
+
+  @media (max-width: 425px) {
+    width: 100%;
+  }
 }
 
 .benefitVideo {
+  max-width: 700px;
   display: block;
   width: 100%;
 }

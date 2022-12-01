@@ -6,33 +6,67 @@
 
 .contentWrapper {
   @extend %centered;
+  // height: calc(100vh - 200px);
+  // padding-bottom: 40px;
   flex-direction: column;
   gap: 20px;
   width: 100%;
   color: $text-color;
   line-height: 1.25;
+
+  
+  @media (max-width: 600px) {
+    height: auto;
+  }
+
 }
 
 .title {
+  margin: 40px 0;
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 1rem;
 }
 
 .content {
   display: flex;
-  align-items: center;
+  margin-bottom: 50px;;
+  align-items: flex-start;
   gap: 40px;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    gap: 30px;
+  }
 }
 
 .textWrapper {
   display: flex;
   flex-direction: column;
   gap: 25px;
+
+  @media (max-width: 700px) {
+    gap: 15px;
+  }
 }
 
 .aboutText {
   font-size: 1.5rem;
   text-indent: 30px;
   text-align: justify;
+
+  @media (max-width: 1024px) {
+    font-size: 21px;
+  }
+
+  @media (max-width: 900px) {
+    font-size: 19px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 17px;
+  }
+
+  @media (max-width: 425px) {
+    font-size: 16px;
+  }
 }
