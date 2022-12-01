@@ -29,7 +29,6 @@
 }
 
 .burgerWrapper {
-  // visibility: hidden;
   width: 0;
   transform: scale(0);
   transition: 0.5s;
@@ -203,7 +202,6 @@
 
 @media (max-width: 620px) {
   .burgerWrapper {
-    // visibility: visible;
     width: 55px;
     transform: scale(1);
   }

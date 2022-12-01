@@ -9,6 +9,10 @@
   width: 100%;
   margin: 16px 0;
 
+  @media (max-width: 375px) {
+    margin: 12px 0;
+  }
+
   & .inputLine {
     @include inputStyle;
     font-size: 18px;
@@ -35,6 +39,10 @@
   border: 1.5px solid $dark-shadow;
   border-radius: 3px;
   overflow-y: auto;
+
+  @media (max-width: 375px) {
+    margin: 24px 0 24px;
+  }
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -97,13 +105,25 @@
   justify-content: center;
   gap: 30px;
 
+  @media (max-width: 375px) {
+    gap: 15px;
+  }
+
   .submitBtn {
     text-transform: uppercase;
     @include formBtn(5px, 120px);
+
+    @media (max-width: 375px) {
+      @include formBtn(5px, 110px);
+    }
   }
 
   .canselBtn {
     text-transform: uppercase;
     @include cancelFormBtn(5px, 120px);
+
+    @media (max-width: 375px) {
+      @include formBtn(5px, 110px);
+    }
   }
 }

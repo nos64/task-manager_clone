@@ -4,13 +4,17 @@
   display: flex;
   justify-content: center;
   gap: 30px;
+
+  @media (max-width: 425px) {
+    gap: 15px;
+  }
   
   .submitBtn {
     text-transform: uppercase;
     @include formBtn(5px, 120px);
 
     @media (max-width: 425px) {
-      @include formBtn(5px, 100px);
+      @include formBtn(5px, 110px);
     }
   }
 
@@ -19,7 +23,7 @@
     @include cancelFormBtn(5px, 120px);
 
     @media (max-width: 425px) {
-      @include cancelFormBtn(5px, 100px);
+      @include cancelFormBtn(5px, 110px);
     }
   }
 }
