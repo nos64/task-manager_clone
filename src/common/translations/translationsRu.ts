@@ -100,6 +100,7 @@ const translationsRu = {
   courseImg: 'Логотип курса',
   userAvatar: 'Аватар пользователя',
   heroImage: 'Превью приложения',
+  removedElement: 'Элемент был удален другим пользователем',
 };
 
 export default translationsRu;

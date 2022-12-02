@@ -71,6 +71,24 @@ const useAppToasts = () => {
       });
     }
   }, [isProfileUpdated, isProfileDeleted, t, dispatch]);
+
+  // useEffect(() => {
+  //   // fill if with your flags
+  //   if ('your flags === true') {
+  //     // Write logic for
+
+  //     toast.error(t('removedElement'), {
+  //       position: toast.POSITION.TOP_CENTER,
+  //       theme: 'dark',
+  //       className: styles.toastMessage,
+  //       progressClassName: styles.toastProgressBar,
+  //     });
+
+  //     // set you flags values to "false"
+  //     dispatch();
+  //   }
+  //   // add your flags to deps
+  // }, [dispatch, t]);
 };
 
 export default useAppToasts;

@@ -106,6 +106,7 @@ const translationsEn = {
   courseImg: 'Course img',
   userAvatar: 'User avatar',
   heroImage: 'Hero Image',
+  removedElement: 'Element was removed by another user',
 };
 
 export default translationsEn;
