@@ -1,5 +1,6 @@
 @import './../../styles/colors.scss';
 @import './../../styles/variables.scss';
+@import './../../styles/mixins.scss';
 
 .column {
   width: 250px;
@@ -126,6 +127,11 @@
   color: $color-text-secondary;
 }
 
+.title {
+  @include contentLimit(1);
+  max-width: 155px;
+}
+
 .columnContent {
   display: flex;
   flex-direction: column;
@@ -136,8 +142,9 @@
   flex-direction: column;
   flex-grow: 1;
   flex: 1 1 auto;
-  min-height: 1px;
+  min-height: 0px;
   max-height: calc(100vh - 400px);
+  margin-bottom: 10px;
   overflow: hidden auto;
 
   @media (max-width: 568px) {
@@ -162,4 +169,8 @@
   &::-webkit-scrollbar-thumb:hover {
     background: $background-primary;
   }
+}
+
+.noTasks {
+  margin-bottom: 0;
 }
