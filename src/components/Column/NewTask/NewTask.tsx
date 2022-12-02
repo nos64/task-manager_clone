@@ -18,7 +18,6 @@ const NewTask: React.FC<NewTaskProps> = ({ toggleModal, setModalMode, currentCol
   const { t } = useTranslation();
 
   const handleClick = () => {
-    console.log('123');
     toggleModal(true);
     setModalMode('create');
     dispatch(setSelectedTask(null));
