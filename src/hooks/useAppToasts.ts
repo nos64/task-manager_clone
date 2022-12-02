@@ -4,10 +4,14 @@ import { toast } from 'react-toastify';
 import styles from '../styles/toasts.module.scss';
 import { setIsInexistentBoard } from 'store/reducers/boardsSlice';
 import { useTranslation } from 'react-i18next';
-import { setIsProfileChanged, setIsTokenRequireUpdate } from 'store/reducers/userSlice';
+import {
+  setIsLoginAlreadyExists,
+  setIsProfileChanged,
+  setIsTokenRequireUpdate,
+} from 'store/reducers/userSlice';
 
 const useAppToasts = () => {
-  const isLoginAlreadyExist = useAppSelector((state) => state.user.isLoginAlreadyExist);
+  const isLoginAlreadyExist = useAppSelector((state) => state.user.isLoginAlreadyExists);
   const isAuthorisationError = useAppSelector((state) => state.user.isAuthorisationError);
   const isTokenRequireUpdate = useAppSelector((state) => state.user.isTokenRequireUpdate);
   const isProfileUpdated = useAppSelector((state) => state.user.isProfileUpdated);
@@ -21,7 +25,10 @@ const useAppToasts = () => {
     if (isLoginAlreadyExist || isAuthorisationError || isInexistentBoard) {
       let message = '';
 
-      if (isLoginAlreadyExist) message = t('loginAlreadyExists');
+      if (isLoginAlreadyExist) {
+        message = t('loginAlreadyExists');
+        dispatch(setIsLoginAlreadyExists());
+      }
       if (isAuthorisationError) message = t('wrongLoginOrPassword');
       if (isInexistentBoard) {
         message = t('inexistentBoard');

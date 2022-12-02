@@ -142,7 +142,7 @@ interface UserState {
   theme: Themes;
   avatarID: number;
   users: Partial<IUser>[];
-  isLoginAlreadyExist: boolean;
+  isLoginAlreadyExists: boolean;
   isAuthorisationError: boolean;
   isTokenRequireUpdate: boolean;
   isRoutesProtected: boolean;
@@ -161,7 +161,7 @@ const initialState: UserState = {
   theme: 'dark',
   avatarID: 0,
   users: [],
-  isLoginAlreadyExist: false,
+  isLoginAlreadyExists: false,
   isAuthorisationError: false,
   isTokenRequireUpdate: false,
   isRoutesProtected: !!localStorage.getItem('token'),
@@ -184,7 +184,7 @@ export const userSlice = createSlice({
       state.theme = 'dark';
       state.avatarID = 0;
       state.users = [];
-      state.isLoginAlreadyExist = false;
+      state.isLoginAlreadyExists = false;
       state.isAuthorisationError = false;
       state.isTokenRequireUpdate = false;
       state.isRoutesProtected = false;
@@ -211,12 +211,15 @@ export const userSlice = createSlice({
       state.isProfileUpdated = false;
       state.isProfileDeleted = false;
     },
+    setIsLoginAlreadyExists(state) {
+      state.isLoginAlreadyExists = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(signUpUser.pending, (state) => {
       state.isPending = true;
       state.isAuthorisationError = false;
-      state.isLoginAlreadyExist = false;
+      state.isLoginAlreadyExists = false;
       state.isTokenRequireUpdate = false;
       state.isTokenExpired = false;
     });
@@ -240,14 +243,14 @@ export const userSlice = createSlice({
       state.isPending = false;
 
       if (action.payload === StatusCodes.CONFLICT) {
-        state.isLoginAlreadyExist = true;
+        state.isLoginAlreadyExists = true;
       }
     });
 
     builder.addCase(signInUser.pending, (state) => {
       state.isPending = true;
       state.isAuthorisationError = false;
-      state.isLoginAlreadyExist = false;
+      state.isLoginAlreadyExists = false;
       state.isTokenRequireUpdate = false;
       state.isTokenExpired = false;
     });
@@ -335,6 +338,10 @@ export const userSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
       }
+
+      if (action.payload === StatusCodes.CONFLICT) {
+        state.isLoginAlreadyExists = true;
+      }
     });
 
     builder.addCase(deleteUserAccount.pending, (state) => {
@@ -374,5 +381,6 @@ export const {
   setIsTokenRequireUpdate,
   setAvatarId,
   setIsProfileChanged,
+  setIsLoginAlreadyExists,
 } = userSlice.actions;
 export default userSlice.reducer;
