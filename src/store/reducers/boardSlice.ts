@@ -16,6 +16,7 @@ import IColumn from 'types/IColumn';
 import { setActiveBoard } from './boardsSlice';
 
 interface IBoardState extends IBoard {
+  selectedColumn: IColumn | null;
   columns: IColumn[];
   isPending: boolean;
   isTokenExpired: boolean;
@@ -27,6 +28,7 @@ const initialState: IBoardState = {
   description: '',
   owner: '',
   users: [],
+  selectedColumn: null,
   columns: [],
   isPending: false,
   isTokenExpired: false,
@@ -184,6 +186,9 @@ export const boardSlice = createSlice({
     setColumns(state, action: PayloadAction<IColumn[]>) {
       state.columns = action.payload;
     },
+    setSelectedColumn(state, action: PayloadAction<IColumn | null>) {
+      state.selectedColumn = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getColumns.pending, (state) => {
@@ -271,4 +276,4 @@ export const boardSlice = createSlice({
 });
 
 export default boardSlice.reducer;
-export const { resetBoardTokenExpiration, setColumns } = boardSlice.actions;
+export const { resetBoardTokenExpiration, setColumns, setSelectedColumn } = boardSlice.actions;

@@ -9,7 +9,12 @@ import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { moveColumn, moveTask, reorderTasks } from 'utils/dnd-helper';
 import { DndType } from 'common/dnd-types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { getColumns, updateColumnsOrder } from 'store/reducers/boardSlice';
+import {
+  deleteBoardColumn,
+  getColumns,
+  setSelectedColumn,
+  updateColumnsOrder,
+} from 'store/reducers/boardSlice';
 import ColumnModal from 'components/ColumnModal';
 import { useTranslation } from 'react-i18next';
 import { deleteColumnTask, setSelectedTask, updateTasksOrder } from 'store/reducers/columnSlice';
@@ -25,10 +30,12 @@ const BoardPage = () => {
   const activeBoardId = useAppSelector((state) => state.boards.activeBoard?._id);
   const isInexistentBoard = useAppSelector((state) => state.boards.isInexistentBoard);
   const selectedTask = useAppSelector((state) => state.column.selectedTask);
+  const selectedColumn = useAppSelector((state) => state.board.selectedColumn);
 
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [boardId, setBoardId] = useState<string>();
   const [isTaskDeleting, setIsTaskDeleting] = useState(false);
+  const [isColumnDeleting, setIsColumnDeleting] = useState(false);
 
   const { t } = useTranslation();
 
@@ -55,11 +62,24 @@ const BoardPage = () => {
 
     dispatch(deleteColumnTask(selectedTask));
     setIsTaskDeleting(false);
+    dispatch(setSelectedTask(null));
   };
 
   const cancelRemoveTask = () => {
     setIsTaskDeleting(false);
     dispatch(setSelectedTask(null));
+  };
+
+  const deleteColumn = () => {
+    if (!selectedColumn) return;
+
+    dispatch(deleteBoardColumn(selectedColumn));
+    setIsColumnDeleting(false);
+  };
+
+  const cancelRemoveColumn = () => {
+    setIsColumnDeleting(false);
+    dispatch(setSelectedColumn(null));
   };
 
   const handleDragEnd = (result: DropResult) => {
@@ -153,6 +173,7 @@ const BoardPage = () => {
                       item={column}
                       index={index}
                       setIsTaskDeleting={setIsTaskDeleting}
+                      setIsColumnDeleting={setIsColumnDeleting}
                     />
                   ))}
                   {provided.placeholder}
@@ -171,10 +192,18 @@ const BoardPage = () => {
         />
       )}
       <WarningModal
-        isModalActive={isTaskDeleting}
-        deleteBtnHandler={() => removeTask()}
-        cancelBtnHandler={cancelRemoveTask}
-        message={t('deleteTaskWarningMessage')}
+        isModalActive={isTaskDeleting || isColumnDeleting}
+        deleteBtnHandler={isTaskDeleting ? removeTask : isColumnDeleting ? deleteColumn : () => {}}
+        cancelBtnHandler={
+          isTaskDeleting ? cancelRemoveTask : isColumnDeleting ? cancelRemoveColumn : () => {}
+        }
+        message={
+          isTaskDeleting
+            ? t('deleteTaskWarningMessage')
+            : isColumnDeleting
+            ? t('deleteColumnWarningMessage')
+            : ''
+        }
       />
     </>
   );
