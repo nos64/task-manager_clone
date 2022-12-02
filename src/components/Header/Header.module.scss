@@ -140,6 +140,10 @@
   &:hover {
     color: $text-color-hovered;
   }
+
+  @media (max-width: 850px) {
+    font-size: 30px;
+  }
 }
 
 .actions {
@@ -174,6 +178,10 @@
     background-color: $accent-color-darker;
     cursor: pointer;
   }
+
+  @media (max-width: 850px) {
+    padding: 10px 10px;
+  }
 }
 
 .routToglersWrapper {
@@ -192,9 +200,13 @@
     color: $accent-color-darker;
     background-color: $const-light-color-hover;
   }
+
+  @media (max-width: 850px) {
+    padding: 8px 10px;
+  }
 }
 
-@media (max-width: 830px) {
+@media (max-width: 768px) {
   .createBoardBtn {
     display: none;
   }
