@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import styles from '../styles/toasts.module.scss';
 import { setIsInexistentBoard } from 'store/reducers/boardsSlice';
 import { useTranslation } from 'react-i18next';
+import { setIsProfileChanged, setIsTokenRequireUpdate } from 'store/reducers/userSlice';
 
 const useAppToasts = () => {
   const isLoginAlreadyExist = useAppSelector((state) => state.user.isLoginAlreadyExist);
@@ -44,12 +45,16 @@ const useAppToasts = () => {
         className: styles.toastMessageWarning,
         progressClassName: styles.toastProgressBarWarning,
       });
+
+      dispatch(setIsTokenRequireUpdate(false));
     }
-  }, [isTokenRequireUpdate, t]);
+  }, [dispatch, t, isTokenRequireUpdate]);
 
   useEffect(() => {
     if (isProfileUpdated || isProfileDeleted) {
       const message = isProfileUpdated ? t('successfulUpdate') : t('successfulDelet');
+
+      dispatch(setIsProfileChanged());
 
       toast.success(message, {
         position: toast.POSITION.TOP_CENTER,
@@ -58,7 +63,7 @@ const useAppToasts = () => {
         progressClassName: styles.toastProgressBarSuccess,
       });
     }
-  }, [isProfileUpdated, isProfileDeleted, t]);
+  }, [isProfileUpdated, isProfileDeleted, t, dispatch]);
 };
 
 export default useAppToasts;

@@ -183,6 +183,14 @@ export const userSlice = createSlice({
       state.language = 'EN';
       state.theme = 'dark';
       state.avatarID = 0;
+      state.users = [];
+      state.isLoginAlreadyExist = false;
+      state.isAuthorisationError = false;
+      state.isTokenRequireUpdate = false;
+      state.isRoutesProtected = false;
+      state.isTokenExpired = false;
+      state.isProfileUpdated = false;
+      state.isProfileDeleted = false;
     },
     setLanguage(state, action: PayloadAction<Languages>) {
       state.language = action.payload;
@@ -193,11 +201,15 @@ export const userSlice = createSlice({
     setIsRoutesProtected(state, action: PayloadAction<false>) {
       state.isRoutesProtected = action.payload;
     },
-    setIsTokenRequireUpdate(state, action: PayloadAction<true>) {
+    setIsTokenRequireUpdate(state, action: PayloadAction<boolean>) {
       state.isTokenRequireUpdate = action.payload;
     },
     setAvatarId(state, action: PayloadAction<number>) {
       state.avatarID = action.payload;
+    },
+    setIsProfileChanged(state) {
+      state.isProfileUpdated = false;
+      state.isProfileDeleted = false;
     },
   },
   extraReducers: (builder) => {
@@ -361,5 +373,6 @@ export const {
   setIsRoutesProtected,
   setIsTokenRequireUpdate,
   setAvatarId,
+  setIsProfileChanged,
 } = userSlice.actions;
 export default userSlice.reducer;
