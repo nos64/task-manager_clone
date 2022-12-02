@@ -1,5 +1,6 @@
 @import './../../styles/colors.scss';
 @import './../../styles/variables.scss';
+@import './../../styles/mixins.scss';
 
 .column {
   width: 250px;
@@ -124,6 +125,11 @@
   font-weight: bold;
   text-transform: uppercase;
   color: $color-text-secondary;
+}
+
+.title {
+  @include contentLimit(1);
+  max-width: 155px;
 }
 
 .columnContent {
