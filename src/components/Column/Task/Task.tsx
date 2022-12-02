@@ -5,7 +5,7 @@ import { IoMdClose } from 'react-icons/io';
 import { Draggable } from 'react-beautiful-dnd';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getTaskAssignee } from 'store/reducers/taskSlice';
-import { deleteColumnTask } from 'store/reducers/columnSlice';
+import { deleteColumnTask, setSelectedTask } from 'store/reducers/columnSlice';
 import WarningModal from 'components/WarningModal';
 import { useTranslation } from 'react-i18next';
 
@@ -14,14 +14,22 @@ type TaskProps = {
   index: number;
   toggleModal: () => void;
   setModalMode: React.Dispatch<React.SetStateAction<'create' | 'edit'>>;
-  setSelectedTask: React.Dispatch<React.SetStateAction<ITask | null>>;
+  // setSelectedTask: React.Dispatch<React.SetStateAction<ITask | null>>;
+  setIsTaskDeleting: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Task: React.FC<TaskProps> = ({ item, index, toggleModal, setModalMode, setSelectedTask }) => {
+const Task: React.FC<TaskProps> = ({
+  item,
+  index,
+  toggleModal,
+  setModalMode,
+  // setSelectedTask,
+  setIsTaskDeleting,
+}) => {
   const dispatch = useAppDispatch();
   const assigneeName = useAppSelector((state) => state.task.assignees[item._id]);
 
-  const [isTaskDeleting, setIsTaskDeleting] = useState(false);
+  // const [isTaskDeleting, setIsTaskDeleting] = useState(false);
 
   const { t } = useTranslation();
 
@@ -30,18 +38,21 @@ const Task: React.FC<TaskProps> = ({ item, index, toggleModal, setModalMode, set
   const handleEditIconClick = () => {
     toggleModal();
     setModalMode('edit');
-    setSelectedTask(item);
+    // setSelectedTask(item);
+    dispatch(setSelectedTask(item));
   };
 
   const handleRemoveTaskBtnClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     setIsTaskDeleting(true);
+    // added
+    dispatch(setSelectedTask(item));
   };
 
-  const removeTask = () => {
-    dispatch(deleteColumnTask(item));
-    setIsTaskDeleting(false);
-  };
+  // const removeTask = () => {
+  //   dispatch(deleteColumnTask(item));
+  //   setIsTaskDeleting(false);
+  // };
 
   useEffect(() => {
     if (item.users[0]) {
@@ -70,12 +81,12 @@ const Task: React.FC<TaskProps> = ({ item, index, toggleModal, setModalMode, set
           </div>
         )}
       </Draggable>
-      <WarningModal
+      {/* <WarningModal
         isModalActive={isTaskDeleting}
         deleteBtnHandler={() => removeTask()}
         cancelBtnHandler={() => setIsTaskDeleting(false)}
         message={t('deleteTaskWarningMessage')}
-      />
+      /> */}
     </>
   );
 };

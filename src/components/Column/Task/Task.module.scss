@@ -15,7 +15,10 @@
   transition: border 0.3s;
   cursor: pointer;
 
-  &:nth-last-child(2) {
+  // &:nth-last-child(2) {
+  //   margin-bottom: 0;
+  // }
+  &:last-child {
     margin-bottom: 0;
   }
 

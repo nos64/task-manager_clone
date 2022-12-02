@@ -18,17 +18,19 @@ import { useTranslation } from 'react-i18next';
 type ColumnProps = {
   item: IColumn;
   index: number;
+  setIsTaskDeleting: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Column: React.FC<ColumnProps> = ({ item, index }) => {
+const Column: React.FC<ColumnProps> = ({ item, index, setIsTaskDeleting }) => {
   const dispatch = useAppDispatch();
   const tasks = useAppSelector((state) => state.column.tasks[item._id]) || [];
+  const selectedTask = useAppSelector((state) => state.column.selectedTask);
 
   const [isTitleEditing, setIsTitleEditing] = useState(false);
 
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
-  const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
+  // const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
 
   const [isColumnDeleting, setIsColumnDeleting] = useState(false);
 
@@ -131,7 +133,8 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
                             index={index}
                             toggleModal={toggleModal}
                             setModalMode={setModalMode}
-                            setSelectedTask={setSelectedTask}
+                            // setSelectedTask={setSelectedTask}
+                            setIsTaskDeleting={setIsTaskDeleting}
                           />
                         );
                       })}
@@ -140,7 +143,7 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
                     <NewTask
                       toggleModal={toggleModal}
                       setModalMode={setModalMode}
-                      setSelectedTask={setSelectedTask}
+                      // setSelectedTask={setSelectedTask}
                     />
                   </div>
                 </div>

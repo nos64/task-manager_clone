@@ -8,12 +8,14 @@ import ITask from 'types/ITask';
 import { setActiveBoard } from './boardsSlice';
 
 interface IColumnsState {
+  selectedTask: ITask | null;
   tasks: { [columnId: string]: ITask[] };
   isPending: boolean;
   isTokenExpired: boolean;
 }
 
 const initialState: IColumnsState = {
+  selectedTask: null,
   tasks: {},
   isPending: false,
   isTokenExpired: false,
@@ -274,6 +276,9 @@ export const columnSlice = createSlice({
       const { columnId, tasks } = action.payload;
       state.tasks[columnId] = tasks;
     },
+    setSelectedTask(state, action: PayloadAction<ITask | null>) {
+      state.selectedTask = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getTasks.pending, (state) => {
@@ -392,4 +397,4 @@ export const columnSlice = createSlice({
 });
 
 export default columnSlice.reducer;
-export const { resetColumnTokenExpiration, setTasks } = columnSlice.actions;
+export const { resetColumnTokenExpiration, setTasks, setSelectedTask } = columnSlice.actions;
