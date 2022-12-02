@@ -149,7 +149,7 @@ const TaskSearchModal: React.FC<TaskSearchModalProps> = ({ modalActive, setModal
             label={t('descriptionLabel')}
             placeholder={t('descriptionPlaceholder')}
             register={register}
-            fieldValue={fileldsValues.description || ''}
+            fieldValue={fileldsValues.description?.trim() || ''}
             symbolsLimit={200}
           />
         </fieldset>
