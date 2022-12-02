@@ -10,7 +10,7 @@ import { setSelectedTask } from 'store/reducers/columnSlice';
 type TaskProps = {
   item: ITask;
   index: number;
-  toggleModal: () => void;
+  toggleModal: (value: boolean) => void;
   setModalMode: React.Dispatch<React.SetStateAction<'create' | 'edit'>>;
   setIsTaskDeleting: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -28,7 +28,7 @@ const Task: React.FC<TaskProps> = ({
   const assigneeId = item.users[0];
 
   const handleEditIconClick = () => {
-    toggleModal();
+    toggleModal(true);
     setModalMode('edit');
     dispatch(setSelectedTask(item));
   };

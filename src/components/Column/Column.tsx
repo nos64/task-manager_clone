@@ -10,27 +10,31 @@ import { IoIosClose, IoIosCheckmark } from 'react-icons/io';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getTasks } from 'store/reducers/columnSlice';
 import { setColumnTitle, setSelectedColumn } from 'store/reducers/boardSlice';
-import TaskModal from 'components/TaskModal';
 
 type ColumnProps = {
   item: IColumn;
   index: number;
   setIsTaskDeleting: React.Dispatch<React.SetStateAction<boolean>>;
   setIsColumnDeleting: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalMode: React.Dispatch<React.SetStateAction<'create' | 'edit'>>;
+  setTaskModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Column: React.FC<ColumnProps> = ({ item, index, setIsTaskDeleting, setIsColumnDeleting }) => {
+const Column: React.FC<ColumnProps> = ({
+  item,
+  index,
+  setIsTaskDeleting,
+  setIsColumnDeleting,
+  setModalMode,
+  setTaskModalActive,
+}) => {
   const dispatch = useAppDispatch();
   const tasks = useAppSelector((state) => state.column.tasks[item._id]) || [];
-  const selectedTask = useAppSelector((state) => state.column.selectedTask);
 
   const [isTitleEditing, setIsTitleEditing] = useState(false);
 
-  const [isModalOpened, setIsModalOpened] = useState(false);
-  const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
-
-  const toggleModal = () => {
-    setIsModalOpened((prev) => !prev);
+  const toggleModal = (value: boolean) => {
+    setTaskModalActive(value);
   };
 
   const columnTitleRef = useRef<HTMLInputElement>(null);
@@ -133,7 +137,11 @@ const Column: React.FC<ColumnProps> = ({ item, index, setIsTaskDeleting, setIsCo
                       })}
                       {dropProvided.placeholder}
                     </div>
-                    <NewTask toggleModal={toggleModal} setModalMode={setModalMode} />
+                    <NewTask
+                      toggleModal={toggleModal}
+                      setModalMode={setModalMode}
+                      currentColumn={item}
+                    />
                   </div>
                 </div>
               </div>
@@ -141,13 +149,6 @@ const Column: React.FC<ColumnProps> = ({ item, index, setIsTaskDeleting, setIsCo
           </Droppable>
         )}
       </Draggable>
-      <TaskModal
-        modalActive={isModalOpened}
-        setModalActive={setIsModalOpened}
-        modalMode={modalMode}
-        currentColumn={item}
-        selectedTask={selectedTask}
-      />
     </>
   );
 };

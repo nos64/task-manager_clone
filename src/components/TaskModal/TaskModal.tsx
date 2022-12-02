@@ -13,8 +13,9 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import ITaskModalForm from 'types/ITaskModalForm';
 import { useTranslation } from 'react-i18next';
 import IColumn from 'types/IColumn';
-import { createColumnTask, updateColumnTask } from 'store/reducers/columnSlice';
+import { createColumnTask, setSelectedTask, updateColumnTask } from 'store/reducers/columnSlice';
 import { getAllUsers } from 'store/reducers/userSlice';
+import { setSelectedColumn } from 'store/reducers/boardSlice';
 
 interface TaskModalProps {
   modalActive: boolean;
@@ -85,6 +86,8 @@ const TaskModal: React.FC<TaskModalProps> = ({
             users: data.users ? [data.users] : [],
           })
         );
+        dispatch(setSelectedColumn(null));
+        dispatch(setSelectedTask(null));
         break;
       case 'edit':
         dispatch(
@@ -102,6 +105,8 @@ const TaskModal: React.FC<TaskModalProps> = ({
             oldColumnId: selectedTask?.columnId || '',
           })
         );
+        dispatch(setSelectedColumn(null));
+        dispatch(setSelectedTask(null));
         break;
       default:
         throw new Error('no such modal mode');

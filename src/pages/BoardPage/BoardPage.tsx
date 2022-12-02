@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { deleteColumnTask, setSelectedTask, updateTasksOrder } from 'store/reducers/columnSlice';
 import { getBoardById } from 'store/reducers/boardsSlice';
 import WarningModal from 'components/WarningModal';
+import TaskModal from 'components/TaskModal';
 
 const BoardPage = () => {
   const dispatch = useAppDispatch();
@@ -32,10 +33,12 @@ const BoardPage = () => {
   const selectedTask = useAppSelector((state) => state.column.selectedTask);
   const selectedColumn = useAppSelector((state) => state.board.selectedColumn);
 
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isColumnModalOpened, setIsColumnModalOpened] = useState(false);
+  const [isTaskModalOpened, setIsTaskModalOpened] = useState(false);
   const [boardId, setBoardId] = useState<string>();
   const [isTaskDeleting, setIsTaskDeleting] = useState(false);
   const [isColumnDeleting, setIsColumnDeleting] = useState(false);
+  const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
 
   const { t } = useTranslation();
 
@@ -140,8 +143,8 @@ const BoardPage = () => {
     }
   }, [boardId, dispatch]);
 
-  const toggleModal = () => {
-    setIsModalOpened((prev) => !prev);
+  const toggleColumnModal = () => {
+    setIsColumnModalOpened((prev) => !prev);
   };
 
   return (
@@ -174,23 +177,35 @@ const BoardPage = () => {
                       index={index}
                       setIsTaskDeleting={setIsTaskDeleting}
                       setIsColumnDeleting={setIsColumnDeleting}
+                      setModalMode={setModalMode}
+                      setTaskModalActive={setIsTaskModalOpened}
                     />
                   ))}
                   {provided.placeholder}
                 </div>
               )}
             </Droppable>
-            <NewColumn toggleModal={toggleModal} />
+            <NewColumn toggleModal={toggleColumnModal} />
           </div>
         </div>
       </DragDropContext>
       {boardId && (
         <ColumnModal
-          modalActive={isModalOpened}
+          modalActive={isColumnModalOpened}
           boardId={boardId}
-          setModalActive={setIsModalOpened}
+          setModalActive={setIsColumnModalOpened}
         />
       )}
+      {selectedColumn && (
+        <TaskModal
+          modalActive={isTaskModalOpened}
+          setModalActive={setIsTaskModalOpened}
+          modalMode={modalMode}
+          currentColumn={selectedColumn}
+          selectedTask={selectedTask}
+        />
+      )}
+
       <WarningModal
         isModalActive={isTaskDeleting || isColumnDeleting}
         deleteBtnHandler={isTaskDeleting ? removeTask : isColumnDeleting ? deleteColumn : () => {}}

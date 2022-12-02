@@ -4,19 +4,25 @@ import { GoPlus } from 'react-icons/go';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from 'hooks/redux';
 import { setSelectedTask } from 'store/reducers/columnSlice';
+import IColumn from 'types/IColumn';
+import { setSelectedColumn } from 'store/reducers/boardSlice';
+
 interface NewTaskProps {
-  toggleModal: () => void;
+  toggleModal: (value: boolean) => void;
+  currentColumn: IColumn;
   setModalMode: React.Dispatch<React.SetStateAction<'create' | 'edit'>>;
 }
 
-const NewTask: React.FC<NewTaskProps> = ({ toggleModal, setModalMode }) => {
+const NewTask: React.FC<NewTaskProps> = ({ toggleModal, setModalMode, currentColumn }) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   const handleClick = () => {
-    toggleModal();
+    console.log('123');
+    toggleModal(true);
     setModalMode('create');
     dispatch(setSelectedTask(null));
+    dispatch(setSelectedColumn(currentColumn));
   };
 
   return (
