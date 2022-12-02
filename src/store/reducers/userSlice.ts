@@ -314,6 +314,8 @@ export const userSlice = createSlice({
       state.login = action.payload.login;
       state.id = action.payload._id;
       state.isProfileUpdated = true;
+
+      updateStorage(state.id, { name: state.name, login: state.login, avatarID: state.avatarID });
     });
     builder.addCase(updateUserInfo.rejected, (state, action) => {
       state.isPending = false;

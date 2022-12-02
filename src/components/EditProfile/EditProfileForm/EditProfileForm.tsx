@@ -30,7 +30,6 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ currentAvatar }) => {
 
   const userName = useAppSelector((state) => state.user.name);
   const userLogin = useAppSelector((state) => state.user.login);
-  const userId = useAppSelector((state) => state.user.id);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -61,7 +60,6 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ currentAvatar }) => {
   };
 
   const onSubmit = (data: Partial<IUser>) => {
-    const userInfo = JSON.parse(localStorage.getItem(userId) || '');
     const avatarID = currentAvatar.id;
     const options = {
       name: data.name || '',
@@ -69,7 +67,6 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ currentAvatar }) => {
       password: data.password || '',
     };
 
-    localStorage.setItem(userId, JSON.stringify({ ...userInfo, ...{ avatarID } }));
     dispatch(setAvatarId(avatarID));
     dispatch(updateUserInfo(options));
 
