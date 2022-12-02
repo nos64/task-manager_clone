@@ -142,7 +142,7 @@ interface UserState {
   theme: Themes;
   avatarID: number;
   users: Partial<IUser>[];
-  isLoginAlreadyExist: boolean;
+  isLoginAlreadyExists: boolean;
   isAuthorisationError: boolean;
   isTokenRequireUpdate: boolean;
   isRoutesProtected: boolean;
@@ -161,7 +161,7 @@ const initialState: UserState = {
   theme: 'dark',
   avatarID: 0,
   users: [],
-  isLoginAlreadyExist: false,
+  isLoginAlreadyExists: false,
   isAuthorisationError: false,
   isTokenRequireUpdate: false,
   isRoutesProtected: !!localStorage.getItem('token'),
@@ -183,6 +183,14 @@ export const userSlice = createSlice({
       state.language = 'EN';
       state.theme = 'dark';
       state.avatarID = 0;
+      state.users = [];
+      state.isLoginAlreadyExists = false;
+      state.isAuthorisationError = false;
+      state.isTokenRequireUpdate = false;
+      state.isRoutesProtected = false;
+      state.isTokenExpired = false;
+      state.isProfileUpdated = false;
+      state.isProfileDeleted = false;
     },
     setLanguage(state, action: PayloadAction<Languages>) {
       state.language = action.payload;
@@ -193,18 +201,25 @@ export const userSlice = createSlice({
     setIsRoutesProtected(state, action: PayloadAction<false>) {
       state.isRoutesProtected = action.payload;
     },
-    setIsTokenRequireUpdate(state, action: PayloadAction<true>) {
+    setIsTokenRequireUpdate(state, action: PayloadAction<boolean>) {
       state.isTokenRequireUpdate = action.payload;
     },
     setAvatarId(state, action: PayloadAction<number>) {
       state.avatarID = action.payload;
+    },
+    setIsProfileChanged(state) {
+      state.isProfileUpdated = false;
+      state.isProfileDeleted = false;
+    },
+    setIsLoginAlreadyExists(state) {
+      state.isLoginAlreadyExists = false;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(signUpUser.pending, (state) => {
       state.isPending = true;
       state.isAuthorisationError = false;
-      state.isLoginAlreadyExist = false;
+      state.isLoginAlreadyExists = false;
       state.isTokenRequireUpdate = false;
       state.isTokenExpired = false;
     });
@@ -228,14 +243,14 @@ export const userSlice = createSlice({
       state.isPending = false;
 
       if (action.payload === StatusCodes.CONFLICT) {
-        state.isLoginAlreadyExist = true;
+        state.isLoginAlreadyExists = true;
       }
     });
 
     builder.addCase(signInUser.pending, (state) => {
       state.isPending = true;
       state.isAuthorisationError = false;
-      state.isLoginAlreadyExist = false;
+      state.isLoginAlreadyExists = false;
       state.isTokenRequireUpdate = false;
       state.isTokenExpired = false;
     });
@@ -314,12 +329,18 @@ export const userSlice = createSlice({
       state.login = action.payload.login;
       state.id = action.payload._id;
       state.isProfileUpdated = true;
+
+      updateStorage(state.id, { name: state.name, login: state.login, avatarID: state.avatarID });
     });
     builder.addCase(updateUserInfo.rejected, (state, action) => {
       state.isPending = false;
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
+      }
+
+      if (action.payload === StatusCodes.CONFLICT) {
+        state.isLoginAlreadyExists = true;
       }
     });
 
@@ -359,5 +380,7 @@ export const {
   setIsRoutesProtected,
   setIsTokenRequireUpdate,
   setAvatarId,
+  setIsProfileChanged,
+  setIsLoginAlreadyExists,
 } = userSlice.actions;
 export default userSlice.reducer;
