@@ -120,7 +120,9 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
                   </div>
 
                   <div className={styles.columnContent}>
-                    <div className={styles.tasksContainer}>
+                    <div
+                      className={`${styles.tasksContainer} ${!tasks.length ? styles.noTasks : ''}`}
+                    >
                       {tasks.map((task, index) => {
                         return (
                           <Task
@@ -135,7 +137,6 @@ const Column: React.FC<ColumnProps> = ({ item, index }) => {
                       })}
                       {dropProvided.placeholder}
                     </div>
-
                     <NewTask
                       toggleModal={toggleModal}
                       setModalMode={setModalMode}
