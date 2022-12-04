@@ -194,15 +194,13 @@ const BoardPage = () => {
           setModalActive={setIsColumnModalOpened}
         />
       )}
-      {selectedColumn && (
-        <TaskModal
-          modalActive={isTaskModalOpened}
-          setModalActive={setIsTaskModalOpened}
-          modalMode={modalMode}
-          currentColumn={selectedColumn}
-          selectedTask={selectedTask}
-        />
-      )}
+      <TaskModal
+        modalActive={isTaskModalOpened}
+        setModalActive={setIsTaskModalOpened}
+        modalMode={modalMode}
+        currentColumn={selectedColumn || null}
+        selectedTask={selectedTask}
+      />
 
       <WarningModal
         isModalActive={isTaskDeleting || isColumnDeleting}
