@@ -9,6 +9,7 @@ import {
   setIsProfileChanged,
   setIsTokenRequireUpdate,
 } from 'store/reducers/userSlice';
+import { setIsInexistentColumn } from 'store/reducers/boardSlice';
 
 const useAppToasts = () => {
   const isLoginAlreadyExist = useAppSelector((state) => state.user.isLoginAlreadyExists);
@@ -17,12 +18,13 @@ const useAppToasts = () => {
   const isProfileUpdated = useAppSelector((state) => state.user.isProfileUpdated);
   const isProfileDeleted = useAppSelector((state) => state.user.isProfileDeleted);
   const isInexistentBoard = useAppSelector((state) => state.boards.isInexistentBoard);
+  const isInexistentColumn = useAppSelector((state) => state.board.isInexistentColumn);
   const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (isLoginAlreadyExist || isAuthorisationError || isInexistentBoard) {
+    if (isLoginAlreadyExist || isAuthorisationError || isInexistentBoard || isInexistentColumn) {
       let message = '';
 
       if (isLoginAlreadyExist) {
@@ -35,6 +37,11 @@ const useAppToasts = () => {
         dispatch(setIsInexistentBoard());
       }
 
+      if (isInexistentColumn) {
+        message = t('inexistentBoard');
+        dispatch(setIsInexistentColumn());
+      }
+
       toast.error(message, {
         position: toast.POSITION.TOP_CENTER,
         theme: 'dark',
@@ -42,7 +49,14 @@ const useAppToasts = () => {
         progressClassName: styles.toastProgressBar,
       });
     }
-  }, [isLoginAlreadyExist, isAuthorisationError, isInexistentBoard, dispatch, t]);
+  }, [
+    isLoginAlreadyExist,
+    isAuthorisationError,
+    isInexistentBoard,
+    isInexistentColumn,
+    dispatch,
+    t,
+  ]);
 
   useEffect(() => {
     if (isTokenRequireUpdate) {

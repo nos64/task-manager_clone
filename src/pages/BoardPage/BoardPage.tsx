@@ -32,6 +32,7 @@ const BoardPage = () => {
   const isInexistentBoard = useAppSelector((state) => state.boards.isInexistentBoard);
   const selectedTask = useAppSelector((state) => state.column.selectedTask);
   const selectedColumn = useAppSelector((state) => state.board.selectedColumn);
+  const isInexistentColumn = useAppSelector((state) => state.board.isInexistentColumn);
 
   const [isColumnModalOpened, setIsColumnModalOpened] = useState(false);
   const [isTaskModalOpened, setIsTaskModalOpened] = useState(false);
@@ -55,8 +56,18 @@ const BoardPage = () => {
   }, [boardId, dispatch]);
 
   useEffect(() => {
+    boardId && isInexistentColumn && dispatch(getColumns(boardId));
+  }, [boardId, dispatch, isInexistentColumn]);
+
+  useEffect(() => {
     isInexistentBoard && navigate(ROUTES.BOARDS);
   }, [isInexistentBoard, navigate]);
+
+  useEffect(() => {
+    if (boardId) {
+      dispatch(getColumns(boardId));
+    }
+  }, [boardId, dispatch]);
 
   const removeTask = () => {
     if (!selectedTask) return;
@@ -81,6 +92,10 @@ const BoardPage = () => {
   const cancelRemoveColumn = () => {
     setIsColumnDeleting(false);
     dispatch(setSelectedColumn(null));
+  };
+
+  const toggleColumnModal = () => {
+    setIsColumnModalOpened((prev) => !prev);
   };
 
   const handleDragEnd = (result: DropResult) => {
@@ -133,16 +148,6 @@ const BoardPage = () => {
       default:
         throw new Error('No such DND type');
     }
-  };
-
-  useEffect(() => {
-    if (boardId) {
-      dispatch(getColumns(boardId));
-    }
-  }, [boardId, dispatch]);
-
-  const toggleColumnModal = () => {
-    setIsColumnModalOpened((prev) => !prev);
   };
 
   return (

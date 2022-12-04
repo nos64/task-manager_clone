@@ -20,6 +20,7 @@ interface IBoardState extends IBoard {
   columns: IColumn[];
   isPending: boolean;
   isTokenExpired: boolean;
+  isInexistentColumn: boolean;
 }
 
 const initialState: IBoardState = {
@@ -32,6 +33,7 @@ const initialState: IBoardState = {
   columns: [],
   isPending: false,
   isTokenExpired: false,
+  isInexistentColumn: false,
 };
 
 export const getColumns = createAsyncThunk(
@@ -189,6 +191,9 @@ export const boardSlice = createSlice({
     setSelectedColumn(state, action: PayloadAction<IColumn | null>) {
       state.selectedColumn = action.payload;
     },
+    setIsInexistentColumn(state) {
+      state.isInexistentColumn = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getColumns.pending, (state) => {
@@ -271,9 +276,14 @@ export const boardSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
       }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentColumn = true;
+      }
     });
   },
 });
 
 export default boardSlice.reducer;
-export const { resetBoardTokenExpiration, setColumns, setSelectedColumn } = boardSlice.actions;
+export const { resetBoardTokenExpiration, setColumns, setSelectedColumn, setIsInexistentColumn } =
+  boardSlice.actions;
