@@ -12,12 +12,18 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import {
   deleteBoardColumn,
   getColumns,
+  setColumns,
   setSelectedColumn,
   updateColumnsOrder,
 } from 'store/reducers/boardSlice';
 import ColumnModal from 'components/ColumnModal';
 import { useTranslation } from 'react-i18next';
-import { deleteColumnTask, setSelectedTask, updateTasksOrder } from 'store/reducers/columnSlice';
+import {
+  deleteColumnTask,
+  resetTasks,
+  setSelectedTask,
+  updateTasksOrder,
+} from 'store/reducers/columnSlice';
 import { getBoardById } from 'store/reducers/boardsSlice';
 import WarningModal from 'components/WarningModal';
 import TaskModal from 'components/TaskModal';
@@ -58,9 +64,11 @@ const BoardPage = () => {
 
   useEffect(() => {
     if (isInexistentBoard || isInexistentColumn || isInexistentTask) {
+      dispatch(setColumns([]));
+      dispatch(resetTasks());
       navigate(ROUTES.BOARDS);
     }
-  }, [isInexistentBoard, isInexistentColumn, isInexistentTask, navigate]);
+  }, [dispatch, isInexistentBoard, isInexistentColumn, isInexistentTask, navigate]);
 
   useEffect(() => {
     if (boardId) {

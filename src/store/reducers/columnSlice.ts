@@ -284,6 +284,9 @@ export const columnSlice = createSlice({
     setIsInexistentTask(state) {
       state.isInexistentTask = false;
     },
+    resetTasks(state) {
+      state.tasks = {};
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getTasks.pending, (state) => {
@@ -406,5 +409,10 @@ export const columnSlice = createSlice({
 });
 
 export default columnSlice.reducer;
-export const { resetColumnTokenExpiration, setTasks, setSelectedTask, setIsInexistentTask } =
-  columnSlice.actions;
+export const {
+  resetColumnTokenExpiration,
+  setTasks,
+  setSelectedTask,
+  setIsInexistentTask,
+  resetTasks,
+} = columnSlice.actions;
