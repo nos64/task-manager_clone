@@ -13,6 +13,7 @@ import StatusCodes from 'common/statusCodes';
 import { RootState } from 'store/store';
 import IBoard from 'types/IBoard';
 import IColumn from 'types/IColumn';
+import checkBoardExistence from 'utils/checkBoardExistence';
 import { setActiveBoard } from './boardsSlice';
 
 interface IBoardState extends IBoard {
@@ -57,6 +58,8 @@ export const setColumnTitle = createAsyncThunk(
   'board/setColumnTitle',
   async (data: { column: IColumn; newTitle: string }, { rejectWithValue }) => {
     try {
+      await checkBoardExistence(data.column.boardId);
+
       const newColumn = await updateColumn(data.column.boardId, data.column._id, {
         title: data.newTitle,
         order: data.column.order,
@@ -83,6 +86,7 @@ export const createBoardColumn = createAsyncThunk(
     );
 
     try {
+      await checkBoardExistence(data.boardId);
       const column = await createColumn(data.boardId, {
         title: data.title,
         order: columnsCount ? maxColumnOrder + 1 : 0,
@@ -103,6 +107,8 @@ export const deleteBoardColumn = createAsyncThunk(
   'board/deleteBoardColumn',
   async (column: IColumn, { rejectWithValue, getState, dispatch }) => {
     try {
+      await checkBoardExistence(column.boardId);
+
       const columnTasks = (getState() as RootState).column.tasks[column._id];
       columnTasks.forEach((item) => {
         deleteTask(item.boardId, item.columnId, item._id);
@@ -161,6 +167,8 @@ export const updateColumnsOrder = createAsyncThunk(
   'board/updateColumnsOrder',
   async (columns: IColumn[], { rejectWithValue, dispatch }) => {
     try {
+      await checkBoardExistence(columns[0].boardId);
+
       dispatch(setColumns(columns));
 
       const columnsData = columns.map((item) => ({ _id: item._id, order: item.order }));
@@ -225,6 +233,10 @@ export const boardSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
       }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentColumn = true;
+      }
     });
 
     builder.addCase(createBoardColumn.pending, (state) => {
@@ -241,6 +253,10 @@ export const boardSlice = createSlice({
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
+      }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentColumn = true;
       }
     });
 
@@ -260,6 +276,10 @@ export const boardSlice = createSlice({
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
+      }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentColumn = true;
       }
     });
 
