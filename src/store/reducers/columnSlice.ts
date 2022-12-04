@@ -5,6 +5,7 @@ import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
 import { RootState } from 'store/store';
 import ITask from 'types/ITask';
+import checkBoardExistence from 'utils/checkBoardExistence';
 import { setActiveBoard } from './boardsSlice';
 
 interface IColumnsState {
@@ -44,6 +45,8 @@ export const deleteColumnTask = createAsyncThunk(
   'column/deleteColumnTask',
   async (task: ITask, { rejectWithValue, getState, dispatch }) => {
     try {
+      await checkBoardExistence(task.boardId);
+
       const allBoardTasks = Object.values((getState() as RootState).column.tasks).flat();
 
       const deletedTask = await deleteTask(task.boardId, task.columnId, task._id);
@@ -103,6 +106,8 @@ export const createColumnTask = createAsyncThunk(
     );
 
     try {
+      await checkBoardExistence(task.boardId);
+
       const newTask = await createTask(task.boardId, task.columnId, {
         title: task.title,
         description: task.description,
@@ -155,6 +160,8 @@ export const updateColumnTask = createAsyncThunk(
     const allBoardTasks = Object.values((getState() as RootState).column.tasks).flat();
 
     try {
+      await checkBoardExistence(data.task.boardId);
+
       const newTask = await updateTask(data.task.boardId, data.oldColumnId, data.task._id, {
         title: data.task.title,
         description: data.task.description,
@@ -234,6 +241,8 @@ export const updateTasksOrder = createAsyncThunk(
     { rejectWithValue, dispatch }
   ) => {
     try {
+      await checkBoardExistence(data.tasks[0].boardId);
+
       dispatch(
         setTasks({
           columnId: data.oldColumnId,
@@ -323,6 +332,10 @@ export const columnSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
       }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentTask = true;
+      }
     });
 
     builder.addCase(createColumnTask.pending, (state) => {
@@ -343,6 +356,10 @@ export const columnSlice = createSlice({
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
+      }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentTask = true;
       }
     });
 
@@ -375,6 +392,10 @@ export const columnSlice = createSlice({
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
+      }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentTask = true;
       }
     });
 
