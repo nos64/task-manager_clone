@@ -12,6 +12,7 @@ interface IColumnsState {
   tasks: { [columnId: string]: ITask[] };
   isPending: boolean;
   isTokenExpired: boolean;
+  isInexistentTask: boolean;
 }
 
 const initialState: IColumnsState = {
@@ -19,6 +20,7 @@ const initialState: IColumnsState = {
   tasks: {},
   isPending: false,
   isTokenExpired: false,
+  isInexistentTask: false,
 };
 
 export const getTasks = createAsyncThunk(
@@ -279,6 +281,9 @@ export const columnSlice = createSlice({
     setSelectedTask(state, action: PayloadAction<ITask | null>) {
       state.selectedTask = action.payload;
     },
+    setIsInexistentTask(state) {
+      state.isInexistentTask = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getTasks.pending, (state) => {
@@ -392,9 +397,14 @@ export const columnSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
       }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentTask = true;
+      }
     });
   },
 });
 
 export default columnSlice.reducer;
-export const { resetColumnTokenExpiration, setTasks, setSelectedTask } = columnSlice.actions;
+export const { resetColumnTokenExpiration, setTasks, setSelectedTask, setIsInexistentTask } =
+  columnSlice.actions;

@@ -10,6 +10,7 @@ import {
   setIsTokenRequireUpdate,
 } from 'store/reducers/userSlice';
 import { setIsInexistentColumn } from 'store/reducers/boardSlice';
+import { setIsInexistentTask } from 'store/reducers/columnSlice';
 
 const useAppToasts = () => {
   const isLoginAlreadyExist = useAppSelector((state) => state.user.isLoginAlreadyExists);
@@ -19,12 +20,19 @@ const useAppToasts = () => {
   const isProfileDeleted = useAppSelector((state) => state.user.isProfileDeleted);
   const isInexistentBoard = useAppSelector((state) => state.boards.isInexistentBoard);
   const isInexistentColumn = useAppSelector((state) => state.board.isInexistentColumn);
+  const isInexistentTask = useAppSelector((state) => state.column.isInexistentTask);
   const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (isLoginAlreadyExist || isAuthorisationError || isInexistentBoard || isInexistentColumn) {
+    if (
+      isLoginAlreadyExist ||
+      isAuthorisationError ||
+      isInexistentBoard ||
+      isInexistentColumn ||
+      isInexistentTask
+    ) {
       let message = '';
 
       if (isLoginAlreadyExist) {
@@ -32,14 +40,20 @@ const useAppToasts = () => {
         dispatch(setIsLoginAlreadyExists());
       }
       if (isAuthorisationError) message = t('wrongLoginOrPassword');
+
       if (isInexistentBoard) {
-        message = t('inexistentBoard');
+        message = t('inexistentElement');
         dispatch(setIsInexistentBoard());
       }
 
       if (isInexistentColumn) {
-        message = t('inexistentBoard');
+        message = t('inexistentElement');
         dispatch(setIsInexistentColumn());
+      }
+
+      if (isInexistentTask) {
+        message = t('inexistentElement');
+        dispatch(setIsInexistentTask());
       }
 
       toast.error(message, {
@@ -54,6 +68,7 @@ const useAppToasts = () => {
     isAuthorisationError,
     isInexistentBoard,
     isInexistentColumn,
+    isInexistentTask,
     dispatch,
     t,
   ]);

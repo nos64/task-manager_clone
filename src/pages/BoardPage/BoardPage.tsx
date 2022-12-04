@@ -33,6 +33,7 @@ const BoardPage = () => {
   const selectedTask = useAppSelector((state) => state.column.selectedTask);
   const selectedColumn = useAppSelector((state) => state.board.selectedColumn);
   const isInexistentColumn = useAppSelector((state) => state.board.isInexistentColumn);
+  const isInexistentTask = useAppSelector((state) => state.column.isInexistentTask);
 
   const [isColumnModalOpened, setIsColumnModalOpened] = useState(false);
   const [isTaskModalOpened, setIsTaskModalOpened] = useState(false);
@@ -56,12 +57,10 @@ const BoardPage = () => {
   }, [boardId, dispatch]);
 
   useEffect(() => {
-    boardId && isInexistentColumn && dispatch(getColumns(boardId));
-  }, [boardId, dispatch, isInexistentColumn]);
-
-  useEffect(() => {
-    isInexistentBoard && navigate(ROUTES.BOARDS);
-  }, [isInexistentBoard, navigate]);
+    if (isInexistentBoard || isInexistentColumn || isInexistentTask) {
+      navigate(ROUTES.BOARDS);
+    }
+  }, [isInexistentBoard, isInexistentColumn, isInexistentTask, navigate]);
 
   useEffect(() => {
     if (boardId) {
