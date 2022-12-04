@@ -5,7 +5,11 @@ import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
 import { RootState } from 'store/store';
 import ITask from 'types/ITask';
-import checkBoardExistence from 'utils/checkBoardExistence';
+import {
+  checkBoardExistence,
+  checkColumnExistence,
+  checkTaskExistence,
+} from 'utils/checkElementExistence';
 import { setActiveBoard } from './boardsSlice';
 
 interface IColumnsState {
@@ -46,6 +50,7 @@ export const deleteColumnTask = createAsyncThunk(
   async (task: ITask, { rejectWithValue, getState, dispatch }) => {
     try {
       await checkBoardExistence(task.boardId);
+      await checkTaskExistence(task.boardId, task.columnId, task._id);
 
       const allBoardTasks = Object.values((getState() as RootState).column.tasks).flat();
 
@@ -161,6 +166,7 @@ export const updateColumnTask = createAsyncThunk(
 
     try {
       await checkBoardExistence(data.task.boardId);
+      await checkTaskExistence(data.task.boardId, data.task.columnId, data.task._id);
 
       const newTask = await updateTask(data.task.boardId, data.oldColumnId, data.task._id, {
         title: data.task.title,
@@ -241,8 +247,6 @@ export const updateTasksOrder = createAsyncThunk(
     { rejectWithValue, dispatch }
   ) => {
     try {
-      await checkBoardExistence(data.tasks[0].boardId);
-
       dispatch(
         setTasks({
           columnId: data.oldColumnId,
@@ -256,6 +260,9 @@ export const updateTasksOrder = createAsyncThunk(
           tasks: data.tasks.filter((item) => item.columnId === data.newColumnId),
         })
       );
+
+      await checkBoardExistence(data.tasks[0].boardId);
+      await checkColumnExistence(data.tasks[0].boardId, data.newColumnId);
 
       const tasksData = data.tasks.map((item) => ({
         _id: item._id,

@@ -13,7 +13,7 @@ import StatusCodes from 'common/statusCodes';
 import { RootState } from 'store/store';
 import IBoard from 'types/IBoard';
 import IColumn from 'types/IColumn';
-import checkBoardExistence from 'utils/checkBoardExistence';
+import { checkBoardExistence, checkColumnExistence } from 'utils/checkElementExistence';
 import { setActiveBoard } from './boardsSlice';
 
 interface IBoardState extends IBoard {
@@ -59,6 +59,7 @@ export const setColumnTitle = createAsyncThunk(
   async (data: { column: IColumn; newTitle: string }, { rejectWithValue }) => {
     try {
       await checkBoardExistence(data.column.boardId);
+      await checkColumnExistence(data.column.boardId, data.column._id);
 
       const newColumn = await updateColumn(data.column.boardId, data.column._id, {
         title: data.newTitle,
@@ -108,6 +109,7 @@ export const deleteBoardColumn = createAsyncThunk(
   async (column: IColumn, { rejectWithValue, getState, dispatch }) => {
     try {
       await checkBoardExistence(column.boardId);
+      await checkColumnExistence(column.boardId, column._id);
 
       const columnTasks = (getState() as RootState).column.tasks[column._id];
       columnTasks.forEach((item) => {
@@ -167,9 +169,9 @@ export const updateColumnsOrder = createAsyncThunk(
   'board/updateColumnsOrder',
   async (columns: IColumn[], { rejectWithValue, dispatch }) => {
     try {
-      await checkBoardExistence(columns[0].boardId);
-
       dispatch(setColumns(columns));
+
+      await checkBoardExistence(columns[0].boardId);
 
       const columnsData = columns.map((item) => ({ _id: item._id, order: item.order }));
 

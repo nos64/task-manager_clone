@@ -6,7 +6,7 @@ import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
 import { BoardPick } from 'types/APIModel';
 import IBoard from 'types/IBoard';
-import checkBoardExistence from 'utils/checkBoardExistence';
+import { checkBoardExistence } from 'utils/checkElementExistence';
 
 export const getBoardsByUserId = createAsyncThunk(
   'boards/getBoardsByUserId',
