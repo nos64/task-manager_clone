@@ -16,9 +16,14 @@ const BoardsPage = () => {
 
   const boards = useAppSelector((state) => state.boards.boards);
   const userID = useAppSelector((state) => state.user.id);
+  const isInexistentBoard = useAppSelector((state) => state.boards.isInexistentBoard);
   const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
+
+  useEffect(() => {
+    isInexistentBoard && dispatch(getBoardsByUserId(userID));
+  }, [dispatch, isInexistentBoard, userID]);
 
   useEffect(() => {
     dispatch(setActiveBoard(null));

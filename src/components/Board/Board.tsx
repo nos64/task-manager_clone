@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Board.module.scss';
 import { RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import { deleteBoardById, setActiveBoard } from 'store/reducers/boardsSlice';
-import { useAppDispatch } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import IBoard from 'types/IBoard';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'common/routes';
@@ -20,8 +20,13 @@ const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSele
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [isModalActive, setIsModalActive] = useState(false);
+  const isInexistentBoard = useAppSelector((state) => state.boards.isInexistentBoard);
 
   const { t } = useTranslation();
+
+  useEffect(() => {
+    isInexistentBoard && setIsModalActive(false);
+  }, [dispatch, isInexistentBoard]);
 
   const handleEditIconClick = (e: React.SyntheticEvent) => {
     e.stopPropagation();
@@ -33,6 +38,7 @@ const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSele
   const handleDeleteBoard = () => {
     dispatch(deleteBoardById(item._id));
   };
+
   const handlerOpenWarningModal = (e: React.SyntheticEvent) => {
     e.stopPropagation();
     setIsModalActive(true);

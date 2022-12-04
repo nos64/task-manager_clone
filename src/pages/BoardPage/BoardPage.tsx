@@ -51,10 +51,8 @@ const BoardPage = () => {
   }, [activeBoardId, location.pathname]);
 
   useEffect(() => {
-    if (boardId && !(boardTitle || boardDescription)) {
-      dispatch(getBoardById(boardId));
-    }
-  }, [boardDescription, boardId, boardTitle, dispatch]);
+    boardId && dispatch(getBoardById(boardId));
+  }, [boardId, dispatch]);
 
   useEffect(() => {
     isInexistentBoard && navigate(ROUTES.BOARDS);
