@@ -21,7 +21,7 @@ interface TaskModalProps {
   modalActive: boolean;
   modalMode: 'create' | 'edit';
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
-  currentColumn: IColumn;
+  currentColumn: IColumn | null;
   selectedTask: ITask | null;
 }
 
@@ -81,7 +81,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
             title: data.title || '',
             description: data.description || ' ',
             boardId: boardId || '',
-            columnId: currentColumn._id,
+            columnId: currentColumn ? currentColumn._id : '',
             userId: currentUserId,
             users: data.users ? [data.users] : [],
           })

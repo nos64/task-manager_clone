@@ -97,7 +97,7 @@ const translationsEn = {
   are front-end and javascript developers from different companies and countries.`,
   loginAlreadyExists: 'Login already exists',
   wrongLoginOrPassword: 'Wrong login or password',
-  inexistentBoard: `Can't find board with this id`,
+  inexistentElement: 'Board was changed by other user',
   invalidToken: 'Invalid token. Please sign in again',
   successfulUpdate: 'Profile updated successfully',
   successfulDelet: 'Profile deleted successfully',

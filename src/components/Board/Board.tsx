@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Board.module.scss';
 import { RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
-import { deleteBoardById, setActiveBoard } from 'store/reducers/boardsSlice';
+import { setActiveBoard } from 'store/reducers/boardsSlice';
 import { useAppDispatch } from 'hooks/redux';
 import IBoard from 'types/IBoard';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'common/routes';
-import WarningModal from 'components/WarningModal';
-import { useTranslation } from 'react-i18next';
 
 type BoardProops = {
   item: IBoard;
   toggleModal: () => void;
   setModalMode: React.Dispatch<React.SetStateAction<'create' | 'edit'>>;
   setSelectedBoard: React.Dispatch<React.SetStateAction<IBoard | null>>;
+  setIsWarningModalActive: (value: React.SetStateAction<boolean>) => void;
 };
 
-const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSelectedBoard }) => {
+const Board: React.FC<BoardProops> = ({
+  item,
+  toggleModal,
+  setModalMode,
+  setSelectedBoard,
+  setIsWarningModalActive,
+}) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [isModalActive, setIsModalActive] = useState(false);
-
-  const { t } = useTranslation();
 
   const handleEditIconClick = (e: React.SyntheticEvent) => {
     e.stopPropagation();
@@ -30,12 +32,10 @@ const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSele
     setSelectedBoard(item);
   };
 
-  const handleDeleteBoard = () => {
-    dispatch(deleteBoardById(item._id));
-  };
   const handlerOpenWarningModal = (e: React.SyntheticEvent) => {
     e.stopPropagation();
-    setIsModalActive(true);
+    setSelectedBoard(item);
+    setIsWarningModalActive(true);
   };
 
   const handleGoToColumns = () => {
@@ -55,12 +55,6 @@ const Board: React.FC<BoardProops> = ({ item, toggleModal, setModalMode, setSele
           <RiDeleteBin6Line className={styles.boardBtn} onClick={handlerOpenWarningModal} />
         </div>
       </div>
-      <WarningModal
-        deleteBtnHandler={handleDeleteBoard}
-        cancelBtnHandler={() => setIsModalActive(false)}
-        message={t('deleteBoardMessage')}
-        isModalActive={isModalActive}
-      />
     </>
   );
 };

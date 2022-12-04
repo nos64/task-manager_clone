@@ -13,6 +13,7 @@ import StatusCodes from 'common/statusCodes';
 import { RootState } from 'store/store';
 import IBoard from 'types/IBoard';
 import IColumn from 'types/IColumn';
+import { checkBoardExistence, checkColumnExistence } from 'utils/checkElementExistence';
 import { setActiveBoard } from './boardsSlice';
 
 interface IBoardState extends IBoard {
@@ -20,6 +21,7 @@ interface IBoardState extends IBoard {
   columns: IColumn[];
   isPending: boolean;
   isTokenExpired: boolean;
+  isInexistentColumn: boolean;
 }
 
 const initialState: IBoardState = {
@@ -32,6 +34,7 @@ const initialState: IBoardState = {
   columns: [],
   isPending: false,
   isTokenExpired: false,
+  isInexistentColumn: false,
 };
 
 export const getColumns = createAsyncThunk(
@@ -55,6 +58,9 @@ export const setColumnTitle = createAsyncThunk(
   'board/setColumnTitle',
   async (data: { column: IColumn; newTitle: string }, { rejectWithValue }) => {
     try {
+      await checkBoardExistence(data.column.boardId);
+      await checkColumnExistence(data.column.boardId, data.column._id);
+
       const newColumn = await updateColumn(data.column.boardId, data.column._id, {
         title: data.newTitle,
         order: data.column.order,
@@ -81,6 +87,7 @@ export const createBoardColumn = createAsyncThunk(
     );
 
     try {
+      await checkBoardExistence(data.boardId);
       const column = await createColumn(data.boardId, {
         title: data.title,
         order: columnsCount ? maxColumnOrder + 1 : 0,
@@ -101,6 +108,9 @@ export const deleteBoardColumn = createAsyncThunk(
   'board/deleteBoardColumn',
   async (column: IColumn, { rejectWithValue, getState, dispatch }) => {
     try {
+      await checkBoardExistence(column.boardId);
+      await checkColumnExistence(column.boardId, column._id);
+
       const columnTasks = (getState() as RootState).column.tasks[column._id];
       columnTasks.forEach((item) => {
         deleteTask(item.boardId, item.columnId, item._id);
@@ -161,6 +171,8 @@ export const updateColumnsOrder = createAsyncThunk(
     try {
       dispatch(setColumns(columns));
 
+      await checkBoardExistence(columns[0].boardId);
+
       const columnsData = columns.map((item) => ({ _id: item._id, order: item.order }));
 
       const newColumns = await updateColumnsSet(columnsData);
@@ -188,6 +200,9 @@ export const boardSlice = createSlice({
     },
     setSelectedColumn(state, action: PayloadAction<IColumn | null>) {
       state.selectedColumn = action.payload;
+    },
+    setIsInexistentColumn(state) {
+      state.isInexistentColumn = false;
     },
   },
   extraReducers: (builder) => {
@@ -220,6 +235,10 @@ export const boardSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
       }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentColumn = true;
+      }
     });
 
     builder.addCase(createBoardColumn.pending, (state) => {
@@ -236,6 +255,10 @@ export const boardSlice = createSlice({
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
+      }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentColumn = true;
       }
     });
 
@@ -256,6 +279,10 @@ export const boardSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
       }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentColumn = true;
+      }
     });
 
     builder.addCase(updateColumnsOrder.pending, (state) => {
@@ -271,9 +298,14 @@ export const boardSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
       }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentColumn = true;
+      }
     });
   },
 });
 
 export default boardSlice.reducer;
-export const { resetBoardTokenExpiration, setColumns, setSelectedColumn } = boardSlice.actions;
+export const { resetBoardTokenExpiration, setColumns, setSelectedColumn, setIsInexistentColumn } =
+  boardSlice.actions;

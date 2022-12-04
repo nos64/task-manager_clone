@@ -6,6 +6,7 @@ import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
 import { BoardPick } from 'types/APIModel';
 import IBoard from 'types/IBoard';
+import { checkBoardExistence } from 'utils/checkElementExistence';
 
 export const getBoardsByUserId = createAsyncThunk(
   'boards/getBoardsByUserId',
@@ -43,6 +44,8 @@ export const deleteBoardById = createAsyncThunk(
   'boards/deleteBoardById',
   async (boardId: string, { rejectWithValue }) => {
     try {
+      await checkBoardExistence(boardId);
+
       const boardColumns = await getColumnsInBoard(boardId);
       for (const column of boardColumns) {
         const columnTasks = await getTasksInColumn(boardId, column._id);
@@ -73,6 +76,8 @@ export const updateBoardById = createAsyncThunk<IBoard, updateParams>(
   'boards/updateBoardById',
   async ({ boardId, options }, { rejectWithValue }) => {
     try {
+      await checkBoardExistence(boardId);
+
       const updatedBoard = await updateBoard(boardId, options);
       return updatedBoard;
     } catch (error) {
@@ -89,6 +94,8 @@ export const getBoardById = createAsyncThunk(
   'boards/getBoardById',
   async (boardId: string, { rejectWithValue }) => {
     try {
+      await checkBoardExistence(boardId);
+
       const board = await findBoard(boardId);
       return board;
     } catch (error) {
@@ -190,6 +197,10 @@ export const boardsSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
       }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentBoard = true;
+      }
     });
 
     builder.addCase(updateBoardById.pending, (state) => {
@@ -213,6 +224,10 @@ export const boardsSlice = createSlice({
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
+      }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentBoard = true;
       }
     });
 

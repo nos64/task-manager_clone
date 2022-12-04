@@ -5,6 +5,11 @@ import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
 import { RootState } from 'store/store';
 import ITask from 'types/ITask';
+import {
+  checkBoardExistence,
+  checkColumnExistence,
+  checkTaskExistence,
+} from 'utils/checkElementExistence';
 import { setActiveBoard } from './boardsSlice';
 
 interface IColumnsState {
@@ -12,6 +17,7 @@ interface IColumnsState {
   tasks: { [columnId: string]: ITask[] };
   isPending: boolean;
   isTokenExpired: boolean;
+  isInexistentTask: boolean;
 }
 
 const initialState: IColumnsState = {
@@ -19,6 +25,7 @@ const initialState: IColumnsState = {
   tasks: {},
   isPending: false,
   isTokenExpired: false,
+  isInexistentTask: false,
 };
 
 export const getTasks = createAsyncThunk(
@@ -42,6 +49,9 @@ export const deleteColumnTask = createAsyncThunk(
   'column/deleteColumnTask',
   async (task: ITask, { rejectWithValue, getState, dispatch }) => {
     try {
+      await checkBoardExistence(task.boardId);
+      await checkTaskExistence(task.boardId, task.columnId, task._id);
+
       const allBoardTasks = Object.values((getState() as RootState).column.tasks).flat();
 
       const deletedTask = await deleteTask(task.boardId, task.columnId, task._id);
@@ -101,6 +111,8 @@ export const createColumnTask = createAsyncThunk(
     );
 
     try {
+      await checkBoardExistence(task.boardId);
+
       const newTask = await createTask(task.boardId, task.columnId, {
         title: task.title,
         description: task.description,
@@ -153,6 +165,9 @@ export const updateColumnTask = createAsyncThunk(
     const allBoardTasks = Object.values((getState() as RootState).column.tasks).flat();
 
     try {
+      await checkBoardExistence(data.task.boardId);
+      await checkTaskExistence(data.task.boardId, data.task.columnId, data.task._id);
+
       const newTask = await updateTask(data.task.boardId, data.oldColumnId, data.task._id, {
         title: data.task.title,
         description: data.task.description,
@@ -246,6 +261,9 @@ export const updateTasksOrder = createAsyncThunk(
         })
       );
 
+      await checkBoardExistence(data.tasks[0].boardId);
+      await checkColumnExistence(data.tasks[0].boardId, data.newColumnId);
+
       const tasksData = data.tasks.map((item) => ({
         _id: item._id,
         order: item.order,
@@ -278,6 +296,12 @@ export const columnSlice = createSlice({
     },
     setSelectedTask(state, action: PayloadAction<ITask | null>) {
       state.selectedTask = action.payload;
+    },
+    setIsInexistentTask(state) {
+      state.isInexistentTask = false;
+    },
+    resetTasks(state) {
+      state.tasks = {};
     },
   },
   extraReducers: (builder) => {
@@ -315,6 +339,10 @@ export const columnSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
       }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentTask = true;
+      }
     });
 
     builder.addCase(createColumnTask.pending, (state) => {
@@ -335,6 +363,10 @@ export const columnSlice = createSlice({
 
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
+      }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentTask = true;
       }
     });
 
@@ -368,6 +400,10 @@ export const columnSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
       }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentTask = true;
+      }
     });
 
     builder.addCase(updateTasksOrder.pending, (state) => {
@@ -392,9 +428,19 @@ export const columnSlice = createSlice({
       if (action.payload === StatusCodes.EXPIRED_TOKEN) {
         state.isTokenExpired = true;
       }
+
+      if (action.payload === StatusCodes.NOT_FOUND) {
+        state.isInexistentTask = true;
+      }
     });
   },
 });
 
 export default columnSlice.reducer;
-export const { resetColumnTokenExpiration, setTasks, setSelectedTask } = columnSlice.actions;
+export const {
+  resetColumnTokenExpiration,
+  setTasks,
+  setSelectedTask,
+  setIsInexistentTask,
+  resetTasks,
+} = columnSlice.actions;

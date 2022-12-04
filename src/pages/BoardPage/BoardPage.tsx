@@ -12,12 +12,18 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import {
   deleteBoardColumn,
   getColumns,
+  setColumns,
   setSelectedColumn,
   updateColumnsOrder,
 } from 'store/reducers/boardSlice';
 import ColumnModal from 'components/ColumnModal';
 import { useTranslation } from 'react-i18next';
-import { deleteColumnTask, setSelectedTask, updateTasksOrder } from 'store/reducers/columnSlice';
+import {
+  deleteColumnTask,
+  resetTasks,
+  setSelectedTask,
+  updateTasksOrder,
+} from 'store/reducers/columnSlice';
 import { getBoardById } from 'store/reducers/boardsSlice';
 import WarningModal from 'components/WarningModal';
 import TaskModal from 'components/TaskModal';
@@ -32,6 +38,8 @@ const BoardPage = () => {
   const isInexistentBoard = useAppSelector((state) => state.boards.isInexistentBoard);
   const selectedTask = useAppSelector((state) => state.column.selectedTask);
   const selectedColumn = useAppSelector((state) => state.board.selectedColumn);
+  const isInexistentColumn = useAppSelector((state) => state.board.isInexistentColumn);
+  const isInexistentTask = useAppSelector((state) => state.column.isInexistentTask);
 
   const [isColumnModalOpened, setIsColumnModalOpened] = useState(false);
   const [isTaskModalOpened, setIsTaskModalOpened] = useState(false);
@@ -51,14 +59,22 @@ const BoardPage = () => {
   }, [activeBoardId, location.pathname]);
 
   useEffect(() => {
-    if (boardId && !(boardTitle || boardDescription)) {
-      dispatch(getBoardById(boardId));
-    }
-  }, [boardDescription, boardId, boardTitle, dispatch]);
+    boardId && dispatch(getBoardById(boardId));
+  }, [boardId, dispatch]);
 
   useEffect(() => {
-    isInexistentBoard && navigate(ROUTES.BOARDS);
-  }, [isInexistentBoard, navigate]);
+    if (isInexistentBoard || isInexistentColumn || isInexistentTask) {
+      dispatch(setColumns([]));
+      dispatch(resetTasks());
+      navigate(ROUTES.BOARDS);
+    }
+  }, [dispatch, isInexistentBoard, isInexistentColumn, isInexistentTask, navigate]);
+
+  useEffect(() => {
+    if (boardId) {
+      dispatch(getColumns(boardId));
+    }
+  }, [boardId, dispatch]);
 
   const removeTask = () => {
     if (!selectedTask) return;
@@ -83,6 +99,10 @@ const BoardPage = () => {
   const cancelRemoveColumn = () => {
     setIsColumnDeleting(false);
     dispatch(setSelectedColumn(null));
+  };
+
+  const toggleColumnModal = () => {
+    setIsColumnModalOpened((prev) => !prev);
   };
 
   const handleDragEnd = (result: DropResult) => {
@@ -137,16 +157,6 @@ const BoardPage = () => {
     }
   };
 
-  useEffect(() => {
-    if (boardId) {
-      dispatch(getColumns(boardId));
-    }
-  }, [boardId, dispatch]);
-
-  const toggleColumnModal = () => {
-    setIsColumnModalOpened((prev) => !prev);
-  };
-
   return (
     <>
       <DragDropContext onDragEnd={handleDragEnd}>
@@ -196,29 +206,26 @@ const BoardPage = () => {
           setModalActive={setIsColumnModalOpened}
         />
       )}
-      {selectedColumn && (
-        <TaskModal
-          modalActive={isTaskModalOpened}
-          setModalActive={setIsTaskModalOpened}
-          modalMode={modalMode}
-          currentColumn={selectedColumn}
-          selectedTask={selectedTask}
-        />
-      )}
+      <TaskModal
+        modalActive={isTaskModalOpened}
+        setModalActive={setIsTaskModalOpened}
+        modalMode={modalMode}
+        currentColumn={selectedColumn || null}
+        selectedTask={selectedTask}
+      />
 
       <WarningModal
-        isModalActive={isTaskDeleting || isColumnDeleting}
-        deleteBtnHandler={isTaskDeleting ? removeTask : isColumnDeleting ? deleteColumn : () => {}}
-        cancelBtnHandler={
-          isTaskDeleting ? cancelRemoveTask : isColumnDeleting ? cancelRemoveColumn : () => {}
-        }
-        message={
-          isTaskDeleting
-            ? t('deleteTaskWarningMessage')
-            : isColumnDeleting
-            ? t('deleteColumnWarningMessage')
-            : ''
-        }
+        isModalActive={isTaskDeleting}
+        deleteBtnHandler={removeTask}
+        cancelBtnHandler={cancelRemoveTask}
+        message={t('deleteTaskWarningMessage')}
+      />
+
+      <WarningModal
+        isModalActive={isColumnDeleting}
+        deleteBtnHandler={deleteColumn}
+        cancelBtnHandler={cancelRemoveColumn}
+        message={t('deleteColumnWarningMessage')}
       />
     </>
   );
