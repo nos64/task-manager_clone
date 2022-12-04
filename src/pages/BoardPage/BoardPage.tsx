@@ -203,18 +203,17 @@ const BoardPage = () => {
       />
 
       <WarningModal
-        isModalActive={isTaskDeleting || isColumnDeleting}
-        deleteBtnHandler={isTaskDeleting ? removeTask : isColumnDeleting ? deleteColumn : () => {}}
-        cancelBtnHandler={
-          isTaskDeleting ? cancelRemoveTask : isColumnDeleting ? cancelRemoveColumn : () => {}
-        }
-        message={
-          isTaskDeleting
-            ? t('deleteTaskWarningMessage')
-            : isColumnDeleting
-            ? t('deleteColumnWarningMessage')
-            : ''
-        }
+        isModalActive={isTaskDeleting}
+        deleteBtnHandler={removeTask}
+        cancelBtnHandler={cancelRemoveTask}
+        message={t('deleteTaskWarningMessage')}
+      />
+
+      <WarningModal
+        isModalActive={isColumnDeleting}
+        deleteBtnHandler={deleteColumn}
+        cancelBtnHandler={cancelRemoveColumn}
+        message={t('deleteColumnWarningMessage')}
       />
     </>
   );
