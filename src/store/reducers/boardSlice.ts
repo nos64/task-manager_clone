@@ -7,7 +7,6 @@ import {
   updateColumn,
   updateColumnsSet,
 } from 'api/columns';
-import { deleteTask } from 'api/tasks';
 import { AxiosError } from 'axios';
 import StatusCodes from 'common/statusCodes';
 import { RootState } from 'store/store';
@@ -112,9 +111,6 @@ export const deleteBoardColumn = createAsyncThunk(
       await checkColumnExistence(column.boardId, column._id);
 
       const columnTasks = (getState() as RootState).column.tasks[column._id];
-      columnTasks.forEach((item) => {
-        deleteTask(item.boardId, item.columnId, item._id);
-      });
 
       const deletedColumn = await deleteColumn(column.boardId, column._id);
 
@@ -124,6 +120,7 @@ export const deleteBoardColumn = createAsyncThunk(
         .flat();
 
       const usersOnlyInDeletedColumnTasks: string[] = [];
+
       columnTasks.forEach((item) => {
         if (!item.users[0]) return;
         if (!taskOtherColumns.find((task) => task.users.includes(item.users[0]))) {

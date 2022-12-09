@@ -3,9 +3,9 @@ import { getColumn } from 'api/columns';
 import { findTask } from 'api/tasks';
 import { AxiosError } from 'axios';
 
-const checkresponse = <T>(response: T) => {
+const checkResponse = <T>(response: T) => {
   if (typeof response !== 'object') {
-    throw new AxiosError('Not ixestent board', '404', undefined, null, {
+    throw new AxiosError('Not existent board', '404', undefined, null, {
       status: 404,
       statusText: '',
       data: '',
@@ -17,15 +17,15 @@ const checkresponse = <T>(response: T) => {
 
 export const checkBoardExistence = async (boardId: string) => {
   const response = await findBoard(boardId);
-  checkresponse(response);
+  checkResponse(response);
 };
 
 export const checkColumnExistence = async (boardId: string, columnId: string) => {
   const response = await getColumn(boardId, columnId);
-  checkresponse(response);
+  checkResponse(response);
 };
 
 export const checkTaskExistence = async (boardId: string, columnId: string, taskId: string) => {
   const response = await findTask(boardId, columnId, taskId);
-  checkresponse(response);
+  checkResponse(response);
 };
